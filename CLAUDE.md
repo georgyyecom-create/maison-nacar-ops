@@ -14,11 +14,13 @@
 - Margen aprox.: 1 collar ≈ 21 €; pedido 3x2 (≈94 €) ≈ 46 €. **CPA máximo de partida: 30 €.** ROAS mínimo para no perder: ~2,1–2,4.
 - Para descuentos con precio tachado aplica la regla Ómnibus (precio más bajo de los últimos 30 días). El 3x2 no le afecta.
 
-## Productos de anuncio
-- **Collar Puntos de Luz** (`collar-puntos-luz`): 17 circonitas en bisel, solo delante. Conjunto: Brazalete Puntos de Luz + Anillo Baguette + Aros Cascada (stock bajo).
-- **Collar Tréboles Minimal** (`collar-treboles-minimal`): 5 tréboles calados SIN piedras dentro + 4 circonitas. Conjunto: Pulsera Tréboles Calados (stock bajo) + Aros Esenciales + Anillo Ola.
-- Reserva: serie Corazones (Collar/Pulsera Corazones Encadenados, Pendientes Tres Corazones).
-- Referencias para la IA: `referencias/*-conjunto.jpg` y `*-macro.jpg`.
+## Productos de anuncio (desde el 7-nov · detalle en `PLAN_TIENDA_OFERTA.md`)
+- **Conjunto A «Puntos de Luz»**: Collar Puntos de Luz (`collar-puntos-luz`) + Brazalete Puntos de Luz + Anillo Baguette = ~~123 €~~ 94 € con el 3x2. Los Aros Cascada dorados están agotados: fuera del conjunto.
+- **Conjunto B «Corazones»**: Collar + Pulsera Corazones Encadenados + Pendientes Tres Corazones = ~~123 €~~ 94 €. Es el que más stock tiene.
+- Tréboles Minimal pasa a reserva (pulsera calada dorada: 1 ud).
+- Piezas de 29 € para «la tercera»: Aros Esenciales, Anillo Ola, Aros Doble Línea, Anillo Lazo.
+- Referencias para la IA: `referencias/*-conjunto.jpg` y `*-macro.jpg`. La de Puntos de Luz hay que rehacerla sin aros.
+- Garantías: devolución hasta el 15-ene, color 3 años («si pierde el dorado, otra»), «¿llega dañada? otra gratis».
 
 ## Meta
 - Portfolio «Maison Nácar» (4435821363365536). Cuenta publicitaria **963612299940558** (EUR, Madrid). Píxel **1097392456530786** (Shopify, compartir datos «Máximo»). Dominio verificado.
@@ -63,7 +65,7 @@ Black Friday 27-nov · Cyber Monday 30-nov · último pedido para Navidad 14-dic
   1. Repo privado en GitHub.
   2. Radar de competencia (Biblioteca de Anuncios + Apify).
   3. 15–25 creativos estáticos antes del 20-nov.
-  4. Rehacer la primera pantalla de la ficha en móvil y la home.
+  4. Rehacer la tienda según `PLAN_TIENDA_OFERTA.md` (tema v18).
   5. Quitar las estrellas.
   6. Campaña nueva.
 - Documentos de detalle en la raíz: `LANZAMIENTO_META.md`, `PROMPTS_CREATIVOS_ADS.md`, `ESTRATEGIA_PRECIO_OFERTA_MARCA.md`.
