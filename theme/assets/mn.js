@@ -46,12 +46,6 @@
     if (!keep) { if (scrim) scrim.classList.remove('is-on'); document.body.classList.remove('mn-lock'); if (last) last.focus(); }
   }
 
-  /* Barra de avisos: rota los mensajes */
-  var bar = document.querySelector('[data-mn-bar]');
-  if (bar) {
-    var ps = bar.querySelectorAll('p'), k = 0;
-    if (ps.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(function () { ps[k].classList.remove('is-on'); k = (k + 1) % ps.length; ps[k].classList.add('is-on'); }, 3800);
-  }
   var hdr = document.querySelector('[data-mn-hdr]');
   window.addEventListener('scroll', function () { if (hdr) hdr.classList.toggle('is-stuck', window.scrollY > 4); }, { passive: true });
 

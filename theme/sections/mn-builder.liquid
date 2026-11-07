@@ -12,7 +12,17 @@
 <style>
   #mn-b-{{ section.id }} .b-top { padding: 28px 0 0; }
   #mn-b-{{ section.id }} .b-top p { margin: 10px 0 0; color: var(--mn-grey); max-width: 44ch; }
-  #mn-b-{{ section.id }} .b-box { position: sticky; top: 66px; z-index: 20; margin: 18px 0 20px; }
+  #mn-b-{{ section.id }} .b-box { margin: 18px 0 20px; }
+  #mn-b-{{ section.id }} .b-mini { position: fixed; z-index: 45; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 10px; border-radius: 18px; background: var(--mn-ink); color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.25); transform: translateY(140%); transition: transform .3s var(--mn-ease); }
+  #mn-b-{{ section.id }} .b-mini.is-on { transform: none; }
+  #mn-b-{{ section.id }} .b-mini .mn-slots { flex: none; width: 128px; gap: 4px; }
+  #mn-b-{{ section.id }} .b-mini .mn-slot { border-radius: 8px; }
+  #mn-b-{{ section.id }} .b-mini .mn-slot__name, #mn-b-{{ section.id }} .b-mini .mn-slot__plus { display: none; }
+  #mn-b-{{ section.id }} .b-mini__t { flex: 1; min-width: 0; font-size: 13px; line-height: 1.25; }
+  #mn-b-{{ section.id }} .b-mini__t b { display: block; font-size: 16px; }
+  #mn-b-{{ section.id }} .b-mini .mn-btn { flex: none; min-height: 44px; padding: 0 16px; background: #fff; color: var(--mn-ink); border-color: #fff; font-size: 14px; }
+  @media (min-width: 990px) { #mn-b-{{ section.id }} .b-box { position: sticky; z-index: 20; } #mn-b-{{ section.id }} .b-mini { display: none; } }
+  body.mn-mini-on .mn-wa { bottom: 84px; }
   @media (min-width: 990px) { #mn-b-{{ section.id }} .b-wrap { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; } #mn-b-{{ section.id }} .b-box { top: 92px; order: 2; margin-top: 28px; } }
   #mn-b-{{ section.id }} .b-box .mn-btn { margin-top: 12px; background: #fff; color: var(--mn-ink); border-color: #fff; min-height: 50px; }
   #mn-b-{{ section.id }} .b-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 10px; margin-top: 16px; }
@@ -68,6 +78,11 @@
       </div>
     </div>
   </div>
+  <div class="b-mini" data-b-mini aria-hidden="true">
+    <div class="mn-slots" data-b-mini-slots></div>
+    <p class="b-mini__t"><b data-b-mini-tot></b><span data-b-mini-l></span></p>
+    <button type="button" class="mn-btn" data-b-mini-go tabindex="-1">Añadir</button>
+  </div>
 </section>
 <script>
   (function () {
@@ -89,7 +104,15 @@
       q('[data-b-note]').textContent = gift ? 'Te regalamos ' + gift.name + '. Toca un hueco para cambiarlo.' : (u.length === 2 ? 'Elige la tercera: la de menor precio es tu regalo.' : 'Elige 3 joyas: la de menor precio es tu regalo.');
       var go = q('[data-b-go]'); go.disabled = u.length === 0; go.textContent = u.length === 3 ? 'Añadir el estuche' : (u.length ? 'Añadir ' + u.length + (u.length === 1 ? ' joya' : ' joyas') + ' · faltan ' + (3 - u.length) : 'Elige 3 joyas');
       root.querySelectorAll('[data-b-it]').forEach(function (it) { var on = picks.indexOf(it) > -1; it.classList.toggle('is-in', on); it.querySelector('[data-b-add]').innerHTML = on ? CHECK : PLUS; });
+      q('[data-b-mini-slots]').innerHTML = MN.slotsHTML(u);
+      q('[data-b-mini-tot]').textContent = MN.money(full - (gift ? gift.price : 0));
+      q('[data-b-mini-l]').textContent = u.length === 3 ? 'Estuche completo' : u.length + ' de 3 · la 3.ª, regalo';
+      syncMini();
     }
+    var mini = q('[data-b-mini]'), bigBox = q('.b-box'), boxVisible = true;
+    function syncMini() { var on = picks.length > 0 && !boxVisible; mini.classList.toggle('is-on', on); mini.setAttribute('aria-hidden', on ? 'false' : 'true'); q('[data-b-mini-go]').tabIndex = on ? 0 : -1; document.body.classList.toggle('mn-mini-on', on); }
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { boxVisible = es[0].isIntersecting; syncMini(); }).observe(bigBox);
+    q('[data-b-mini-go]').addEventListener('click', function () { q('[data-b-go]').click(); });
     root.addEventListener('click', function (e) {
       var a = e.target.closest('[data-b-add]');
       if (a) { var it = a.closest('[data-b-it]'), i = picks.indexOf(it); if (i > -1) picks.splice(i, 1); else if (picks.length < 3) picks.push(it); else { picks[2] = it; } paint(); return; }

@@ -15,14 +15,42 @@
         "m2": {
           "type": "msg",
           "settings": {
-            "text": "[envío]",
-            "link": ""
+            "text": "Elige 3 joyas, paga 2",
+            "link": "/pages/3x2"
           }
         },
         "m3": {
           "type": "msg",
           "settings": {
+            "text": "[envío]",
+            "link": ""
+          }
+        },
+        "m4": {
+          "type": "msg",
+          "settings": {
+            "text": "Estuche de regalo incluido",
+            "link": ""
+          }
+        },
+        "m5": {
+          "type": "msg",
+          "settings": {
             "text": "[devolución]",
+            "link": ""
+          }
+        },
+        "m6": {
+          "type": "msg",
+          "settings": {
+            "text": "Acero inoxidable con baño de oro 18k",
+            "link": ""
+          }
+        },
+        "m7": {
+          "type": "msg",
+          "settings": {
+            "text": "Paga con Bizum",
             "link": ""
           }
         }
@@ -30,7 +58,11 @@
       "block_order": [
         "m1",
         "m2",
-        "m3"
+        "m3",
+        "m4",
+        "m5",
+        "m6",
+        "m7"
       ],
       "settings": {
         "logo_text": "maison nácar",
