@@ -1,0 +1,60 @@
+{%- comment -%}
+  Maison Nácar · Textos de la campaña activa (Configuración del tema → Maison Nácar → Campaña).
+  Uso: {% render 'aom-camp', k: 'kicker' %}  ·  k = kicker | title | bar | short | date_line
+  Cambiando la campaña en un solo sitio, cambian la barra superior, la home, la ficha y el pop-up.
+{%- endcomment -%}
+{%- liquid
+  assign c = settings.aom_campaign | default: 'adelantada'
+  assign xd = settings.aom_xmas_date | default: '14 de diciembre'
+  assign rd = settings.aom_reyes_date | default: '30 de diciembre'
+  case c
+    when 'black_friday'
+      assign kicker = 'Black Friday'
+      assign title = 'Black Friday: <em>3x2</em> en todo'
+      assign bar = 'Black Friday · 3x2 en toda la tienda'
+      assign short = 'Black Friday: elige 3, paga 2'
+      assign date_line = 'Y llega para Navidad: pide antes del ' | append: xd
+    when 'navidad'
+      assign kicker = 'Regalos de Navidad'
+      assign title = '3 regalos, <em>pagas 2</em>'
+      assign bar = 'Pide antes del ' | append: xd | append: ' y llega para Navidad'
+      assign short = 'Navidad: 3 regalos, pagas 2'
+      assign date_line = 'Pide antes del ' | append: xd | append: ' y llega para Navidad'
+    when 'reyes'
+      assign kicker = 'Regalos de Reyes'
+      assign title = 'Para Reyes: <em>elige 3, paga 2</em>'
+      assign bar = 'Reyes: pide antes del ' | append: rd
+      assign short = 'Reyes: 3x2 en toda la tienda'
+      assign date_line = 'Pide antes del ' | append: rd | append: ' y llega para Reyes'
+    when 'siempre'
+      assign kicker = 'Maison Nácar'
+      assign title = 'Elige 3 joyas, <em>paga 2</em>'
+      assign bar = '3x2 en toda la tienda · Elige 3, paga 2'
+      assign short = '3x2: elige 3, paga 2'
+      assign date_line = ''
+    else
+      assign kicker = 'Navidad adelantada'
+      assign title = 'Elige 3 joyas, <em>paga 2</em>'
+      assign bar = 'Navidad adelantada · 3x2 en toda la tienda'
+      assign short = 'Navidad adelantada: 3x2'
+      assign date_line = 'Resuelve los regalos antes que nadie'
+  endcase
+  if settings.aom_camp_kicker != blank
+    assign kicker = settings.aom_camp_kicker
+  endif
+  if settings.aom_camp_title != blank
+    assign title = settings.aom_camp_title
+  endif
+  case k
+    when 'kicker'
+      echo kicker
+    when 'title'
+      echo title
+    when 'bar'
+      echo bar
+    when 'short'
+      echo short
+    when 'date_line'
+      echo date_line
+  endcase
+-%}

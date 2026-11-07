@@ -39,7 +39,8 @@
 - Los datos de Meta se quedan cortos por el banner de cookies: **mirar también Shopify** (sesiones, carritos, pedidos).
 
 ## Tema Shopify
-- Tema publicado: **v17** (carpeta local `theme/`). El MCP no puede escribir en el tema MAIN.
+- Tema publicado: **v17**. La carpeta local `theme/` es ya la **v18** («Maison Nácar v18 (3x2 + conjuntos)», id 208237330772, sin publicar). El MCP no puede escribir en el tema MAIN.
+- v18: campaña en Configuración del tema → Maison Nácar → «Campaña activa» (cambia barra, home, ficha y pop-up). Reseñas apagadas con «Mostrar reseñas y estrellas». Conjuntos en la ficha (bloques «Conjunto 3x2» de la plantilla de producto). Enlace de anuncio: `/products/<collar>?pack=3`. Página `/pages/3x2` (Arma tu 3x2).
 - Para subir cambios:
   1. Hacer un zip de `theme/`.
   2. `stagedUploadsCreate` (archivo; el campo del archivo va al final del curl).
@@ -65,7 +66,7 @@ Black Friday 27-nov · Cyber Monday 30-nov · último pedido para Navidad 14-dic
   1. Repo privado en GitHub.
   2. Radar de competencia (Biblioteca de Anuncios + Apify).
   3. 15–25 creativos estáticos antes del 20-nov.
-  4. Rehacer la tienda según `PLAN_TIENDA_OFERTA.md` (tema v18).
-  5. Quitar las estrellas.
+  4. Tienda v18 hecha y subida: falta que el dueño la publique, el enlace del canal de WhatsApp y las fotos nuevas.
+  5. Estrellas: ocultas en la v18 (el metacampo `aom.rating` sigue con valores falsos: borrarlos antes de activar reseñas).
   6. Campaña nueva.
 - Documentos de detalle en la raíz: `LANZAMIENTO_META.md`, `PROMPTS_CREATIVOS_ADS.md`, `ESTRATEGIA_PRECIO_OFERTA_MARCA.md`.

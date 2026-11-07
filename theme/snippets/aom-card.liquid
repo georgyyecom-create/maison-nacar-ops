@@ -47,7 +47,7 @@
         </span>
       {%- endif -%}{%- endif -%}
     {%- endfor -%}
-    {%- if rating -%}{% render 'aom-stars', rating: rating.rating, count: rcount, size: 11 %}{%- endif -%}
+    {%- if rating and settings.aom_reviews_on -%}{% render 'aom-stars', rating: rating.rating, count: rcount, size: 11 %}{%- endif -%}
     {%- if low -%}<span class="aom-card__low">Queda poco stock</span>{%- endif -%}
     <div class="aom-card__row">
       <span class="aom-card__price">{%- if pct > 0 -%}<ins>{{ v.price | money }}</ins><s>{{ v.compare_at_price | money }}</s>{%- else -%}{{ v.price | money }}{%- endif -%}</span>

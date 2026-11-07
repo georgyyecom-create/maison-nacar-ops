@@ -9,7 +9,14 @@
           "type": "text",
           "settings": {
             "heading": "Maison Nácar",
-            "subtext": "<p>Joyería de inspiración clásica, enviada desde España. Atención por email y WhatsApp de lunes a viernes.</p>"
+            "subtext": "<p>Joyas de acero inoxidable con baño de oro 18k. 3x2 en toda la tienda, envío gratis y estuche de regalo.</p><p><a href=\"https://wa.me/34621390548\">WhatsApp: 621 390 548</a> · de 10 a 20 h<br><a href=\"https://www.instagram.com/maisonnacar/\">Instagram @maisonnacar</a><br><a href=\"https://www.facebook.com/profile.php?id=61596175893524\">Facebook</a></p>"
+          }
+        },
+        "promise": {
+          "type": "text",
+          "settings": {
+            "heading": "Compra tranquila",
+            "subtext": "<p>Envío gratis · Sale en 24/48 h<br>Devolución hasta el 15 de enero<br>Garantía de color 3 años<br>¿Llega dañada? Te enviamos otra</p>"
           }
         },
         "shop": {
@@ -29,6 +36,7 @@
       },
       "block_order": [
         "brand",
+        "promise",
         "shop",
         "help"
       ],

@@ -3,100 +3,163 @@
     "main": {
       "type": "aom-product",
       "blocks": {
+        "cj_pdl": {
+          "type": "conjunto",
+          "settings": {
+            "title": "Conjunto Puntos de Luz",
+            "products": [
+              "collar-puntos-luz",
+              "brazalete-puntos-luz",
+              "anillo-baguette-brillante"
+            ],
+            "label_1": "Solo esta pieza",
+            "label_2": "",
+            "badge": "Recomendado",
+            "default_n": 3
+          }
+        },
+        "cj_cor": {
+          "type": "conjunto",
+          "settings": {
+            "title": "Conjunto Corazones",
+            "products": [
+              "collar-corazones-encadenados",
+              "pulsera-corazones-encadenados",
+              "pendientes-tres-corazones"
+            ],
+            "label_1": "Solo esta pieza",
+            "label_2": "",
+            "badge": "Recomendado",
+            "default_n": 3
+          }
+        },
         "trust1": {
           "type": "trust",
           "settings": {
             "icon": "return",
-            "title": "30 días para devolver",
-            "text": "Sin explicaciones"
+            "title": "Devolución hasta el 15 de enero",
+            "text": "Si no acierta con el regalo"
           }
         },
         "trust2": {
           "type": "trust",
           "settings": {
-            "icon": "lock",
-            "title": "Pago seguro",
-            "text": "Tarjeta, PayPal y Bizum"
+            "icon": "shield",
+            "title": "Garantía de color 3 años",
+            "text": "Si pierde el dorado, te enviamos otra"
           }
         },
         "trust3": {
           "type": "trust",
           "settings": {
-            "icon": "shield",
-            "title": "Garantía de 3 años",
-            "text": "En todas las piezas"
+            "icon": "gift",
+            "title": "¿Llega dañada?",
+            "text": "Te enviamos otra gratis"
           }
         },
         "trust4": {
           "type": "trust",
           "settings": {
             "icon": "star",
-            "title": "Te atendemos por WhatsApp",
-            "text": "De 10 a 20 h"
+            "title": "WhatsApp",
+            "text": "Te respondemos de 10 a 20 h"
           }
         }
       },
       "block_order": [
+        "cj_pdl",
+        "cj_cor",
         "trust1",
         "trust2",
         "trust3",
         "trust4"
       ],
       "settings": {
+        "eyebrow": "",
+        "lead": "",
+        "offer_show": true,
+        "offer_seal": "3x2",
+        "offer_title": "3x2 en toda la tienda",
+        "offer_text": "Elige 3 joyas y la de menor precio te sale gratis. [d]Una para ti, dos para regalar.[/d]",
+        "offer_cta": "Elegir",
+        "offer_link": "#aom-set",
+        "perks_show": true,
+        "perk_gold_t": "Baño de oro 18k",
+        "perk_gold_s": "Sobre acero inoxidable",
+        "perk_silver_t": "Acabado plateado",
+        "perk_silver_s": "Sobre acero inoxidable",
+        "perk_2_t": "Acero inoxidable",
+        "perk_2_s": "No se oxida ni mancha la piel",
+        "perk_3_t": "Envío gratis",
+        "perk_3_s": "Sale en 24/48 h",
+        "perk_4_t": "Estuche de regalo",
+        "perk_4_s": "Listo para regalar",
+        "packs_title": "Elige tu pack",
+        "addons": [],
         "addons_title": "Complétalo con",
-        "addons_badge": "Cuenta para tu pack",
+        "addons_badge": "Cuenta para tu 3x2",
         "addons_sub": "Combina con esta pieza",
-        "promo_text": "",
-        "promo_cta": "Ver",
-        "promo_link": "",
-        "eyebrow": "Maison Nácar",
         "set_collection": "complementos",
         "set_count": 3,
+        "set_mode": "3x2",
         "set_pct": 35,
         "set_title": "Elige 3, paga 2",
         "set_badge": "3x2",
-        "set_text": "Elige [n] piezas más y la de menor precio te sale gratis.",
-        "set_btn": "Añadir set",
-        "ship_text": "Envío gratis en estuche de regalo. Recíbelo entre el",
+        "set_gift": "",
+        "set_text": "Elige [n] joyas más y la de menor precio te sale gratis.",
+        "set_btn": "Añadir mis 3",
+        "promo_text": "",
+        "promo_cta": "Ver",
+        "promo_link": "",
+        "upsell_product": "",
+        "upsell_title": "",
+        "upsell_text": "",
+        "ship_text": "Llega en su estuche de regalo.",
         "ship_days": 3,
         "ship_days_max": 7,
-        "lead": "",
-        "acc_2_text": "<p>Envío gratis a la España peninsular y Baleares en 3–7 días laborables, con número de seguimiento. Cada pieza llega en su estuche de regalo. Tienes 30 días desde la entrega para devolverla. Garantía legal de 3 años.</p>",
-        "acc_3_text": "<p>Cada pieza llega en su estuche, lista para regalar. Si es un regalo, pon la dirección de la otra persona al pagar.</p>",
-        "set_mode": "3x2",
-        "stock_ok_text": "En stock · listo para enviar"
+        "buy_label": "Comprar ahora",
+        "cj_buy_label": "Quiero el conjunto",
+        "show_cart_btn": true,
+        "cart_label": "Añadir a la cesta",
+        "bar_label": "Comprar",
+        "stock_low_text": "Quedan pocas unidades",
+        "stock_ok_text": "",
+        "pay_text": "Pago 100 % seguro con tarjeta, Apple Pay, Google Pay, PayPal o Bizum",
+        "show_cod": false,
+        "cod_text": "",
+        "acc_1_title": "Materiales y cuidados",
+        "acc_1_text": "<p>Acero inoxidable con baño de oro de 18 k (dorado) o acabado plateado. No se oxida ni mancha la piel. Para que dure más, guárdalo en su estuche y evita perfumes, cremas y cloro directamente sobre la pieza.</p>",
+        "acc_2_title": "Envío y devoluciones",
+        "acc_2_text": "<p>Envío gratis a la España peninsular y Baleares. Sale en 24/48 h, con número de seguimiento; los plazos de entrega están en nuestra política de envíos. Llega en su estuche de regalo. Lo que pidas desde ahora lo puedes devolver hasta el 15 de enero. Garantía de color de 3 años: si pierde el dorado con un uso normal, te enviamos otra.</p>",
+        "acc_3_title": "Para regalar",
+        "acc_3_text": "<p>Cada joya llega en su estuche, lista para regalar. Si es un regalo, pon la dirección de la otra persona al pagar. Y si no acierta, se puede devolver hasta el 15 de enero.</p>"
       }
     },
     "strip": {
       "type": "aom-marquee",
-      "settings": {
-        "bg": "#121110",
-        "fg": "#F3EDE3",
-        "speed": 40
-      },
       "blocks": {
         "t0": {
-          "type": "t",
-          "settings": {
-            "text": "Envío gratis"
-          }
-        },
-        "t1": {
           "type": "t",
           "settings": {
             "text": "Elige 3, paga 2"
           }
         },
+        "t1": {
+          "type": "t",
+          "settings": {
+            "text": "Envío gratis · Sale en 24/48 h"
+          }
+        },
         "t2": {
           "type": "t",
           "settings": {
-            "text": "3x2 en toda la tienda"
+            "text": "Acero inoxidable con baño de oro 18k"
           }
         },
         "t3": {
           "type": "t",
           "settings": {
-            "text": "30 días para devolver"
+            "text": "Devolución hasta el 15 de enero"
           }
         }
       },
@@ -105,136 +168,15 @@
         "t1",
         "t2",
         "t3"
-      ]
-    },
-    "reviews": {
-      "type": "aom-reviews",
+      ],
       "settings": {
-        "show": true,
-        "kicker": "Opiniones",
-        "title": "Lo que dicen <em>de esta pieza</em>",
-        "limit": 12,
-        "only_featured": true,
-        "bg": "#f4eee4",
-        "summary_rating": 0,
-        "summary_count": 0,
-        "note": "Mostramos opiniones de compradoras de este modelo. En cada reseña indicamos su origen."
-      },
-      "blocks": {},
-      "block_order": []
-    },
-    "gift": {
-      "type": "aom-editorial",
-      "settings": {
-        "image_right": true,
-        "bg": "#fcfaf6",
-        "kicker": "Para regalar",
-        "title": "Envíalo <em>directo</em> a quien quieras",
-        "text": "Pon su dirección al pagar: le llega en su estuche, listo para regalar.",
-        "points": "3x2: la tercera pieza, gratis\nLlega en estuche de regalo\n30 días para cambiarlo",
-        "btn": "",
-        "link": "",
-        "image": "shopify://shop_images/Gemini_Generated_Image_tecfwmtecfwmtecf.jpg"
-      }
-    },
-    "faq": {
-      "type": "collapsible-content",
-      "settings": {
-        "caption": "",
-        "heading": "Preguntas frecuentes",
-        "heading_size": "h2",
-        "heading_alignment": "center",
-        "layout": "none",
-        "container_color_scheme": "scheme-1",
-        "color_scheme": "scheme-1",
-        "open_first_collapsible_row": false,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_second",
-        "padding_top": 48,
-        "padding_bottom": 48
-      },
-      "blocks": {
-        "q1": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "¿Cuándo me llega?",
-            "icon": "truck",
-            "row_content": "<p>Preparamos tu pedido en 1–2 días y lo recibes en 3–7 días laborables, con número de seguimiento. Cada pieza llega en su estuche de regalo.</p>",
-            "page": ""
-          }
-        },
-        "q2": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "¿De qué material es?",
-            "icon": "heart",
-            "row_content": "<p>Lo indicamos en la descripción de cada pieza. Si tienes alergia a algún metal, escríbenos antes de comprar y te lo confirmamos.</p>",
-            "page": ""
-          }
-        },
-        "q3": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "¿Cómo puedo pagar?",
-            "icon": "lock",
-            "row_content": "<p>Con tarjeta, Apple Pay, Google Pay, PayPal o Bizum. El pago es 100 % seguro.</p>",
-            "page": ""
-          }
-        },
-        "q4": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "¿Cómo funcionan los packs?",
-            "icon": "price_tag",
-            "row_content": "<p>Elige 3 piezas cualesquiera y la de menor precio te sale gratis: es nuestro 3x2. Puedes combinar collares, pulseras, pendientes y anillos como quieras, y el descuento se aplica solo en la cesta. Con 6 piezas, 2 gratis.</p>",
-            "page": ""
-          }
-        },
-        "q5": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "¿Y si no me gusta?",
-            "icon": "return",
-            "row_content": "<p>Tienes 30 días desde que lo recibes para devolverlo. Escríbenos y te explicamos cómo.</p>",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4",
-        "q5"
-      ]
-    },
-    "recs": {
-      "type": "aom-products",
-      "settings": {
-        "kicker": "Completa el look",
-        "title": "También te <em>puede gustar</em>",
-        "text": "",
-        "collection": "all",
-        "limit": 4,
-        "btn": "",
-        "recommendations": true
+        "bg": "#F3EDE3",
+        "fg": "#121110",
+        "speed": 40
       }
     },
     "compare": {
       "type": "aom-compare",
-      "settings": {
-        "bg": "#FBF8F3",
-        "kicker": "La diferencia",
-        "title": "La de siempre <em>vs</em> la tuya",
-        "text": "La elegancia de una joya cara, sin las sorpresas de la bisutería barata.",
-        "label_bad": "Bisutería común",
-        "label_good": "Maison Nácar",
-        "note": "Comparativa con bisutería genérica de aleación. El material está indicado en cada pieza.",
-        "btn": "",
-        "link": "/collections/all",
-        "img_bad": "shopify://shop_images/Gemini_Generated_Image_awyeabawyeabawye.jpg",
-        "img_good": "shopify://shop_images/Gemini_Generated_Image_iy62kziy62kziy62.jpg"
-      },
       "blocks": {
         "r0": {
           "type": "row",
@@ -282,7 +224,131 @@
         "r1",
         "r2",
         "r3"
-      ]
+      ],
+      "settings": {
+        "bg": "#fbf8f3",
+        "kicker": "La diferencia",
+        "title": "La de siempre <em>vs</em> la tuya",
+        "text": "Acero inoxidable con baño de oro 18k: sin las sorpresas de la bisutería barata.",
+        "img_bad": "shopify://shop_images/Gemini_Generated_Image_awyeabawyeabawye.jpg",
+        "img_good": "shopify://shop_images/Gemini_Generated_Image_iy62kziy62kziy62.jpg",
+        "label_bad": "Bisutería común",
+        "label_good": "Maison Nácar",
+        "note": "Comparativa con bisutería genérica de aleación. El material está indicado en cada pieza.",
+        "btn": "",
+        "link": "/collections/all"
+      }
+    },
+    "reviews": {
+      "type": "aom-reviews",
+      "settings": {
+        "show": true,
+        "kicker": "Opiniones",
+        "title": "Lo que dicen <em>de esta pieza</em>",
+        "limit": 12,
+        "only_featured": true,
+        "bg": "#f4eee4",
+        "summary_rating": 0,
+        "summary_count": 0,
+        "note": "Solo mostramos opiniones reales de compradoras."
+      }
+    },
+    "gift": {
+      "type": "aom-editorial",
+      "settings": {
+        "image": "shopify://shop_images/Gemini_Generated_Image_tecfwmtecfwmtecf.jpg",
+        "image_right": true,
+        "bg": "#fcfaf6",
+        "kicker": "Para regalar",
+        "title": "Envíalo <em>directo</em> a quien quieras",
+        "text": "Pon su dirección al pagar: le llega en su estuche, listo para regalar.",
+        "points": "3x2: la tercera joya, gratis\nLlega en estuche de regalo\nDevolución hasta el 15 de enero",
+        "btn": "",
+        "link": ""
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "blocks": {
+        "q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Cuándo me llega?",
+            "icon": "truck",
+            "row_content": "<p>Lo enviamos en 24/48 h con número de seguimiento. Normalmente lo recibes en 3–7 días laborables; los plazos exactos están en nuestra política de envíos. Para Navidad, pide antes del 14 de diciembre.</p>",
+            "page": ""
+          }
+        },
+        "q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿De qué material es?",
+            "icon": "heart",
+            "row_content": "<p>Acero inoxidable con baño de oro de 18 k (dorado) o acabado plateado, con circonitas en las piezas que brillan. El acero no se oxida ni mancha la piel. Si tienes alergia a algún metal, escríbenos antes y te lo confirmamos.</p>",
+            "page": ""
+          }
+        },
+        "q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Cómo funciona el 3x2?",
+            "icon": "price_tag",
+            "row_content": "<p>Elige 3 joyas cualesquiera y la de menor precio te sale gratis. Se aplica solo en la cesta. Con 6 joyas, 2 gratis.</p>",
+            "page": ""
+          }
+        },
+        "q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Y si no le gusta?",
+            "icon": "return",
+            "row_content": "<p>Lo que pidas desde ahora lo puedes devolver hasta el 15 de enero, aunque sea un regalo. Escríbenos y te explicamos cómo.</p>",
+            "page": ""
+          }
+        },
+        "q5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Tiene garantía?",
+            "icon": "lock",
+            "row_content": "<p>Sí: garantía de color de 3 años. Si con un uso normal pierde el dorado, te enviamos otra. Y si llega dañada, te enviamos otra gratis.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "Preguntas frecuentes",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "recs": {
+      "type": "aom-products",
+      "settings": {
+        "kicker": "Para tu 3x2",
+        "title": "Elige tu <em>tercera joya</em>",
+        "text": "Con 3 joyas en la cesta, la de menor precio te sale gratis.",
+        "collection": "complementos",
+        "limit": 4,
+        "btn": "",
+        "recommendations": true
+      }
     }
   },
   "order": [

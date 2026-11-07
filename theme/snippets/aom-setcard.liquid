@@ -1,0 +1,59 @@
+{%- comment -%}
+  Tarjeta de conjunto 3x2: 3 miniaturas, nombre, precio tachado (suma) y precio con la más barata gratis.
+  Uso: {% render 'aom-setcard', items: block.settings.products, title: block.settings.title, badge: block.settings.badge, image: block.settings.image, add: true %}
+{%- endcomment -%}
+{%- liquid
+  assign full = 0
+  assign cheap = 999999999
+  assign ids = ''
+  assign n = 0
+  for p in items limit: 3
+    assign v = p.selected_or_first_available_variant
+    for x in p.variants
+      assign xt = x.title | downcase
+      if x.available and xt contains 'gold'
+        assign v = x
+        break
+      endif
+    endfor
+    if v.available
+      assign n = n | plus: 1
+      assign full = full | plus: v.price
+      if v.price < cheap
+        assign cheap = v.price
+      endif
+      assign ids = ids | append: v.id | append: ','
+    endif
+  endfor
+  assign total = full | minus: cheap
+  assign first = items | first
+  assign url = first.url | append: '?pack=3'
+-%}
+{%- if n == 3 -%}
+<div class="aom-sc">
+  <a class="aom-sc__media" href="{{ url }}">
+    {%- if image -%}
+      {{ image | image_url: width: 800 | image_tag: loading: 'eager', widths: '400, 600, 800', sizes: '(min-width: 750px) 40vw, 90vw', alt: title, class: 'aom-sc__hero' }}
+    {%- endif -%}
+    <span class="aom-slots aom-sc__slots">
+      {%- for p in items limit: 3 -%}
+        {%- assign pv = p.selected_or_first_available_variant -%}
+        <span class="aom-slot is-on{% if pv.price == cheap and forloop.last %} is-free{% endif %}">
+          {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 260 | image_tag: loading: 'eager', alt: p.title }}{%- endif -%}
+          {%- if pv.price == cheap and forloop.last -%}<span class="aom-slot__tag">GRATIS</span>{%- endif -%}
+        </span>
+      {%- endfor -%}
+    </span>
+  </a>
+  <div class="aom-sc__body">
+    {%- if badge != blank -%}<span class="aom-sticker aom-sticker--red aom-sc__badge">{{ badge }}</span>{%- endif -%}
+    <a class="aom-sc__t" href="{{ url }}">{{ title }}</a>
+    <p class="aom-sc__items">{% for p in items limit: 3 %}{{ p.title }}{% unless forloop.last %} · {% endunless %}{% endfor %}</p>
+    <p class="aom-sc__p"><s>{{ full | money }}</s> <b>{{ total | money }}</b> <span>la 3.ª gratis</span></p>
+    <div class="aom-sc__btns">
+      <a class="aom-btn aom-sc__go" href="{{ url }}">Ver el conjunto</a>
+      {%- if add -%}<button type="button" class="aom-btn aom-btn--ghost aom-sc__add" data-aom-addset="{{ ids }}">Añadir los 3</button>{%- endif -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}

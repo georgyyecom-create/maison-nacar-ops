@@ -14,48 +14,68 @@
         "tier2_qty": 3,
         "tier2_pct": 35,
         "upsell_collection": "complementos",
-        "upsell_title": "Completa tu 3x2",
-        "menu_note_1": "Envío gratis y estuche de regalo",
-        "offer_mode": "3x2"
+        "upsell_title": "Elige tu 3.ª joya (¡puede ser gratis!)",
+        "menu_note_1": "3x2: elige 3, paga 2",
+        "offer_mode": "3x2",
+        "upsell_list": [
+          "aros-esenciales",
+          "anillo-ola-circonita",
+          "aros-doble-linea",
+          "anillo-lazo-ajustable",
+          "pendientes-tres-corazones",
+          "anillo-baguette-brillante"
+        ],
+        "menu_note_2": "Envío gratis · Sale en 24/48 h",
+        "menu_note_3": "Devolución hasta el 15 de enero",
+        "ship_label": "Gratis",
+        "cart_trust": "Pago seguro · Devolución hasta el 15 de enero",
+        "checkout_label": "Finalizar compra"
       },
       "blocks": {
         "a0": {
           "type": "announcement",
           "settings": {
-            "text": "3x2 en toda la tienda: elige 3, paga 2"
+            "text": "[campaña]"
           }
         },
         "a1": {
           "type": "announcement",
           "settings": {
-            "text": "Envío gratis · Estuche de regalo incluido"
+            "text": "Elige 3 joyas, paga 2"
           }
         },
         "a2": {
           "type": "announcement",
           "settings": {
-            "text": "Paga con tarjeta, PayPal o Bizum"
+            "text": "[envío]"
           }
         },
         "a3": {
           "type": "announcement",
           "settings": {
-            "text": "30 días para devolver"
+            "text": "Acero inoxidable con baño de oro 18k"
           }
         },
-        "xmas": {
+        "a4": {
           "type": "announcement",
           "settings": {
-            "text": "Navidad: pide antes del 14 de diciembre y llega a tiempo"
+            "text": "[devolución]"
+          }
+        },
+        "a5": {
+          "type": "announcement",
+          "settings": {
+            "text": "Paga con Bizum, tarjeta o PayPal"
           }
         }
       },
       "block_order": [
         "a0",
-        "xmas",
         "a1",
         "a2",
-        "a3"
+        "a3",
+        "a4",
+        "a5"
       ]
     }
   },

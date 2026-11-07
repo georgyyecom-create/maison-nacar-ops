@@ -7,7 +7,10 @@
   assign S = section.settings
   assign menu = linklists[S.menu]
   assign items = section.blocks | where: 'type', 'announcement'
+  assign ship_short = settings.aom_ship_short | default: 'Envío gratis · Sale en 24/48 h'
+  assign ret_line = 'Devolución hasta el ' | append: settings.aom_return_date
 -%}
+{%- capture camp_bar -%}{% render 'aom-camp', k: 'bar' %}{%- endcapture -%}
 
 {%- if items.size > 0 -%}
   <div class="aom-marquee" style="--aom-speed: {{ S.speed }}s" role="region" aria-label="Avisos">
@@ -15,7 +18,7 @@
       {%- for n in (1..2) -%}
         <div class="aom-marquee__set"{% if n == 2 %} aria-hidden="true"{% endif %}>
           {%- for k in (1..3) -%}
-            {%- for block in items -%}<span class="aom-marquee__item" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>{%- endfor -%}
+            {%- for block in items -%}<span class="aom-marquee__item" {{ block.shopify_attributes }}>{{ block.settings.text | replace: '[campaña]', camp_bar | replace: '[envío]', ship_short | replace: '[devolución]', ret_line }}</span>{%- endfor -%}
           {%- endfor -%}
         </div>
       {%- endfor -%}
@@ -95,7 +98,7 @@
   <div class="aom-cart__progress" data-aom-progress hidden>
     <p class="m-0" data-aom-progress-t></p>
     <div class="aom-cart__bar"><span data-aom-progress-bar style="width:0"></span></div>
-    {%- if S.offer_mode == '3x2' -%}<div class="aom-cart__steps"><span data-aom-step="1">1 pieza</span><span data-aom-step="2">2 piezas</span><span data-aom-step="3">3 · paga 2</span></div>{%- else -%}<div class="aom-cart__steps"><span data-aom-step="1">1 pieza</span><span data-aom-step="2">{{ S.tier1_qty }} · −{{ S.tier1_pct }} %</span><span data-aom-step="3">{{ S.tier2_qty }} · −{{ S.tier2_pct }} %{% if S.gift_product != blank %} + 🎁{% endif %}</span></div>{%- endif -%}
+    {%- if S.offer_mode == '3x2' -%}<div class="aom-cart__steps"><span data-aom-step="1">1.ª joya</span><span data-aom-step="2">2.ª joya</span><span data-aom-step="3">🎁 3.ª GRATIS</span></div>{%- else -%}<div class="aom-cart__steps"><span data-aom-step="1">1 pieza</span><span data-aom-step="2">{{ S.tier1_qty }} · −{{ S.tier1_pct }} %</span><span data-aom-step="3">{{ S.tier2_qty }} · −{{ S.tier2_pct }} %{% if S.gift_product != blank %} + 🎁{% endif %}</span></div>{%- endif -%}
   </div>
   <div class="aom-panel__body" data-aom-cart-body></div>
   <div class="aom-cart__foot" data-aom-cart-foot hidden>
@@ -120,7 +123,13 @@
     "gift": {% if gp != blank and gv.available %}{ "p": {{ gp.id }}, "v": {{ gv.id }}, "min": {{ S.gift_min | default: 3 }}, "label": {{ S.gift_label | default: 'Regalo sorpresa' | json }} }{% else %}null{% endif %},
     "upTitle": {{ S.upsell_title | default: 'Completa tu look' | json }},
     "upsell": [
-      {%- for p in S.upsell_collection.products limit: 12 -%}
+      {%- liquid
+        assign ups = S.upsell_list
+        if ups == blank or ups.size == 0
+          assign ups = S.upsell_collection.products
+        endif
+      -%}
+      {%- for p in ups limit: 12 -%}
         {%- assign uv = p.selected_or_first_available_variant -%}
         {%- if uv.available -%}{"id": {{ p.id }}, "title": {{ p.title | json }}, "url": {{ p.url | json }}, "img": {{ p.featured_image | image_url: width: 300 | json }}, "v": {{ uv.id }}, "price": {{ uv.price }}},{%- endif -%}
       {%- endfor -%}
@@ -160,6 +169,8 @@
       var o = e.target.closest('[data-aom-open]');
       if (o) { e.preventDefault(); var n = o.getAttribute('data-aom-open'); if (n === 'cart') { refresh().then(function () { open('cart'); }); } else open(n); return; }
       if (e.target.closest('[data-aom-close]') || e.target === scrim) { closeAll(); return; }
+      var st = e.target.closest('[data-aom-addset]');
+      if (st) { e.preventDefault(); st.classList.add('is-busy'); st.disabled = true; add(st.getAttribute('data-aom-addset').split(',').filter(Boolean).map(function (id) { return { id: +id, quantity: 1 }; })).then(function () { st.classList.remove('is-busy'); st.disabled = false; }, function () { st.classList.remove('is-busy'); st.disabled = false; }); return; }
       var a = e.target.closest('[data-aom-add]');
       if (a) { e.preventDefault(); a.classList.add('is-busy'); add([{ id: +a.getAttribute('data-aom-add'), quantity: 1 }]).then(function () { a.classList.remove('is-busy'); }, function () { a.classList.remove('is-busy'); }); }
     });
@@ -185,8 +196,8 @@
       box.hidden = false;
       if (D.mode === '3x2') {
         var r = n % 3, free = Math.floor(n / 3);
-        if (n < 3) { txt = 'Añade <b>' + (3 - n) + (3 - n === 1 ? ' pieza más' : ' piezas más') + '</b> y la de menor precio te sale <b>gratis</b>.'; w = n === 1 ? 20 : 60; }
-        else if (r === 0) { txt = '<b>3x2 aplicado:</b> ' + (free === 1 ? 'una pieza te sale gratis.' : free + ' piezas te salen gratis.'); w = 100; }
+        if (n < 3) { txt = n === 2 ? '¡Te falta <b>1 joya</b>! Añádela y te sale <b>GRATIS</b> 🎁' : 'Añade <b>2 joyas más</b> y la de menor precio te sale <b>gratis</b>.'; w = n === 1 ? 33 : 66; }
+        else if (r === 0) { txt = '🎁 <b>3x2 aplicado:</b> ' + (free === 1 ? 'una joya te sale gratis.' : free + ' joyas te salen gratis.'); w = 100; }
         else { txt = '<b>3x2 aplicado.</b> Añade ' + (3 - r) + ' más y llévate otra gratis.'; w = 100; }
         document.querySelector('[data-aom-progress-t]').innerHTML = txt;
         document.querySelector('[data-aom-progress-bar]').style.width = w + '%';
@@ -311,6 +322,7 @@
     { "type": "product", "id": "gift_product", "label": "Producto de regalo", "info": "Unos pendientes de Yehwang con precio 0 €, estado «No listado» y la etiqueta «regalo-sorpresa». Se añaden solos a la cesta al llegar al mínimo de piezas y se quitan si baja. Déjalo vacío para desactivar el regalo." },
     { "type": "number", "id": "gift_min", "label": "Piezas para conseguir el regalo", "default": 3 },
     { "type": "text", "id": "gift_label", "label": "Nombre del regalo en la cesta", "default": "Regalo sorpresa" },
+    { "type": "product_list", "id": "upsell_list", "label": "Piezas para «la tercera» en la cesta", "limit": 12, "info": "Mejor piezas de 29 € con mucho stock. Si lo dejas vacío, se usa la colección de abajo." },
     { "type": "collection", "id": "upsell_collection", "label": "Colección «Completa tu look» en la cesta", "info": "Ej.: una colección con pendientes y anillos baratos. Si la dejas vacía, se usan las recomendaciones de Shopify." },
     { "type": "text", "id": "upsell_title", "label": "Título de las sugerencias", "default": "Completa tu look" },
     { "type": "text", "id": "ship_label", "label": "Texto de envío", "default": "Gratis" },
@@ -318,7 +330,7 @@
     { "type": "text", "id": "cart_trust", "label": "Texto bajo el botón", "default": "Pago seguro · 30 días para devolver" }
   ],
   "blocks": [
-    { "type": "announcement", "name": "Aviso", "settings": [ { "type": "text", "id": "text", "label": "Texto", "default": "Envío gratis" } ] }
+    { "type": "announcement", "name": "Aviso", "settings": [ { "type": "text", "id": "text", "label": "Texto", "info": "Atajos: [campaña] = texto de la campaña activa, [envío] = envío corto, [devolución] = devolución ampliada.", "default": "Envío gratis" } ] }
   ]
 }
 {% endschema %}

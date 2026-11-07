@@ -1,6 +1,7 @@
 {%- comment -%}
-  Maison Nácar · Pop-up «Club Nácar» (lista privada de WhatsApp + email).
-  Se configura en Configuración del tema → Pop-up Club Nácar.
+  Maison Nácar · Pop-up pequeño del 3x2 (tarjeta abajo, nunca a pantalla completa).
+  Juego: tocas 3 cajitas → salen 3 joyas → la 3.ª lleva «GRATIS». Debajo: canal de WhatsApp y email.
+  Se configura en Configuración del tema → Maison Nácar → Pop-up 3x2.
 {%- endcomment -%}
 {%- liquid
   assign wa = settings.aom_wa_number | remove: ' ' | remove: '+' | remove: '-'
@@ -8,84 +9,98 @@
   if template.name == 'cart' or template.name == 'password'
     assign show = false
   endif
+  assign chan = settings.aom_wa_channel
+  if chan == blank and wa != blank
+    assign chan = 'https://wa.me/' | append: wa | append: '?text=Hola%2C%20quiero%20que%20me%20avis%C3%A9is%20del%20Black%20Friday%20y%20las%20novedades%20%E2%9C%A8'
+  endif
+  assign pp = settings.aom_pop_products
 -%}
 {%- if show -%}
-<div class="aom-pop" data-aom-pop data-delay="{{ settings.aom_pop_delay | default: 12 }}" data-days="{{ settings.aom_pop_days | default: 7 }}"{% if request.design_mode and settings.aom_pop_preview %} data-preview{% endif %} hidden>
-  <div class="aom-pop__scrim" data-aom-pop-close></div>
-  <div class="aom-pop__box" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="aom-pop-t">
+<div class="aom-pop" data-aom-pop hidden data-delay="{{ settings.aom_pop_delay | default: 18 }}" data-days="{{ settings.aom_pop_days | default: 7 }}"{% if request.design_mode and settings.aom_pop_preview %} data-preview{% endif %}>
+  <div class="aom-pop__box" tabindex="-1" role="dialog" aria-modal="false" aria-labelledby="aom-pop-t">
     <button type="button" class="aom-pop__x" data-aom-pop-close aria-label="Cerrar">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
-    <div class="aom-pop__art"{% if settings.aom_pop_image %} style="--aom-pop-bg: url('{{ settings.aom_pop_image | image_url: width: 900 }}')"{% endif %}>
-      <div class="aom-pop__phone" aria-hidden="true">
-        <div class="aom-pop__chat-h"><span class="aom-pop__av">M<i>N</i></span><span><b>Maison Nácar</b><small>Club Nácar · privado</small></span></div>
-        <div class="aom-pop__msg"><b>✨ Club Nácar</b>{{ settings.aom_pop_bubble | default: 'Mañana os enseñamos antes que nadie las piezas nuevas de Navidad. Las que tienen menos stock, primero para vosotras.' }}<span class="aom-pop__time">10:02 <em>✓✓</em></span></div>
-        <div class="aom-pop__msg aom-pop__msg--me">¡Me encanta! 😍<span class="aom-pop__time">10:04</span></div>
-      </div>
+    <p class="aom-pop__k">{% render 'aom-camp', k: 'kicker' %} · {{ settings.aom_pop_kicker }}</p>
+    <p class="aom-pop__t" id="aom-pop-t">{{ settings.aom_pop_title }}</p>
+    <div class="aom-pop__game" data-aom-game>
+      {%- assign gn = 0 -%}
+      {%- for gp in pp limit: 3 -%}
+        {%- assign gn = gn | plus: 1 -%}
+        <button type="button" class="aom-pop__gift" data-aom-gift-box aria-label="Abrir cajita {{ gn }}">
+          <span class="aom-pop__lid" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><rect x="7" y="18" width="34" height="24" rx="3"/><rect x="5" y="12" width="38" height="8" rx="2"/><path d="M24 12v30M24 12c-3-6-11-7-11-2 0 3 6 2 11 2zm0 0c3-6 11-7 11-2 0 3-6 2-11 2z"/></svg>
+          </span>
+          <span class="aom-pop__in">
+            {%- if gp and gp.featured_image -%}{{ gp.featured_image | image_url: width: 220 | image_tag: loading: 'lazy', alt: gp.title }}{%- else -%}<span class="aom-pop__ph">✦</span>{%- endif -%}
+            <em>{% if forloop.last %}GRATIS{% else %}{{ gp.price | money_without_trailing_zeros }}{% endif %}</em>
+          </span>
+        </button>
+      {%- endfor -%}
     </div>
-    <div class="aom-pop__body">
-      <div data-aom-pop-main>
-        <p class="aom-pop__k">{{ settings.aom_pop_kicker | default: 'Club Nácar · Lista privada' }}</p>
-        <h2 class="aom-pop__t" id="aom-pop-t">{{ settings.aom_pop_title | default: 'Entérate <em>antes que nadie</em>' }}</h2>
-        {%- if settings.aom_pop_text != blank -%}<p class="aom-pop__p">{{ settings.aom_pop_text }}</p>{%- endif -%}
-        {%- assign pts = settings.aom_pop_points | newline_to_br | split: '<br />' -%}
-        <ul class="aom-pop__l">{%- for pt in pts -%}{%- assign ptx = pt | strip -%}{%- if ptx != blank -%}<li>{{ ptx }}</li>{%- endif -%}{%- endfor -%}</ul>
-        {%- if wa != blank -%}
-          <a class="aom-btn aom-pop__wa" data-aom-pop-join href="https://wa.me/{{ wa }}?text={{ settings.aom_pop_wa_msg | default: 'Hola, quiero unirme al Club Nácar ✨' | url_encode }}" target="_blank" rel="noopener">
-            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 6.9L3 29l6.5-2c1.9 1 4.1 1.6 6.5 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.3c-2.1 0-4.1-.6-5.8-1.7l-.4-.3-3.9 1.2 1.2-3.8-.3-.4a10.4 10.4 0 0 1-1.7-5.7C5.1 10 10 5.3 16 5.3S26.9 10 26.9 15.8 22 26.3 16 26.3zm6-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.1 1.4 3.4c.2.2 2.4 3.6 5.7 5 2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.7-.4z"/></svg>
-            {{ settings.aom_pop_btn | default: 'Unirme por WhatsApp' }}
-          </a>
-        {%- endif -%}
-        {%- if settings.aom_pop_email -%}
-          <p class="aom-pop__or"><span>o por email</span></p>
-          {%- form 'customer', id: 'aom-pop-form', class: 'aom-pop__form' -%}
-            <input type="hidden" name="contact[tags]" value="newsletter,club-nacar">
-            <label class="visually-hidden" for="aom-pop-email">Email</label>
-            <input id="aom-pop-email" type="email" name="contact[email]" placeholder="Tu email" autocomplete="email" required>
-            <button type="submit" class="aom-pop__send">Unirme</button>
-            {%- if form.posted_successfully? -%}<span data-aom-pop-ok hidden></span>{%- endif -%}
-          {%- endform -%}
-        {%- endif -%}
-        <p class="aom-pop__legal">Al unirte aceptas recibir novedades de Maison Nácar. Puedes salir cuando quieras.{% if shop.privacy_policy %} <a href="{{ shop.privacy_policy.url }}">Privacidad</a>{% endif %}</p>
-        <button type="button" class="aom-pop__no" data-aom-pop-close>No, gracias</button>
-      </div>
-      <div class="aom-pop__done" data-aom-pop-done hidden>
-        <p class="aom-pop__k">Club Nácar</p>
-        <h2 class="aom-pop__t">Ya formas <em>parte</em></h2>
-        <p class="aom-pop__p">Gracias por unirte. Te escribiremos solo cuando merezca la pena.</p>
-        <button type="button" class="aom-btn" data-aom-pop-close>Seguir mirando</button>
-      </div>
+    <p class="aom-pop__won" data-aom-won hidden>{{ settings.aom_pop_won }}</p>
+    <a class="aom-pop__cta" href="{{ settings.aom_pop_link | default: '/pages/3x2' }}" data-aom-pop-go>{{ settings.aom_pop_btn }} →</a>
+    <div class="aom-pop__more">
+      {%- if chan != blank -%}
+        <a class="aom-pop__wa" href="{{ chan }}" target="_blank" rel="noopener" data-aom-pop-join>
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 6.9L3 29l6.5-2c1.9 1 4.1 1.6 6.5 1.6 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm6.9 17.7c-.3.8-1.7 1.6-2.4 1.7-.6.1-1.4.1-2.2-.1-.5-.2-1.2-.4-2-.8-3.5-1.5-5.8-5-6-5.3-.2-.2-1.4-1.9-1.4-3.6s.9-2.5 1.2-2.9c.3-.3.7-.4.9-.4h.7c.2 0 .5-.1.8.6.3.7 1 2.4 1.1 2.6.1.2.1.4 0 .6-.1.2-.2.4-.3.6l-.5.5c-.2.2-.3.4-.1.7.2.4.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.9 1.8.4.2.6.1.8-.1.2-.2.9-1 1.1-1.4.2-.4.5-.3.8-.2.3.1 2 .9 2.4 1.1.4.2.6.3.7.4.1.3.1.9-.2 1.7z"/></svg>
+          <span>{{ settings.aom_pop_channel_text }}</span>
+        </a>
+      {%- endif -%}
+      {%- if settings.aom_pop_email -%}
+        {%- form 'customer', id: 'aom-pop-form', class: 'aom-pop__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,popup-3x2">
+          <label class="visually-hidden" for="aom-pop-email">Email</label>
+          <input id="aom-pop-email" type="email" name="contact[email]" placeholder="O déjanos tu email" autocomplete="email" required>
+          <button type="submit">Avisadme</button>
+          {%- if form.posted_successfully? -%}<span data-aom-pop-ok hidden></span>{%- endif -%}
+        {%- endform -%}
+      {%- endif -%}
     </div>
+    <p class="aom-pop__ok" data-aom-pop-done hidden>¡Hecho! Te avisaremos antes que a nadie ✨</p>
   </div>
 </div>
 <script>
   (function () {
     var pop = document.querySelector('[data-aom-pop]'); if (!pop) return;
-    var KEY = 'aomClub', now = Date.now(), days = +pop.getAttribute('data-days') || 7;
+    var KEY = 'aomPop3x2', now = Date.now(), days = +pop.getAttribute('data-days') || 7;
     function get() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } }
     function set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
     var st = get(), ok = pop.querySelector('[data-aom-pop-ok]');
-    function open() {
-      if (!pop.hidden || document.body.classList.contains('aom-lock')) return false;
+    function blocked() {
+      if (document.body.classList.contains('aom-lock')) return true;
       var ck = document.getElementById('shopify-pc__banner');
-      if (ck) { var cs = getComputedStyle(ck), r = ck.getBoundingClientRect(); if (cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity > 0 && r.height > 0) return false; }
+      if (ck) { var cs = getComputedStyle(ck), r = ck.getBoundingClientRect(); if (cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity > 0 && r.height > 0) return true; }
+      return false;
+    }
+    function open() {
+      if (!pop.hidden || blocked()) return false;
       pop.hidden = false; requestAnimationFrame(function () { pop.classList.add('is-on'); });
       document.body.classList.add('aom-pop-on');
-      var bx = pop.querySelector('.aom-pop__box'); if (bx) bx.focus({ preventScroll: true });
       return true;
     }
     function close() { pop.classList.remove('is-on'); document.body.classList.remove('aom-pop-on'); setTimeout(function () { pop.hidden = true; }, 300); if (!get().joined) set({ seen: Date.now() }); }
-    function done() { set({ joined: 1 }); pop.querySelector('[data-aom-pop-main]').hidden = true; pop.querySelector('[data-aom-pop-done]').hidden = false; }
+    function done() { set({ joined: 1 }); var d = pop.querySelector('[data-aom-pop-done]'); if (d) d.hidden = false; var m = pop.querySelector('.aom-pop__more'); if (m) m.hidden = true; }
     pop.querySelectorAll('[data-aom-pop-close]').forEach(function (b) { b.addEventListener('click', close); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) close(); });
     var j = pop.querySelector('[data-aom-pop-join]'); if (j) j.addEventListener('click', function () { setTimeout(done, 400); });
+    var g = pop.querySelector('[data-aom-pop-go]'); if (g) g.addEventListener('click', function () { set({ seen: Date.now() }); });
+    /* Juego de las 3 cajitas */
+    var opened = 0;
+    pop.querySelectorAll('[data-aom-gift-box]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.classList.contains('is-open')) return;
+        b.classList.add('is-open'); opened++;
+        if (opened === 3) { pop.classList.add('is-won'); pop.querySelector('[data-aom-won]').hidden = false; }
+      });
+    });
     if (ok) { open(); done(); return; }
     if (pop.hasAttribute('data-preview')) { open(); return; }
     if (st.joined || (st.seen && now - st.seen < days * 864e5)) return;
-    var fired = false, start = Date.now();
-    function trigger() { if (fired) return; if (Date.now() - start < 5000) return; if (open()) { fired = true; cleanup(); } }
-    var t = setInterval(function () { if (Date.now() - start >= (+pop.getAttribute('data-delay') || 12) * 1000) trigger(); }, 1000);
-    function onScroll() { var h = document.documentElement.scrollHeight - innerHeight; if (h > 0 && scrollY / h > 0.45) trigger(); }
+    var fired = false, start = Date.now(), minWait = 8000;
+    function trigger() { if (fired) return; if (Date.now() - start < minWait) return; if (open()) { fired = true; cleanup(); } }
+    var t = setInterval(function () { if (Date.now() - start >= (+pop.getAttribute('data-delay') || 18) * 1000) trigger(); }, 1000);
+    function onScroll() { var h = document.documentElement.scrollHeight - innerHeight; if (h > 0 && scrollY / h > 0.5) trigger(); }
     function onOut(e) { if (!e.relatedTarget && e.clientY <= 0) trigger(); }
     window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('mouseout', onOut);

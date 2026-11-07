@@ -1476,7 +1476,88 @@
       },
       {
         "type": "header",
-        "content": "Pop-up Club Nácar"
+        "content": "Campaña (lo que dicen la barra, la home, la ficha y el pop-up)"
+      },
+      {
+        "type": "select",
+        "id": "aom_campaign",
+        "label": "Campaña activa",
+        "options": [
+          {
+            "value": "adelantada",
+            "label": "Navidad adelantada (hasta el 20-nov)"
+          },
+          {
+            "value": "black_friday",
+            "label": "Black Friday (21-nov → 1-dic)"
+          },
+          {
+            "value": "navidad",
+            "label": "Navidad: llega a tiempo (2 → 14-dic)"
+          },
+          {
+            "value": "reyes",
+            "label": "Reyes (15-dic → 4-ene)"
+          },
+          {
+            "value": "siempre",
+            "label": "Sin campaña: solo 3x2"
+          }
+        ],
+        "default": "adelantada"
+      },
+      {
+        "type": "text",
+        "id": "aom_xmas_date",
+        "label": "Fecha límite de Navidad",
+        "default": "14 de diciembre"
+      },
+      {
+        "type": "text",
+        "id": "aom_reyes_date",
+        "label": "Fecha límite de Reyes",
+        "default": "30 de diciembre"
+      },
+      {
+        "type": "text",
+        "id": "aom_camp_kicker",
+        "label": "Etiqueta de campaña (opcional, sustituye a la automática)"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "aom_camp_title",
+        "label": "Titular de campaña (opcional, sustituye al automático)"
+      },
+      {
+        "type": "text",
+        "id": "aom_return_date",
+        "label": "Devolución ampliada hasta",
+        "default": "15 de enero"
+      },
+      {
+        "type": "header",
+        "content": "Reseñas"
+      },
+      {
+        "type": "checkbox",
+        "id": "aom_reviews_on",
+        "label": "Mostrar reseñas y estrellas",
+        "info": "Actívalo solo cuando tengas reseñas reales (app de reseñas o metaobjetos). Mientras esté apagado no sale ninguna estrella ni bloque de opiniones.",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Canal de difusión de WhatsApp"
+      },
+      {
+        "type": "url",
+        "id": "aom_wa_channel",
+        "label": "Enlace del canal",
+        "info": "WhatsApp → Novedades → Canales → tu canal → Compartir enlace. Si lo dejas vacío, el botón usa tu número."
+      },
+      {
+        "type": "header",
+        "content": "Pop-up 3x2 (pequeño, abajo)"
       },
       {
         "type": "checkbox",
@@ -1494,12 +1575,12 @@
         "type": "range",
         "id": "aom_pop_delay",
         "label": "Aparece a los (segundos)",
-        "info": "También aparece al bajar casi media página o, en ordenador, al ir a cerrar la pestaña.",
+        "info": "También al bajar media página. Nunca en la cesta.",
         "min": 5,
         "max": 60,
         "step": 1,
         "unit": "s",
-        "default": 12
+        "default": 18
       },
       {
         "type": "range",
@@ -1511,58 +1592,63 @@
         "default": 7
       },
       {
-        "type": "image_picker",
-        "id": "aom_pop_image",
-        "label": "Foto de fondo (opcional)",
-        "info": "Va detrás del mensaje de WhatsApp. Mejor oscura y vertical."
-      },
-      {
         "type": "text",
         "id": "aom_pop_kicker",
         "label": "Etiqueta",
-        "default": "Club Nácar · Lista privada"
+        "default": "Juego rápido"
       },
       {
-        "type": "inline_richtext",
+        "type": "text",
         "id": "aom_pop_title",
         "label": "Título",
-        "default": "Entérate <em>antes que nadie</em>"
+        "default": "Toca las 3 cajitas 🎁"
+      },
+      {
+        "type": "product_list",
+        "id": "aom_pop_products",
+        "label": "Las 3 joyas de las cajitas",
+        "limit": 3,
+        "info": "La 3.ª sale con la etiqueta GRATIS. Mejor las del conjunto que anuncias."
       },
       {
         "type": "text",
-        "id": "aom_pop_text",
-        "label": "Texto",
-        "default": "Únete a nuestra lista privada de WhatsApp. Pocos mensajes, solo cuando merezca la pena."
-      },
-      {
-        "type": "textarea",
-        "id": "aom_pop_points",
-        "label": "Ventajas (una por línea)",
-        "default": "Novedades y piezas de Navidad antes que en la web\nAviso cuando vuelve una pieza agotada\nIdeas de regalo y fechas límite de envío"
-      },
-      {
-        "type": "text",
-        "id": "aom_pop_bubble",
-        "label": "Mensaje de ejemplo en el chat",
-        "default": "Mañana os enseñamos antes que nadie las piezas nuevas de Navidad. Las que tienen menos stock, primero para vosotras."
+        "id": "aom_pop_won",
+        "label": "Texto al abrir las 3",
+        "default": "¡La tercera te sale GRATIS! Así funciona nuestro 3x2."
       },
       {
         "type": "text",
         "id": "aom_pop_btn",
-        "label": "Texto del botón",
-        "default": "Unirme por WhatsApp"
+        "label": "Botón principal",
+        "default": "Arma tu 3x2"
       },
       {
         "type": "text",
-        "id": "aom_pop_wa_msg",
-        "label": "Mensaje que nos envía al pulsar",
-        "default": "Hola, quiero unirme al Club Nácar ✨"
+        "id": "aom_pop_link",
+        "label": "Enlace del botón",
+        "default": "/pages/3x2"
+      },
+      {
+        "type": "text",
+        "id": "aom_pop_channel_text",
+        "label": "Texto del canal",
+        "default": "Únete al canal de WhatsApp: avisamos 24 h antes del Black Friday"
       },
       {
         "type": "checkbox",
         "id": "aom_pop_email",
-        "label": "Ofrecer también unirse por email",
+        "label": "Ofrecer también el email",
         "default": true
+      },
+      {
+        "type": "header",
+        "content": "Envío"
+      },
+      {
+        "type": "text",
+        "id": "aom_ship_short",
+        "label": "Envío (texto corto)",
+        "default": "Envío gratis · Sale en 24/48 h"
       },
       {
         "type": "header",

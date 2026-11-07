@@ -16,6 +16,16 @@
   assign upsell = S.upsell_product
   assign up_v = upsell.selected_or_first_available_variant
   assign addons = product.metafields.aom.addons.value | default: S.addons
+  assign cj = nil
+  for b in section.blocks
+    if b.type == 'conjunto'
+      for cp in b.settings.products
+        if cp.id == product.id
+          assign cj = b
+        endif
+      endfor
+    endif
+  endfor
 -%}
 
 <style>
@@ -63,6 +73,31 @@
   #aom-{{ sid }} .aom-offer__t em { font-style: normal; color: #E7D3AE; font-weight: 600; }
   #aom-{{ sid }} .aom-offer__cta { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #E7D3AE; white-space: nowrap; }
   @media (max-width: 420px) { #aom-{{ sid }} .aom-offer { grid-template-columns: auto 1fr; } #aom-{{ sid }} .aom-offer__cta { grid-column: 2; } }
+  /* Conjunto 3x2 */
+  #aom-{{ sid }} .aom-cj { margin-top: 14px; padding: 14px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(28,26,23,.06); }
+  #aom-{{ sid }} .aom-cj__h { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; font-size: 14px; }
+  #aom-{{ sid }} .aom-cj__opts { display: grid; gap: 8px; }
+  #aom-{{ sid }} .aom-cj__o { position: relative; display: grid; grid-template-columns: 18px 1fr auto; gap: 10px; align-items: center; width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: #fff; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+  #aom-{{ sid }} .aom-cj__o[hidden] { display: none; }
+  #aom-{{ sid }} .aom-cj__o.is-on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+  #aom-{{ sid }} .aom-cj__o--best.is-on { border-color: #B3261E; box-shadow: inset 0 0 0 1px #B3261E; background: #FFF8F6; }
+  #aom-{{ sid }} .aom-cj__dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(28,26,23,.35); position: relative; }
+  #aom-{{ sid }} .aom-cj__o.is-on .aom-cj__dot::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--ink); }
+  #aom-{{ sid }} .aom-cj__o--best.is-on .aom-cj__dot::after { background: #B3261E; }
+  #aom-{{ sid }} .aom-cj__l { font-size: 14px; line-height: 1.3; }
+  #aom-{{ sid }} .aom-cj__l b { display: block; font-weight: 600; }
+  #aom-{{ sid }} .aom-cj__l small { display: block; margin-top: 2px; font-size: 12.5px; color: #B3261E; font-weight: 600; }
+  #aom-{{ sid }} .aom-cj__p { text-align: right; white-space: nowrap; }
+  #aom-{{ sid }} .aom-cj__p b { display: block; font-size: 17px; }
+  #aom-{{ sid }} .aom-cj__p s { font-size: 12.5px; color: var(--muted); }
+  #aom-{{ sid }} .aom-cj__badge { position: absolute; top: -9px; right: 14px; padding: 2px 9px; border-radius: 999px; background: #B3261E; color: #fff; font-size: 10.5px; font-weight: 600; letter-spacing: .04em; }
+  #aom-{{ sid }} .aom-cj__slots { margin-top: 12px; max-width: 300px; margin-left: auto; margin-right: auto; }
+  #aom-{{ sid }} .aom-slot__q { display: grid; justify-items: center; font-size: 20px; line-height: 1.1; }
+  #aom-{{ sid }} .aom-slot__q small { font-size: 10.5px; color: #B3261E; font-weight: 600; }
+  #aom-{{ sid }} .aom-cj__note { margin: 10px 0 0; text-align: center; font-size: 13.5px; }
+  #aom-{{ sid }} .aom-info .aom-btn, #aom-{{ sid }} .aom-bar .aom-btn { border-radius: 999px; }
+  @media (max-width: 749px) { #aom-{{ sid }} .aom-gal__slide { aspect-ratio: 1 / .9; } #aom-{{ sid }} .aom-title { font-size: 26px; } #aom-{{ sid }} .aom-price { margin-top: 6px; } }
+  #aom-{{ sid }} .aom-tax { display: inline; margin-left: 8px; }
   /* Calidad y garantías rápidas */
   #aom-{{ sid }} .aom-perks { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); background: #fff; }
   #aom-{{ sid }} .aom-perks li { display: flex; gap: 10px; align-items: center; padding: 11px 12px; font-size: 13px; line-height: 1.3; min-width: 0; }
@@ -260,7 +295,7 @@
         assign rating = product.metafields.aom.rating.value.rating | default: product.metafields.reviews.rating.value.rating
         assign rating_count = product.metafields.aom.rating_count.value | default: product.metafields.reviews.rating_count.value | default: 0
       -%}
-      {%- if rating != blank and rating_count > 0 -%}
+      {%- if settings.aom_reviews_on and rating != blank and rating_count > 0 -%}
         <a href="#resenas" class="aom-rating">{% render 'aom-stars', rating: rating, count: rating_count, size: 14 %}<span class="aom-rating__more">Ver opiniones</span></a>
       {%- endif -%}
 
@@ -268,10 +303,28 @@
         <span class="aom-price__now{% if current.compare_at_price > current.price %} is-sale{% endif %}" data-aom-price>{{ current.price | money }}</span>
         <s class="aom-price__was" data-aom-was{% unless current.compare_at_price > current.price %} hidden{% endunless %}>{{ current.compare_at_price | money }}</s>
         <span class="aom-price__save" data-aom-psave hidden></span>
+        <span class="aom-tax">IVA incluido</span>
       </div>
-      <p class="aom-tax">IVA incluido</p>
 
-      {%- if S.offer_show -%}
+      {%- if cj -%}
+        {%- liquid
+          assign cjs = cj.settings
+        -%}
+        <div class="aom-cj" data-aom-cj data-default="{{ cjs.default_n | default: 3 }}" {{ cj.shopify_attributes }}>
+          <p class="aom-cj__h"><span class="aom-sticker aom-sticker--red">3x2</span><b>{% render 'aom-camp', k: 'kicker' %}: elige 3, paga 2</b></p>
+          <div class="aom-cj__opts" role="radiogroup" aria-label="Elige tu opción">
+            <button type="button" class="aom-cj__o" role="radio" data-cj-n="1"><span class="aom-cj__dot"></span><span class="aom-cj__l">{{ cjs.label_1 | default: 'Solo esta pieza' }}</span><span class="aom-cj__p"><b data-cj-p="1"></b></span></button>
+            <button type="button" class="aom-cj__o" role="radio" data-cj-n="2"><span class="aom-cj__dot"></span><span class="aom-cj__l" data-cj-l2>{{ cjs.label_2 }}</span><span class="aom-cj__p"><b data-cj-p="2"></b></span></button>
+            <button type="button" class="aom-cj__o aom-cj__o--best" role="radio" data-cj-n="3">{%- if cjs.badge != blank -%}<span class="aom-cj__badge">{{ cjs.badge }}</span>{%- endif -%}<span class="aom-cj__dot"></span><span class="aom-cj__l"><b>{{ cjs.title }}</b><small data-cj-free></small></span><span class="aom-cj__p"><s data-cj-full></s><b data-cj-p="3"></b></span></button>
+          </div>
+          <div class="aom-slots aom-cj__slots" data-cj-slots>
+            <span class="aom-slot is-on" data-cj-slot="0">{%- if product.featured_image -%}{{ product.featured_image | image_url: width: 240 | image_tag: loading: 'eager', alt: '' }}{%- endif -%}</span>
+            <span class="aom-slot" data-cj-slot="1">+</span>
+            <span class="aom-slot" data-cj-slot="2">+</span>
+          </div>
+          <p class="aom-cj__note" data-cj-note></p>
+        </div>
+      {%- elsif S.offer_show -%}
         {%- liquid
           assign p2 = current.price | times: 2 | money
           assign p1 = current.price | money
@@ -293,23 +346,7 @@
         </a>
       {%- endif -%}
 
-      {%- if S.perks_show -%}
-        {%- liquid
-          assign metal_t = S.perk_gold_t
-          assign metal_s = S.perk_gold_s
-          assign ck = current.title | downcase
-          if ck contains 'silver' or ck contains 'plat' or ck contains 'white'
-            assign metal_t = S.perk_silver_t
-            assign metal_s = S.perk_silver_s
-          endif
-        -%}
-        <ul class="aom-perks">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3h12l3 5-9 13L3 8z"/><path d="M3 8h18M9 3l3 18 3-18"/></svg><span><b data-aom-metal-t data-gold="{{ S.perk_gold_t | escape }}" data-silver="{{ S.perk_silver_t | escape }}">{{ metal_t }}</b><small data-aom-metal-s data-gold="{{ S.perk_gold_s | escape }}" data-silver="{{ S.perk_silver_s | escape }}">{{ metal_s }}</small></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span><b>{{ S.perk_2_t }}</b><small>{{ S.perk_2_s }}</small></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg><span><b>{{ S.perk_3_t }}</b><small>{{ S.perk_3_s }}</small></span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="8" width="18" height="4"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 4.5 9 8 12 8zm0 0s1.5-5 4-3.5S15 8 12 8z"/></svg><span><b>{{ S.perk_4_t }}</b><small>{{ S.perk_4_s }}</small></span></li>
-        </ul>
-      {%- endif -%}
+
 
       <p class="aom-low" data-aom-low hidden><span class="aom-low__dot"></span><span data-aom-low-t></span></p>
 
@@ -380,7 +417,7 @@
           {%- endif -%}
         {%- endfor -%}
       {%- endcapture -%}
-      {%- if add_n > 0 -%}
+      {%- if add_n > 0 and cj == nil -%}
         <div class="aom-add">
           <p class="aom-add__h">{{ S.addons_title }}{%- if S.addons_badge != blank -%}<span>{{ S.addons_badge }}</span>{%- endif -%}</p>
           {{ add_rows }}
@@ -391,7 +428,7 @@
         assign set_col = S.set_collection
         assign need = S.set_count | minus: 1
       -%}
-      {%- if set_col != blank and set_col.products_count > 1 -%}
+      {%- if cj == nil and set_col != blank and set_col.products_count > 1 -%}
         <div class="aom-set" id="aom-set" data-aom-set data-need="{{ need }}" data-pct="{{ S.set_pct }}" data-mode="{{ S.set_mode }}" data-gift="{{ S.set_gift | escape }}">
           <div class="aom-set__h"><b>{{ S.set_title }}</b>{%- if S.set_badge != blank -%}<span>{{ S.set_badge }}</span>{%- endif -%}</div>
           <p class="aom-set__p">{{ S.set_text | replace: '[n]', need }}</p>
@@ -425,10 +462,7 @@
         </label>
       {%- endif -%}
 
-      <div class="aom-ship">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg>
-        <span>{{ S.ship_text }} <b data-aom-date></b></span>
-      </div>
+
 
       <button type="button" class="aom-btn aom-btn--buy" data-aom-buy{% unless current.available %} disabled{% endunless %}>
         <span data-aom-buy-label>{% if current.available %}{{ S.buy_label }}{% else %}Agotado{% endif %}</span>
@@ -437,6 +471,29 @@
         <button type="button" class="aom-btn aom-btn--cart" data-aom-cart{% unless current.available %} disabled{% endunless %}>{{ S.cart_label }}</button>
       {%- endif -%}
 
+
+      <div class="aom-ship">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg>
+        {%- capture dl -%}{% render 'aom-camp', k: 'date_line' %}{%- endcapture -%}
+        <span><b>{{ settings.aom_ship_short | default: 'Envío gratis · Sale en 24/48 h' }}</b> · {{ S.ship_text }}{% if dl != blank %}<br>{{ dl }}{% endif %}</span>
+      </div>
+      {%- if S.perks_show -%}
+        {%- liquid
+          assign metal_t = S.perk_gold_t
+          assign metal_s = S.perk_gold_s
+          assign ck = current.title | downcase
+          if ck contains 'silver' or ck contains 'plat' or ck contains 'white'
+            assign metal_t = S.perk_silver_t
+            assign metal_s = S.perk_silver_s
+          endif
+        -%}
+        <ul class="aom-perks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3h12l3 5-9 13L3 8z"/><path d="M3 8h18M9 3l3 18 3-18"/></svg><span><b data-aom-metal-t data-gold="{{ S.perk_gold_t | escape }}" data-silver="{{ S.perk_silver_t | escape }}">{{ metal_t }}</b><small data-aom-metal-s data-gold="{{ S.perk_gold_s | escape }}" data-silver="{{ S.perk_silver_s | escape }}">{{ metal_s }}</small></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span><b>{{ S.perk_2_t }}</b><small>{{ S.perk_2_s }}</small></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg><span><b>{{ S.perk_3_t }}</b><small>{{ S.perk_3_s }}</small></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="8" width="18" height="4"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 4.5 9 8 12 8zm0 0s1.5-5 4-3.5S15 8 12 8z"/></svg><span><b>{{ S.perk_4_t }}</b><small>{{ S.perk_4_s }}</small></span></li>
+        </ul>
+      {%- endif -%}
       <div class="aom-pay">
         {%- if S.pay_text != blank -%}<p>{{ S.pay_text }}</p>{%- endif -%}
         <div class="aom-pay__icons">
@@ -490,8 +547,10 @@
       "lowText": {{ S.stock_low_text | default: 'Queda poco stock' | json }},
       "okText": {{ S.stock_ok_text | json }},
       "buyLabel": {{ S.buy_label | json }},
+      "cjLabel": {{ S.cj_buy_label | default: 'Quiero el conjunto' | json }},
       "addUrl": {{ routes.cart_add_url | append: '.js' | json }},
-      "cartUrl": {{ routes.cart_url | json }}
+      "cartUrl": {{ routes.cart_url | json }},
+      "cj": {%- if cj -%}[{%- assign cjk = 0 -%}{%- for cp in cj.settings.products -%}{%- if cp.id != product.id -%}{%- if cjk > 0 -%},{%- endif -%}{%- assign cjk = cjk | plus: 1 -%}{"id": {{ cp.id }}, "title": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 240 | json }}, "variants": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "price": {{ v.price }}, "available": {{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}]{%- else -%}null{%- endif -%}
     }
   </script>
 </div>
@@ -529,6 +588,53 @@
       el.textContent = D.shipDaysMax > D.shipDays ? fa + ' y el ' + fb : fa;
     })();
 
+    /* Conjunto 3x2: elige solo / 2 piezas / conjunto completo (la más barata, gratis) */
+    var cjBox = $('[data-aom-cj]'), cjN = 3, cjCur = [];
+    function metalOf(t) { return /silver|plat|white/.test(String(t).toLowerCase()) ? 's' : 'g'; }
+    function pickVar(p) {
+      var m = metalOf(state.variant.options.join(' ')), av = p.variants.filter(function (x) { return x.available; });
+      return av.filter(function (x) { return metalOf(x.t) === m; })[0] || av[0] || null;
+    }
+    function slotHTML(img, tag, free) { return (img ? '<img src="' + img + '" alt="" loading="lazy">' : '') + (tag ? '<span class="aom-slot__tag">' + tag + '</span>' : ''); }
+    function cjRender() {
+      var o = (D.cj || []).map(function (p) { return { p: p, v: pickVar(p) }; }).filter(function (x) { return x.v; }).sort(function (a, b) { return b.v.price - a.v.price; });
+      var u = state.variant.price, firstImg = (cjBox.querySelector('[data-cj-slot="0"] img') || {}).src || '';
+      var opt2 = cjBox.querySelector('[data-cj-n="2"]'), opt3 = cjBox.querySelector('[data-cj-n="3"]');
+      opt2.hidden = o.length < 1; opt3.hidden = o.length < 2;
+      if (cjN === 3 && o.length < 2) cjN = o.length + 1; if (cjN === 2 && o.length < 1) cjN = 1;
+      var p2 = o[0] ? u + o[0].v.price : 0, full = o.length > 1 ? p2 + o[1].v.price : 0;
+      var cheap = o.length > 1 ? Math.min(u, o[0].v.price, o[1].v.price) : 0, p3 = full - cheap;
+      cjBox.querySelector('[data-cj-p="1"]').textContent = money(u);
+      if (o[0]) { cjBox.querySelector('[data-cj-p="2"]').textContent = money(p2); var l2 = cjBox.querySelector('[data-cj-l2]'); if (!l2.getAttribute('data-fixed')) { if (l2.textContent.trim()) l2.setAttribute('data-fixed', 1); else l2.textContent = '+ ' + o[0].p.title; } }
+      if (o.length > 1) {
+        cjBox.querySelector('[data-cj-p="3"]').textContent = money(p3);
+        cjBox.querySelector('[data-cj-full]').textContent = money(full);
+        var freeName = o[1].v.price === cheap ? o[1].p.title : (o[0].v.price === cheap ? o[0].p.title : 'esta pieza');
+        cjBox.querySelector('[data-cj-free]').textContent = '🎁 ' + freeName + ' te sale GRATIS';
+      }
+      cjBox.querySelectorAll('[data-cj-n]').forEach(function (b) { var on = +b.getAttribute('data-cj-n') === cjN; b.classList.toggle('is-on', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); });
+      var sl = cjBox.querySelectorAll('[data-cj-slot]');
+      var prices = [u].concat(o.map(function (x) { return x.v.price; })), freeIdx = -1;
+      if (cjN === 3) prices.forEach(function (pr, i) { if (i < 3 && pr === cheap) freeIdx = i; });
+      var imgs = [firstImg].concat(o.map(function (x) { return x.p.img; }));
+      sl.forEach(function (x, i) {
+        var on = i < cjN, fr = i === freeIdx;
+        x.classList.toggle('is-on', on); x.classList.toggle('is-free', fr);
+        x.innerHTML = on ? slotHTML(imgs[i], fr ? 'GRATIS' : '') : (i === 2 ? '<span class="aom-slot__q">🎁<small>¿gratis?</small></span>' : '+');
+      });
+      var note = cjBox.querySelector('[data-cj-note]');
+      if (cjN === 3) note.innerHTML = 'Sale a <b>' + money(Math.round(p3 / 3)) + '</b> cada joya · Te ahorras <b>' + money(cheap) + '</b>';
+      else if (cjN === 2 && o.length > 1) note.innerHTML = p3 === p2 ? '<b>¡Por el mismo precio te llevas 3!</b> Elige el conjunto: la 3.ª es gratis.' : 'Por solo <b>' + money(p3 - p2) + '</b> más te llevas la 3.ª pieza.';
+      else note.innerHTML = 'Con 2 piezas más, <b>la de menor precio te sale gratis</b>.';
+      cjCur = [{ id: state.variant.id, quantity: 1 }].concat(o.slice(0, cjN - 1).map(function (x) { return { id: x.v.id, quantity: 1 }; }));
+      return cjN === 3 ? p3 : (cjN === 2 ? p2 : u);
+    }
+    if (cjBox) {
+      var qn = +(new URL(location.href).searchParams.get('pack') || cjBox.getAttribute('data-default') || 3);
+      cjN = qn >= 1 && qn <= 3 ? qn : 3;
+      cjBox.addEventListener('click', function (e) { var b = e.target.closest('[data-cj-n]'); if (!b) return; cjN = +b.getAttribute('data-cj-n'); render(); });
+    }
+
     function render() {
       var v = state.variant, unit = v.price;
       $('[data-aom-price]').textContent = money(unit);
@@ -550,10 +656,11 @@
       });
       var total = Math.round(unit * state.qty * (100 - state.pct) / 100);
       $$('[data-aom-addon]').forEach(function (c) { if (c.checked) total += +c.getAttribute('data-price'); });
+      if (cjBox) total = cjRender();
       var bp = $('[data-aom-bar-price]'); if (bp) bp.textContent = money(total);
       var ok = v.available;
       ['[data-aom-buy]', '[data-aom-cart]', '[data-aom-go]'].forEach(function (s) { var b = $(s); if (b) b.disabled = !ok; });
-      var lbl = $('[data-aom-buy-label]'); if (lbl) lbl.textContent = ok ? D.buyLabel + ' · ' + money(total) : 'Agotado';
+      var lbl = $('[data-aom-buy-label]'); if (lbl) lbl.textContent = ok ? (cjBox && cjN === 3 ? D.cjLabel : D.buyLabel) + ' · ' + money(total) : 'Agotado';
     }
 
     /* Variantes */
@@ -619,7 +726,7 @@
 
     /* Añadir y comprar */
     function add(goCheckout, btn) {
-      var items = [{ id: state.variant.id, quantity: state.qty }];
+      var items = cjBox ? cjCur.slice() : [{ id: state.variant.id, quantity: state.qty }];
       var gift = $('[data-aom-gift]'); if (gift && gift.checked) items.push({ id: +gift.value, quantity: 1 });
       $$('[data-aom-addon]').forEach(function (c) { if (c.checked) items.push({ id: +c.value, quantity: 1 }); });
       btn.disabled = true;
@@ -710,6 +817,7 @@
     { "type": "range", "id": "ship_days", "label": "Entrega: días laborables mínimo", "min": 1, "max": 10, "step": 1, "default": 3 },
     { "type": "range", "id": "ship_days_max", "label": "Entrega: días laborables máximo", "min": 1, "max": 15, "step": 1, "default": 7 },
     { "type": "text", "id": "buy_label", "label": "Botón principal", "default": "Comprar ahora" },
+    { "type": "text", "id": "cj_buy_label", "label": "Botón principal con el conjunto elegido", "default": "Quiero el conjunto" },
     { "type": "checkbox", "id": "show_cart_btn", "label": "Mostrar «Añadir a la cesta»", "default": true },
     { "type": "text", "id": "cart_label", "label": "Botón secundario", "default": "Añadir a la cesta" },
     { "type": "text", "id": "bar_label", "label": "Botón de la barra móvil", "default": "Comprar" },
@@ -737,6 +845,18 @@
         { "type": "text", "id": "text", "label": "Texto" },
         { "type": "text", "id": "badge", "label": "Insignia" },
         { "type": "checkbox", "id": "default", "label": "Seleccionado al entrar", "default": false }
+      ]
+    },
+    {
+      "type": "conjunto", "name": "Conjunto 3x2",
+      "settings": [
+        { "type": "paragraph", "content": "Si la pieza que se está viendo está en este conjunto, la ficha muestra: solo esta pieza · 2 piezas · conjunto completo (la más barata, gratis). Con ?pack=1, 2 o 3 en el enlace del anuncio se preselecciona esa opción." },
+        { "type": "text", "id": "title", "label": "Nombre", "default": "Conjunto completo" },
+        { "type": "product_list", "id": "products", "label": "Las 3 piezas", "limit": 3 },
+        { "type": "text", "id": "label_1", "label": "Opción 1", "default": "Solo esta pieza" },
+        { "type": "text", "id": "label_2", "label": "Opción 2 (vacío = automático)" },
+        { "type": "text", "id": "badge", "label": "Etiqueta del conjunto", "default": "Recomendado" },
+        { "type": "range", "id": "default_n", "label": "Opción marcada al entrar", "min": 1, "max": 3, "step": 1, "default": 3 }
       ]
     },
     {
