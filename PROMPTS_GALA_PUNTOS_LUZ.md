@@ -41,7 +41,7 @@ Noches de diciembre en España (cena de empresa, Nochebuena, Nochevieja). La joy
 ## Prompts
 
 Bloque de joyas (va al principio de cada prompt de persona):
-> Use the attached jewelry exactly as it is: the fine gold chain necklace with about seventeen small round clear zirconia stones in thin round gold bezels along the front only, the thin rigid gold bangle with small round stones on its top half, and the adjustable gold ring with a row of square-cut stones. Same number of stones, same delicate size, same gold tone. No other jewelry. No star sparkles.
+> Use the attached jewelry exactly as it is: the fine gold chain necklace with about seventeen small round clear zirconia stones in thin round gold bezels along the front only, the thin rigid gold bangle with small round stones on its top half, and the adjustable gold ring with a row of square-cut stones. Same number of stones, same delicate size, same gold tone. No other jewelry: bare ears, no earrings. No star sparkles.
 
 Estilo común (va al final): harsh direct flash, visible 35mm film grain, almost black background with a few blurred warm lights, cool, effortless, fashion-campaign energy. No text, no logos.
 
