@@ -1,0 +1,324 @@
+{%- comment -%}
+  Maison Nácar · Cabecera
+  Marquesina + barra fija + menú lateral + cesta lateral.
+  La cesta lee los tramos de packs de esta sección: tienen que coincidir con los descuentos automáticos.
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign menu = linklists[S.menu]
+  assign items = section.blocks | where: 'type', 'announcement'
+-%}
+
+{%- if items.size > 0 -%}
+  <div class="aom-marquee" style="--aom-speed: {{ S.speed }}s" role="region" aria-label="Avisos">
+    <div class="aom-marquee__track">
+      {%- for n in (1..2) -%}
+        <div class="aom-marquee__set"{% if n == 2 %} aria-hidden="true"{% endif %}>
+          {%- for k in (1..3) -%}
+            {%- for block in items -%}<span class="aom-marquee__item" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>{%- endfor -%}
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+<header class="aom-hdr" data-aom-hdr>
+  <div class="aom-hdr__bar">
+    <div class="aom-hdr__left">
+      <button type="button" class="aom-ico aom-hdr__burger" data-aom-open="menu" aria-label="Abrir menú" aria-controls="aom-menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      </button>
+      <ul class="aom-nav">
+        {%- for link in menu.links limit: 6 -%}
+          <li><a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <a href="{{ routes.root_url }}" class="aom-logo" aria-label="{{ shop.name | escape }}">
+      {%- if S.logo -%}
+        {%- assign lh = S.logo_width | divided_by: S.logo.aspect_ratio | round -%}
+        {{ S.logo | image_url: width: 400 | image_tag: width: S.logo_width, height: lh, alt: shop.name }}
+      {%- else -%}
+        <span class="aom-logo__name">{{ S.logo_text }}</span>
+        {%- if S.logo_sub != blank -%}<span class="aom-logo__sub">{{ S.logo_sub }}</span>{%- endif -%}
+      {%- endif -%}
+    </a>
+
+    <div class="aom-hdr__right">
+      <a href="{{ routes.search_url }}" class="aom-ico" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></a>
+      <a href="{{ routes.cart_url }}" class="aom-ico" data-aom-open="cart" aria-label="Cesta" aria-controls="aom-cart">
+        <svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="aom-ico__count" data-aom-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="aom-scrim" data-aom-scrim></div>
+
+{%- comment -%} Menú lateral {%- endcomment -%}
+<aside id="aom-menu" class="aom-panel aom-panel--left" data-aom-panel="menu" role="dialog" aria-modal="true" aria-label="Menú">
+  <div class="aom-panel__head">
+    <span class="aom-panel__title">Menú</span>
+    <button type="button" class="aom-ico" data-aom-close aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="aom-panel__body">
+    <ul class="aom-menu">
+      {%- for link in menu.links -%}
+        <li>
+          {%- if link.links.size > 0 -%}
+            <details><summary>{{ link.title }}</summary>
+              <ul>{%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}</ul>
+            </details>
+          {%- else -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    <div class="aom-menu__foot">
+      {%- if S.menu_note_1 != blank -%}<span><b>✦</b> {{ S.menu_note_1 }}</span>{%- endif -%}
+      {%- if S.menu_note_2 != blank -%}<span><b>✦</b> {{ S.menu_note_2 }}</span>{%- endif -%}
+      {%- if S.menu_note_3 != blank -%}<span><b>✦</b> {{ S.menu_note_3 }}</span>{%- endif -%}
+    </div>
+  </div>
+</aside>
+
+{%- comment -%} Cesta lateral {%- endcomment -%}
+<aside id="aom-cart" class="aom-panel aom-panel--right" data-aom-panel="cart" role="dialog" aria-modal="true" aria-label="Cesta">
+  <div class="aom-panel__head">
+    <span class="aom-panel__title">Tu cesta <span data-aom-cart-n></span></span>
+    <button type="button" class="aom-ico" data-aom-close aria-label="Cerrar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="aom-cart__progress" data-aom-progress hidden>
+    <p class="m-0" data-aom-progress-t></p>
+    <div class="aom-cart__bar"><span data-aom-progress-bar style="width:0"></span></div>
+    {%- if S.offer_mode == '3x2' -%}<div class="aom-cart__steps"><span data-aom-step="1">1 pieza</span><span data-aom-step="2">2 piezas</span><span data-aom-step="3">3 · paga 2</span></div>{%- else -%}<div class="aom-cart__steps"><span data-aom-step="1">1 pieza</span><span data-aom-step="2">{{ S.tier1_qty }} · −{{ S.tier1_pct }} %</span><span data-aom-step="3">{{ S.tier2_qty }} · −{{ S.tier2_pct }} %{% if S.gift_product != blank %} + 🎁{% endif %}</span></div>{%- endif -%}
+  </div>
+  <div class="aom-panel__body" data-aom-cart-body></div>
+  <div class="aom-cart__foot" data-aom-cart-foot hidden>
+    <div class="aom-cart__line"><span>Subtotal</span><span data-aom-sub></span></div>
+    <div class="aom-cart__line aom-cart__line--save" data-aom-csave-row hidden><span>{% if S.offer_mode == '3x2' %}Descuento 3x2{% else %}Descuento pack{% endif %}</span><span data-aom-csave></span></div>
+    <div class="aom-cart__line"><span>Envío</span><span>{{ S.ship_label }}</span></div>
+    <div class="aom-cart__line aom-cart__line--total"><span>Total</span><span data-aom-total></span></div>
+    <a href="{{ routes.root_url }}checkout" class="aom-btn" data-aom-checkout>{{ S.checkout_label }}</a>
+    {%- if S.cart_trust != blank -%}<p class="aom-cart__trust">{{ S.cart_trust }}</p>{%- endif -%}
+    <div class="aom-cart__pay">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag }}{%- endfor -%}</div>
+  </div>
+</aside>
+
+<script type="application/json" id="aom-hdr-data">
+  {
+    "money": {{ shop.money_format | json }},
+    "tiers": [{ "qty": {{ S.tier1_qty }}, "pct": {{ S.tier1_pct }} }, { "qty": {{ S.tier2_qty }}, "pct": {{ S.tier2_pct }} }],
+    "root": {{ routes.root_url | json }},
+    "mode": {{ S.offer_mode | default: 'tiers' | json }},
+    {%- assign gp = S.gift_product -%}
+    {%- assign gv = gp.selected_or_first_available_variant -%}
+    "gift": {% if gp != blank and gv.available %}{ "p": {{ gp.id }}, "v": {{ gv.id }}, "min": {{ S.gift_min | default: 3 }}, "label": {{ S.gift_label | default: 'Regalo sorpresa' | json }} }{% else %}null{% endif %},
+    "upTitle": {{ S.upsell_title | default: 'Completa tu look' | json }},
+    "upsell": [
+      {%- for p in S.upsell_collection.products limit: 12 -%}
+        {%- assign uv = p.selected_or_first_available_variant -%}
+        {%- if uv.available -%}{"id": {{ p.id }}, "title": {{ p.title | json }}, "url": {{ p.url | json }}, "img": {{ p.featured_image | image_url: width: 300 | json }}, "v": {{ uv.id }}, "price": {{ uv.price }}},{%- endif -%}
+      {%- endfor -%}
+      null
+    ]
+  }
+</script>
+<script>
+  (function () {
+    if (window.AOMCart) return;
+    var D = JSON.parse(document.getElementById('aom-hdr-data').textContent);
+    var scrim = document.querySelector('[data-aom-scrim]');
+    var AMT = /\{\{\s*amount[a-z_]*\s*\}\}/, lastFocus = null;
+    function money(c) {
+      var n = (c / 100).toFixed(2);
+      if (!D.money) return n.replace('.', ',') + ' €';
+      if (/comma/.test(D.money)) n = n.replace('.', ',');
+      return D.money.replace(AMT, n).replace(/<[^>]*>/g, '');
+    }
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function img(u, w) { if (!u) return ''; return u + (u.indexOf('?') > -1 ? '&' : '?') + 'width=' + w; }
+
+    /* Paneles */
+    function open(name) {
+      var p = document.querySelector('[data-aom-panel="' + name + '"]'); if (!p) return;
+      closeAll(true); lastFocus = document.activeElement;
+      p.classList.add('is-on'); scrim.classList.add('is-on'); document.body.classList.add('aom-lock');
+      document.querySelectorAll('[data-aom-open="' + name + '"]').forEach(function (b) { b.setAttribute('aria-expanded', 'true'); });
+      var c = p.querySelector('[data-aom-close]'); if (c) setTimeout(function () { c.focus(); }, 50);
+    }
+    function closeAll(keep) {
+      document.querySelectorAll('[data-aom-panel].is-on').forEach(function (p) { p.classList.remove('is-on'); });
+      document.querySelectorAll('[data-aom-open]').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+      if (!keep) { scrim.classList.remove('is-on'); document.body.classList.remove('aom-lock'); if (lastFocus) lastFocus.focus(); }
+    }
+    document.addEventListener('click', function (e) {
+      var o = e.target.closest('[data-aom-open]');
+      if (o) { e.preventDefault(); var n = o.getAttribute('data-aom-open'); if (n === 'cart') { refresh().then(function () { open('cart'); }); } else open(n); return; }
+      if (e.target.closest('[data-aom-close]') || e.target === scrim) { closeAll(); return; }
+      var a = e.target.closest('[data-aom-add]');
+      if (a) { e.preventDefault(); a.classList.add('is-busy'); add([{ id: +a.getAttribute('data-aom-add'), quantity: 1 }]).then(function () { a.classList.remove('is-busy'); }, function () { a.classList.remove('is-busy'); }); }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
+
+    /* Cabecera con sombra al hacer scroll */
+    var hdr = document.querySelector('[data-aom-hdr]');
+    var mq = document.querySelector('.aom-marquee');
+    function mqH() { document.documentElement.style.setProperty('--aom-mq-h', (mq ? mq.offsetHeight : 0) + 'px'); }
+    mqH(); window.addEventListener('resize', mqH);
+    window.addEventListener('scroll', function () { if (hdr) hdr.classList.toggle('is-stuck', window.scrollY > 8); }, { passive: true });
+
+    /* Cesta */
+    var body = document.querySelector('[data-aom-cart-body]'), foot = document.querySelector('[data-aom-cart-foot]');
+    function api(url, data) {
+      var opt = data ? { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) } : { headers: { 'Accept': 'application/json' } };
+      return fetch(D.root + url, opt).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.description || j.message || r.status); return j; }); });
+    }
+    function progress(n) {
+      var box = document.querySelector('[data-aom-progress]'); if (!box) return;
+      var t1 = D.tiers[0], t2 = D.tiers[1], txt, w;
+      if (n === 0) { box.hidden = true; return; }
+      box.hidden = false;
+      if (D.mode === '3x2') {
+        var r = n % 3, free = Math.floor(n / 3);
+        if (n < 3) { txt = 'Añade <b>' + (3 - n) + (3 - n === 1 ? ' pieza más' : ' piezas más') + '</b> y la de menor precio te sale <b>gratis</b>.'; w = n === 1 ? 20 : 60; }
+        else if (r === 0) { txt = '<b>3x2 aplicado:</b> ' + (free === 1 ? 'una pieza te sale gratis.' : free + ' piezas te salen gratis.'); w = 100; }
+        else { txt = '<b>3x2 aplicado.</b> Añade ' + (3 - r) + ' más y llévate otra gratis.'; w = 100; }
+        document.querySelector('[data-aom-progress-t]').innerHTML = txt;
+        document.querySelector('[data-aom-progress-bar]').style.width = w + '%';
+        document.querySelectorAll('[data-aom-step]').forEach(function (s) { var k = +s.getAttribute('data-aom-step'); s.classList.toggle('is-on', n >= k); });
+        return;
+      }
+      if (n < t1.qty) { txt = 'Añade <b>' + (t1.qty - n) + ' pieza más</b> y ahorra un <b>' + t1.pct + ' %</b> en todo.'; w = 15; }
+      else if (n < t2.qty) { txt = '<b>−' + t1.pct + ' % aplicado.</b> Añade ' + (t2.qty - n) + ' más y llévate un <b>' + t2.pct + ' %</b>' + (G ? ' <b>+ ' + esc(G.label.toLowerCase()) + '</b> 🎁' : '') + '.'; w = 55; }
+      else { txt = '<b>−' + t2.pct + ' % aplicado' + (G ? ' + ' + esc(G.label.toLowerCase()) + ' desbloqueado 🎁' : ' en tu pedido') + '.</b>' + (G ? '' : ' Tienes el mejor precio.'); w = 100; }
+      document.querySelector('[data-aom-progress-t]').innerHTML = txt;
+      document.querySelector('[data-aom-progress-bar]').style.width = w + '%';
+      document.querySelectorAll('[data-aom-step]').forEach(function (s) { var k = +s.getAttribute('data-aom-step'); s.classList.toggle('is-on', (k === 1 && n >= 1) || (k === 2 && n >= t1.qty) || (k === 3 && n >= t2.qty)); });
+    }
+    var G = D.gift;
+    function isGift(it) { return G && it.variant_id === G.v; }
+    function pieces(cart) { return cart.items.reduce(function (a, it) { return a + (isGift(it) ? 0 : it.quantity); }, 0); }
+    /* Regalo sorpresa: se añade solo al llegar a G.min piezas y se quita si bajan */
+    function syncGift(cart) {
+      if (!G) return Promise.resolve(cart);
+      var n = pieces(cart), line = 0, qty = 0;
+      cart.items.forEach(function (it, i) { if (isGift(it)) { line = line || i + 1; qty += it.quantity; } });
+      if (n >= G.min && qty === 0) return api('cart/add.js', { items: [{ id: G.v, quantity: 1, properties: { _regalo: '1' } }] }).then(function () { return api('cart.js'); }).catch(function () { return cart; });
+      if ((n < G.min && qty > 0) || qty > 1) return api('cart/change.js', { id: String(cart.items[line - 1].key), quantity: n < G.min ? 0 : 1 }).catch(function () { return cart; });
+      return Promise.resolve(cart);
+    }
+    function render(cart) {
+      var n = pieces(cart);
+      document.querySelectorAll('[data-aom-count]').forEach(function (c) { c.textContent = n; c.hidden = n === 0; });
+      var cn = document.querySelector('[data-aom-cart-n]'); if (cn) cn.textContent = n ? '(' + n + ')' : '';
+      progress(n);
+      if (!n) {
+        body.innerHTML = '<div class="aom-cart__empty"><p>Tu cesta está vacía</p><a class="aom-btn" href="' + D.root + 'collections/all">Ver joyas</a></div>';
+        foot.hidden = true; return;
+      }
+      var html = '<ul class="aom-cart__items">';
+      cart.items.forEach(function (it, i) {
+        if (isGift(it)) {
+          html += '<li class="aom-cart__item aom-cart__item--gift"><span class="aom-cart__gift-ico" aria-hidden="true">🎁</span>'
+            + '<div><p class="aom-cart__name m-0">' + esc(G.label) + '</p><p class="aom-cart__var m-0">Unos pendientes elegidos por nosotras, de regalo con tu set.</p></div>'
+            + '<div class="aom-cart__side"><span class="aom-cart__free">' + (it.final_line_price > 0 ? money(it.final_line_price) : 'Gratis') + '</span></div></li>';
+          return;
+        }
+        var v = (it.variant_title && it.variant_title !== 'Default Title') ? '<p class="aom-cart__var m-0">' + esc(it.variant_title) + '</p>' : '';
+        var was = it.final_line_price < it.original_line_price ? '<s>' + money(it.original_line_price) + '</s>' : '';
+        html += '<li class="aom-cart__item"><a href="' + esc(it.url) + '">' + (it.image ? '<img src="' + esc(img(it.image, 200)) + '" alt="" loading="lazy">' : '') + '</a>'
+          + '<div><a class="aom-cart__name" href="' + esc(it.url) + '">' + esc(it.product_title) + '</a>' + v
+          + '<div class="aom-cart__qty"><button type="button" data-aom-q="' + (i + 1) + '" data-d="-1" aria-label="Quitar uno">−</button><span>' + it.quantity + '</span><button type="button" data-aom-q="' + (i + 1) + '" data-d="1" aria-label="Añadir uno">+</button></div></div>'
+          + '<div class="aom-cart__side"><span>' + was + money(it.final_line_price) + '</span><button type="button" class="aom-cart__rm" data-aom-rm="' + (i + 1) + '">Quitar</button></div></li>';
+      });
+      html += '</ul><div class="aom-cart__recs" data-aom-recs hidden><h3>' + esc(D.upTitle) + '</h3><ul></ul></div>';
+      body.innerHTML = html;
+      var save = cart.original_total_price - cart.total_price;
+      document.querySelector('[data-aom-sub]').textContent = money(cart.original_total_price);
+      var sr = document.querySelector('[data-aom-csave-row]'); sr.hidden = save <= 0; document.querySelector('[data-aom-csave]').textContent = '−' + money(save);
+      document.querySelector('[data-aom-total]').textContent = money(cart.total_price);
+      foot.hidden = false;
+      recs(cart);
+    }
+    function recs(cart) {
+      var box = body.querySelector('[data-aom-recs]'); if (!box || !cart.items.length) return;
+      var inCart = cart.items.map(function (i) { return i.product_id; });
+      function paint(list) {
+        list = list.filter(function (p) { return p && inCart.indexOf(p.id) < 0 && !(G && p.id === G.p); }).slice(0, 6);
+        if (!list.length) return;
+        box.querySelector('ul').innerHTML = list.map(function (p) {
+          return '<li class="aom-cart__rec"><a href="' + esc(p.url) + '">' + (p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '') + '</a><p>' + esc(p.title) + '</p><p><b>' + money(p.price) + '</b></p><button type="button" data-aom-add="' + p.v + '">+ Añadir</button></li>';
+        }).join('');
+        box.hidden = false;
+      }
+      /* Primero la colección elegida en la cabecera; si no hay, recomendaciones de Shopify */
+      var mine = (D.upsell || []).filter(Boolean);
+      if (mine.length) { paint(mine); return; }
+      fetch(D.root + 'recommendations/products.json?product_id=' + cart.items[0].product_id + '&limit=6&intent=complementary')
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          paint((j.products || []).filter(function (p) { return p.available; }).map(function (p) {
+            var v = p.variants.filter(function (x) { return x.available; })[0] || p.variants[0];
+            return { id: p.id, title: p.title, url: p.url, img: p.featured_image ? img(p.featured_image, 300) : '', v: v.id, price: v.price };
+          }));
+        }).catch(function () {});
+    }
+    function refresh() { return api('cart.js').then(syncGift).then(function (c) { render(c); return c; }); }
+    function add(items) { return api('cart/add.js', { items: items }).then(refresh).then(function (c) { open('cart'); return c; }).catch(function (e) { alert('No se ha podido añadir: ' + e.message); throw e; }); }
+    body.addEventListener('click', function (e) {
+      var q = e.target.closest('[data-aom-q]'), rm = e.target.closest('[data-aom-rm]');
+      if (!q && !rm) return;
+      var line = +(q ? q.getAttribute('data-aom-q') : rm.getAttribute('data-aom-rm'));
+      var cur = +(q ? q.parentNode.querySelector('span').textContent : 0);
+      var qty = rm ? 0 : Math.max(0, cur + (+q.getAttribute('data-d')));
+      body.style.opacity = .5;
+      api('cart/change.js', { line: line, quantity: qty }).then(syncGift).then(render).finally(function () { body.style.opacity = ''; });
+    });
+
+    window.AOMCart = { add: add, refresh: refresh, open: function () { refresh().then(function () { open('cart'); }); } };
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cabecera AOM",
+  "class": "aom-header-section",
+  "settings": [
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo", "label": "Logo (opcional)" },
+    { "type": "range", "id": "logo_width", "label": "Ancho del logo", "min": 80, "max": 260, "step": 5, "unit": "px", "default": 150 },
+    { "type": "text", "id": "logo_text", "label": "Logo en texto", "default": "Maison Nácar" },
+    { "type": "text", "id": "logo_sub", "label": "Subtítulo del logo", "default": "Joyería" },
+    { "type": "link_list", "id": "menu", "label": "Menú", "default": "main-menu" },
+    { "type": "range", "id": "speed", "label": "Velocidad de la marquesina (segundos por vuelta)", "min": 10, "max": 80, "step": 2, "default": 36 },
+    { "type": "header", "content": "Menú lateral" },
+    { "type": "text", "id": "menu_note_1", "label": "Nota 1", "default": "Envío gratis · Estuche de regalo incluido" },
+    { "type": "text", "id": "menu_note_2", "label": "Nota 2", "default": "Paga con tarjeta, PayPal o Bizum" },
+    { "type": "text", "id": "menu_note_3", "label": "Nota 3", "default": "30 días para devolver" },
+    { "type": "header", "content": "Cesta" },
+    { "type": "paragraph", "content": "Los tramos tienen que coincidir con los descuentos automáticos de Shopify." },
+    { "type": "select", "id": "offer_mode", "label": "Oferta de la cesta", "options": [ { "value": "3x2", "label": "3x2 (la más barata, gratis)" }, { "value": "tiers", "label": "Descuento por tramos" } ], "default": "3x2" },
+    { "type": "number", "id": "tier1_qty", "label": "Tramo 1 · unidades", "default": 2 },
+    { "type": "number", "id": "tier1_pct", "label": "Tramo 1 · % descuento", "default": 25 },
+    { "type": "number", "id": "tier2_qty", "label": "Tramo 2 · unidades", "default": 3 },
+    { "type": "number", "id": "tier2_pct", "label": "Tramo 2 · % descuento", "default": 35 },
+    { "type": "header", "content": "Regalo sorpresa" },
+    { "type": "product", "id": "gift_product", "label": "Producto de regalo", "info": "Unos pendientes de Yehwang con precio 0 €, estado «No listado» y la etiqueta «regalo-sorpresa». Se añaden solos a la cesta al llegar al mínimo de piezas y se quitan si baja. Déjalo vacío para desactivar el regalo." },
+    { "type": "number", "id": "gift_min", "label": "Piezas para conseguir el regalo", "default": 3 },
+    { "type": "text", "id": "gift_label", "label": "Nombre del regalo en la cesta", "default": "Regalo sorpresa" },
+    { "type": "collection", "id": "upsell_collection", "label": "Colección «Completa tu look» en la cesta", "info": "Ej.: una colección con pendientes y anillos baratos. Si la dejas vacía, se usan las recomendaciones de Shopify." },
+    { "type": "text", "id": "upsell_title", "label": "Título de las sugerencias", "default": "Completa tu look" },
+    { "type": "text", "id": "ship_label", "label": "Texto de envío", "default": "Gratis" },
+    { "type": "text", "id": "checkout_label", "label": "Botón de pago", "default": "Finalizar compra" },
+    { "type": "text", "id": "cart_trust", "label": "Texto bajo el botón", "default": "Pago seguro · 30 días para devolver" }
+  ],
+  "blocks": [
+    { "type": "announcement", "name": "Aviso", "settings": [ { "type": "text", "id": "text", "label": "Texto", "default": "Envío gratis" } ] }
+  ]
+}
+{% endschema %}

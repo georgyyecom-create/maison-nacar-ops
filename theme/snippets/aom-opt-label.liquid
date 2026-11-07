@@ -1,0 +1,48 @@
+{%- comment -%} Traduce nombres y valores de opciones de proveedores (Gold → Dorado, Size → Tamaño…). Uso: {% render 'aom-opt-label', t: value %} {%- endcomment -%}
+{%- liquid
+  assign k = t | downcase | strip
+  case k
+    when 'gold', 'golden', 'gold color', 'oro', 'dorado', 'gold plated', '18k gold', '14k gold'
+      echo 'Dorado'
+    when 'silver', 'silver color', 'steel', 'plata', 'plateado', 'stainless steel'
+      echo 'Plateado'
+    when 'rose gold', 'rosegold', 'rose', 'oro rosa'
+      echo 'Rosado'
+    when 'one size', 'onesize', 'one-size', 'free size', 'adjustable'
+      echo 'Talla única'
+    when 'color', 'colour', 'metal color', 'metal colour', 'metal'
+      echo 'Color'
+    when 'size', 'sizes', 'talla', 'tamaño'
+      echo 'Tamaño'
+    when 'length', 'largo'
+      echo 'Largo'
+    when 'model', 'modelo', 'style'
+      echo 'Formato'
+    when '3 pcs', '3pcs', '3 pieces'
+      echo 'Trío de aros sueltos'
+    when '3 pair', '3 pairs', '3pair'
+      echo '3 pares'
+    when 'white', 'blanco', 'pearl white'
+      echo 'Blanco perla'
+    else
+      if t contains '/' and t contains '*'
+        assign segs = t | split: '/'
+        assign th = segs.first | split: '*' | first | times: 10 | append: '' | replace: '.', ',' | remove_last: ',0'
+        assign ds = ''
+        for sg in segs
+          assign d = sg | split: '*' | last | remove: 'cm' | strip | replace: '.', ','
+          if forloop.first
+            assign ds = d
+          else
+            assign ds = ds | append: ' · ' | append: d
+          endif
+        endfor
+        echo 'Grosor ' | append: th | append: ' mm · ' | append: ds | append: ' cm'
+      elsif t contains '*'
+        assign parts = t | split: '*'
+        echo parts.last | replace: 'cm', ' cm' | replace: '.', ','
+      else
+        echo t
+      endif
+  endcase
+-%}

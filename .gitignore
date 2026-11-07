@@ -1,0 +1,5 @@
+*.zip
+.env
+*.log
+node_modules/
+vista-ficha-movil.png

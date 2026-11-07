@@ -1,0 +1,83 @@
+{%- comment -%} Maison Nácar · Portada principal {%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign mob = S.image_mobile | default: S.image
+-%}
+<style>
+  #aom-hero-{{ section.id }} { position: relative; color: #fff; background: var(--aom-ink); overflow: hidden; }
+  #aom-hero-{{ section.id }} .m { position: relative; height: {{ S.h_mobile }}svh; min-height: 520px; }
+  @media (min-width: 750px) { #aom-hero-{{ section.id }} .m { height: {{ S.h_desktop }}vh; min-height: 560px; } }
+  #aom-hero-{{ section.id }} .ph { position: absolute; inset: 0; }
+  #aom-hero-{{ section.id }} picture, #aom-hero-{{ section.id }} img, #aom-hero-{{ section.id }} svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% {{ S.desk_pos }}%; }
+  #aom-hero-{{ section.id }} .m::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28,26,23,0) 35%, rgba(28,26,23,{{ S.shade | divided_by: 100.0 }}) 100%); }
+  #aom-hero-{{ section.id }} .c { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 0 20px 44px; max-width: 1280px; margin: 0 auto; }
+  @media (min-width: 990px) { #aom-hero-{{ section.id }} .c { padding: 0 40px 72px; } }
+  #aom-hero-{{ section.id }} .k { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--aom-cream); opacity: .9; margin: 0 0 14px; }
+  #aom-hero-{{ section.id }} h1 { font-family: var(--aom-serif); font-weight: 400; font-size: clamp(40px, 8vw, 84px); line-height: 1.02; letter-spacing: -.02em; margin: 0; max-width: 12ch; color: #fff; }
+  #aom-hero-{{ section.id }} h1 em { font-style: italic; color: #E7D3AE; }
+  #aom-hero-{{ section.id }} p.t { margin: 16px 0 0; max-width: 42ch; font-size: 16px; line-height: 1.55; color: rgba(255,255,255,.88); }
+  #aom-hero-{{ section.id }} .b { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+  #aom-hero-{{ section.id }} .b .aom-btn--ghost { color: #fff; border-color: rgba(255,255,255,.7); }
+  #aom-hero-{{ section.id }} .b .aom-btn--ghost:hover { background: #fff; color: var(--aom-ink); }
+  /* Móvil: foto completa arriba (cara y joya visibles) y texto debajo */
+  @media (max-width: 749px) {
+    #aom-hero-{{ section.id }} .m.is-stack { height: auto; min-height: 0; }
+    #aom-hero-{{ section.id }} .m.is-stack::after { display: none; }
+    #aom-hero-{{ section.id }} .m.is-stack .ph { position: relative; inset: auto; aspect-ratio: 4 / 5; }
+    #aom-hero-{{ section.id }} .m.is-stack .ph::after { content: ""; position: absolute; inset: auto 0 0 0; height: 28%; background: linear-gradient(180deg, rgba(18,17,16,0), var(--aom-ink)); }
+    #aom-hero-{{ section.id }} .m.is-stack img { object-position: 50% {{ S.mob_pos }}%; }
+    #aom-hero-{{ section.id }} .m.is-stack .c { position: relative; margin-top: -34px; padding: 0 20px 40px; }
+    #aom-hero-{{ section.id }} .m:not(.is-stack) img { object-position: 50% {{ S.mob_pos }}%; }
+    #aom-hero-{{ section.id }} h1 { font-size: 40px; }
+    #aom-hero-{{ section.id }} p.t { font-size: 15px; }
+    #aom-hero-{{ section.id }} .b { flex-direction: column; margin-top: 22px; }
+    #aom-hero-{{ section.id }} .b .aom-btn { width: 100%; box-sizing: border-box; text-align: center; justify-content: center; }
+  }
+</style>
+<section id="aom-hero-{{ section.id }}">
+  <div class="m{% if S.mob_layout == 'stack' %} is-stack{% endif %}">
+    <div class="ph">
+    {%- if S.image -%}
+      <picture>
+        <source media="(min-width: 750px)" srcset="{{ S.image | image_url: width: 1600 }} 1600w, {{ S.image | image_url: width: 2400 }} 2400w" sizes="100vw">
+        {{ mob | image_url: width: 900 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500, 700, 900, 1200', sizes: '100vw', alt: S.image.alt | default: '' }}
+      </picture>
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag }}
+    {%- endif -%}
+    {%- if S.image -%}{% render 'aom-ai' %}{%- endif -%}
+    </div>
+    <div class="c">
+      {%- if S.kicker != blank -%}<p class="k">{{ S.kicker }}</p>{%- endif -%}
+      <h1>{{ S.title }}</h1>
+      {%- if S.text != blank -%}<p class="t">{{ S.text }}</p>{%- endif -%}
+      <div class="b">
+        {%- if S.btn_1 != blank -%}<a href="{{ S.link_1 }}" class="aom-btn aom-btn--light">{{ S.btn_1 }}</a>{%- endif -%}
+        {%- if S.btn_2 != blank -%}<a href="{{ S.link_2 }}" class="aom-btn aom-btn--ghost">{{ S.btn_2 }}</a>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Portada AOM",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Imagen (ordenador)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Imagen vertical (móvil)" },
+    { "type": "select", "id": "mob_layout", "label": "Diseño en móvil", "options": [ { "value": "stack", "label": "Foto arriba y texto debajo" }, { "value": "overlay", "label": "Texto sobre la foto" } ], "default": "stack" },
+    { "type": "range", "id": "mob_pos", "label": "Encuadre vertical en móvil", "info": "0 % = se ve la parte de arriba de la foto (la cabeza). Súbelo si quieres ver más abajo.", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 15 },
+    { "type": "range", "id": "desk_pos", "label": "Encuadre vertical en ordenador", "info": "0 % = parte de arriba de la foto.", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 25 },
+    { "type": "range", "id": "h_mobile", "label": "Alto en móvil", "min": 60, "max": 100, "step": 5, "unit": "%", "default": 85 },
+    { "type": "range", "id": "h_desktop", "label": "Alto en ordenador", "min": 60, "max": 100, "step": 5, "unit": "%", "default": 90 },
+    { "type": "range", "id": "shade", "label": "Oscurecer abajo", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 60 },
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "Colección Navidad" },
+    { "type": "inline_richtext", "id": "title", "label": "Título", "default": "Joyas que <em>brillan</em> cada día" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Piezas elegantes para llevar del trabajo a la cena. Envío gratis y estuche de regalo." },
+    { "type": "text", "id": "btn_1", "label": "Botón 1", "default": "Descubrir la colección" },
+    { "type": "url", "id": "link_1", "label": "Enlace 1", "default": "/collections/all" },
+    { "type": "text", "id": "btn_2", "label": "Botón 2", "default": "Ideas para regalar" },
+    { "type": "url", "id": "link_2", "label": "Enlace 2" }
+  ],
+  "presets": [ { "name": "Portada AOM" } ]
+}
+{% endschema %}

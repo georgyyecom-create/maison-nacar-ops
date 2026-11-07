@@ -1,0 +1,68 @@
+{
+  "sections": {
+    "main": {
+      "type": "aom-bundle",
+      "settings": {
+        "collection": "pack-pendientes",
+        "count": 3,
+        "pct": 50,
+        "kicker": "Crea tu pack",
+        "title": "Elige <em>3 pendientes</em> y paga la mitad",
+        "text": "Combina como quieras: para ti, para regalar o para tener uno para cada día.",
+        "btn": "Añadir mi pack"
+      }
+    },
+    "promise": {
+      "type": "aom-promise",
+      "settings": {
+        "title": "Comprar aquí es <em>fácil</em>",
+        "bg": "#1C1A17",
+        "fg": "#F4EEE4"
+      },
+      "blocks": {
+        "p1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Envío gratis",
+            "text": "En 3–7 días laborables"
+          }
+        },
+        "p2": {
+          "type": "item",
+          "settings": {
+            "icon": "lock",
+            "title": "Pago seguro",
+            "text": "Tarjeta, PayPal y Bizum"
+          }
+        },
+        "p3": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "title": "30 días",
+            "text": "Para devolver sin explicaciones"
+          }
+        },
+        "p4": {
+          "type": "item",
+          "settings": {
+            "icon": "gift",
+            "title": "Para regalar",
+            "text": "Envíalo directo a quien quieras"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "promise"
+  ]
+}

@@ -1,0 +1,63 @@
+{%- comment -%}
+  Maison Nácar · Cuadrícula de productos
+  En una ficha de producto muestra recomendaciones; en el resto, la colección elegida.
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign use_recs = false
+  if S.recommendations
+    if product or recommendations.performed?
+      assign use_recs = true
+    endif
+  endif
+-%}
+<section class="aom-sec" id="aom-pr-{{ section.id }}"{% if use_recs and product %} data-aom-recs-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ S.limit }}"{% endif %}>
+  <div class="aom-container">
+    <div class="aom-head">
+      {%- if S.kicker != blank -%}<span class="aom-kicker">{{ S.kicker }}</span>{%- endif -%}
+      <h2 class="aom-h2">{{ S.title }}</h2>
+      {%- if S.text != blank -%}<p>{{ S.text }}</p>{%- endif -%}
+    </div>
+    <div class="aom-grid aom-grid--4" data-aom-grid>
+      {%- if use_recs -%}
+        {%- for p in recommendations.products -%}{% render 'aom-card', product: p %}{%- endfor -%}
+      {%- else -%}
+        {%- for p in S.collection.products limit: S.limit -%}
+          {% render 'aom-card', product: p, eager: false %}
+        {%- else -%}
+          {%- for i in (1..4) -%}<div class="aom-card"><div class="aom-card__media">{{ 'product-1' | placeholder_svg_tag: 'aom-card__img' }}</div><div class="aom-card__body"><span class="aom-card__title">Nombre de la joya</span><span class="aom-card__price">24,99 €</span></div></div>{%- endfor -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    {%- if S.btn != blank and use_recs == false -%}
+      <p style="text-align:center;margin:36px 0 0"><a href="{{ S.collection.url | default: '/collections/all' }}" class="aom-btn aom-btn--ghost">{{ S.btn }}</a></p>
+    {%- endif -%}
+  </div>
+</section>
+{%- if use_recs and product -%}
+<script>
+  (function () {
+    var s = document.getElementById('aom-pr-{{ section.id }}'); if (!s || s.querySelector('.aom-card')) return;
+    fetch(s.getAttribute('data-aom-recs-url')).then(function (r) { return r.text(); }).then(function (t) {
+      var d = document.createElement('div'); d.innerHTML = t;
+      var g = d.querySelector('[data-aom-grid]');
+      if (g && g.children.length) s.querySelector('[data-aom-grid]').innerHTML = g.innerHTML; else s.remove();
+    }).catch(function () { s.remove(); });
+  })();
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Productos AOM",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "Lo más elegido" },
+    { "type": "inline_richtext", "id": "title", "label": "Título", "default": "Las <em>favoritas</em> de nuestras clientas" },
+    { "type": "text", "id": "text", "label": "Texto" },
+    { "type": "collection", "id": "collection", "label": "Colección" },
+    { "type": "range", "id": "limit", "label": "Productos", "min": 2, "max": 12, "step": 1, "default": 8 },
+    { "type": "text", "id": "btn", "label": "Botón", "default": "Ver todas las joyas" },
+    { "type": "checkbox", "id": "recommendations", "label": "En la ficha de producto, mostrar recomendaciones", "default": false }
+  ],
+  "presets": [ { "name": "Productos AOM" } ]
+}
+{% endschema %}

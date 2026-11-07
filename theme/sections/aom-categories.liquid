@@ -1,0 +1,47 @@
+{%- comment -%} Maison Nácar · Comprar por categoría {%- endcomment -%}
+<style>
+  #aom-cat-{{ section.id }} .row { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 16px; margin: 0 -16px; }
+  #aom-cat-{{ section.id }} .row::-webkit-scrollbar { display: none; }
+  #aom-cat-{{ section.id }} a { flex: 0 0 64%; scroll-snap-align: start; position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; background: var(--aom-cream); color: #fff; text-decoration: none; }
+  @media (min-width: 750px) { #aom-cat-{{ section.id }} .row { display: grid; grid-template-columns: repeat({{ section.blocks.size | at_least: 1 }}, 1fr); gap: 16px; margin: 0; padding: 0; overflow: visible; } #aom-cat-{{ section.id }} a { flex: none; } }
+  #aom-cat-{{ section.id }} img, #aom-cat-{{ section.id }} svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--aom-ease); }
+  #aom-cat-{{ section.id }} a:hover img { transform: scale(1.04); }
+  #aom-cat-{{ section.id }} a::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(28,26,23,.55)); }
+  #aom-cat-{{ section.id }} a > span { position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 18px; display: flex; justify-content: space-between; align-items: end; font-family: var(--aom-serif); font-size: 26px; }
+  #aom-cat-{{ section.id }} a > span small { font-family: var(--font-body-family); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
+</style>
+<section id="aom-cat-{{ section.id }}" class="aom-sec">
+  <div class="aom-container">
+    <div class="aom-head">
+      {%- if section.settings.kicker != blank -%}<span class="aom-kicker">{{ section.settings.kicker }}</span>{%- endif -%}
+      <h2 class="aom-h2">{{ section.settings.title }}</h2>
+    </div>
+    <div class="row">
+      {%- for block in section.blocks -%}
+        {%- assign c = block.settings.collection -%}
+        {%- assign im = block.settings.image | default: c.featured_image -%}
+        <a href="{{ c.url | default: '/collections/all' }}" {{ block.shopify_attributes }}>
+          {%- if im -%}{{ im | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400, 600, 800', sizes: '(min-width: 750px) 25vw, 64vw', alt: '' }}{%- else -%}{{ 'collection-1' | placeholder_svg_tag }}{%- endif -%}
+          <span>{{ block.settings.label | default: c.title }}<small>Ver →</small></span>{%- if block.settings.image -%}{% render 'aom-ai' %}{%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Categorías AOM",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "Compra por categoría" },
+    { "type": "inline_richtext", "id": "title", "label": "Título", "default": "Encuentra <em>tu pieza</em>" }
+  ],
+  "blocks": [
+    { "type": "cat", "name": "Categoría", "limit": 6, "settings": [
+      { "type": "collection", "id": "collection", "label": "Colección" },
+      { "type": "image_picker", "id": "image", "label": "Imagen" },
+      { "type": "text", "id": "label", "label": "Nombre" }
+    ] }
+  ],
+  "presets": [ { "name": "Categorías AOM", "blocks": [ { "type": "cat" }, { "type": "cat" }, { "type": "cat" }, { "type": "cat" } ] } ]
+}
+{% endschema %}

@@ -1,0 +1,297 @@
+{
+  "sections": {
+    "main": {
+      "type": "aom-product",
+      "blocks": {
+        "trust1": {
+          "type": "trust",
+          "settings": {
+            "icon": "return",
+            "title": "30 días para devolver",
+            "text": "Sin explicaciones"
+          }
+        },
+        "trust2": {
+          "type": "trust",
+          "settings": {
+            "icon": "lock",
+            "title": "Pago seguro",
+            "text": "Tarjeta, PayPal y Bizum"
+          }
+        },
+        "trust3": {
+          "type": "trust",
+          "settings": {
+            "icon": "shield",
+            "title": "Garantía de 3 años",
+            "text": "En todas las piezas"
+          }
+        },
+        "trust4": {
+          "type": "trust",
+          "settings": {
+            "icon": "star",
+            "title": "Te atendemos por WhatsApp",
+            "text": "De 10 a 20 h"
+          }
+        }
+      },
+      "block_order": [
+        "trust1",
+        "trust2",
+        "trust3",
+        "trust4"
+      ],
+      "settings": {
+        "addons_title": "Complétalo con",
+        "addons_badge": "Cuenta para tu pack",
+        "addons_sub": "Combina con esta pieza",
+        "promo_text": "",
+        "promo_cta": "Ver",
+        "promo_link": "",
+        "eyebrow": "Maison Nácar",
+        "set_collection": "complementos",
+        "set_count": 3,
+        "set_pct": 35,
+        "set_title": "Elige 3, paga 2",
+        "set_badge": "3x2",
+        "set_text": "Elige [n] piezas más y la de menor precio te sale gratis.",
+        "set_btn": "Añadir set",
+        "ship_text": "Envío gratis en estuche de regalo. Recíbelo entre el",
+        "ship_days": 3,
+        "ship_days_max": 7,
+        "lead": "",
+        "acc_2_text": "<p>Envío gratis a la España peninsular y Baleares en 3–7 días laborables, con número de seguimiento. Cada pieza llega en su estuche de regalo. Tienes 30 días desde la entrega para devolverla. Garantía legal de 3 años.</p>",
+        "acc_3_text": "<p>Cada pieza llega en su estuche, lista para regalar. Si es un regalo, pon la dirección de la otra persona al pagar.</p>",
+        "set_mode": "3x2",
+        "stock_ok_text": "En stock · listo para enviar"
+      }
+    },
+    "strip": {
+      "type": "aom-marquee",
+      "settings": {
+        "bg": "#121110",
+        "fg": "#F3EDE3",
+        "speed": 40
+      },
+      "blocks": {
+        "t0": {
+          "type": "t",
+          "settings": {
+            "text": "Envío gratis"
+          }
+        },
+        "t1": {
+          "type": "t",
+          "settings": {
+            "text": "Elige 3, paga 2"
+          }
+        },
+        "t2": {
+          "type": "t",
+          "settings": {
+            "text": "3x2 en toda la tienda"
+          }
+        },
+        "t3": {
+          "type": "t",
+          "settings": {
+            "text": "30 días para devolver"
+          }
+        }
+      },
+      "block_order": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    "reviews": {
+      "type": "aom-reviews",
+      "settings": {
+        "show": true,
+        "kicker": "Opiniones",
+        "title": "Lo que dicen <em>de esta pieza</em>",
+        "limit": 12,
+        "only_featured": true,
+        "bg": "#f4eee4",
+        "summary_rating": 0,
+        "summary_count": 0,
+        "note": "Mostramos opiniones de compradoras de este modelo. En cada reseña indicamos su origen."
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "gift": {
+      "type": "aom-editorial",
+      "settings": {
+        "image_right": true,
+        "bg": "#fcfaf6",
+        "kicker": "Para regalar",
+        "title": "Envíalo <em>directo</em> a quien quieras",
+        "text": "Pon su dirección al pagar: le llega en su estuche, listo para regalar.",
+        "points": "3x2: la tercera pieza, gratis\nLlega en estuche de regalo\n30 días para cambiarlo",
+        "btn": "",
+        "link": "",
+        "image": "shopify://shop_images/Gemini_Generated_Image_tecfwmtecfwmtecf.jpg"
+      }
+    },
+    "faq": {
+      "type": "collapsible-content",
+      "settings": {
+        "caption": "",
+        "heading": "Preguntas frecuentes",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "layout": "none",
+        "container_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 48,
+        "padding_bottom": 48
+      },
+      "blocks": {
+        "q1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Cuándo me llega?",
+            "icon": "truck",
+            "row_content": "<p>Preparamos tu pedido en 1–2 días y lo recibes en 3–7 días laborables, con número de seguimiento. Cada pieza llega en su estuche de regalo.</p>",
+            "page": ""
+          }
+        },
+        "q2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿De qué material es?",
+            "icon": "heart",
+            "row_content": "<p>Lo indicamos en la descripción de cada pieza. Si tienes alergia a algún metal, escríbenos antes de comprar y te lo confirmamos.</p>",
+            "page": ""
+          }
+        },
+        "q3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Cómo puedo pagar?",
+            "icon": "lock",
+            "row_content": "<p>Con tarjeta, Apple Pay, Google Pay, PayPal o Bizum. El pago es 100 % seguro.</p>",
+            "page": ""
+          }
+        },
+        "q4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Cómo funcionan los packs?",
+            "icon": "price_tag",
+            "row_content": "<p>Elige 3 piezas cualesquiera y la de menor precio te sale gratis: es nuestro 3x2. Puedes combinar collares, pulseras, pendientes y anillos como quieras, y el descuento se aplica solo en la cesta. Con 6 piezas, 2 gratis.</p>",
+            "page": ""
+          }
+        },
+        "q5": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "¿Y si no me gusta?",
+            "icon": "return",
+            "row_content": "<p>Tienes 30 días desde que lo recibes para devolverlo. Escríbenos y te explicamos cómo.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ]
+    },
+    "recs": {
+      "type": "aom-products",
+      "settings": {
+        "kicker": "Completa el look",
+        "title": "También te <em>puede gustar</em>",
+        "text": "",
+        "collection": "all",
+        "limit": 4,
+        "btn": "",
+        "recommendations": true
+      }
+    },
+    "compare": {
+      "type": "aom-compare",
+      "settings": {
+        "bg": "#FBF8F3",
+        "kicker": "La diferencia",
+        "title": "La de siempre <em>vs</em> la tuya",
+        "text": "La elegancia de una joya cara, sin las sorpresas de la bisutería barata.",
+        "label_bad": "Bisutería común",
+        "label_good": "Maison Nácar",
+        "note": "Comparativa con bisutería genérica de aleación. El material está indicado en cada pieza.",
+        "btn": "",
+        "link": "/collections/all",
+        "img_bad": "shopify://shop_images/Gemini_Generated_Image_awyeabawyeabawye.jpg",
+        "img_good": "shopify://shop_images/Gemini_Generated_Image_iy62kziy62kziy62.jpg"
+      },
+      "blocks": {
+        "r0": {
+          "type": "row",
+          "settings": {
+            "row": "No deja la piel verde",
+            "bad": "no",
+            "bad_text": "",
+            "good": "yes",
+            "good_text": ""
+          }
+        },
+        "r1": {
+          "type": "row",
+          "settings": {
+            "row": "Aguanta el agua y el perfume",
+            "bad": "no",
+            "bad_text": "",
+            "good": "yes",
+            "good_text": ""
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "row": "Brillo que dura",
+            "bad": "no",
+            "bad_text": "",
+            "good": "yes",
+            "good_text": ""
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "row": "Llega en estuche de regalo",
+            "bad": "no",
+            "bad_text": "",
+            "good": "yes",
+            "good_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "r0",
+        "r1",
+        "r2",
+        "r3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "strip",
+    "compare",
+    "reviews",
+    "gift",
+    "faq",
+    "recs"
+  ]
+}

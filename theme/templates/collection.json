@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "main": {
+      "type": "aom-collection",
+      "settings": {
+        "per_page": 24
+      }
+    },
+    "promise": {
+      "type": "aom-promise",
+      "settings": {
+        "title": "Comprar aquí es <em>fácil</em>",
+        "bg": "#1C1A17",
+        "fg": "#F4EEE4"
+      },
+      "blocks": {
+        "p1": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Envío gratis",
+            "text": "En 3–7 días laborables"
+          }
+        },
+        "p2": {
+          "type": "item",
+          "settings": {
+            "icon": "lock",
+            "title": "Pago seguro",
+            "text": "Tarjeta, PayPal y Bizum"
+          }
+        },
+        "p3": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "title": "30 días",
+            "text": "Para devolver sin explicaciones"
+          }
+        },
+        "p4": {
+          "type": "item",
+          "settings": {
+            "icon": "chat",
+            "title": "Te atendemos",
+            "text": "Por email y WhatsApp"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "promise"
+  ]
+}

@@ -1,0 +1,756 @@
+{%- comment -%}
+  Maison Nácar · Ficha de producto
+  · Packs (1 / 2 / 3 unidades): el precio que se muestra sale del % de cada bloque «Pack».
+    Ese % tiene que coincidir con el descuento automático configurado en Shopify (Descuentos).
+  · Caja regalo opcional: elige un producto en «Caja regalo».
+  · Valoraciones: solo se muestran si el producto tiene valoraciones reales (metacampo reviews.rating,
+    lo rellenan apps como Judge.me).
+{%- endcomment -%}
+
+{%- liquid
+  assign S = section.settings
+  assign sid = section.id
+  assign current = product.selected_or_first_available_variant
+  assign packs = section.blocks | where: 'type', 'pack'
+  assign trusts = section.blocks | where: 'type', 'trust'
+  assign upsell = S.upsell_product
+  assign up_v = upsell.selected_or_first_available_variant
+  assign addons = product.metafields.aom.addons.value | default: S.addons
+-%}
+
+<style>
+  #aom-{{ sid }} { --ink: #1C1A17; --muted: rgba(28,26,23,.62); --line: rgba(28,26,23,.12); --gold: #A8844F; --cream: #F4EEE4; --ok: #2F6B4F; color: var(--ink); }
+  #aom-{{ sid }} .aom-wrap { max-width: 1200px; margin: 0 auto; padding: 16px 16px 40px; display: grid; gap: 28px; }
+  @media (min-width: 990px) { #aom-{{ sid }} .aom-wrap { grid-template-columns: 1.1fr 1fr; gap: 56px; padding: 32px 32px 64px; align-items: start; } #aom-{{ sid }} .aom-gal { position: sticky; top: 90px; } }
+
+  /* Galería */
+  #aom-{{ sid }} .aom-gal__main { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 4px; background: var(--cream); }
+  #aom-{{ sid }} .aom-gal__main::-webkit-scrollbar { display: none; }
+  #aom-{{ sid }} .aom-gal__slide { flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: 1; }
+  #aom-{{ sid }} .aom-gal__slide img, #aom-{{ sid }} .aom-gal__slide video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #aom-{{ sid }} .aom-gal__thumbs { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
+  #aom-{{ sid }} .aom-gal__thumbs button { flex: 0 0 64px; height: 64px; padding: 0; border: 1px solid transparent; border-radius: 3px; background: var(--cream); cursor: pointer; overflow: hidden; opacity: .6; }
+  #aom-{{ sid }} .aom-gal__thumbs button.is-on { border-color: var(--ink); opacity: 1; }
+  #aom-{{ sid }} .aom-gal__thumbs img { width: 100%; height: 100%; object-fit: cover; }
+  #aom-{{ sid }} .aom-gal__dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+  #aom-{{ sid }} .aom-gal__dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }
+  #aom-{{ sid }} .aom-gal__dots span.is-on { background: var(--ink); }
+  @media (min-width: 750px) { #aom-{{ sid }} .aom-gal__dots { display: none; } }
+  @media (max-width: 749px) { #aom-{{ sid }} .aom-gal__thumbs { display: none; } #aom-{{ sid }} .aom-wrap { padding-top: 0; } #aom-{{ sid }} .aom-gal { margin: 0 -16px; } #aom-{{ sid }} .aom-gal__main { border-radius: 0; } }
+
+  /* Info */
+  #aom-{{ sid }} .aom-eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin: 0 0 8px; }
+  #aom-{{ sid }} .aom-title { font-family: var(--font-heading-family); font-weight: var(--font-heading-weight); font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0; letter-spacing: 0; }
+  #aom-{{ sid }} .aom-rating { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; color: var(--muted); }
+  #aom-{{ sid }} .aom-rating { text-decoration: none; color: inherit; }
+  #aom-{{ sid }} .aom-rating__more { font-size: 12px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  #aom-{{ sid }} .aom-price { display: flex; align-items: baseline; gap: 10px; margin-top: 14px; }
+  #aom-{{ sid }} .aom-price__now { font-size: 24px; font-weight: 600; }
+  #aom-{{ sid }} .aom-price__was { font-size: 16px; color: var(--muted); text-decoration: line-through; }
+  #aom-{{ sid }} .aom-price__tag { font-size: 11px; font-weight: 600; letter-spacing: .06em; color: #fff; background: var(--ink); padding: 3px 8px; border-radius: 2px; }
+  #aom-{{ sid }} .aom-tax { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  #aom-{{ sid }} .aom-price__now.is-sale { color: #8E2F2A; }
+  #aom-{{ sid }} .aom-price__save { font-size: 11px; font-weight: 600; letter-spacing: .06em; color: #fff; background: #8E2F2A; padding: 4px 8px; }
+  #aom-{{ sid }} .aom-low { margin-top: 12px; }
+  /* Oferta 3x2 */
+  #aom-{{ sid }} .aom-offer { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; margin-top: 16px; padding: 14px 16px; background: #1C1A17; color: #F4EEE4; text-decoration: none; border-radius: 3px; position: relative; overflow: hidden; }
+  #aom-{{ sid }} .aom-offer::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(231,211,174,.16) 50%, transparent 65%); transform: translateX(-100%); animation: aomShine 4.5s ease-in-out 1.2s infinite; pointer-events: none; }
+  @keyframes aomShine { 0% { transform: translateX(-100%); } 35%, 100% { transform: translateX(100%); } }
+  @media (prefers-reduced-motion: reduce) { #aom-{{ sid }} .aom-offer::after { animation: none; display: none; } }
+  #aom-{{ sid }} .aom-offer__seal { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1px solid #C9A86A; color: #E7D3AE; font-family: var(--font-heading-family); font-size: 19px; letter-spacing: .02em; }
+  #aom-{{ sid }} .aom-offer__t b { display: block; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #E7D3AE; }
+  #aom-{{ sid }} .aom-offer__t span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.4; }
+  #aom-{{ sid }} .aom-offer__t em { font-style: normal; color: #E7D3AE; font-weight: 600; }
+  #aom-{{ sid }} .aom-offer__cta { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #E7D3AE; white-space: nowrap; }
+  @media (max-width: 420px) { #aom-{{ sid }} .aom-offer { grid-template-columns: auto 1fr; } #aom-{{ sid }} .aom-offer__cta { grid-column: 2; } }
+  /* Calidad y garantías rápidas */
+  #aom-{{ sid }} .aom-perks { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); background: #fff; }
+  #aom-{{ sid }} .aom-perks li { display: flex; gap: 10px; align-items: center; padding: 11px 12px; font-size: 13px; line-height: 1.3; min-width: 0; }
+  #aom-{{ sid }} .aom-perks li:nth-child(odd) { border-right: 1px solid var(--line); }
+  #aom-{{ sid }} .aom-perks li:nth-child(n+3) { border-top: 1px solid var(--line); }
+  #aom-{{ sid }} .aom-perks svg { flex: none; width: 22px; height: 22px; color: var(--gold); }
+  #aom-{{ sid }} .aom-perks b { display: block; font-weight: 600; }
+  #aom-{{ sid }} .aom-perks small { display: block; font-size: 11.5px; color: var(--muted); }
+  /* Set en la misma ficha */
+  #aom-{{ sid }} .aom-wrap > * { min-width: 0; }
+  #aom-{{ sid }} .aom-set { min-width: 0; max-width: 100%; margin-top: 18px; border: 1px solid var(--ink); background: #fff; }
+  #aom-{{ sid }} .aom-set__h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 14px 14px 4px; }
+  #aom-{{ sid }} .aom-set__h b { font-family: var(--aom-serif, Georgia, serif); font-weight: 500; font-size: 20px; }
+  #aom-{{ sid }} .aom-set__h span { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: #8E2F2A; padding: 3px 7px; white-space: nowrap; }
+  #aom-{{ sid }} .aom-set__p { margin: 0; padding: 0 14px 10px; font-size: 13px; color: var(--muted); }
+  #aom-{{ sid }} .aom-set__row { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 14px 12px; }
+  #aom-{{ sid }} .aom-set__row::-webkit-scrollbar { display: none; }
+  #aom-{{ sid }} .aom-set__it { position: relative; flex: 0 0 104px; scroll-snap-align: start; border: 1px solid var(--line); background: #fff; padding: 0; cursor: pointer; font: inherit; color: inherit; text-align: left; }
+  #aom-{{ sid }} .aom-set__it img { width: 100%; height: 104px; object-fit: cover; display: block; background: var(--cream); }
+  #aom-{{ sid }} .aom-set__it span { display: block; padding: 6px 7px 8px; font-size: 11.5px; line-height: 1.25; height: 44px; overflow: hidden; }
+  #aom-{{ sid }} .aom-set__it i { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 1px solid var(--ink); font-style: normal; font-size: 15px; line-height: 22px; text-align: center; }
+  #aom-{{ sid }} .aom-set__it.is-on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+  #aom-{{ sid }} .aom-set__it.is-on i { background: var(--ink); color: #fff; }
+  #aom-{{ sid }} .aom-set__it[disabled] { opacity: .45; cursor: default; }
+  #aom-{{ sid }} .aom-set__ft { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px 14px; border-top: 1px solid var(--line); background: #FBF8F3; }
+  #aom-{{ sid }} .aom-set__ft p { margin: 0; font-size: 13px; color: var(--muted); }
+  #aom-{{ sid }} .aom-set__ft p b { color: var(--ink); font-size: 17px; }
+  #aom-{{ sid }} .aom-set__ft p s { margin-left: 4px; }
+  #aom-{{ sid }} .aom-set__ft .aom-btn { width: auto; margin: 0; min-height: 46px; padding: 0 16px; font-size: 11.5px; }
+  #aom-{{ sid }} .aom-lead { margin: 16px 0 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+  #aom-{{ sid }} .aom-label { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin: 22px 0 10px; display: flex; justify-content: space-between; }
+  #aom-{{ sid }} .aom-label span { text-transform: none; letter-spacing: 0; color: var(--muted); }
+  #aom-{{ sid }} .aom-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  #aom-{{ sid }} .aom-opts button { min-height: 42px; padding: 0 16px; border: 1px solid var(--line); background: #fff; border-radius: 2px; font: inherit; font-size: 14px; color: inherit; cursor: pointer; }
+  #aom-{{ sid }} .aom-opts button.is-on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+  #aom-{{ sid }} .aom-opts button[disabled], #aom-{{ sid }} .aom-opts button.is-oos { opacity: .4; text-decoration: line-through; }
+  #aom-{{ sid }} .aom-opts--sw { gap: 10px; }
+  #aom-{{ sid }} .aom-opts .aom-sw { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 0 16px 0 7px; border-radius: 30px; }
+  #aom-{{ sid }} .aom-sw__c { width: 28px; height: 28px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), inset -3px -4px 8px rgba(0,0,0,.12), inset 3px 3px 6px rgba(255,255,255,.55); }
+  #aom-{{ sid }} .aom-sw__c--gold { background: radial-gradient(circle at 32% 28%, #FFF3C9 0%, #E9C977 32%, #C79A3E 62%, #8F6A25 100%); }
+  #aom-{{ sid }} .aom-sw__c--silver { background: radial-gradient(circle at 32% 28%, #FFFFFF 0%, #E3E3E3 32%, #B3B3B3 62%, #7D7D7D 100%); }
+  #aom-{{ sid }} .aom-sw__c--rose { background: radial-gradient(circle at 32% 28%, #FFE9DF 0%, #EDBBA5 32%, #C98D73 62%, #96604B 100%); }
+  #aom-{{ sid }} .aom-sw__c--neutral { background: var(--cream); }
+  #aom-{{ sid }} .aom-opts .aom-sw.is-on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+
+  /* Packs */
+  #aom-{{ sid }} .aom-packs { display: grid; gap: 10px; }
+  #aom-{{ sid }} .aom-pack { position: relative; display: grid; grid-template-columns: 20px 1fr auto; gap: 12px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 4px; background: #fff; cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
+  #aom-{{ sid }} .aom-pack.is-on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); background: #FFFDF9; }
+  #aom-{{ sid }} .aom-pack__dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(28,26,23,.35); position: relative; }
+  #aom-{{ sid }} .aom-pack.is-on .aom-pack__dot::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--ink); }
+  #aom-{{ sid }} .aom-pack__t { display: block; font-size: 15px; font-weight: 600; }
+  #aom-{{ sid }} .aom-pack__d { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+  #aom-{{ sid }} .aom-pack__p { text-align: right; white-space: nowrap; }
+  #aom-{{ sid }} .aom-pack__p b { display: block; font-size: 16px; }
+  #aom-{{ sid }} .aom-pack__p s { font-size: 12px; color: var(--muted); }
+  #aom-{{ sid }} .aom-pack__badge { position: absolute; top: -9px; right: 12px; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #fff; background: var(--gold); padding: 3px 8px; border-radius: 2px; }
+  #aom-{{ sid }} .aom-pack__save { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 600; color: var(--ok); }
+
+  /* Complementos (venta adicional) */
+  #aom-{{ sid }} .aom-add { margin-top: 18px; border: 1px solid var(--line); border-radius: 4px; background: #fff; }
+  #aom-{{ sid }} .aom-add__h { margin: 0; padding: 12px 14px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; }
+  #aom-{{ sid }} .aom-add__h span { text-transform: none; letter-spacing: 0; color: var(--gold); font-weight: 600; }
+  #aom-{{ sid }} .aom-add label { display: grid; grid-template-columns: 22px 54px 1fr auto; gap: 12px; align-items: center; padding: 10px 14px; cursor: pointer; }
+  #aom-{{ sid }} .aom-add label + label { border-top: 1px solid var(--line); }
+  #aom-{{ sid }} .aom-add input { width: 18px; height: 18px; accent-color: var(--ink); margin: 0; }
+  #aom-{{ sid }} .aom-add img { width: 54px; height: 54px; object-fit: cover; border-radius: 3px; background: var(--cream); }
+  #aom-{{ sid }} .aom-add b { display: block; font-size: 14px; font-weight: 500; line-height: 1.3; }
+  #aom-{{ sid }} .aom-add small { font-size: 12px; color: var(--muted); }
+  #aom-{{ sid }} .aom-add__p { font-size: 14px; font-weight: 600; white-space: nowrap; }
+  #aom-{{ sid }} .aom-promo { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding: 12px 14px; background: var(--ink); color: #fff; border-radius: 4px; text-decoration: none; font-size: 14px; }
+  #aom-{{ sid }} .aom-promo b { color: #E7D3AE; font-weight: 600; }
+  #aom-{{ sid }} .aom-promo span:last-child { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+
+  /* Caja regalo */
+  #aom-{{ sid }} .aom-gift { display: grid; grid-template-columns: 22px 56px 1fr auto; gap: 12px; align-items: center; margin-top: 12px; padding: 12px; border: 1px dashed rgba(168,132,79,.6); border-radius: 4px; background: #FFFCF6; cursor: pointer; }
+  #aom-{{ sid }} .aom-gift input { width: 18px; height: 18px; accent-color: var(--ink); margin: 0; }
+  #aom-{{ sid }} .aom-gift img { width: 56px; height: 56px; object-fit: cover; border-radius: 3px; }
+  #aom-{{ sid }} .aom-gift b { display: block; font-size: 14px; }
+  #aom-{{ sid }} .aom-gift span { font-size: 12px; color: var(--muted); }
+
+  /* Entrega y botones */
+  #aom-{{ sid }} .aom-ship { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; padding: 12px 14px; background: var(--cream); border-radius: 4px; font-size: 14px; line-height: 1.45; }
+  #aom-{{ sid }} .aom-ship svg { flex: none; width: 20px; height: 20px; margin-top: 1px; }
+  #aom-{{ sid }} .aom-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 54px; margin-top: 12px; border: 1px solid var(--ink); border-radius: 2px; font: inherit; font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+  #aom-{{ sid }} .aom-btn--buy { background: var(--ink); color: #fff; }
+  #aom-{{ sid }} .aom-btn--cart { background: transparent; color: var(--ink); }
+  #aom-{{ sid }} .aom-btn[disabled] { opacity: .5; cursor: default; }
+  #aom-{{ sid }} .aom-pay { margin-top: 14px; text-align: center; }
+  #aom-{{ sid }} .aom-pay p { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+  #aom-{{ sid }} .aom-pay__icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+  #aom-{{ sid }} .aom-pay__icons svg { width: 38px; height: 24px; }
+  #aom-{{ sid }} .aom-cod { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--ok); }
+
+  /* Garantías */
+  #aom-{{ sid }} .aom-trust { list-style: none; padding: 0; margin: 22px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+  #aom-{{ sid }} .aom-trust li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.4; }
+  #aom-{{ sid }} .aom-trust svg { flex: none; width: 22px; height: 22px; color: var(--gold); }
+  #aom-{{ sid }} .aom-trust b { display: block; font-size: 13px; }
+  #aom-{{ sid }} .aom-trust span { color: var(--muted); }
+
+  /* Acordeones */
+  #aom-{{ sid }} .aom-acc { margin-top: 26px; border-top: 1px solid var(--line); }
+  #aom-{{ sid }} .aom-acc details { border-bottom: 1px solid var(--line); }
+  #aom-{{ sid }} .aom-acc summary { list-style: none; display: flex; justify-content: space-between; align-items: center; padding: 16px 0; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  #aom-{{ sid }} .aom-acc summary::-webkit-details-marker { display: none; }
+  #aom-{{ sid }} .aom-acc summary::after { content: "+"; font-size: 20px; font-weight: 300; }
+  #aom-{{ sid }} .aom-acc details[open] summary::after { content: "–"; }
+  #aom-{{ sid }} .aom-acc .rte { padding: 0 0 18px; font-size: 14px; line-height: 1.65; color: var(--muted); }
+
+  /* Barra fija móvil */
+  #aom-{{ sid }} .aom-bar { position: fixed; z-index: 30; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 12px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--line); transform: translateY(110%); transition: transform .25s ease; }
+  #aom-{{ sid }} .aom-bar.is-on { transform: none; }
+  #aom-{{ sid }} .aom-bar__t { flex: 1; min-width: 0; font-size: 13px; line-height: 1.3; }
+  #aom-{{ sid }} .aom-bar__t b { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #aom-{{ sid }} .aom-bar .aom-btn { width: auto; margin: 0; min-height: 46px; padding: 0 20px; font-size: 12px; }
+  @media (min-width: 990px) { #aom-{{ sid }} .aom-bar { display: none; } }
+  @media (prefers-reduced-motion: reduce) { #aom-{{ sid }} .aom-bar { transition: none; } }
+</style>
+
+<div id="aom-{{ sid }}" data-aom>
+  <div class="aom-wrap">
+
+    {%- comment -%} Galería {%- endcomment -%}
+    {%- liquid
+      comment
+        Orden de la galería: si una foto lleva «#portada» en su texto alternativo, la ficha empieza por ella.
+        La tarjeta de colección sigue usando la foto principal del producto (normalmente el fondo blanco).
+      endcomment
+      assign gfirst = ''
+      assign grest = ''
+      for m in product.media
+        assign malt = m.alt | downcase
+        if malt contains '#portada' and gfirst == ''
+          assign gfirst = forloop.index0 | append: ''
+        else
+          assign grest = grest | append: forloop.index0 | append: ','
+        endif
+      endfor
+      if gfirst != ''
+        assign grest = gfirst | append: ',' | append: grest
+      endif
+      assign gorder = grest | split: ','
+      assign pack_id = product.featured_media.id
+    -%}
+    <div class="aom-gal">
+      <div class="aom-gal__main" data-aom-main>
+        {%- for gi in gorder -%}
+          {%- assign gn = gi | plus: 0 -%}
+          {%- assign media = product.media[gn] -%}
+          <div class="aom-gal__slide{% if media.id == pack_id %} is-pack{% endif %}" data-media-id="{{ media.id }}">
+            {%- case media.media_type -%}
+              {%- when 'video' -%}
+                {{ media | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, image_size: '1200x' }}
+              {%- when 'external_video' -%}
+                {{ media | external_video_tag }}
+              {%- else -%}
+                {%- liquid
+                  assign ld = 'lazy'
+                  if forloop.first
+                    assign ld = 'eager'
+                  endif
+                  assign alt = media.alt | remove: '#portada' | remove: '#PORTADA' | strip | default: product.title
+                -%}
+                {{ media.preview_image | image_url: width: 1200 | image_tag: loading: ld, widths: '400, 600, 800, 1000, 1200', sizes: '(min-width: 990px) 55vw, 100vw', alt: alt }}
+            {%- endcase -%}
+          </div>
+        {%- else -%}
+          <div class="aom-gal__slide">{{ 'product-1' | placeholder_svg_tag }}</div>
+        {%- endfor -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="aom-gal__thumbs">
+          {%- for gi in gorder -%}
+            {%- assign gn = gi | plus: 0 -%}
+            {%- assign media = product.media[gn] -%}
+            <button type="button" data-aom-thumb="{{ forloop.index0 }}" aria-label="Imagen {{ forloop.index }}"{% if forloop.first %} class="is-on"{% endif %}>
+              {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endfor -%}
+        </div>
+        <div class="aom-gal__dots" aria-hidden="true">
+          {%- for gi in gorder -%}<span{% if forloop.first %} class="is-on"{% endif %}></span>{%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Información y compra {%- endcomment -%}
+    <div class="aom-info">
+      {%- if S.eyebrow != blank -%}<p class="aom-eyebrow">{{ S.eyebrow }}</p>{%- endif -%}
+      <h1 class="aom-title">{{ product.title }}</h1>
+
+      {%- liquid
+        assign rating = product.metafields.aom.rating.value.rating | default: product.metafields.reviews.rating.value.rating
+        assign rating_count = product.metafields.aom.rating_count.value | default: product.metafields.reviews.rating_count.value | default: 0
+      -%}
+      {%- if rating != blank and rating_count > 0 -%}
+        <a href="#resenas" class="aom-rating">{% render 'aom-stars', rating: rating, count: rating_count, size: 14 %}<span class="aom-rating__more">Ver opiniones</span></a>
+      {%- endif -%}
+
+      <div class="aom-price">
+        <span class="aom-price__now{% if current.compare_at_price > current.price %} is-sale{% endif %}" data-aom-price>{{ current.price | money }}</span>
+        <s class="aom-price__was" data-aom-was{% unless current.compare_at_price > current.price %} hidden{% endunless %}>{{ current.compare_at_price | money }}</s>
+        <span class="aom-price__save" data-aom-psave hidden></span>
+      </div>
+      <p class="aom-tax">IVA incluido</p>
+
+      {%- if S.offer_show -%}
+        {%- liquid
+          assign p2 = current.price | times: 2 | money
+          assign p1 = current.price | money
+          assign offer_link = S.offer_link | default: '#aom-set'
+          if offer_link == '#aom-set'
+            assign set_ok = false
+            if S.set_collection != blank and S.set_collection.products_count > 1
+              assign set_ok = true
+            endif
+            unless set_ok
+              assign offer_link = routes.all_products_collection_url
+            endunless
+          endif
+        -%}
+        <a class="aom-offer" href="{{ offer_link }}">
+          <span class="aom-offer__seal" aria-hidden="true">{{ S.offer_seal }}</span>
+          <span class="aom-offer__t"><b>{{ S.offer_title }}</b><span>{{ S.offer_text | replace: '[p2]', p2 | replace: '[p]', p1 | replace: '[d]', '<em>' | replace: '[/d]', '</em>' }}</span></span>
+          {%- if S.offer_cta != blank -%}<span class="aom-offer__cta">{{ S.offer_cta }} →</span>{%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- if S.perks_show -%}
+        {%- liquid
+          assign metal_t = S.perk_gold_t
+          assign metal_s = S.perk_gold_s
+          assign ck = current.title | downcase
+          if ck contains 'silver' or ck contains 'plat' or ck contains 'white'
+            assign metal_t = S.perk_silver_t
+            assign metal_s = S.perk_silver_s
+          endif
+        -%}
+        <ul class="aom-perks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3h12l3 5-9 13L3 8z"/><path d="M3 8h18M9 3l3 18 3-18"/></svg><span><b data-aom-metal-t data-gold="{{ S.perk_gold_t | escape }}" data-silver="{{ S.perk_silver_t | escape }}">{{ metal_t }}</b><small data-aom-metal-s data-gold="{{ S.perk_gold_s | escape }}" data-silver="{{ S.perk_silver_s | escape }}">{{ metal_s }}</small></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><span><b>{{ S.perk_2_t }}</b><small>{{ S.perk_2_s }}</small></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg><span><b>{{ S.perk_3_t }}</b><small>{{ S.perk_3_s }}</small></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="8" width="18" height="4"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 4.5 9 8 12 8zm0 0s1.5-5 4-3.5S15 8 12 8z"/></svg><span><b>{{ S.perk_4_t }}</b><small>{{ S.perk_4_s }}</small></span></li>
+        </ul>
+      {%- endif -%}
+
+      <p class="aom-low" data-aom-low hidden><span class="aom-low__dot"></span><span data-aom-low-t></span></p>
+
+      {%- if S.lead != blank -%}<p class="aom-lead">{{ S.lead }}</p>{%- endif -%}
+
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          {%- liquid
+            assign oname = option.name | downcase
+            assign is_color = false
+            if oname contains 'color' or oname contains 'colour' or oname contains 'metal'
+              assign is_color = true
+            endif
+          -%}
+          {%- comment -%} Las opciones con un solo valor (p. ej. «One Size») no se muestran; el color sí, para que se vea el acabado. {%- endcomment -%}
+          {%- if option.values.size > 1 or is_color -%}
+            {%- capture sel_label -%}{% render 'aom-opt-label', t: option.selected_value %}{%- endcapture -%}
+            <p class="aom-label">{% render 'aom-opt-label', t: option.name %} <span data-aom-optval="{{ forloop.index0 }}">{{ sel_label | strip }}</span></p>
+            <div class="aom-opts{% if is_color %} aom-opts--sw{% endif %}" data-aom-opt="{{ forloop.index0 }}">
+              {%- for value in option.values -%}
+                {%- capture vlabel -%}{% render 'aom-opt-label', t: value %}{%- endcapture -%}
+                {%- assign vlabel = vlabel | strip -%}
+                {%- if is_color -%}
+                  {%- assign vk = value | downcase -%}
+                  {%- assign sw = 'neutral' -%}
+                  {%- if vk contains 'rose' -%}{%- assign sw = 'rose' -%}{%- elsif vk contains 'gold' or vk contains 'oro' or vk contains 'dorad' -%}{%- assign sw = 'gold' -%}{%- elsif vk contains 'silver' or vk contains 'plat' or vk contains 'steel' -%}{%- assign sw = 'silver' -%}{%- endif -%}
+                  <button type="button" class="aom-sw{% if option.selected_value == value %} is-on{% endif %}" data-value="{{ value | escape }}" data-label="{{ vlabel | escape }}" aria-label="{{ vlabel | escape }}" title="{{ vlabel | escape }}"><i class="aom-sw__c aom-sw__c--{{ sw }}" aria-hidden="true"></i><span>{{ vlabel }}</span></button>
+                {%- else -%}
+                  <button type="button" data-value="{{ value | escape }}" data-label="{{ vlabel | escape }}"{% if option.selected_value == value %} class="is-on"{% endif %}>{{ vlabel }}</button>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endunless -%}
+
+      {%- if packs.size > 0 -%}
+        <p class="aom-label">{{ S.packs_title }}</p>
+        <div class="aom-packs" role="radiogroup" aria-label="{{ S.packs_title | escape }}">
+          {%- for block in packs -%}
+            {%- assign P = block.settings -%}
+            <button type="button" class="aom-pack{% if P.default %} is-on{% endif %}" role="radio" aria-checked="{{ P.default }}" data-aom-pack data-qty="{{ P.qty }}" data-pct="{{ P.pct }}" {{ block.shopify_attributes }}>
+              {%- if P.badge != blank -%}<span class="aom-pack__badge">{{ P.badge }}</span>{%- endif -%}
+              <span class="aom-pack__dot" aria-hidden="true"></span>
+              <span>
+                <span class="aom-pack__t">{{ P.title }}</span>
+                {%- if P.text != blank -%}<span class="aom-pack__d">{{ P.text }}</span>{%- endif -%}
+                <span class="aom-pack__save" data-aom-save></span>
+              </span>
+              <span class="aom-pack__p"><b data-aom-ptotal></b><s data-aom-pfull></s></span>
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- assign add_n = 0 -%}
+      {%- capture add_rows -%}
+        {%- for ap in addons limit: 4 -%}
+          {%- assign av = ap.selected_or_first_available_variant -%}
+          {%- if ap.id != product.id and av.available -%}
+            {%- assign add_n = add_n | plus: 1 -%}
+            <label>
+              <input type="checkbox" data-aom-addon value="{{ av.id }}" data-price="{{ av.price }}">
+              {%- if ap.featured_image -%}{{ ap.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<span></span>{%- endif -%}
+              <span><b>{{ ap.title }}</b><small>{{ ap.type | default: S.addons_sub }}</small></span>
+              <span class="aom-add__p">+{{ av.price | money }}</span>
+            </label>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- if add_n > 0 -%}
+        <div class="aom-add">
+          <p class="aom-add__h">{{ S.addons_title }}{%- if S.addons_badge != blank -%}<span>{{ S.addons_badge }}</span>{%- endif -%}</p>
+          {{ add_rows }}
+        </div>
+      {%- endif -%}
+
+      {%- liquid
+        assign set_col = S.set_collection
+        assign need = S.set_count | minus: 1
+      -%}
+      {%- if set_col != blank and set_col.products_count > 1 -%}
+        <div class="aom-set" id="aom-set" data-aom-set data-need="{{ need }}" data-pct="{{ S.set_pct }}" data-mode="{{ S.set_mode }}" data-gift="{{ S.set_gift | escape }}">
+          <div class="aom-set__h"><b>{{ S.set_title }}</b>{%- if S.set_badge != blank -%}<span>{{ S.set_badge }}</span>{%- endif -%}</div>
+          <p class="aom-set__p">{{ S.set_text | replace: '[n]', need }}</p>
+          <div class="aom-set__row">
+            {%- for p in set_col.products limit: 16 -%}
+              {%- assign pv = p.selected_or_first_available_variant -%}
+              {%- if p.id != product.id and pv.available -%}
+                <button type="button" class="aom-set__it" data-aom-pick="{{ pv.id }}" data-price="{{ pv.price }}" aria-pressed="false">
+                  <i aria-hidden="true">+</i>
+                  {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 220 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<span style="display:block;height:104px;background:var(--cream)"></span>{%- endif -%}
+                  <span>{{ p.title }}</span>
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="aom-set__ft">
+            <p data-aom-set-sum></p>
+            <button type="button" class="aom-btn aom-btn--buy" data-aom-set-add disabled>{{ S.set_btn }}</button>
+          </div>
+        </div>
+      {%- elsif S.promo_text != blank and S.promo_link != blank -%}
+        <a class="aom-promo" href="{{ S.promo_link }}"><span>{{ S.promo_text }}</span><span>{{ S.promo_cta }} →</span></a>
+      {%- endif -%}
+
+      {%- if upsell != blank and up_v.available -%}
+        <label class="aom-gift">
+          <input type="checkbox" data-aom-gift value="{{ up_v.id }}">
+          {%- if upsell.featured_image -%}{{ upsell.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<span></span>{%- endif -%}
+          <span><b>{{ S.upsell_title | default: upsell.title }}</b><span>{{ S.upsell_text }}</span></span>
+          <b>+{{ up_v.price | money }}</b>
+        </label>
+      {%- endif -%}
+
+      <div class="aom-ship">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg>
+        <span>{{ S.ship_text }} <b data-aom-date></b></span>
+      </div>
+
+      <button type="button" class="aom-btn aom-btn--buy" data-aom-buy{% unless current.available %} disabled{% endunless %}>
+        <span data-aom-buy-label>{% if current.available %}{{ S.buy_label }}{% else %}Agotado{% endif %}</span>
+      </button>
+      {%- if S.show_cart_btn -%}
+        <button type="button" class="aom-btn aom-btn--cart" data-aom-cart{% unless current.available %} disabled{% endunless %}>{{ S.cart_label }}</button>
+      {%- endif -%}
+
+      <div class="aom-pay">
+        {%- if S.pay_text != blank -%}<p>{{ S.pay_text }}</p>{%- endif -%}
+        <div class="aom-pay__icons">
+          {%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag }}{%- endfor -%}
+        </div>
+        {%- if S.show_cod -%}<span class="aom-cod">{{ S.cod_text }}</span>{%- endif -%}
+      </div>
+
+      {%- if trusts.size > 0 -%}
+        <ul class="aom-trust">
+          {%- for block in trusts -%}
+            <li {{ block.shopify_attributes }}>
+              {%- case block.settings.icon -%}
+                {%- when 'truck' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg>
+                {%- when 'return' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 9h11a5 5 0 0 1 0 10H8"/><path d="M8 5 4 9l4 4"/></svg>
+                {%- when 'shield' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+                {%- when 'gift' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="8" width="18" height="4"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 4.5 9 8 12 8zm0 0s1.5-5 4-3.5S15 8 12 8z"/></svg>
+                {%- when 'lock' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3 9.5 9H3l5.2 3.8L6.2 19 12 15l5.8 4-2-6.2L21 9h-6.5z"/></svg>
+              {%- endcase -%}
+              <span><b>{{ block.settings.title }}</b>{{ block.settings.text }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="aom-acc">
+        {%- if product.description != blank -%}
+          <details open><summary>Descripción</summary><div class="rte">{{ product.description | replace: 'baño dorado o plateado (metal dorado o plateado)', 'baño de oro de 18 k (dorado) o acabado plateado' | replace: 'baño dorado (metal dorado)', 'baño de oro de 18 k' }}</div></details>
+        {%- endif -%}
+        {%- if S.acc_1_title != blank -%}<details><summary>{{ S.acc_1_title }}</summary><div class="rte">{{ S.acc_1_text }}</div></details>{%- endif -%}
+        {%- if S.acc_2_title != blank -%}<details><summary>{{ S.acc_2_title }}</summary><div class="rte">{{ S.acc_2_text }}</div></details>{%- endif -%}
+        {%- if S.acc_3_title != blank -%}<details><summary>{{ S.acc_3_title }}</summary><div class="rte">{{ S.acc_3_text }}</div></details>{%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="aom-bar" data-aom-bar aria-hidden="true">
+    <div class="aom-bar__t"><b>{{ product.title }}</b><span data-aom-bar-price>{{ current.price | money }}</span></div>
+    <button type="button" class="aom-btn aom-btn--buy" data-aom-go tabindex="-1">{{ S.bar_label }}</button>
+  </div>
+
+  <script type="application/json" data-aom-data>
+    {
+      "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "options": {{ v.options | json }}, "price": {{ v.price }}, "compare": {{ v.compare_at_price | default: 0 }}, "available": {{ v.available }}, "stock": {% if v.inventory_management != blank %}{{ v.inventory_quantity }}{% else %}null{% endif %}, "media": {{ v.featured_media.id | default: 'null' }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+      "current": {{ current.id }},
+      "money": {{ shop.money_format | json }},
+      "shipDays": {{ S.ship_days }},
+      "shipDaysMax": {{ S.ship_days_max | default: S.ship_days }},
+      "lowAt": {{ settings.aom_low_stock | default: 5 }},
+      "lowText": {{ S.stock_low_text | default: 'Queda poco stock' | json }},
+      "okText": {{ S.stock_ok_text | json }},
+      "buyLabel": {{ S.buy_label | json }},
+      "addUrl": {{ routes.cart_add_url | append: '.js' | json }},
+      "cartUrl": {{ routes.cart_url | json }}
+    }
+  </script>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('aom-{{ sid }}'); if (!root) return;
+    var D = JSON.parse(root.querySelector('[data-aom-data]').textContent);
+    function $(s) { return root.querySelector(s); }
+    function $$(s) { return Array.prototype.slice.call(root.querySelectorAll(s)); }
+    var AMT = /\{\{\s*amount[a-z_]*\s*\}\}/;
+    function money(c) {
+      var n = (c / 100).toFixed(2);
+      if (!D.money) return n.replace('.', ',') + ' €';
+      if (/comma/.test(D.money)) n = n.replace('.', ',');
+      return D.money.replace(AMT, n).replace(/<[^>]*>/g, '');
+    }
+    var state = { variant: D.variants.filter(function (v) { return v.id === D.current; })[0] || D.variants[0], qty: 1, pct: 0 };
+
+    /* Galería */
+    var main = $('[data-aom-main]'), thumbs = $$('[data-aom-thumb]'), dots = $$('.aom-gal__dots span');
+    function goTo(i) { if (main) main.scrollTo({ left: i * main.clientWidth, behavior: 'smooth' }); }
+    thumbs.forEach(function (t) { t.addEventListener('click', function () { goTo(+t.getAttribute('data-aom-thumb')); }); });
+    if (main) main.addEventListener('scroll', function () {
+      var i = Math.round(main.scrollLeft / main.clientWidth);
+      thumbs.forEach(function (t, k) { t.classList.toggle('is-on', k === i); });
+      dots.forEach(function (d, k) { d.classList.toggle('is-on', k === i); });
+    }, { passive: true });
+
+    /* Fecha de entrega: rango en días laborables */
+    (function () {
+      function add(n) { var d = new Date(); while (n > 0) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0 && d.getDay() !== 6) n--; } return d; }
+      var a = add(D.shipDays), b = add(D.shipDaysMax), el = $('[data-aom-date]'); if (!el) return;
+      var fa = a.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' }), fb = b.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+      el.textContent = D.shipDaysMax > D.shipDays ? fa + ' y el ' + fb : fa;
+    })();
+
+    function render() {
+      var v = state.variant, unit = v.price;
+      $('[data-aom-price]').textContent = money(unit);
+      var was = $('[data-aom-was]'), ps = $('[data-aom-psave]'), sale = v.compare > v.price;
+      was.hidden = !sale; if (sale) was.textContent = money(v.compare);
+      $('[data-aom-price]').classList.toggle('is-sale', sale);
+      if (ps) { ps.hidden = !sale; if (sale) ps.textContent = 'Ahorras ' + money(v.compare - v.price) + ' · −' + Math.floor((v.compare - v.price) * 100 / v.compare) + ' %'; }
+      var mk = (v.options.join(' ') || '').toLowerCase(), isSil = /silver|plat|white/.test(mk);
+      $$('[data-aom-metal-t],[data-aom-metal-s]').forEach(function (el) { var t = el.getAttribute(isSil ? 'data-silver' : 'data-gold'); if (t) el.textContent = t; });
+      var low = $('[data-aom-low]');
+      if (low) { var st = v.stock; var isLow = st !== null && st > 0 && st <= D.lowAt; var ok = v.available && !isLow && D.okText; low.hidden = !(isLow || ok); low.classList.toggle('is-ok', !!ok); $('[data-aom-low-t]').textContent = isLow ? D.lowText : (ok ? D.okText : ''); }
+      setSum();
+      $$('[data-aom-pack]').forEach(function (b) {
+        var q = +b.getAttribute('data-qty'), pct = parseFloat(b.getAttribute('data-pct')) || 0;
+        var full = unit * q, tot = Math.round(full * (100 - pct) / 100);
+        b.querySelector('[data-aom-ptotal]').textContent = money(tot);
+        b.querySelector('[data-aom-pfull]').textContent = tot < full ? money(full) : '';
+        b.querySelector('[data-aom-save]').textContent = tot < full ? 'Ahorras ' + money(full - tot) : '';
+      });
+      var total = Math.round(unit * state.qty * (100 - state.pct) / 100);
+      $$('[data-aom-addon]').forEach(function (c) { if (c.checked) total += +c.getAttribute('data-price'); });
+      var bp = $('[data-aom-bar-price]'); if (bp) bp.textContent = money(total);
+      var ok = v.available;
+      ['[data-aom-buy]', '[data-aom-cart]', '[data-aom-go]'].forEach(function (s) { var b = $(s); if (b) b.disabled = !ok; });
+      var lbl = $('[data-aom-buy-label]'); if (lbl) lbl.textContent = ok ? D.buyLabel + ' · ' + money(total) : 'Agotado';
+    }
+
+    /* Variantes */
+    $$('[data-aom-opt]').forEach(function (group) {
+      var idx = +group.getAttribute('data-aom-opt');
+      group.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        Array.prototype.forEach.call(group.children, function (x) { x.classList.toggle('is-on', x === b); });
+        var opts = state.variant.options.slice(); opts[idx] = b.getAttribute('data-value');
+        var match = D.variants.filter(function (v) { return v.options.join('|') === opts.join('|'); })[0];
+        if (match) {
+          state.variant = match;
+          var lab = root.querySelector('[data-aom-optval="' + idx + '"]'); if (lab) lab.textContent = b.getAttribute('data-label') || opts[idx];
+          if (match.media) { var slides = $$('.aom-gal__slide'); slides.forEach(function (s, k) { if (+s.getAttribute('data-media-id') === match.media) goTo(k); }); }
+          var url = new URL(location.href); url.searchParams.set('variant', match.id); history.replaceState({}, '', url);
+        }
+        render(); markOos();
+      });
+    });
+    /* Tacha los valores cuya combinación con el resto de opciones está agotada */
+    function markOos() {
+      $$('[data-aom-opt]').forEach(function (group) {
+        var idx = +group.getAttribute('data-aom-opt');
+        Array.prototype.forEach.call(group.querySelectorAll('button'), function (b) {
+          var opts = state.variant.options.slice(); opts[idx] = b.getAttribute('data-value');
+          var m = D.variants.filter(function (v) { return v.options.join('|') === opts.join('|'); })[0];
+          b.classList.toggle('is-oos', !m || !m.available);
+        });
+      });
+    }
+    markOos();
+
+    /* Packs */
+    var packBtns = $$('[data-aom-pack]');
+    function pickPack(b) {
+      packBtns.forEach(function (x) { x.classList.toggle('is-on', x === b); x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+      state.qty = +b.getAttribute('data-qty'); state.pct = parseFloat(b.getAttribute('data-pct')) || 0; render();
+    }
+    packBtns.forEach(function (b) { b.addEventListener('click', function () { pickPack(b); }); });
+    $$('[data-aom-addon]').forEach(function (c) { c.addEventListener('change', render); });
+    var first = root.querySelector('[data-aom-pack].is-on') || packBtns[0]; if (first) pickPack(first); else render();
+
+    /* Set en la misma ficha */
+    var setBox = $('[data-aom-set]'), picks = [];
+    function setSum() {
+      if (!setBox) return;
+      var need = +setBox.getAttribute('data-need'), pct = parseFloat(setBox.getAttribute('data-pct')) || 0;
+      var full = state.variant.price + picks.reduce(function (a, b) { return a + +b.getAttribute('data-price'); }, 0);
+      var sum = setBox.querySelector('[data-aom-set-sum]'), add = setBox.querySelector('[data-aom-set-add]');
+      $$('[data-aom-pick]').forEach(function (b) { var on = picks.indexOf(b) > -1; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); b.querySelector('i').textContent = on ? '✓' : '+'; b.disabled = !on && picks.length >= need; });
+      if (picks.length < need) { sum.innerHTML = 'Elige <b>' + (need - picks.length) + '</b> más'; add.disabled = true; }
+      else { var tot = Math.round(full * (100 - pct) / 100); if (setBox.getAttribute('data-mode') === '3x2') { var ps = [state.variant.price].concat(picks.map(function (b) { return +b.getAttribute('data-price'); })); tot = full - Math.min.apply(null, ps); } var gift = setBox.getAttribute('data-gift'); sum.innerHTML = 'Tu set: <b>' + money(tot) + '</b><s>' + money(full) + '</s>' + (gift ? '<em class="aom-set__gift">' + gift.replace(/</g, '&lt;') + '</em>' : ''); add.disabled = !state.variant.available; }
+    }
+    $$('[data-aom-pick]').forEach(function (b) { b.addEventListener('click', function () { var i = picks.indexOf(b); if (i > -1) picks.splice(i, 1); else picks.push(b); setSum(); }); });
+    var setAdd = $('[data-aom-set-add]');
+    if (setAdd) setAdd.addEventListener('click', function () {
+      var items = [{ id: state.variant.id, quantity: 1 }].concat(picks.map(function (b) { return { id: +b.getAttribute('data-aom-pick'), quantity: 1 }; }));
+      setAdd.disabled = true;
+      var go = window.AOMCart ? window.AOMCart.add(items) : fetch(D.addUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: items }) }).then(function () { location.href = D.cartUrl; });
+      go.then(function () { picks = []; setSum(); }, function () { setAdd.disabled = false; });
+    });
+    setSum();
+
+    /* Añadir y comprar */
+    function add(goCheckout, btn) {
+      var items = [{ id: state.variant.id, quantity: state.qty }];
+      var gift = $('[data-aom-gift]'); if (gift && gift.checked) items.push({ id: +gift.value, quantity: 1 });
+      $$('[data-aom-addon]').forEach(function (c) { if (c.checked) items.push({ id: +c.value, quantity: 1 }); });
+      btn.disabled = true;
+      fetch(D.addUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ items: items }) })
+        .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.description || j.message || r.status); return j; }); })
+        .then(function () {
+          if (goCheckout || !window.AOMCart) { window.location.href = goCheckout ? '/checkout' : D.cartUrl; return; }
+          btn.disabled = false; window.AOMCart.open();
+        })
+        .catch(function (err) { btn.disabled = false; alert('No se ha podido añadir: ' + err.message); });
+    }
+    var buy = $('[data-aom-buy]'), cart = $('[data-aom-cart]'), go = $('[data-aom-go]');
+    if (buy) buy.addEventListener('click', function () { add(true, buy); });
+    if (cart) cart.addEventListener('click', function () { add(false, cart); });
+    if (go) go.addEventListener('click', function () { add(true, go); });
+
+    /* Barra fija: visible cuando el botón principal sale de la pantalla */
+    var bar = $('[data-aom-bar]');
+    if (bar && buy) {
+      var ticking = false;
+      function syncBar() {
+        ticking = false;
+        var off = buy.getBoundingClientRect().bottom < 0;
+        bar.classList.toggle('is-on', off); document.body.classList.toggle('aom-bar-on', off); bar.setAttribute('aria-hidden', off ? 'false' : 'true');
+        if (go) go.tabIndex = off ? 0 : -1;
+      }
+      window.addEventListener('scroll', function () { if (!ticking) { ticking = true; window.requestAnimationFrame(syncBar); } }, { passive: true });
+      syncBar();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Ficha de producto AOM",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta superior", "default": "Maison Nácar" },
+    { "type": "textarea", "id": "lead", "label": "Frase bajo el precio", "default": "Elegantes, ligeros y pensados para llevar cada día." },
+    { "type": "header", "content": "Oferta bajo el precio" },
+    { "type": "checkbox", "id": "offer_show", "label": "Mostrar la tarjeta de oferta", "default": true },
+    { "type": "text", "id": "offer_seal", "label": "Sello", "default": "3x2" },
+    { "type": "text", "id": "offer_title", "label": "Título", "default": "3x2 en toda la tienda" },
+    { "type": "textarea", "id": "offer_text", "label": "Texto", "info": "[p] = precio de esta pieza, [p2] = el doble. Lo que va entre [d] y [/d] sale en dorado.", "default": "Elige 3 piezas y la de menor precio te sale gratis. [d]Una para ti, dos para regalar.[/d]" },
+    { "type": "text", "id": "offer_cta", "label": "Botón", "default": "Elegir" },
+    { "type": "text", "id": "offer_link", "label": "Enlace", "info": "#aom-set baja al «Elige 3, paga 2» de la ficha.", "default": "#aom-set" },
+    { "type": "header", "content": "Calidad y garantías (bajo la oferta)" },
+    { "type": "checkbox", "id": "perks_show", "label": "Mostrar", "default": true },
+    { "type": "text", "id": "perk_gold_t", "label": "Acabado dorado: título", "default": "Baño de oro 18k" },
+    { "type": "text", "id": "perk_gold_s", "label": "Acabado dorado: texto", "default": "Brillo de joyería fina" },
+    { "type": "text", "id": "perk_silver_t", "label": "Acabado plateado: título", "default": "Acabado plateado" },
+    { "type": "text", "id": "perk_silver_s", "label": "Acabado plateado: texto", "default": "Brillo de joyería fina" },
+    { "type": "text", "id": "perk_2_t", "label": "Garantía 2: título", "default": "Acero inoxidable" },
+    { "type": "text", "id": "perk_2_s", "label": "Garantía 2: texto", "default": "No se oxida ni mancha la piel" },
+    { "type": "text", "id": "perk_3_t", "label": "Garantía 3: título", "default": "Envío gratis" },
+    { "type": "text", "id": "perk_3_s", "label": "Garantía 3: texto", "default": "Con seguimiento" },
+    { "type": "text", "id": "perk_4_t", "label": "Garantía 4: título", "default": "Estuche de regalo" },
+    { "type": "text", "id": "perk_4_s", "label": "Garantía 4: texto", "default": "Incluido, listo para regalar" },
+    { "type": "header", "content": "Packs" },
+    { "type": "text", "id": "packs_title", "label": "Título de los packs", "default": "Elige tu pack" },
+    { "type": "paragraph", "content": "El % de cada pack tiene que coincidir con el descuento automático de Shopify (Descuentos → Automático → Importe de descuento en productos, cantidad mínima)." },
+    { "type": "header", "content": "Complétalo con… (venta adicional)" },
+    { "type": "product_list", "id": "addons", "label": "Productos sugeridos por defecto", "limit": 4, "info": "Para elegirlos por producto, usa el metacampo «Complementos» del producto." },
+    { "type": "text", "id": "addons_title", "label": "Título", "default": "Complétalo con" },
+    { "type": "text", "id": "addons_badge", "label": "Etiqueta", "default": "Cuenta para tu pack" },
+    { "type": "text", "id": "addons_sub", "label": "Texto bajo cada sugerencia", "default": "Combina con esta pieza" },
+    { "type": "header", "content": "Set en la ficha (elige X)" },
+    { "type": "collection", "id": "set_collection", "label": "Colección del set", "info": "Piezas que se ofrecen para completar el set. El % tiene que coincidir con el descuento automático de 3 piezas." },
+    { "type": "range", "id": "set_count", "label": "Piezas del set (incluida esta)", "min": 2, "max": 5, "step": 1, "default": 3 },
+    { "type": "select", "id": "set_mode", "label": "Cálculo del precio del set", "options": [ { "value": "3x2", "label": "3x2: la más barata, gratis" }, { "value": "pct", "label": "Porcentaje de descuento" } ], "default": "3x2" },
+    { "type": "number", "id": "set_pct", "label": "% de descuento del set (solo si eliges porcentaje)", "default": 35 },
+    { "type": "text", "id": "set_title", "label": "Título", "default": "Crea tu set de 3" },
+    { "type": "text", "id": "set_badge", "label": "Etiqueta", "default": "3x2" },
+    { "type": "text", "id": "set_gift", "label": "Nota de regalo al completar el set", "info": "Déjalo vacío si no hay regalo." },
+    { "type": "text", "id": "set_text", "label": "Texto ([n] = piezas que faltan)", "default": "Elige [n] piezas más y llévate las 3 a mitad de precio." },
+    { "type": "text", "id": "set_btn", "label": "Botón", "default": "Añadir set" },
+    { "type": "header", "content": "Aviso de pack (enlace, si no hay set)" },
+    { "type": "text", "id": "promo_text", "label": "Texto", "default": "Elige 3 pendientes por 29,99 €" },
+    { "type": "text", "id": "promo_cta", "label": "Botón", "default": "Ver" },
+    { "type": "url", "id": "promo_link", "label": "Enlace a la página del pack" },
+    { "type": "header", "content": "Caja regalo" },
+    { "type": "product", "id": "upsell_product", "label": "Producto caja regalo" },
+    { "type": "text", "id": "upsell_title", "label": "Título", "default": "Añade estuche regalo premium" },
+    { "type": "text", "id": "upsell_text", "label": "Texto", "default": "Con lazo y tarjeta para tu mensaje" },
+    { "type": "header", "content": "Envío y compra" },
+    { "type": "text", "id": "ship_text", "label": "Texto de entrega", "default": "Envío gratis en estuche de regalo. Recíbelo entre el" },
+    { "type": "range", "id": "ship_days", "label": "Entrega: días laborables mínimo", "min": 1, "max": 10, "step": 1, "default": 3 },
+    { "type": "range", "id": "ship_days_max", "label": "Entrega: días laborables máximo", "min": 1, "max": 15, "step": 1, "default": 7 },
+    { "type": "text", "id": "buy_label", "label": "Botón principal", "default": "Comprar ahora" },
+    { "type": "checkbox", "id": "show_cart_btn", "label": "Mostrar «Añadir a la cesta»", "default": true },
+    { "type": "text", "id": "cart_label", "label": "Botón secundario", "default": "Añadir a la cesta" },
+    { "type": "text", "id": "bar_label", "label": "Botón de la barra móvil", "default": "Comprar" },
+    { "type": "header", "content": "Aviso de stock" },
+    { "type": "text", "id": "stock_low_text", "label": "Texto cuando queda poco stock", "default": "Queda poco stock" },
+    { "type": "text", "id": "stock_ok_text", "label": "Texto cuando hay stock", "info": "Déjalo vacío para no mostrar nada cuando hay stock.", "default": "En stock · Pide antes del 14 de diciembre y llega para Navidad" },
+    { "type": "text", "id": "pay_text", "label": "Texto de pago", "default": "Pago 100 % seguro con tarjeta, Apple Pay, Google Pay, PayPal o Bizum" },
+    { "type": "checkbox", "id": "show_cod", "label": "Mostrar contra reembolso", "info": "Actívalo solo si el contra reembolso está configurado en Pagos.", "default": false },
+    { "type": "text", "id": "cod_text", "label": "Texto contra reembolso", "default": "También puedes pagar al recibir" },
+    { "type": "header", "content": "Desplegables" },
+    { "type": "text", "id": "acc_1_title", "label": "Desplegable 1", "default": "Materiales y cuidados" },
+    { "type": "richtext", "id": "acc_1_text", "label": "Texto 1", "default": "<p>Para que dure más, guárdalo en un lugar seco y evita perfumes y cremas directamente sobre la pieza. El material de cada joya está en su descripción.</p>" },
+    { "type": "text", "id": "acc_2_title", "label": "Desplegable 2", "default": "Envío y devoluciones" },
+    { "type": "richtext", "id": "acc_2_text", "label": "Texto 2", "default": "<p>Envío gratis a la España peninsular y Baleares en 3–7 días laborables, en estuche de regalo. Tienes 30 días desde la entrega para devolverlo. Garantía legal de 3 años.</p>" },
+    { "type": "text", "id": "acc_3_title", "label": "Desplegable 3", "default": "Para regalar" },
+    { "type": "richtext", "id": "acc_3_text", "label": "Texto 3", "default": "<p>Si es un regalo, puedes enviarlo directamente a la otra persona: solo pon su dirección al pagar.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "pack", "name": "Pack", "limit": 3,
+      "settings": [
+        { "type": "range", "id": "qty", "label": "Unidades", "min": 1, "max": 5, "step": 1, "default": 1 },
+        { "type": "number", "id": "pct", "label": "% de descuento", "default": 0 },
+        { "type": "text", "id": "title", "label": "Título", "default": "1 unidad" },
+        { "type": "text", "id": "text", "label": "Texto" },
+        { "type": "text", "id": "badge", "label": "Insignia" },
+        { "type": "checkbox", "id": "default", "label": "Seleccionado al entrar", "default": false }
+      ]
+    },
+    {
+      "type": "trust", "name": "Garantía",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icono", "options": [
+          { "value": "truck", "label": "Envío" }, { "value": "return", "label": "Devolución" },
+          { "value": "shield", "label": "Garantía" }, { "value": "gift", "label": "Regalo" },
+          { "value": "lock", "label": "Pago seguro" }, { "value": "star", "label": "Estrella" }
+        ], "default": "truck" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Envío gratis" },
+        { "type": "text", "id": "text", "label": "Texto", "default": "España peninsular" }
+      ]
+    }
+  ]
+}
+{% endschema %}

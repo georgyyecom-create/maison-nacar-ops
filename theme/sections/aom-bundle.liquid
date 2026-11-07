@@ -1,0 +1,138 @@
+{%- comment -%}
+  Maison Nácar · Pack «Elige X»
+  La clienta elige X piezas de una colección y las añade juntas.
+  El % de la sección tiene que coincidir con el descuento automático de Shopify sobre esa colección
+  (Descuentos → Importe de descuento en productos → colección del pack → cantidad mínima X).
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign col = S.collection
+  assign sid = section.id
+-%}
+<style>
+  #aom-bd-{{ sid }} .hd { text-align: center; padding: 36px 16px 20px; max-width: 640px; margin: 0 auto; }
+  #aom-bd-{{ sid }} .hd p { color: var(--aom-muted); font-size: 15px; line-height: 1.6; margin: 12px 0 0; }
+  #aom-bd-{{ sid }} .steps { display: flex; justify-content: center; gap: 18px; margin-top: 18px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--aom-muted); flex-wrap: wrap; }
+  #aom-bd-{{ sid }} .steps b { color: var(--aom-gold-dk); }
+  #aom-bd-{{ sid }} .grid { padding-bottom: 140px; }
+  #aom-bd-{{ sid }} .it { position: relative; display: flex; flex-direction: column; }
+  #aom-bd-{{ sid }} .it .aom-card__media { cursor: pointer; }
+  #aom-bd-{{ sid }} .it.is-on .aom-card__media { outline: 2px solid var(--aom-ink); outline-offset: -2px; }
+  #aom-bd-{{ sid }} .q { position: absolute; top: 10px; right: 10px; z-index: 1; min-width: 30px; height: 30px; padding: 0 8px; border-radius: 15px; background: var(--aom-ink); color: #fff; font-size: 13px; font-weight: 600; display: none; align-items: center; justify-content: center; }
+  #aom-bd-{{ sid }} .it.is-on .q { display: inline-flex; }
+  #aom-bd-{{ sid }} .ctl { display: flex; gap: 6px; margin-top: 8px; }
+  #aom-bd-{{ sid }} .ctl button { flex: 1; min-height: 40px; border: 1px solid var(--aom-ink); background: #fff; font: inherit; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+  #aom-bd-{{ sid }} .ctl button[data-d="1"] { background: var(--aom-ink); color: #fff; }
+  #aom-bd-{{ sid }} .ctl button[data-d="-1"] { flex: 0 0 40px; display: none; }
+  #aom-bd-{{ sid }} .it.is-on .ctl button[data-d="-1"] { display: block; }
+  #aom-bd-{{ sid }} .ctl button[disabled] { opacity: .35; cursor: default; }
+  #aom-bd-{{ sid }} .bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #fff; border-top: 1px solid var(--aom-line); box-shadow: 0 -12px 30px -18px rgba(28,26,23,.45); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); }
+  #aom-bd-{{ sid }} .bar__in { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 10px 14px; align-items: center; }
+  #aom-bd-{{ sid }} .slots { display: flex; gap: 6px; }
+  #aom-bd-{{ sid }} .slot { width: 42px; height: 42px; border: 1px dashed rgba(28,26,23,.3); background: var(--aom-cream) center / cover no-repeat; display: grid; place-items: center; font-size: 12px; color: var(--aom-muted); }
+  #aom-bd-{{ sid }} .slot.is-on { border-style: solid; border-color: var(--aom-ink); color: transparent; }
+  #aom-bd-{{ sid }} .sum { font-size: 13px; color: var(--aom-muted); margin-top: 6px; }
+  #aom-bd-{{ sid }} .sum b { color: var(--aom-ink); font-size: 16px; }
+  #aom-bd-{{ sid }} .sum s { margin-left: 4px; }
+  #aom-bd-{{ sid }} .bar .aom-btn { min-height: 50px; padding: 0 20px; font-size: 12px; }
+  #aom-bd-{{ sid }} .bar .aom-btn[disabled] { opacity: .4; cursor: default; }
+</style>
+
+<section id="aom-bd-{{ sid }}">
+  <div class="hd">
+    {%- if S.kicker != blank -%}<span class="aom-kicker">{{ S.kicker }}</span>{%- endif -%}
+    <h1 class="aom-h2">{{ S.title }}</h1>
+    {%- if S.text != blank -%}<p>{{ S.text }}</p>{%- endif -%}
+    <div class="steps"><span><b>1</b> Elige {{ S.count }} piezas</span><span><b>2</b> Añádelas juntas</span><span><b>3</b> El descuento se aplica solo</span></div>
+  </div>
+
+  <div class="aom-container grid">
+    <div class="aom-grid aom-grid--4">
+      {%- for p in col.products limit: 48 -%}
+        {%- assign v = p.selected_or_first_available_variant -%}
+        {%- if v.available -%}
+          <div class="it" data-it data-v="{{ v.id }}" data-price="{{ v.price }}" data-img="{{ p.featured_image | image_url: width: 120 }}">
+            <span class="q" data-q></span>
+            <div class="aom-card__media" data-pick>
+              {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 990px) 25vw, 50vw', alt: p.title, class: 'aom-card__img' }}{%- else -%}{{ 'product-1' | placeholder_svg_tag: 'aom-card__img' }}{%- endif -%}
+            </div>
+            <div class="aom-card__body">
+              <a href="{{ p.url }}" class="aom-card__title">{{ p.title }}</a>
+              <span class="aom-card__price">{{ v.price | money }}</span>
+            </div>
+            <div class="ctl"><button type="button" data-d="-1" aria-label="Quitar uno">−</button><button type="button" data-d="1">Elegir</button></div>
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <p style="grid-column:1/-1;text-align:center;color:var(--aom-muted)">Elige una colección para este pack en el editor.</p>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="bar">
+    <div class="bar__in">
+      <div>
+        <div class="slots" data-slots>{%- for i in (1..S.count) -%}<span class="slot">{{ i }}</span>{%- endfor -%}</div>
+        <p class="sum m-0" data-sum>Elige {{ S.count }} piezas</p>
+      </div>
+      <button type="button" class="aom-btn" data-go disabled>{{ S.btn }}</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('aom-bd-{{ sid }}'); if (!root) return;
+    var N = {{ S.count }}, PCT = {{ S.pct | default: 0 }}, MF = {{ shop.money_format | json }};
+    var AMT = /\{\{\s*amount[a-z_]*\s*\}\}/;
+    function money(c) { var n = (c / 100).toFixed(2); if (!MF) return n.replace('.', ',') + ' €'; if (/comma/.test(MF)) n = n.replace('.', ','); return MF.replace(AMT, n).replace(/<[^>]*>/g, ''); }
+    var picks = [];
+    var its = Array.prototype.slice.call(root.querySelectorAll('[data-it]'));
+    function count(v) { return picks.filter(function (x) { return x === v; }).length; }
+    function render() {
+      its.forEach(function (it) {
+        var k = count(it); it.classList.toggle('is-on', k > 0);
+        it.querySelector('[data-q]').textContent = '×' + k;
+        it.querySelector('[data-d="1"]').disabled = picks.length >= N;
+        it.querySelector('[data-d="1"]').textContent = k ? 'Otra' : 'Elegir';
+      });
+      var slots = root.querySelectorAll('.slot');
+      Array.prototype.forEach.call(slots, function (s, i) { var it = picks[i]; s.classList.toggle('is-on', !!it); s.style.backgroundImage = it ? 'url(' + it.getAttribute('data-img') + ')' : ''; });
+      var full = picks.reduce(function (a, it) { return a + +it.getAttribute('data-price'); }, 0);
+      var sum = root.querySelector('[data-sum]'), go = root.querySelector('[data-go]');
+      if (picks.length < N) { sum.innerHTML = '<b>' + picks.length + ' de ' + N + '</b> elegidas · te faltan ' + (N - picks.length); go.disabled = true; }
+      else { var tot = Math.round(full * (100 - PCT) / 100); sum.innerHTML = 'Tu pack: <b>' + money(tot) + '</b>' + (tot < full ? '<s>' + money(full) + '</s>' : ''); go.disabled = false; }
+    }
+    its.forEach(function (it) {
+      it.querySelector('[data-d="1"]').addEventListener('click', function () { if (picks.length < N) { picks.push(it); render(); } });
+      it.querySelector('[data-pick]').addEventListener('click', function () { if (picks.length < N) { picks.push(it); render(); } });
+      it.querySelector('[data-d="-1"]').addEventListener('click', function () { var i = picks.lastIndexOf(it); if (i > -1) { picks.splice(i, 1); render(); } });
+    });
+    root.querySelector('[data-go]').addEventListener('click', function () {
+      var btn = this, map = {};
+      picks.forEach(function (it) { var v = it.getAttribute('data-v'); map[v] = (map[v] || 0) + 1; });
+      var items = Object.keys(map).map(function (v) { return { id: +v, quantity: map[v], properties: { _pack: {{ S.title | strip_html | json }} } }; });
+      btn.disabled = true;
+      var done = function () { picks = []; render(); };
+      if (window.AOMCart) window.AOMCart.add(items).then(done, function () { btn.disabled = false; });
+      else fetch('{{ routes.cart_add_url }}.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: items }) }).then(function () { location.href = '{{ routes.cart_url }}'; });
+    });
+    render();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Pack «Elige X» AOM",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Colección del pack" },
+    { "type": "range", "id": "count", "label": "Piezas a elegir", "min": 2, "max": 6, "step": 1, "default": 3 },
+    { "type": "number", "id": "pct", "label": "% de descuento del pack", "info": "Igual que el descuento automático de Shopify para esa colección.", "default": 50 },
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "Crea tu pack" },
+    { "type": "inline_richtext", "id": "title", "label": "Título", "default": "Elige <em>3 pendientes</em> y paga la mitad" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Combina como quieras: para ti, para regalar o para tener uno para cada día." },
+    { "type": "text", "id": "btn", "label": "Botón", "default": "Añadir mi pack" }
+  ],
+  "presets": [ { "name": "Pack «Elige X» AOM" } ]
+}
+{% endschema %}

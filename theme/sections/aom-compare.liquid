@@ -1,0 +1,83 @@
+{%- comment -%}
+  Maison Nácar · Comparativa «la de siempre vs la nuestra»
+  Usa solo afirmaciones que cumplan tus piezas (p. ej. «no deja la piel verde» = acero inoxidable 316L).
+  No nombres marcas de la competencia.
+{%- endcomment -%}
+{%- assign S = section.settings -%}
+<style>
+  #aom-cmp-{{ section.id }} { background: {{ S.bg }}; }
+  #aom-cmp-{{ section.id }} .ims { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 26px; }
+  #aom-cmp-{{ section.id }} figure { margin: 0; position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--aom-sand); }
+  #aom-cmp-{{ section.id }} figure img, #aom-cmp-{{ section.id }} figure svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #aom-cmp-{{ section.id }} figcaption { position: absolute; left: 10px; top: 10px; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 9px; background: rgba(255,255,255,.92); color: var(--aom-ink); }
+  #aom-cmp-{{ section.id }} figure.good figcaption { background: var(--aom-ink); color: #fff; }
+  #aom-cmp-{{ section.id }} table { width: 100%; border-collapse: collapse; background: #fff; font-size: 14px; }
+  #aom-cmp-{{ section.id }} th, #aom-cmp-{{ section.id }} td { padding: 14px 10px; border-bottom: 1px solid var(--aom-line); text-align: center; }
+  #aom-cmp-{{ section.id }} th { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; color: var(--aom-muted); }
+  #aom-cmp-{{ section.id }} th.us { color: var(--aom-ink); font-weight: 600; background: var(--aom-cream); }
+  #aom-cmp-{{ section.id }} td:first-child { text-align: left; }
+  #aom-cmp-{{ section.id }} td.us { background: var(--aom-cream); font-weight: 600; }
+  #aom-cmp-{{ section.id }} .y { color: var(--aom-ok); font-size: 17px; }
+  #aom-cmp-{{ section.id }} .n { color: #8E2F2A; font-size: 17px; }
+  #aom-cmp-{{ section.id }} .wrap { max-width: 760px; margin: 0 auto; }
+  #aom-cmp-{{ section.id }} .note { margin: 14px 0 0; font-size: 12px; color: var(--aom-muted); text-align: center; }
+  #aom-cmp-{{ section.id }} .cta { text-align: center; margin-top: 28px; }
+</style>
+<section id="aom-cmp-{{ section.id }}" class="aom-sec">
+  <div class="aom-container">
+    <div class="aom-head">
+      {%- if S.kicker != blank -%}<span class="aom-kicker">{{ S.kicker }}</span>{%- endif -%}
+      <h2 class="aom-h2">{{ S.title }}</h2>
+      {%- if S.text != blank -%}<p>{{ S.text }}</p>{%- endif -%}
+    </div>
+    <div class="wrap">
+      <div class="ims">
+        <figure>{%- if S.img_bad -%}{{ S.img_bad | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350, 500, 700', sizes: '(min-width: 990px) 380px, 50vw', alt: S.label_bad }}{%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}<figcaption>{{ S.label_bad }}</figcaption>{%- if S.img_bad -%}{% render 'aom-ai' %}{%- endif -%}</figure>
+        <figure class="good">{%- if S.img_good -%}{{ S.img_good | image_url: width: 700 | image_tag: loading: 'lazy', widths: '350, 500, 700', sizes: '(min-width: 990px) 380px, 50vw', alt: S.label_good }}{%- else -%}{{ 'lifestyle-2' | placeholder_svg_tag }}{%- endif -%}<figcaption>{{ S.label_good }}</figcaption>{%- if S.img_good -%}{% render 'aom-ai' %}{%- endif -%}</figure>
+      </div>
+      <table>
+        <thead><tr><th></th><th>{{ S.label_bad }}</th><th class="us">{{ S.label_good }}</th></tr></thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            {%- assign B = block.settings -%}
+            <tr {{ block.shopify_attributes }}>
+              <td>{{ B.row }}</td>
+              <td>{%- case B.bad -%}{%- when 'yes' -%}<span class="y" aria-label="Sí">✓</span>{%- when 'no' -%}<span class="n" aria-label="No">✕</span>{%- else -%}{{ B.bad_text }}{%- endcase -%}</td>
+              <td class="us">{%- case B.good -%}{%- when 'yes' -%}<span class="y" aria-label="Sí">✓</span>{%- when 'no' -%}<span class="n" aria-label="No">✕</span>{%- else -%}{{ B.good_text }}{%- endcase -%}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      {%- if S.note != blank -%}<p class="note">{{ S.note }}</p>{%- endif -%}
+      {%- if S.btn != blank -%}<p class="cta"><a href="{{ S.link }}" class="aom-btn">{{ S.btn }}</a></p>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Comparativa AOM",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Fondo", "default": "#FBF8F3" },
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "La diferencia" },
+    { "type": "inline_richtext", "id": "title", "label": "Título", "default": "Tu bisutería de siempre <em>vs</em> Maison Nácar" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "La misma elegancia que una joya cara, sin las sorpresas de la bisutería barata." },
+    { "type": "image_picker", "id": "img_bad", "label": "Imagen «la de siempre»" },
+    { "type": "image_picker", "id": "img_good", "label": "Imagen «la nuestra»" },
+    { "type": "text", "id": "label_bad", "label": "Columna 1", "default": "Bisutería común" },
+    { "type": "text", "id": "label_good", "label": "Columna 2", "default": "Maison Nácar" },
+    { "type": "text", "id": "note", "label": "Nota", "default": "Comparativa con bisutería genérica de aleación. Material indicado en cada pieza." },
+    { "type": "text", "id": "btn", "label": "Botón", "default": "Descubrir las joyas" },
+    { "type": "url", "id": "link", "label": "Enlace", "default": "/collections/all" }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Fila", "settings": [
+      { "type": "text", "id": "row", "label": "Característica", "default": "No deja la piel verde" },
+      { "type": "select", "id": "bad", "label": "Bisutería común", "options": [ { "value": "yes", "label": "✓" }, { "value": "no", "label": "✕" }, { "value": "text", "label": "Texto" } ], "default": "no" },
+      { "type": "text", "id": "bad_text", "label": "Texto (bisutería común)" },
+      { "type": "select", "id": "good", "label": "Maison Nácar", "options": [ { "value": "yes", "label": "✓" }, { "value": "no", "label": "✕" }, { "value": "text", "label": "Texto" } ], "default": "yes" },
+      { "type": "text", "id": "good_text", "label": "Texto (Maison Nácar)" }
+    ] }
+  ],
+  "presets": [ { "name": "Comparativa AOM", "blocks": [ { "type": "row" }, { "type": "row" }, { "type": "row" } ] } ]
+}
+{% endschema %}

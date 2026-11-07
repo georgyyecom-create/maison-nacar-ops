@@ -1,0 +1,61 @@
+{%- comment -%}
+  Tarjeta de producto de Maison Nácar.
+  Uso: {% render 'aom-card', product: product, eager: false %}
+{%- endcomment -%}
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+  assign img2 = product.media[1].preview_image
+  assign rating = product.metafields.aom.rating.value
+  assign rcount = product.metafields.aom.rating_count.value | default: 0
+  assign low_at = settings.aom_low_stock | default: 5
+  assign low = false
+  if v.inventory_management != blank and v.inventory_quantity > 0 and v.inventory_quantity <= low_at
+    assign low = true
+  endif
+  assign pct = 0
+  if v.compare_at_price > v.price
+    assign pct = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price
+  endif
+  assign ld = 'lazy'
+  if eager
+    assign ld = 'eager'
+  endif
+-%}
+<div class="aom-card">
+  <a href="{{ product.url }}" class="aom-card__media" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_media -%}
+      {{ product.featured_media.preview_image | image_url: width: 700 | image_tag: loading: ld, widths: '300, 450, 600, 700', sizes: '(min-width: 990px) 25vw, 50vw', alt: product.title, class: 'aom-card__img' }}
+      {%- if img2 -%}{{ img2 | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300, 450, 600, 700', sizes: '(min-width: 990px) 25vw, 50vw', alt: '', class: 'aom-card__img aom-card__img--2' }}{%- endif -%}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'aom-card__img' }}
+    {%- endif -%}
+    {%- if pct > 0 -%}<span class="aom-card__sale">−{{ pct }} %</span>{%- endif -%}
+    {%- if product.tags contains 'top' -%}<span class="aom-card__badge">Más vendido</span>{%- elsif product.tags contains 'nuevo' -%}<span class="aom-card__badge aom-card__badge--new">Nuevo</span>{%- endif -%}
+  </a>
+  <div class="aom-card__body">
+    <a href="{{ product.url }}" class="aom-card__title">{{ product.title }}</a>
+    {%- for option in product.options_with_values -%}
+      {%- assign on = option.name | downcase -%}
+      {%- if option.values.size > 1 -%}{%- if on contains 'color' or on contains 'colour' or on contains 'metal' -%}
+        <span class="aom-card__sw">
+          {%- for value in option.values -%}
+            {%- assign vk = value | downcase -%}
+            {%- assign sw = 'neutral' -%}
+            {%- if vk contains 'rose' -%}{%- assign sw = 'rose' -%}{%- elsif vk contains 'gold' or vk contains 'oro' or vk contains 'dorad' -%}{%- assign sw = 'gold' -%}{%- elsif vk contains 'silver' or vk contains 'plat' or vk contains 'steel' -%}{%- assign sw = 'silver' -%}{%- endif -%}
+            <i class="aom-dot aom-dot--{{ sw }}" title="{% render 'aom-opt-label', t: value %}"></i>
+          {%- endfor -%}
+        </span>
+      {%- endif -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if rating -%}{% render 'aom-stars', rating: rating.rating, count: rcount, size: 11 %}{%- endif -%}
+    {%- if low -%}<span class="aom-card__low">Queda poco stock</span>{%- endif -%}
+    <div class="aom-card__row">
+      <span class="aom-card__price">{%- if pct > 0 -%}<ins>{{ v.price | money }}</ins><s>{{ v.compare_at_price | money }}</s>{%- else -%}{{ v.price | money }}{%- endif -%}</span>
+      {%- if v.available -%}
+        <button type="button" class="aom-card__add" data-aom-add="{{ v.id }}" aria-label="Añadir {{ product.title | escape }} a la cesta">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      {%- else -%}<span class="aom-card__out">Agotado</span>{%- endif -%}
+    </div>
+  </div>
+</div>

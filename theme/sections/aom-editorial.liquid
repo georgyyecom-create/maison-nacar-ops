@@ -1,0 +1,48 @@
+{%- comment -%} Maison Nácar · Bloque editorial (imagen + texto) {%- endcomment -%}
+{%- assign S = section.settings -%}
+<style>
+  #aom-ed-{{ section.id }} { background: {{ S.bg }}; }
+  #aom-ed-{{ section.id }} .g { display: grid; gap: 28px; align-items: center; }
+  @media (min-width: 990px) { #aom-ed-{{ section.id }} .g { grid-template-columns: 1fr 1fr; gap: 72px; } #aom-ed-{{ section.id }} .g.rev .im { order: 2; } }
+  #aom-ed-{{ section.id }} .im { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--aom-sand); margin: 0 -16px; }
+  @media (min-width: 990px) { #aom-ed-{{ section.id }} .im { margin: 0; } }
+  #aom-ed-{{ section.id }} .im img, #aom-ed-{{ section.id }} .im svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #aom-ed-{{ section.id }} .tx { max-width: 480px; }
+  #aom-ed-{{ section.id }} .tx p { color: var(--aom-muted); font-size: 16px; line-height: 1.7; margin: 18px 0 0; }
+  #aom-ed-{{ section.id }} ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+  #aom-ed-{{ section.id }} li { display: flex; gap: 12px; align-items: baseline; font-size: 15px; }
+  #aom-ed-{{ section.id }} li::before { content: "✦"; color: var(--aom-gold); font-size: 11px; }
+  #aom-ed-{{ section.id }} .aom-btn { margin-top: 28px; }
+</style>
+<section id="aom-ed-{{ section.id }}" class="aom-sec">
+  <div class="aom-container">
+    <div class="g{% if S.image_right %} rev{% endif %}">
+      <div class="im">{%- if S.image -%}{{ S.image | image_url: width: 1100 | image_tag: loading: 'lazy', widths: '500, 800, 1100', sizes: '(min-width: 990px) 50vw, 100vw', alt: '' }}{%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}{%- if S.image -%}{% render 'aom-ai' %}{%- endif -%}</div>
+      <div class="tx">
+        {%- if S.kicker != blank -%}<span class="aom-kicker">{{ S.kicker }}</span>{%- endif -%}
+        <h2 class="aom-h2">{{ S.title }}</h2>
+        {%- if S.text != blank -%}<p>{{ S.text }}</p>{%- endif -%}
+        {%- assign pts = S.points | newline_to_br | split: '<br />' -%}
+        {%- if S.points != blank -%}<ul>{%- for pt in pts -%}{%- assign l = pt | strip -%}{%- if l != blank -%}<li>{{ l }}</li>{%- endif -%}{%- endfor -%}</ul>{%- endif -%}
+        {%- if S.btn != blank -%}<a href="{{ S.link }}" class="aom-btn">{{ S.btn }}</a>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Editorial AOM",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Imagen" },
+    { "type": "checkbox", "id": "image_right", "label": "Imagen a la derecha", "default": false },
+    { "type": "color", "id": "bg", "label": "Fondo", "default": "#FCFAF6" },
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "Para regalar" },
+    { "type": "inline_richtext", "id": "title", "label": "Título", "default": "El detalle que <em>se recuerda</em>" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Joyas elegantes que no pasan de moda, a un precio que te permite regalar sin pensarlo dos veces." },
+    { "type": "textarea", "id": "points", "label": "Puntos (uno por línea)", "default": "Envío directo a quien quieras\nLlega en estuche de regalo\n30 días para cambiarlo" },
+    { "type": "text", "id": "btn", "label": "Botón", "default": "Elegir un regalo" },
+    { "type": "url", "id": "link", "label": "Enlace", "default": "/collections/all" }
+  ],
+  "presets": [ { "name": "Editorial AOM" } ]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+{%- comment -%}
+  Estrellas con relleno parcial.
+  Uso: {% render 'aom-stars', rating: 4.8, count: 292, size: 14 %}
+{%- endcomment -%}
+{%- liquid
+  assign r = rating | default: 0 | times: 1.0
+  assign pct = r | divided_by: 5.0 | times: 100 | round: 1
+  assign sz = size | default: 14
+-%}
+{%- if r > 0 -%}
+  <span class="aom-stars" style="--aom-star: {{ sz }}px" role="img" aria-label="{{ r | round: 1 }} de 5 estrellas">
+    <span class="aom-stars__base" aria-hidden="true">★★★★★<span class="aom-stars__fill" style="width: {{ pct }}%">★★★★★</span></span>
+    {%- if count != blank and count > 0 -%}<span class="aom-stars__txt">{{ r | round: 1 | replace: '.', ',' }} <span>({{ count }})</span></span>{%- endif -%}
+  </span>
+{%- endif -%}

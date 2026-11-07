@@ -1,0 +1,120 @@
+{%- comment -%}
+  Maison Nácar · Reseñas con foto
+  Fuentes, en este orden:
+  1. Metaobjetos «Reseña AOM» (Contenido → Metaobjetos). En una ficha de producto se muestran las de ese producto;
+     en el resto de páginas, todas (o solo las marcadas como destacadas).
+  2. Bloques «Reseña» añadidos en el editor.
+  Indica siempre el origen real de cada reseña (p. ej. «Compradora en AliExpress»). No marques «Compra verificada»
+  si no es una clienta de esta tienda.
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign shown = 0
+  assign rating = product.metafields.aom.rating.value
+  assign rcount = product.metafields.aom.rating_count.value | default: 0
+  assign show_p = true
+  if product
+    assign show_p = false
+  endif
+-%}
+{%- capture cards -%}
+  {%- for r in shop.metaobjects.aom_review.values -%}
+    {%- liquid
+      assign ok = false
+      if product
+        if r.product.value.id == product.id
+          assign ok = true
+        endif
+      elsif S.only_featured
+        if r.featured.value
+          assign ok = true
+        endif
+      else
+        assign ok = true
+      endif
+    -%}
+    {%- if ok and shown < S.limit -%}
+      {%- assign shown = shown | plus: 1 -%}
+      {% render 'aom-review-card', name: r.author.value, place: r.location.value, stars: r.rating.value, text: r.body.value, photo: r.photo.value, source: r.source.value, verified: r.verified.value, prod: r.product.value, show_prod: show_p %}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- for block in section.blocks -%}
+    {%- assign B = block.settings -%}
+    {% render 'aom-review-card', name: B.name, place: B.place, stars: B.stars, text: B.text, photo: B.image, source: B.source, verified: B.verified, attrs: block.shopify_attributes %}
+    {%- assign shown = shown | plus: 1 -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if S.show and shown > 0 -%}
+<style>
+  #resenas { scroll-margin-top: 90px; }
+  #aom-rv-{{ section.id }} .top { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; margin-bottom: 28px; }
+  #aom-rv-{{ section.id }} .track { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 2px 16px 6px; margin: 0 -16px; }
+  #aom-rv-{{ section.id }} .track::-webkit-scrollbar { display: none; }
+  @media (min-width: 990px) { #aom-rv-{{ section.id }} .track { margin: 0; padding: 2px 0 6px; } }
+  #aom-rv-{{ section.id }} .nav { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+  #aom-rv-{{ section.id }} .nav button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--aom-line); background: #fff; cursor: pointer; font-size: 18px; }
+  #aom-rv-{{ section.id }} .note { margin: 18px auto 0; max-width: 620px; text-align: center; font-size: 12px; color: var(--aom-muted); }
+  .aom-rv { flex: 0 0 78%; max-width: 330px; scroll-snap-align: start; background: #fff; border: 1px solid var(--aom-line); display: flex; flex-direction: column; }
+  @media (min-width: 750px) { .aom-rv { flex-basis: 300px; } }
+  .aom-rv__ph { aspect-ratio: 1; overflow: hidden; background: var(--aom-cream); }
+  .aom-rv__ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .aom-rv__b { padding: 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .aom-rv__t { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--aom-ink); }
+  .aom-rv__who { margin: auto 0 0; font-size: 13px; font-weight: 500; }
+  .aom-rv__who span { display: block; font-weight: 400; color: var(--aom-muted); font-size: 12px; margin-top: 2px; }
+  .aom-rv__ok { color: var(--aom-ok); }
+  .aom-rv__prod { display: flex; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid var(--aom-line); font-size: 12px; color: var(--aom-muted); text-decoration: none; }
+  .aom-rv__prod img { width: 34px; height: 34px; object-fit: cover; }
+</style>
+<section id="resenas" class="aom-sec" style="background: {{ S.bg }}">
+  <div class="aom-container" id="aom-rv-{{ section.id }}">
+    <div class="top">
+      {%- if S.kicker != blank -%}<span class="aom-kicker">{{ S.kicker }}</span>{%- endif -%}
+      <h2 class="aom-h2">{{ S.title }}</h2>
+      {%- if product and rating -%}{% render 'aom-stars', rating: rating.rating, count: rcount, size: 18 %}{%- elsif S.summary_rating > 0 -%}{% render 'aom-stars', rating: S.summary_rating, count: S.summary_count, size: 18 %}{%- endif -%}
+    </div>
+    <div class="track" data-aom-rv-track>{{ cards }}</div>
+    {%- if shown > 1 -%}
+      <div class="nav"><button type="button" data-aom-rv="-1" aria-label="Anterior">←</button><button type="button" data-aom-rv="1" aria-label="Siguiente">→</button></div>
+    {%- endif -%}
+    {%- if S.note != blank -%}<p class="note">{{ S.note }}</p>{%- endif -%}
+  </div>
+</section>
+<script>
+  (function () {
+    var w = document.getElementById('aom-rv-{{ section.id }}'); if (!w) return;
+    var t = w.querySelector('[data-aom-rv-track]');
+    w.querySelectorAll('[data-aom-rv]').forEach(function (b) { b.addEventListener('click', function () { var c = t.children[0]; t.scrollBy({ left: (+b.getAttribute('data-aom-rv')) * (c ? c.getBoundingClientRect().width + 14 : 300), behavior: 'smooth' }); }); });
+  })();
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Reseñas AOM",
+  "settings": [
+    { "type": "checkbox", "id": "show", "label": "Mostrar reseñas", "default": true },
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "Opiniones" },
+    { "type": "inline_richtext", "id": "title", "label": "Título", "default": "Lo que dicen <em>de esta pieza</em>" },
+    { "type": "range", "id": "limit", "label": "Máximo de reseñas", "min": 3, "max": 30, "step": 1, "default": 12 },
+    { "type": "checkbox", "id": "only_featured", "label": "Fuera de la ficha, solo reseñas destacadas", "default": true },
+    { "type": "color", "id": "bg", "label": "Fondo", "default": "#F4EEE4" },
+    { "type": "header", "content": "Resumen (fuera de la ficha)" },
+    { "type": "number", "id": "summary_rating", "label": "Nota media (0 = ocultar)", "default": 0 },
+    { "type": "number", "id": "summary_count", "label": "Número de opiniones", "default": 0 },
+    { "type": "textarea", "id": "note", "label": "Nota de transparencia", "info": "Obligatorio indicar de dónde salen las reseñas.", "default": "Mostramos opiniones de compradoras de estos modelos. En cada reseña indicamos su origen." }
+  ],
+  "blocks": [
+    { "type": "review", "name": "Reseña", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Foto" },
+      { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 },
+      { "type": "textarea", "id": "text", "label": "Comentario" },
+      { "type": "text", "id": "name", "label": "Nombre", "default": "María" },
+      { "type": "text", "id": "place", "label": "Ciudad (opcional)" },
+      { "type": "text", "id": "source", "label": "Origen", "info": "Ej.: Compradora en AliExpress, Instagram, Clienta de la tienda" },
+      { "type": "checkbox", "id": "verified", "label": "Clienta verificada de esta tienda", "default": false }
+    ] }
+  ],
+  "presets": [ { "name": "Reseñas AOM" } ]
+}
+{% endschema %}

@@ -1,0 +1,65 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "aom-header": {
+      "type": "aom-header",
+      "settings": {
+        "menu": "main-menu",
+        "logo_text": "Maison Nácar",
+        "logo_sub": "Joyería",
+        "speed": 36,
+        "tier1_qty": 2,
+        "tier1_pct": 25,
+        "tier2_qty": 3,
+        "tier2_pct": 35,
+        "upsell_collection": "complementos",
+        "upsell_title": "Completa tu 3x2",
+        "menu_note_1": "Envío gratis y estuche de regalo",
+        "offer_mode": "3x2"
+      },
+      "blocks": {
+        "a0": {
+          "type": "announcement",
+          "settings": {
+            "text": "3x2 en toda la tienda: elige 3, paga 2"
+          }
+        },
+        "a1": {
+          "type": "announcement",
+          "settings": {
+            "text": "Envío gratis · Estuche de regalo incluido"
+          }
+        },
+        "a2": {
+          "type": "announcement",
+          "settings": {
+            "text": "Paga con tarjeta, PayPal o Bizum"
+          }
+        },
+        "a3": {
+          "type": "announcement",
+          "settings": {
+            "text": "30 días para devolver"
+          }
+        },
+        "xmas": {
+          "type": "announcement",
+          "settings": {
+            "text": "Navidad: pide antes del 14 de diciembre y llega a tiempo"
+          }
+        }
+      },
+      "block_order": [
+        "a0",
+        "xmas",
+        "a1",
+        "a2",
+        "a3"
+      ]
+    }
+  },
+  "order": [
+    "aom-header"
+  ]
+}
