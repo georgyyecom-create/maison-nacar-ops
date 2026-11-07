@@ -48,7 +48,8 @@
     {%- if S.image -%}{% render 'aom-ai' %}{%- endif -%}
     </div>
     <div class="c">
-      {%- if S.kicker != blank -%}<p class="k">{{ S.kicker }}</p>{%- endif -%}
+      {%- capture camp_k -%}{% render 'aom-camp', k: 'kicker' %}{%- endcapture -%}
+      {%- if S.kicker != blank -%}<p class="k">{{ S.kicker | replace: '[campaña]', camp_k }}</p>{%- endif -%}
       <h1>{{ S.title }}</h1>
       {%- if S.text != blank -%}<p class="t">{{ S.text }}</p>{%- endif -%}
       <div class="b">
@@ -70,7 +71,7 @@
     { "type": "range", "id": "h_mobile", "label": "Alto en móvil", "min": 60, "max": 100, "step": 5, "unit": "%", "default": 85 },
     { "type": "range", "id": "h_desktop", "label": "Alto en ordenador", "min": 60, "max": 100, "step": 5, "unit": "%", "default": 90 },
     { "type": "range", "id": "shade", "label": "Oscurecer abajo", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 60 },
-    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "Colección Navidad" },
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "info": "[campaña] = texto de la campaña activa.", "default": "Colección Navidad" },
     { "type": "inline_richtext", "id": "title", "label": "Título", "default": "Joyas que <em>brillan</em> cada día" },
     { "type": "text", "id": "text", "label": "Texto", "default": "Piezas elegantes para llevar del trabajo a la cena. Envío gratis y estuche de regalo." },
     { "type": "text", "id": "btn_1", "label": "Botón 1", "default": "Descubrir la colección" },

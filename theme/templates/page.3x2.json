@@ -2,6 +2,14 @@
   "sections": {
     "main": {
       "type": "aom-builder",
+      "settings": {
+        "title": "Elige tus <em>3 joyas</em>",
+        "text": "La de menor precio es nuestro regalo. Envío gratis y estuche de regalo.",
+        "collection": "piezas"
+      }
+    },
+    "sets": {
+      "type": "aom-sets",
       "blocks": {
         "s1": {
           "type": "set",
@@ -12,7 +20,7 @@
               "brazalete-puntos-luz",
               "anillo-baguette-brillante"
             ],
-            "badge": "El más pedido"
+            "note": ""
           }
         },
         "s2": {
@@ -24,7 +32,7 @@
               "pulsera-corazones-encadenados",
               "pendientes-tres-corazones"
             ],
-            "badge": "Para regalar"
+            "note": ""
           }
         }
       },
@@ -33,11 +41,12 @@
         "s2"
       ],
       "settings": {
-        "title": "Arma tu <em>3x2</em>",
-        "text": "Elige 3 joyas: la de menor precio te sale gratis. Envío gratis y estuche de regalo.",
-        "sets_title": "O llévate un conjunto ya hecho",
-        "grid_title": "Todas las joyas",
-        "collection": "piezas"
+        "bg": "#F3EDE3",
+        "kicker": "O ya hechos",
+        "title": "Los <em>conjuntos</em>",
+        "text": "",
+        "link_text": "",
+        "link": ""
       }
     },
     "faq": {
@@ -64,7 +73,7 @@
           "settings": {
             "heading": "¿Cómo funciona el 3x2?",
             "icon": "price_tag",
-            "row_content": "<p>Elige 3 joyas cualesquiera y la de menor precio te sale gratis. Se aplica solo en la cesta. Con 6, 2 gratis.</p>"
+            "row_content": "<p>Elige 3 joyas cualesquiera y la de menor precio es un regalo. Se aplica solo en la cesta. Con 6, dos de regalo.</p>"
           }
         },
         "q4": {
@@ -78,9 +87,9 @@
         "q5": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "¿Cómo puedo pagar?",
+            "heading": "¿Tiene garantía?",
             "icon": "lock",
-            "row_content": "<p>Con Bizum, tarjeta, Apple Pay, Google Pay o PayPal. Pago 100 % seguro.</p>"
+            "row_content": "<p>Garantía de color de 3 años: si con un uso normal pierde el dorado, te enviamos otra. Y si llega dañada, te enviamos otra sin coste.</p>"
           }
         }
       },
@@ -109,6 +118,7 @@
   },
   "order": [
     "main",
+    "sets",
     "faq"
   ]
 }

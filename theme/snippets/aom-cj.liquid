@@ -1,0 +1,29 @@
+{%- comment -%}
+  Maison Nácar · «Completa el conjunto» en la ficha (mismo estilo que «Complétalo con»).
+  La pieza que se ve va fija arriba; las otras dos con casilla. Con las 3, la de menor precio es un regalo
+  (lo aplica el descuento automático «3x2: elige 3, paga 2»). Lógica en aom-product (cjRender).
+{%- endcomment -%}
+<div class="aom-add aom-cj" id="aom-cj" data-aom-cj {{ cj.shopify_attributes }}>
+  <p class="aom-add__h">{{ cj.settings.title | default: 'Completa el conjunto' }}<span>3x2 · la 3.ª, de regalo</span></p>
+  <div class="aom-cj__row is-main" data-cj-row="{{ product.id }}">
+    <span class="aom-cj__fix" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg></span>
+    <span class="aom-cj__img">{%- if product.featured_image -%}{{ product.featured_image | image_url: width: 160 | image_tag: loading: 'eager', alt: '' }}{%- endif -%}</span>
+    <span class="aom-cj__t"><b>{{ product.title }}</b><small>Esta pieza</small></span>
+    <span class="aom-cj__p"><span data-cj-price>{{ current.price | money }}</span><em data-cj-tag hidden>Regalo</em></span>
+  </div>
+  {%- for cp in cj.settings.products -%}
+    {%- if cp.id != product.id -%}
+      <label class="aom-cj__row" data-cj-row="{{ cp.id }}">
+        <input type="checkbox"{% if cj.settings.checked %} checked{% endif %}>
+        <span class="aom-cj__img">{%- if cp.featured_image -%}{{ cp.featured_image | image_url: width: 160 | image_tag: loading: 'eager', alt: '' }}{%- endif -%}</span>
+        <span class="aom-cj__t"><b>{{ cp.title }}</b><small>{{ cp.type }}</small></span>
+        <span class="aom-cj__p"><span data-cj-price>{{ cp.price | money }}</span><em data-cj-tag hidden>Regalo</em></span>
+      </label>
+    {%- endif -%}
+  {%- endfor -%}
+  <div class="aom-cj__ft">
+    <span data-cj-label>Conjunto completo</span>
+    <span class="aom-cj__tot" data-cj-total></span>
+  </div>
+  <p class="aom-cj__note" data-cj-note></p>
+</div>

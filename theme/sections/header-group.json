@@ -14,7 +14,7 @@
         "tier2_qty": 3,
         "tier2_pct": 35,
         "upsell_collection": "complementos",
-        "upsell_title": "Elige tu 3.ª joya (¡puede ser gratis!)",
+        "upsell_title": "Elige tu tercera joya",
         "menu_note_1": "3x2: elige 3, paga 2",
         "offer_mode": "3x2",
         "upsell_list": [
@@ -41,31 +41,19 @@
         "a1": {
           "type": "announcement",
           "settings": {
-            "text": "Elige 3 joyas, paga 2"
+            "text": "[envío]"
           }
         },
         "a2": {
           "type": "announcement",
           "settings": {
-            "text": "[envío]"
+            "text": "Estuche de regalo incluido"
           }
         },
         "a3": {
           "type": "announcement",
           "settings": {
-            "text": "Acero inoxidable con baño de oro 18k"
-          }
-        },
-        "a4": {
-          "type": "announcement",
-          "settings": {
             "text": "[devolución]"
-          }
-        },
-        "a5": {
-          "type": "announcement",
-          "settings": {
-            "text": "Paga con Bizum, tarjeta o PayPal"
           }
         }
       },
@@ -73,9 +61,7 @@
         "a0",
         "a1",
         "a2",
-        "a3",
-        "a4",
-        "a5"
+        "a3"
       ]
     }
   },

@@ -6,31 +6,25 @@
         "cj_pdl": {
           "type": "conjunto",
           "settings": {
-            "title": "Conjunto Puntos de Luz",
+            "title": "Completa el conjunto",
             "products": [
               "collar-puntos-luz",
               "brazalete-puntos-luz",
               "anillo-baguette-brillante"
             ],
-            "label_1": "Solo esta pieza",
-            "label_2": "",
-            "badge": "Recomendado",
-            "default_n": 3
+            "checked": true
           }
         },
         "cj_cor": {
           "type": "conjunto",
           "settings": {
-            "title": "Conjunto Corazones",
+            "title": "Completa el conjunto",
             "products": [
               "collar-corazones-encadenados",
               "pulsera-corazones-encadenados",
               "pendientes-tres-corazones"
             ],
-            "label_1": "Solo esta pieza",
-            "label_2": "",
-            "badge": "Recomendado",
-            "default_n": 3
+            "checked": true
           }
         },
         "trust1": {
@@ -80,7 +74,7 @@
         "offer_show": true,
         "offer_seal": "3x2",
         "offer_title": "3x2 en toda la tienda",
-        "offer_text": "Elige 3 joyas y la de menor precio te sale gratis. [d]Una para ti, dos para regalar.[/d]",
+        "offer_text": "Elige 3 joyas y la de menor precio es un regalo. [d]Una para ti, dos para regalar.[/d]",
         "offer_cta": "Elegir",
         "offer_link": "#aom-set",
         "perks_show": true,
@@ -117,9 +111,8 @@
         "ship_text": "Llega en su estuche de regalo.",
         "ship_days": 3,
         "ship_days_max": 7,
-        "buy_label": "Comprar ahora",
-        "cj_buy_label": "Quiero el conjunto",
-        "show_cart_btn": true,
+        "buy_label": "Añadir a la cesta",
+        "show_cart_btn": false,
         "cart_label": "Añadir a la cesta",
         "bar_label": "Comprar",
         "stock_low_text": "Quedan pocas unidades",
@@ -170,8 +163,8 @@
         "t3"
       ],
       "settings": {
-        "bg": "#F3EDE3",
-        "fg": "#121110",
+        "bg": "#121110",
+        "fg": "#f3ede3",
         "speed": 40
       }
     },

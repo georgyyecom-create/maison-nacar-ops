@@ -1601,7 +1601,7 @@
         "type": "text",
         "id": "aom_pop_title",
         "label": "Título",
-        "default": "Toca las 3 cajitas 🎁"
+        "default": "Abre las 3 cajitas"
       },
       {
         "type": "product_list",
@@ -1614,7 +1614,7 @@
         "type": "text",
         "id": "aom_pop_won",
         "label": "Texto al abrir las 3",
-        "default": "¡La tercera te sale GRATIS! Así funciona nuestro 3x2."
+        "default": "La tercera es un regalo: así funciona nuestro 3x2."
       },
       {
         "type": "text",

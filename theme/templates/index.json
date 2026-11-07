@@ -1,44 +1,23 @@
 {
   "sections": {
     "hero": {
-      "type": "aom-hero3x2",
-      "blocks": {
-        "s1": {
-          "type": "set",
-          "settings": {
-            "title": "Conjunto Puntos de Luz",
-            "products": [
-              "collar-puntos-luz",
-              "brazalete-puntos-luz",
-              "anillo-baguette-brillante"
-            ],
-            "badge": "El más pedido"
-          }
-        },
-        "s2": {
-          "type": "set",
-          "settings": {
-            "title": "Conjunto Corazones",
-            "products": [
-              "collar-corazones-encadenados",
-              "pulsera-corazones-encadenados",
-              "pendientes-tres-corazones"
-            ],
-            "badge": "Para regalar"
-          }
-        }
-      },
-      "block_order": [
-        "s1",
-        "s2"
-      ],
+      "type": "aom-hero",
       "settings": {
-        "kicker": "",
-        "title": "",
-        "text": "3 joyas por el precio de 2: la de menor precio te sale gratis. Acero inoxidable con baño de oro 18k, en su estuche de regalo.",
-        "own_text": "O elige tus 3 joyas →",
-        "own_link": "/pages/3x2",
-        "icons": "🚚 Envío gratis · Sale en 24/48 h\n🎁 Estuche de regalo\n↩️ Devolución hasta el 15 de enero\n✨ Acero inoxidable con baño de oro 18k\n💳 Bizum, tarjeta y PayPal\n💬 WhatsApp"
+        "image": "shopify://shop_images/Gemini_Generated_Image_r6zm6yr6zm6yr6zm.jpg",
+        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_ui8qdkui8qdkui8q.jpg",
+        "mob_layout": "overlay",
+        "mob_pos": 15,
+        "desk_pos": 25,
+        "h_mobile": 80,
+        "h_desktop": 90,
+        "shade": 70,
+        "kicker": "[campaña]",
+        "title": "Elige 3 joyas, <em>paga 2</em>",
+        "text": "Acero inoxidable con baño de oro 18k, en su estuche de regalo. La de menor precio es nuestro regalo.",
+        "btn_1": "Ver los conjuntos",
+        "link_1": "#conjuntos",
+        "btn_2": "Elegir mis 3 joyas",
+        "link_2": "/pages/3x2"
       }
     },
     "strip": {
@@ -88,55 +67,45 @@
         "speed": 40
       }
     },
-    "steps": {
-      "type": "aom-promise",
+    "sets": {
+      "type": "aom-sets",
       "blocks": {
-        "p1": {
-          "type": "item",
+        "s1": {
+          "type": "set",
           "settings": {
-            "icon": "gift",
-            "title": "1 · Elige 3 joyas",
-            "text": "La de menor precio te sale gratis"
+            "title": "Conjunto Puntos de Luz",
+            "products": [
+              "collar-puntos-luz",
+              "brazalete-puntos-luz",
+              "anillo-baguette-brillante"
+            ],
+            "note": ""
           }
         },
-        "p2": {
-          "type": "item",
+        "s2": {
+          "type": "set",
           "settings": {
-            "icon": "truck",
-            "title": "2 · Sale en 24/48 h",
-            "text": "Gratis y en su estuche de regalo"
-          }
-        },
-        "p3": {
-          "type": "item",
-          "settings": {
-            "icon": "return",
-            "title": "3 · ¿No acierta?",
-            "text": "Lo devuelves hasta el 15 de enero"
+            "title": "Conjunto Corazones",
+            "products": [
+              "collar-corazones-encadenados",
+              "pulsera-corazones-encadenados",
+              "pendientes-tres-corazones"
+            ],
+            "note": ""
           }
         }
       },
       "block_order": [
-        "p1",
-        "p2",
-        "p3"
+        "s1",
+        "s2"
       ],
       "settings": {
-        "title": "Tu regalo en <em>3 pasos</em>",
-        "bg": "#F3EDE3",
-        "fg": "#121110"
-      }
-    },
-    "best": {
-      "type": "aom-products",
-      "settings": {
-        "kicker": "Las favoritas",
-        "title": "Elige tus <em>3 joyas</em>",
-        "text": "Combina collares, pulseras, pendientes y anillos: la de menor precio, gratis.",
-        "collection": "frontpage",
-        "limit": 8,
-        "btn": "Ver todas las joyas",
-        "recommendations": false
+        "bg": "#FBF8F3",
+        "kicker": "Los conjuntos",
+        "title": "Tres joyas, <em>una de regalo</em>",
+        "text": "Collar, pulsera y una pieza más: la de menor precio te la regalamos.",
+        "link_text": "O elige tus propias 3 joyas",
+        "link": "/pages/3x2"
       }
     },
     "cats": {
@@ -153,17 +122,17 @@
         "c2": {
           "type": "cat",
           "settings": {
-            "collection": "pulseras",
-            "image": "shopify://shop_images/Gemini_Generated_Image_o7cdrao7cdrao7cd.jpg",
-            "label": "Pulseras"
+            "collection": "pendientes",
+            "image": "shopify://shop_images/Gemini_Generated_Image_jiks1fjiks1fjiks.jpg",
+            "label": "Pendientes"
           }
         },
         "c3": {
           "type": "cat",
           "settings": {
-            "collection": "pendientes",
-            "image": "shopify://shop_images/Gemini_Generated_Image_jiks1fjiks1fjiks.jpg",
-            "label": "Pendientes"
+            "collection": "pulseras",
+            "image": "shopify://shop_images/Gemini_Generated_Image_o7cdrao7cdrao7cd.jpg",
+            "label": "Pulseras"
           }
         },
         "c4": {
@@ -182,8 +151,20 @@
         "c4"
       ],
       "settings": {
-        "kicker": "Ideas de regalo",
-        "title": "Para mamá, para ella <em>o para ti</em>"
+        "kicker": "Las colecciones",
+        "title": "Elige <em>tu pieza</em>"
+      }
+    },
+    "best": {
+      "type": "aom-products",
+      "settings": {
+        "kicker": "Las más deseadas",
+        "title": "Favoritas de <em>esta temporada</em>",
+        "text": "Combina las que quieras: con 3 en la cesta, la de menor precio es un regalo.",
+        "collection": "frontpage",
+        "limit": 8,
+        "btn": "Ver todas las joyas",
+        "recommendations": false
       }
     },
     "compare": {
@@ -255,12 +236,12 @@
       "settings": {
         "image": "shopify://shop_images/Gemini_Generated_Image_tecfwmtecfwmtecf.jpg",
         "image_right": false,
-        "bg": "#FBF8F3",
+        "bg": "#F3EDE3",
         "kicker": "Para regalar",
         "title": "Este año <em>aciertas</em>",
-        "text": "Una para ti, dos para regalar (o al revés). Envíalo directo a quien quieras: llega en su estuche, listo para dar.",
-        "points": "3x2: la tercera joya, gratis\nLlega en estuche de regalo\nDevolución hasta el 15 de enero",
-        "btn": "Arma tu 3x2",
+        "text": "Una para ti y dos para regalar, o al revés. Envíalo directo a quien quieras: llega en su estuche, listo para dar.",
+        "points": "3x2: la tercera joya, de regalo\nLlega en estuche de regalo\nDevolución hasta el 15 de enero",
+        "btn": "Elegir mis 3 joyas",
         "link": "/pages/3x2"
       }
     },
@@ -309,8 +290,8 @@
           "type": "item",
           "settings": {
             "icon": "gem",
-            "title": "Garantía de color 3 años",
-            "text": "Si pierde el dorado, otra"
+            "title": "Garantía de color",
+            "text": "3 años: si pierde el dorado, otra"
           }
         }
       },
@@ -350,7 +331,7 @@
           "settings": {
             "heading": "¿Cómo funciona el 3x2?",
             "icon": "price_tag",
-            "row_content": "<p>Elige 3 joyas cualesquiera y la de menor precio te sale gratis. Se aplica solo en la cesta. Con 6, 2 gratis.</p>"
+            "row_content": "<p>Elige 3 joyas cualesquiera y la de menor precio es un regalo. Se aplica solo en la cesta. Con 6, dos de regalo.</p>"
           }
         },
         "q4": {
@@ -364,9 +345,9 @@
         "q5": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "¿Cómo puedo pagar?",
+            "heading": "¿Tiene garantía?",
             "icon": "lock",
-            "row_content": "<p>Con Bizum, tarjeta, Apple Pay, Google Pay o PayPal. Pago 100 % seguro.</p>"
+            "row_content": "<p>Garantía de color de 3 años: si con un uso normal pierde el dorado, te enviamos otra. Y si llega dañada, te enviamos otra sin coste.</p>"
           }
         }
       },
@@ -398,14 +379,14 @@
         "h": {
           "type": "heading",
           "settings": {
-            "heading": "Te avisamos 24 h antes del Black Friday",
+            "heading": "Antes que nadie",
             "heading_size": "h1"
           }
         },
         "p": {
           "type": "paragraph",
           "settings": {
-            "text": "<p>Déjanos tu email (o únete al canal de WhatsApp desde el botón verde). Sin spam.</p>"
+            "text": "<p>Te avisamos 24 h antes del Black Friday y de las piezas nuevas. Sin spam.</p>"
           }
         },
         "f": {
@@ -429,9 +410,9 @@
   "order": [
     "hero",
     "strip",
-    "steps",
-    "best",
+    "sets",
     "cats",
+    "best",
     "compare",
     "gift",
     "reviews",

@@ -1,0 +1,44 @@
+{%- comment -%} Maison Nácar · Los conjuntos 3x2 (home y página «Arma tu 3x2») {%- endcomment -%}
+{%- assign sets = section.blocks | where: 'type', 'set' -%}
+<section id="conjuntos" class="aom-sec aom-sets" style="background: {{ section.settings.bg }}">
+  <div class="aom-container">
+    <div class="aom-head">
+      {%- if section.settings.kicker != blank -%}<p class="aom-kicker">{{ section.settings.kicker }}</p>{%- endif -%}
+      <h2 class="aom-h2">{{ section.settings.title }}</h2>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="aom-sets__grid">
+      {%- for block in sets -%}
+        <div {{ block.shopify_attributes }}>{% render 'aom-setcard', items: block.settings.products, title: block.settings.title, image: block.settings.image, note: block.settings.note %}</div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.link_text != blank -%}
+      <p class="aom-sets__more"><a class="aom-link" href="{{ section.settings.link }}">{{ section.settings.link_text }}</a></p>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Conjuntos 3x2",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Fondo", "default": "#FBF8F3" },
+    { "type": "text", "id": "kicker", "label": "Etiqueta", "default": "Los conjuntos" },
+    { "type": "inline_richtext", "id": "title", "label": "Título", "default": "Tres joyas, <em>una de regalo</em>" },
+    { "type": "text", "id": "text", "label": "Texto" },
+    { "type": "text", "id": "link_text", "label": "Enlace inferior", "default": "O elige tus propias 3 joyas" },
+    { "type": "text", "id": "link", "label": "Enlace", "default": "/pages/3x2" }
+  ],
+  "blocks": [
+    {
+      "type": "set", "name": "Conjunto",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Nombre", "default": "Conjunto" },
+        { "type": "product_list", "id": "products", "label": "Las 3 piezas", "limit": 3 },
+        { "type": "image_picker", "id": "image", "label": "Foto del conjunto puesto (opcional)", "info": "Vertical 4:5. Si no hay, se componen las 3 piezas." },
+        { "type": "text", "id": "note", "label": "Frase (opcional)" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Conjuntos 3x2" } ]
+}
+{% endschema %}

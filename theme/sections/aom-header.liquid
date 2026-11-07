@@ -98,7 +98,7 @@
   <div class="aom-cart__progress" data-aom-progress hidden>
     <p class="m-0" data-aom-progress-t></p>
     <div class="aom-cart__bar"><span data-aom-progress-bar style="width:0"></span></div>
-    {%- if S.offer_mode == '3x2' -%}<div class="aom-cart__steps"><span data-aom-step="1">1.ª joya</span><span data-aom-step="2">2.ª joya</span><span data-aom-step="3">🎁 3.ª GRATIS</span></div>{%- else -%}<div class="aom-cart__steps"><span data-aom-step="1">1 pieza</span><span data-aom-step="2">{{ S.tier1_qty }} · −{{ S.tier1_pct }} %</span><span data-aom-step="3">{{ S.tier2_qty }} · −{{ S.tier2_pct }} %{% if S.gift_product != blank %} + 🎁{% endif %}</span></div>{%- endif -%}
+    {%- if S.offer_mode == '3x2' -%}<div class="aom-cart__steps"><span data-aom-step="1">1.ª joya</span><span data-aom-step="2">2.ª joya</span><span data-aom-step="3">3.ª de regalo</span></div>{%- else -%}<div class="aom-cart__steps"><span data-aom-step="1">1 pieza</span><span data-aom-step="2">{{ S.tier1_qty }} · −{{ S.tier1_pct }} %</span><span data-aom-step="3">{{ S.tier2_qty }} · −{{ S.tier2_pct }} %{% if S.gift_product != blank %} + 🎁{% endif %}</span></div>{%- endif -%}
   </div>
   <div class="aom-panel__body" data-aom-cart-body></div>
   <div class="aom-cart__foot" data-aom-cart-foot hidden>
@@ -196,8 +196,8 @@
       box.hidden = false;
       if (D.mode === '3x2') {
         var r = n % 3, free = Math.floor(n / 3);
-        if (n < 3) { txt = n === 2 ? '¡Te falta <b>1 joya</b>! Añádela y te sale <b>GRATIS</b> 🎁' : 'Añade <b>2 joyas más</b> y la de menor precio te sale <b>gratis</b>.'; w = n === 1 ? 33 : 66; }
-        else if (r === 0) { txt = '🎁 <b>3x2 aplicado:</b> ' + (free === 1 ? 'una joya te sale gratis.' : free + ' joyas te salen gratis.'); w = 100; }
+        if (n < 3) { txt = n === 2 ? 'Añade <b>una joya más</b> y la de menor precio será tu regalo.' : 'Añade <b>2 joyas más</b> y la de menor precio será tu regalo.'; w = n === 1 ? 33 : 66; }
+        else if (r === 0) { txt = '<b>3x2 aplicado:</b> ' + (free === 1 ? 'una de tus joyas es un regalo.' : free + ' de tus joyas son un regalo.'); w = 100; }
         else { txt = '<b>3x2 aplicado.</b> Añade ' + (3 - r) + ' más y llévate otra gratis.'; w = 100; }
         document.querySelector('[data-aom-progress-t]').innerHTML = txt;
         document.querySelector('[data-aom-progress-bar]').style.width = w + '%';

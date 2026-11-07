@@ -225,45 +225,42 @@ body.aom-lock .aom-wa { display: none; }
 /* iPhone: evita el zoom automático al tocar un campo de texto (descolocaba los elementos fijos) */
 @media (max-width: 749px) { input, select, textarea { font-size: max(16px, 1em) !important; } }
 
-/* Pop-up 3x2: tarjeta pequeña abajo (v18) */
+/* Pop-up 3x2: tarjeta pequeña abajo */
 .aom-pop { position: fixed; z-index: 120; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: center; pointer-events: none; }
 .aom-pop[hidden] { display: none; }
-.aom-pop__box { pointer-events: auto; position: relative; width: min(380px, 100%); max-height: 46vh; overflow: auto; padding: 16px 16px 14px; border-radius: 18px; background: #fff; color: var(--aom-ink); box-shadow: 0 18px 50px rgba(18,17,16,.28); transform: translateY(24px); opacity: 0; transition: transform .35s var(--aom-ease), opacity .3s ease; text-align: center; }
-@media (min-width: 750px) { .aom-pop { left: auto; right: 20px; bottom: 20px; } }
+.aom-pop__box { pointer-events: auto; position: relative; width: min(360px, 100%); padding: 18px 18px 16px; background: var(--aom-ivory); color: var(--aom-ink); border: 1px solid var(--aom-line); box-shadow: 0 18px 50px rgba(18,17,16,.22); transform: translateY(20px); opacity: 0; transition: transform .35s var(--aom-ease), opacity .3s ease; text-align: center; }
+@media (min-width: 750px) { .aom-pop { left: auto; right: 24px; bottom: 24px; } }
 .aom-pop.is-on .aom-pop__box { transform: none; opacity: 1; }
 .aom-pop__box:focus { outline: none; }
-.aom-pop__x { position: absolute; top: 6px; right: 6px; width: 36px; height: 36px; border: 0; background: none; cursor: pointer; color: var(--aom-muted); }
-.aom-pop__x svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.6; fill: none; }
-.aom-pop__k { margin: 0 0 2px; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--aom-accent); font-weight: 600; }
-.aom-pop__t { margin: 0 0 10px; font-family: var(--aom-serif); font-size: 24px; line-height: 1.1; }
+.aom-pop__x { position: absolute; top: 4px; right: 4px; width: 36px; height: 36px; border: 0; background: none; cursor: pointer; color: var(--aom-muted); }
+.aom-pop__x svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.5; fill: none; }
+.aom-pop__k { margin: 0 0 4px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--aom-gold); }
+.aom-pop__t { margin: 0 0 14px; font-family: var(--aom-serif); font-weight: 400; font-size: 26px; line-height: 1.1; }
 .aom-pop__game { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.aom-pop__gift { position: relative; aspect-ratio: 1; border: 1px dashed rgba(179,38,30,.45); border-radius: 14px; background: var(--aom-accent-soft); cursor: pointer; padding: 0; overflow: hidden; font: inherit; color: inherit; }
-.aom-pop__lid { position: absolute; inset: 0; display: grid; place-items: center; transition: transform .45s var(--aom-ease), opacity .3s ease; }
-.aom-pop__lid svg { width: 46%; fill: var(--aom-accent); stroke: #fff; stroke-width: 1.6; animation: aomWiggle 2.4s ease-in-out infinite; }
-.aom-pop__gift:nth-child(2) .aom-pop__lid svg { animation-delay: .3s; } .aom-pop__gift:nth-child(3) .aom-pop__lid svg { animation-delay: .6s; }
-@keyframes aomWiggle { 0%, 70%, 100% { transform: rotate(0); } 78% { transform: rotate(-8deg); } 86% { transform: rotate(7deg); } 94% { transform: rotate(-3deg); } }
-.aom-pop__in { position: absolute; inset: 0; display: grid; place-items: center; background: #fff; opacity: 0; transform: scale(.8); transition: transform .45s var(--aom-ease), opacity .3s ease; }
-.aom-pop__in img { width: 100%; height: 100%; object-fit: cover; }
-.aom-pop__ph { font-size: 26px; color: var(--aom-gold); }
-.aom-pop__in em { position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); padding: 3px 8px; border-radius: 999px; background: var(--aom-ink); color: #fff; font-style: normal; font-size: 11px; font-weight: 600; white-space: nowrap; }
-.aom-pop__gift:last-child .aom-pop__in em { background: var(--aom-accent); }
-.aom-pop__gift.is-open { border-style: solid; border-color: var(--aom-line); }
-.aom-pop__gift.is-open .aom-pop__lid { transform: translateY(-110%); opacity: 0; }
+.aom-pop__gift { position: relative; display: block; width: 100%; padding: 0 0 100%; border: 1px solid var(--aom-line); background: #fff; cursor: pointer; overflow: hidden; font: inherit; color: inherit; }
+.aom-pop__lid, .aom-pop__in { position: absolute; inset: 0; display: grid; place-items: center; transition: transform .45s var(--aom-ease), opacity .3s ease; }
+.aom-pop__lid svg { width: 46%; fill: none; stroke: var(--aom-gold); stroke-width: 1.4; }
+.aom-pop__in { background: var(--aom-ivory); opacity: 0; transform: scale(.9); }
+.aom-pop__in img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.aom-pop__ph { font-size: 22px; color: var(--aom-gold); }
+.aom-pop__in em { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 0; background: rgba(251,248,243,.92); font-style: normal; font-size: 11px; letter-spacing: .08em; }
+.aom-pop__gift:last-child .aom-pop__in em { background: var(--aom-ink); color: #fff; letter-spacing: .16em; text-transform: uppercase; font-size: 10px; }
+.aom-pop__gift.is-open { cursor: default; }
+.aom-pop__gift.is-open .aom-pop__lid { transform: translateY(-100%); opacity: 0; }
 .aom-pop__gift.is-open .aom-pop__in { opacity: 1; transform: none; }
-.aom-pop__won { margin: 10px 0 0; font-size: 14px; font-weight: 600; color: var(--aom-accent); }
-.aom-pop__cta { display: flex; align-items: center; justify-content: center; min-height: 46px; margin-top: 10px; border-radius: 999px; background: var(--aom-ink); color: #fff; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-.aom-pop.is-won .aom-pop__cta { background: var(--aom-accent); }
-.aom-pop__more { margin-top: 10px; display: grid; gap: 8px; }
-.aom-pop__wa { display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 12.5px; line-height: 1.3; color: var(--aom-ink); text-decoration: none; }
-.aom-pop__wa svg { flex: none; width: 20px; height: 20px; fill: #25D366; }
-.aom-pop__wa span { text-decoration: underline; text-underline-offset: 3px; }
-.aom-pop__form { display: flex; border: 1px solid var(--aom-line); border-radius: 999px; overflow: hidden; background: #fff; }
-.aom-pop__form input[type=email] { flex: 1; min-width: 0; border: 0; padding: 0 14px; height: 40px; font: inherit; font-size: 16px; background: none; }
-.aom-pop__form button { border: 0; background: var(--aom-cream); padding: 0 14px; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
+.aom-pop__won { margin: 12px 0 0; font-family: var(--aom-serif); font-size: 18px; font-style: italic; color: var(--aom-gold-dk); }
+.aom-pop__cta { display: flex; align-items: center; justify-content: center; min-height: 46px; margin-top: 12px; background: var(--aom-ink); color: #fff; text-decoration: none; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; }
+.aom-pop__more { margin-top: 12px; display: grid; gap: 10px; }
+.aom-pop__wa { display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 12.5px; line-height: 1.35; color: var(--aom-ink); text-decoration: none; }
+.aom-pop__wa svg { flex: none; width: 18px; height: 18px; fill: var(--aom-gold); }
+.aom-pop__wa span { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(18,17,16,.3); }
+.aom-pop__form { display: flex; border: 1px solid var(--aom-line); background: #fff; }
+.aom-pop__form input[type=email] { flex: 1; min-width: 0; border: 0; padding: 0 12px; height: 42px; font: inherit; font-size: 16px; background: none; }
+.aom-pop__form button { border: 0; background: none; padding: 0 14px; font: inherit; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
 .aom-pop__ok { margin: 8px 0 0; font-size: 13px; color: var(--aom-ok); }
 body.aom-pop-on .aom-wa { display: none; }
-body.aom-pop-on.aom-bar-on .aom-pop { bottom: 84px; }
-@media (prefers-reduced-motion: reduce) { .aom-pop__box, .aom-pop__lid, .aom-pop__in { transition: none; } .aom-pop__lid svg { animation: none; } }
+body.aom-bar-on .aom-pop { bottom: 84px; }
+@media (prefers-reduced-motion: reduce) { .aom-pop__box, .aom-pop__lid, .aom-pop__in { transition: none; } }
 
 /* Fotos de fondo blanco del proveedor: se funden con el marfil de la tienda */
 .aom-card__media { background: var(--aom-ivory, #FBF8F3); }
@@ -273,49 +270,40 @@ body.aom-pop-on.aom-bar-on .aom-pop { bottom: 84px; }
 .aom-gal__thumbs img { mix-blend-mode: multiply; }
 
 
-/* ============================================================
-   v18 · «Juvenil, pero premium»
-   ============================================================ */
-:root { --aom-accent: #B3261E; --aom-accent-soft: #FBEDEA; }
-.aom-btn { border-radius: 999px; letter-spacing: .1em; }
-.aom-marquee { background: var(--aom-accent); color: #fff; letter-spacing: .1em; font-weight: 500; }
-.aom-marquee__item::after { color: #FFD9A0; }
-/* Etiqueta tipo sticker de Instagram */
-.aom-sticker { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: #fff; color: var(--aom-ink); font-size: 12.5px; font-weight: 600; line-height: 1.2; box-shadow: 0 2px 10px rgba(18,17,16,.12); }
-.aom-sticker--red { background: var(--aom-accent); color: #fff; }
-.aom-sticker--ink { background: var(--aom-ink); color: #fff; }
-/* Los 3 huecos del 3x2 (se usa en ficha, home, página 3x2 y cesta) */
-.aom-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.aom-slot { position: relative; aspect-ratio: 1; border-radius: 14px; border: 1.5px dashed rgba(18,17,16,.25); background: #fff; display: grid; place-items: center; overflow: hidden; color: var(--aom-muted); font-size: 22px; }
-.aom-slot img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
-.aom-slot.is-on { border-style: solid; border-color: var(--aom-ink); }
-.aom-slot__tag { position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); padding: 3px 8px; border-radius: 999px; background: var(--aom-ink); color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; }
-.aom-slot.is-free { border-color: var(--aom-accent); background: var(--aom-accent-soft); }
-.aom-slot.is-free .aom-slot__tag { background: var(--aom-accent); }
-/* Banner de cookies de Shopify: tarjeta compacta abajo (no cambia las opciones, solo el tamaño) */
-#shopify-pc__banner.shopify-pc__banner__dialog { max-width: 560px !important; left: 10px !important; right: 10px !important; bottom: 10px !important; margin: 0 auto !important; border-radius: 16px !important; padding: 12px 14px !important; box-shadow: 0 10px 30px rgba(0,0,0,.2) !important; }
+/* Banner de cookies de Shopify: tarjeta compacta abajo (solo cambia el tamaño, no las opciones) */
+#shopify-pc__banner.shopify-pc__banner__dialog { max-width: 520px !important; left: 10px !important; right: 10px !important; bottom: 10px !important; margin: 0 auto !important; padding: 14px 16px !important; border-radius: 0 !important; background: var(--aom-ivory) !important; border: 1px solid var(--aom-line) !important; box-shadow: 0 12px 34px rgba(0,0,0,.18) !important; }
 #shopify-pc__banner .shopify-pc__banner__wrapper { display: block !important; padding: 0 !important; }
 #shopify-pc__banner .shopify-pc__banner__body { margin: 0 !important; padding: 0 !important; }
-#shopify-pc__banner #shopify-pc__banner__body-title { font-size: 13px !important; margin: 0 0 4px !important; line-height: 1.3 !important; }
-#shopify-pc__banner .shopify-pc__banner__body p { font-size: 11.5px !important; line-height: 1.4 !important; margin: 0 !important; display: -webkit-box !important; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden !important; }
-#shopify-pc__banner .shopify-pc__banner__btns { display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; gap: 8px !important; margin: 10px 0 0 !important; padding: 0 !important; width: 100% !important; }
-#shopify-pc__banner .shopify-pc__banner__btns button { flex: 1 1 0 !important; width: auto !important; min-width: 0 !important; min-height: 38px !important; margin: 0 !important; padding: 6px 10px !important; font-size: 13px !important; border-radius: 999px !important; }
-#shopify-pc__banner #shopify-pc__banner__btn-manage-prefs { order: 3; flex: 1 0 100% !important; min-height: 24px !important; padding: 0 !important; border: 0 !important; background: none !important; font-size: 11.5px !important; text-decoration: underline !important; }
-#shopify-pc__banner #shopify-pc__banner__btn-accept { order: 1; }
-#shopify-pc__banner #shopify-pc__banner__btn-decline { order: 2; }
-
-/* Tarjeta de conjunto 3x2 */
-.aom-sc { display: grid; gap: 12px; padding: 12px; border-radius: 20px; background: #fff; border: 1px solid var(--aom-line); box-shadow: 0 8px 28px rgba(18,17,16,.06); }
-.aom-sc__media { display: grid; gap: 8px; text-decoration: none; }
-.aom-sc__hero { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 14px; }
-.aom-sc__body { display: grid; gap: 4px; justify-items: start; }
-.aom-sc__badge { margin-bottom: 4px; font-size: 11px; padding: 4px 10px; }
-.aom-sc__t { font-family: var(--aom-serif); font-size: 24px; line-height: 1.1; color: var(--aom-ink); text-decoration: none; }
-.aom-sc__items { margin: 0; font-size: 12.5px; color: var(--aom-muted); line-height: 1.4; }
-.aom-sc__p { margin: 4px 0 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.aom-sc__p s { color: var(--aom-muted); font-size: 14px; }
-.aom-sc__p b { font-size: 22px; }
-.aom-sc__p span { font-size: 12px; font-weight: 600; color: var(--aom-accent); }
-.aom-sc__btns { display: flex; gap: 8px; width: 100%; margin-top: 8px; }
-.aom-sc__btns .aom-btn { flex: 1; min-height: 46px; padding: 0 12px; font-size: 12px; }
+#shopify-pc__banner #shopify-pc__banner__body-title { font-family: var(--aom-serif) !important; font-weight: 400 !important; font-size: 17px !important; margin: 0 0 4px !important; line-height: 1.2 !important; }
+#shopify-pc__banner .shopify-pc__banner__body p { font-size: 11.5px !important; line-height: 1.45 !important; margin: 0 !important; display: -webkit-box !important; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden !important; }
+#shopify-pc__banner .shopify-pc__banner__btns { display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; gap: 8px !important; margin: 12px 0 0 !important; padding: 0 !important; width: 100% !important; }
+#shopify-pc__banner .shopify-pc__banner__btns button { flex: 1 1 0 !important; width: auto !important; min-width: 0 !important; min-height: 40px !important; margin: 0 !important; padding: 6px 10px !important; font-size: 11.5px !important; letter-spacing: .14em !important; text-transform: uppercase !important; border-radius: 0 !important; }
+#shopify-pc__banner #shopify-pc__banner__btn-accept { order: 1; background: var(--aom-ink) !important; color: #fff !important; border: 1px solid var(--aom-ink) !important; }
+#shopify-pc__banner #shopify-pc__banner__btn-decline { order: 2; background: transparent !important; color: var(--aom-ink) !important; border: 1px solid var(--aom-ink) !important; }
+#shopify-pc__banner #shopify-pc__banner__btn-manage-prefs { order: 3; flex: 1 0 100% !important; min-height: 22px !important; padding: 0 !important; border: 0 !important; background: none !important; color: var(--aom-muted) !important; font-size: 11px !important; letter-spacing: 0 !important; text-transform: none !important; text-decoration: underline !important; }
 .aom-btn.is-busy { opacity: .6; }
+
+/* Conjuntos 3x2 (v19) */
+.aom-sets__grid { display: grid; gap: 40px; }
+@media (min-width: 750px) { .aom-sets__grid { grid-template-columns: repeat(2, 1fr); gap: 32px; } }
+.aom-sets__more { text-align: center; margin: 36px 0 0; }
+.aom-set3 { display: grid; gap: 18px; }
+.aom-set3__media { position: relative; display: block; padding-bottom: 100%; background: var(--aom-cream); overflow: hidden; }
+.aom-set3__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.aom-set3__trio { position: absolute; inset: 0; display: grid; grid-template-columns: 1.35fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; background: var(--aom-cream); }
+.aom-set3__cell { position: relative; display: block; overflow: hidden; background: var(--aom-ivory); }
+.aom-set3__cell--1 { grid-row: 1 / 3; }
+.aom-set3__cell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 3%; mix-blend-mode: multiply; transition: transform .6s var(--aom-ease); }
+.aom-set3__media:hover .aom-set3__cell img { transform: scale(1.04); }
+.aom-set3__body { text-align: center; }
+.aom-set3__t { margin: 0; font-family: var(--aom-serif); font-weight: 400; font-size: 30px; line-height: 1.1; }
+.aom-set3__t a { color: inherit; text-decoration: none; }
+.aom-set3__items { margin: 6px 0 0; font-size: 13px; line-height: 1.5; color: var(--aom-muted); }
+.aom-set3__p { display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 12px 0 0; }
+.aom-set3__p b { font-size: 20px; font-weight: 500; }
+.aom-set3__p s { font-size: 14px; color: var(--aom-muted); }
+.aom-set3__p span { flex-basis: 100%; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--aom-gold-dk); }
+.aom-set3__note { margin: 8px 0 0; font-size: 14px; color: var(--aom-muted); font-style: italic; font-family: var(--aom-serif); }
+.aom-set3__btns { display: grid; justify-items: center; gap: 14px; margin-top: 18px; }
+.aom-set3__btns .aom-btn { min-width: 240px; }
+.aom-set3__add { background: none; border: 0; border-bottom: 1px solid currentColor; padding: 0 0 3px; cursor: pointer; font: inherit; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--aom-ink); }

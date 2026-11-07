@@ -1,6 +1,7 @@
 {%- comment -%}
-  Tarjeta de conjunto 3x2: 3 miniaturas, nombre, precio tachado (suma) y precio con la más barata gratis.
-  Uso: {% render 'aom-setcard', items: block.settings.products, title: block.settings.title, badge: block.settings.badge, image: block.settings.image, add: true %}
+  Maison Nácar · Tarjeta de conjunto 3x2 (estética v17).
+  Uso: {% render 'aom-setcard', items: block.settings.products, title: block.settings.title, image: block.settings.image, note: block.settings.note %}
+  Si no hay foto del conjunto puesto, compone las 3 piezas sobre marfil (proporciones fijas: nunca se estiran).
 {%- endcomment -%}
 {%- liquid
   assign full = 0
@@ -30,30 +31,27 @@
   assign url = first.url | append: '?pack=3'
 -%}
 {%- if n == 3 -%}
-<div class="aom-sc">
-  <a class="aom-sc__media" href="{{ url }}">
+<article class="aom-set3">
+  <a class="aom-set3__media" href="{{ url }}" aria-label="{{ title | escape }}">
     {%- if image -%}
-      {{ image | image_url: width: 800 | image_tag: loading: 'eager', widths: '400, 600, 800', sizes: '(min-width: 750px) 40vw, 90vw', alt: title, class: 'aom-sc__hero' }}
+      <span class="aom-set3__photo">{{ image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 600, 800, 1000', sizes: '(min-width: 750px) 45vw, 92vw', alt: title }}</span>
+    {%- else -%}
+      <span class="aom-set3__trio">
+        {%- for p in items limit: 3 -%}
+          <span class="aom-set3__cell aom-set3__cell--{{ forloop.index }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 750px) 25vw, 50vw', alt: p.title }}{%- endif -%}</span>
+        {%- endfor -%}
+      </span>
     {%- endif -%}
-    <span class="aom-slots aom-sc__slots">
-      {%- for p in items limit: 3 -%}
-        {%- assign pv = p.selected_or_first_available_variant -%}
-        <span class="aom-slot is-on{% if pv.price == cheap and forloop.last %} is-free{% endif %}">
-          {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 260 | image_tag: loading: 'eager', alt: p.title }}{%- endif -%}
-          {%- if pv.price == cheap and forloop.last -%}<span class="aom-slot__tag">GRATIS</span>{%- endif -%}
-        </span>
-      {%- endfor -%}
-    </span>
   </a>
-  <div class="aom-sc__body">
-    {%- if badge != blank -%}<span class="aom-sticker aom-sticker--red aom-sc__badge">{{ badge }}</span>{%- endif -%}
-    <a class="aom-sc__t" href="{{ url }}">{{ title }}</a>
-    <p class="aom-sc__items">{% for p in items limit: 3 %}{{ p.title }}{% unless forloop.last %} · {% endunless %}{% endfor %}</p>
-    <p class="aom-sc__p"><s>{{ full | money }}</s> <b>{{ total | money }}</b> <span>la 3.ª gratis</span></p>
-    <div class="aom-sc__btns">
-      <a class="aom-btn aom-sc__go" href="{{ url }}">Ver el conjunto</a>
-      {%- if add -%}<button type="button" class="aom-btn aom-btn--ghost aom-sc__add" data-aom-addset="{{ ids }}">Añadir los 3</button>{%- endif -%}
+  <div class="aom-set3__body">
+    <h3 class="aom-set3__t"><a href="{{ url }}">{{ title }}</a></h3>
+    <p class="aom-set3__items">{% for p in items limit: 3 %}{{ p.title }}{% unless forloop.last %} · {% endunless %}{% endfor %}</p>
+    <p class="aom-set3__p"><b>{{ total | money_without_trailing_zeros }}</b><s>{{ full | money_without_trailing_zeros }}</s><span>La 3.ª, de regalo</span></p>
+    {%- if note != blank -%}<p class="aom-set3__note">{{ note }}</p>{%- endif -%}
+    <div class="aom-set3__btns">
+      <a class="aom-btn" href="{{ url }}">Ver el conjunto</a>
+      <button type="button" class="aom-link aom-set3__add" data-aom-addset="{{ ids }}">Añadir los 3 a la cesta</button>
     </div>
   </div>
-</div>
+</article>
 {%- endif -%}
