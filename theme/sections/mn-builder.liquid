@@ -13,8 +13,8 @@
   #mn-b-{{ section.id }} .b-top { padding: 28px 0 0; }
   #mn-b-{{ section.id }} .b-top p { margin: 10px 0 0; color: var(--mn-grey); max-width: 44ch; }
   #mn-b-{{ section.id }} .b-box { margin: 18px 0 20px; }
-  #mn-b-{{ section.id }} .b-mini { position: fixed; z-index: 45; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 10px; border-radius: 18px; background: var(--mn-ink); color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.25); transform: translateY(140%); transition: transform .3s var(--mn-ease); }
-  #mn-b-{{ section.id }} .b-mini.is-on { transform: none; }
+  #mn-b-{{ section.id }} .b-mini { position: fixed; z-index: 45; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 10px; border-radius: 18px; background: var(--mn-ink); color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.25); transform: translateY(140%); visibility: hidden; transition: transform .3s var(--mn-ease), visibility 0s linear .3s; }
+  #mn-b-{{ section.id }} .b-mini.is-on { transform: none; visibility: visible; transition: transform .3s var(--mn-ease); }
   #mn-b-{{ section.id }} .b-mini .mn-slots { flex: none; width: 128px; gap: 4px; }
   #mn-b-{{ section.id }} .b-mini .mn-slot { border-radius: 8px; }
   #mn-b-{{ section.id }} .b-mini .mn-slot__name, #mn-b-{{ section.id }} .b-mini .mn-slot__plus { display: none; }

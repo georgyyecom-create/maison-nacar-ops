@@ -35,8 +35,8 @@
     assign grest = gfirst | append: ',' | append: grest
   endif
   assign gorder = grest | split: ','
-  assign rating = product.metafields.reviews.rating.value.rating | default: product.metafields.aom.rating.value.rating
-  assign rcount = product.metafields.reviews.rating_count.value | default: product.metafields.aom.rating_count.value | default: 0
+  assign rating = product.metafields.reviews.rating.value.rating
+  assign rcount = product.metafields.reviews.rating_count.value | default: 0
 -%}
 <style>
   .mn-pdp { padding-bottom: 24px; }
@@ -48,9 +48,9 @@
   .mn-gal__s { position: relative; flex: 0 0 100%; aspect-ratio: 4 / 5; scroll-snap-align: start; }
   .mn-gal__s img, .mn-gal__s video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .mn-gal__s.is-white img { object-fit: contain; mix-blend-mode: multiply; }
-  .mn-gal__n { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: #fff; font-size: 12.5px; font-weight: 600; }
-  .mn-gal__tag { position: absolute; right: 12px; top: 12px; padding: 6px 12px; border-radius: 999px; background: var(--mn-nacar); font-size: 12.5px; font-weight: 600; }
-  @media (max-width: 749px) { .mn-gal__track { gap: 6px; padding: 0 var(--mn-gutter); scroll-padding: 0 var(--mn-gutter); background: none; } .mn-gal__s { flex: 0 0 80%; aspect-ratio: 4 / 5; background: var(--mn-tile); } .mn-gal__s:only-child { flex-basis: 100%; } .mn-gal__n { left: calc(var(--mn-gutter) + 10px); } .mn-gal__tag { right: calc(var(--mn-gutter) + 10px); } .mn-info { padding-top: 14px; } .mn-info__t { font-size: 30px; } .mn-pdp .mn-box { margin-top: 14px; } }
+  .mn-gal__n { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--mn-accent); font-size: 12.5px; font-weight: 600; }
+  .mn-gal__tag { position: absolute; left: 12px; top: 12px; padding: 6px 12px; border-radius: 999px; background: var(--mn-nacar); font-size: 12.5px; font-weight: 600; }
+  @media (max-width: 749px) { .mn-gal__track { gap: 6px; padding: 0 var(--mn-gutter); scroll-padding: 0 var(--mn-gutter); background: none; } .mn-gal__s { flex: 0 0 80%; aspect-ratio: 4 / 5; background: var(--mn-tile); } .mn-gal__s:only-child { flex-basis: 100%; } .mn-gal__n { left: calc(var(--mn-gutter) + 10px); } .mn-gal__tag { left: calc(var(--mn-gutter) + 10px); } .mn-info { padding-top: 14px; } .mn-info__t { font-size: 30px; } .mn-pdp .mn-box { margin-top: 14px; } }
   @media (min-width: 990px) {
     .mn-gal__track { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; overflow: visible; background: none; }
     .mn-gal__s { background: var(--mn-tile); }
@@ -72,8 +72,8 @@
   .mn-sugg { margin-top: 10px; }
   .mn-sugg p { margin: 0 0 8px; font-size: 13px; color: rgba(255,255,255,.75); }
   .mn-sugg .mn-rail { grid-auto-columns: 30%; }
-  .mn-sugg__it { position: relative; display: block; width: 100%; padding: 0; border: 0; border-radius: 10px; overflow: hidden; background: var(--mn-tile); cursor: pointer; aspect-ratio: 1; }
-  .mn-sugg__it img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .mn-sugg__it { position: relative; display: block; width: 100%; padding: 0; border: 0; border-radius: 10px; overflow: hidden; background: var(--mn-tile); cursor: pointer; aspect-ratio: 4 / 5; }
+  .mn-sugg__it img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
   .mn-sugg__it span { position: absolute; left: 4px; right: 4px; bottom: 4px; padding: 2px 4px; border-radius: 6px; background: rgba(255,255,255,.92); color: var(--mn-ink); font-size: 11px; text-align: center; }
   .mn-sugg__it.is-on { box-shadow: inset 0 0 0 2px #fff; opacity: .45; }
   .mn-buy { margin-top: 14px; }
@@ -81,12 +81,14 @@
   .mn-buy__l { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; margin: 10px 0 0; font-size: 13px; color: var(--mn-grey); }
   .mn-info .mn-perks { margin-top: 22px; padding: 16px 0; border-top: 1px solid var(--mn-line); }
   .mn-info .mn-acc { margin-top: 6px; }
-  .mn-sbar { position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 12px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--mn-line); transform: translateY(110%); transition: transform .3s var(--mn-ease); }
-  .mn-sbar.is-on { transform: none; }
+  .mn-sbar { position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 12px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--mn-line); transform: translateY(110%); visibility: hidden; transition: transform .3s var(--mn-ease), visibility 0s linear .3s; }
+  .mn-sbar.is-on { transform: none; visibility: visible; transition: transform .3s var(--mn-ease); }
   .mn-sbar__t { flex: 1; min-width: 0; font-size: 13px; line-height: 1.3; }
   .mn-sbar__t b { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px; }
   .mn-sbar .mn-btn { min-height: 48px; padding: 0 20px; }
   @media (min-width: 990px) { .mn-sbar { display: none; } }
+  .mn-box.is-flash { animation: mnFlash 1.4s ease .35s; }
+  @keyframes mnFlash { 0%, 100% { box-shadow: 0 0 0 0 rgba(184,151,90,0); } 30% { box-shadow: 0 0 0 4px var(--mn-accent); } }
 </style>
 
 <section class="mn-pdp" data-mn-pdp>
@@ -197,7 +199,7 @@
 
   <div class="mn-sbar" data-mn-sbar aria-hidden="true">
     <div class="mn-sbar__t"><b>{% if cj %}{{ cj.settings.title }}{% else %}{{ product.title }}{% endif %}</b><span data-mn-sbar-p>{{ current.price | money_without_trailing_zeros }}</span></div>
-    <button type="button" class="mn-btn" data-mn-sbar-go tabindex="-1">Añadir</button>
+    <button type="button" class="mn-btn" data-mn-sbar-go tabindex="-1">Ver mi estuche</button>
   </div>
 
   <script type="application/json" data-mn-pdp-data>
@@ -277,7 +279,7 @@
     });
     function buy(btn) { if (!state.items.length) return; btn.classList.add('is-busy'); MN.add(state.items).then(function () { btn.classList.remove('is-busy'); }, function () { btn.classList.remove('is-busy'); }); }
     var bb = $('[data-mn-buy]'); bb.addEventListener('click', function () { buy(bb); });
-    var sg = $('[data-mn-sbar-go]'); sg.addEventListener('click', function () { buy(sg); });
+    var sg = $('[data-mn-sbar-go]'), bx = $('[data-mn-box]'); sg.addEventListener('click', function () { var y = bx.getBoundingClientRect().top + window.scrollY - 76; window.scrollTo({ top: y, behavior: 'smooth' }); bx.classList.remove('is-flash'); void bx.offsetWidth; bx.classList.add('is-flash'); });
     /* Barra fija cuando el botón sale de la pantalla */
     var bar = $('[data-mn-sbar]'), tick = false;
     function sync() { tick = false; var off = bb.getBoundingClientRect().bottom < 0; bar.classList.toggle('is-on', off); document.body.classList.toggle('mn-bar-on', off); bar.setAttribute('aria-hidden', off ? 'false' : 'true'); sg.tabIndex = off ? 0 : -1; }

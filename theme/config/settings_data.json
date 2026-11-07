@@ -199,7 +199,7 @@
       }
     },
     "aom_campaign": "adelantada",
-    "aom_reviews_on": false,
+    "aom_reviews_on": true,
     "aom_wa_show": true,
     "aom_wa_number": "34621390548",
     "aom_pop_show": true,

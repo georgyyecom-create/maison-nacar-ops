@@ -1,6 +1,7 @@
 {%- comment -%}
-  Así queda puesto / Así se lleva. En una ficha usa primero las fotos del producto con «#puesto»
-  en el texto alternativo; si no hay, los huecos de esta sección (para las fotos de Gemini).
+  Así queda puesto / Así se lleva. En una ficha salen primero las fotos del producto con «#puesto»
+  y se completa hasta 3 con las fotos comunes de esta sección.
+  Si no hay ninguna, se ven los huecos de esta sección (para las fotos de Gemini).
 {%- endcomment -%}
 {%- liquid
   assign S = section.settings
@@ -27,10 +28,18 @@
   <div class="mn-wrap mn-head"><div><h2 class="mn-h2">{{ S.title }}</h2>{%- if S.text != blank -%}<p>{{ S.text }}</p>{%- endif -%}</div></div>
   <div class="w-grid">
     {%- if own_list.size > 0 -%}
+      {%- assign shown = 0 -%}
       {%- for i in own_list limit: 3 -%}
         {%- assign widx = i | plus: 0 -%}
         {%- assign m = product.media[widx] -%}
+        {%- assign shown = shown | plus: 1 -%}
         <figure><span class="mn-ph" style="aspect-ratio: 4/5">{{ m.preview_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 600, 800, 1000', sizes: '(min-width: 990px) 33vw, 78vw', alt: product.title }}</span></figure>
+      {%- endfor -%}
+      {%- for block in section.blocks -%}
+        {%- if shown < 3 and block.settings.image != blank -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <figure {{ block.shopify_attributes }}>{% render 'mn-ph', image: block.settings.image, ratio: '4/5', n: block.settings.n, label: block.settings.label, sizes: '(min-width: 990px) 33vw, 78vw' %}{%- if block.settings.caption != blank -%}<figcaption>{{ block.settings.caption }}</figcaption>{%- endif -%}</figure>
+        {%- endif -%}
       {%- endfor -%}
     {%- else -%}
       {%- for block in section.blocks -%}

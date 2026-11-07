@@ -39,8 +39,10 @@
 - Los datos de Meta se quedan cortos por el banner de cookies: **mirar también Shopify** (sesiones, carritos, pedidos).
 
 ## Tema Shopify
-- Tema publicado: **v17**. La carpeta local `theme/` es la **v20** («Maison Nácar v20.1 (de cero · el estuche)», id 208242901332, sin publicar). Hecha de cero (secciones `mn-*`, `assets/mn.css` y `mn.js`); la v18 y la v19 se descartaron.
+- Tema publicado: **v20.1** (id 208242901332, desde el 7-nov). La carpeta local `theme/` es la **v20.2** (id 208259907924, sin publicar). El MCP no puede escribir en el tema publicado: cada cambio va en un tema nuevo. Hecha de cero (secciones `mn-*`, `assets/mn.css` y `mn.js`); la v18 y la v19 se descartaron.
 - v20, idea central: el 3x2 es **«tu estuche»** con 3 huecos; el tercero brilla con tornasol de nácar y es el regalo. Blanco, negro y fotos; tipos Bricolage Grotesque + Instrument Sans. Nada de rojo, pegatinas ni emojis.
+- Estrellas: la ficha solo lee el metacampo real `reviews.rating` (app de reseñas), nunca `aom.rating`.
+- Color de acento sutil: champán `--mn-accent: #B8975A` (puntos de la barra, tachado del estuche, línea bajo títulos).
 - Campaña: Configuración del tema → Maison Nácar → «Campaña activa». Reseñas: interruptor «Mostrar reseñas y estrellas» (sección «Opiniones»). Enlace de anuncio: `/products/<collar>?pack=3`. Página `/pages/3x2` = «Tu estuche».
 - Huecos de foto numerados («Foto 01»…); los prompts están en `PROMPTS_FOTOS_TIENDA_V20.md`. En productos: `#portada` sale primero y `#puesto` va a «Así queda puesto».
 - Ojo: Shopify rechaza las secciones con `"default": ""` en un ajuste de texto (y, en cascada, las plantillas que las usan).
