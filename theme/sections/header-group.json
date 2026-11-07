@@ -1,71 +1,55 @@
 {
-  "name": "t:sections.header.name",
   "type": "header",
+  "name": "Cabecera",
   "sections": {
-    "aom-header": {
-      "type": "aom-header",
+    "mn-header": {
+      "type": "mn-header",
+      "blocks": {
+        "m1": {
+          "type": "msg",
+          "settings": {
+            "text": "[campaña]",
+            "link": "/pages/3x2"
+          }
+        },
+        "m2": {
+          "type": "msg",
+          "settings": {
+            "text": "[envío]",
+            "link": ""
+          }
+        },
+        "m3": {
+          "type": "msg",
+          "settings": {
+            "text": "[devolución]",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3"
+      ],
       "settings": {
+        "logo_text": "maison nácar",
         "menu": "main-menu",
-        "logo_text": "Maison Nácar",
-        "logo_sub": "Joyería",
-        "speed": 36,
-        "tier1_qty": 2,
-        "tier1_pct": 25,
-        "tier2_qty": 3,
-        "tier2_pct": 35,
-        "upsell_collection": "complementos",
-        "upsell_title": "Elige tu tercera joya",
-        "menu_note_1": "3x2: elige 3, paga 2",
-        "offer_mode": "3x2",
+        "upsell_title": "Completa tu estuche",
         "upsell_list": [
           "aros-esenciales",
           "anillo-ola-circonita",
           "aros-doble-linea",
           "anillo-lazo-ajustable",
           "pendientes-tres-corazones",
-          "anillo-baguette-brillante"
-        ],
-        "menu_note_2": "Envío gratis · Sale en 24/48 h",
-        "menu_note_3": "Devolución hasta el 15 de enero",
-        "ship_label": "Gratis",
-        "cart_trust": "Pago seguro · Devolución hasta el 15 de enero",
-        "checkout_label": "Finalizar compra"
-      },
-      "blocks": {
-        "a0": {
-          "type": "announcement",
-          "settings": {
-            "text": "[campaña]"
-          }
-        },
-        "a1": {
-          "type": "announcement",
-          "settings": {
-            "text": "[envío]"
-          }
-        },
-        "a2": {
-          "type": "announcement",
-          "settings": {
-            "text": "Estuche de regalo incluido"
-          }
-        },
-        "a3": {
-          "type": "announcement",
-          "settings": {
-            "text": "[devolución]"
-          }
-        }
-      },
-      "block_order": [
-        "a0",
-        "a1",
-        "a2",
-        "a3"
-      ]
+          "anillo-baguette-brillante",
+          "pendientes-gota-dorada",
+          "set-aros-tres-tamanos"
+        ]
+      }
     }
   },
   "order": [
-    "aom-header"
+    "mn-header"
   ]
 }

@@ -1,0 +1,55 @@
+{%- comment -%}
+  Ficha técnica dibujada (inspirada en el plano de Cas Deià): la joya sobre gris con líneas de cota
+  y los datos que ya están en la descripción (las líneas «Material:», «Medidas:», etc.).
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign desc = product.description | replace: 'baño dorado o plateado (metal dorado o plateado)', 'baño de oro de 18 k (dorado) o acabado plateado' | replace: 'baño dorado (metal dorado)', 'baño de oro de 18 k' | replace: '<li>', '|' | replace: '</li>', '|' | replace: '</p>', '|' | strip_html | strip_newlines
+  assign rows = desc | split: '|'
+-%}
+<style>
+  #mn-s-{{ section.id }} .s-grid { display: grid; gap: 22px; }
+  @media (min-width: 990px) { #mn-s-{{ section.id }} .s-grid { grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; } }
+  #mn-s-{{ section.id }} .s-fig { position: relative; aspect-ratio: 1; background: var(--mn-tile); }
+  #mn-s-{{ section.id }} .s-fig img { position: absolute; inset: 12%; width: 76%; height: 76%; object-fit: contain; mix-blend-mode: multiply; }
+  #mn-s-{{ section.id }} .s-fig svg { position: absolute; inset: 0; width: 100%; height: 100%; color: rgba(0,0,0,.45); }
+  #mn-s-{{ section.id }} .s-fig small { position: absolute; font-size: 11.5px; color: var(--mn-grey); background: var(--mn-tile); padding: 0 6px; }
+  #mn-s-{{ section.id }} dl { margin: 0; display: grid; grid-template-columns: auto 1fr; }
+  #mn-s-{{ section.id }} dt, #mn-s-{{ section.id }} dd { margin: 0; padding: 14px 0; border-top: 1px solid var(--mn-line); font-size: 15px; }
+  #mn-s-{{ section.id }} dt { color: var(--mn-grey); padding-right: 24px; }
+</style>
+<section id="mn-s-{{ section.id }}" class="mn-sec">
+  <div class="mn-wrap s-grid">
+    <div class="s-fig">
+      {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '500, 800, 1000', sizes: '(min-width: 990px) 50vw, 100vw', alt: product.title }}{%- endif -%}
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width=".25" aria-hidden="true"><path d="M8 6v88M6 8h2M6 92h2M12 96h76M12 94v4M88 94v4" vector-effect="non-scaling-stroke"/><path d="M8 50h4M50 96v-4" stroke-dasharray="1 1" vector-effect="non-scaling-stroke"/></svg>
+      <small style="left: 50%; bottom: 1.2%; transform: translateX(-50%)">{{ S.w_label }}</small>
+      <small style="left: .5%; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left center;">{{ S.h_label }}</small>
+    </div>
+    <div>
+      <h2 class="mn-h2">{{ S.title }}</h2>
+      <dl style="margin-top: 22px">
+        {%- for r in rows -%}
+          {%- if r contains ':' -%}
+            {%- assign kv = r | split: ':' -%}
+            {%- assign key = kv[0] | strip -%}
+            {%- assign val = r | remove_first: kv[0] | remove_first: ':' | strip -%}
+            {%- if key.size < 22 and val != blank -%}<dt>{{ key }}</dt><dd>{{ val }}</dd>{%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <dt>Garantía</dt><dd>Color: 3 años</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Ficha técnica",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "La pieza, al detalle" },
+    { "type": "text", "id": "w_label", "label": "Cota horizontal", "default": "tamaño real" },
+    { "type": "text", "id": "h_label", "label": "Cota vertical" }
+  ],
+  "presets": [ { "name": "Ficha técnica" } ]
+}
+{% endschema %}

@@ -1,0 +1,195 @@
+/* ==========================================================================
+   Maison Nácar · v20 · sistema de diseño
+   Blanco, negro y fotos. El único color es el tornasol del nácar, y solo en el regalo.
+   ========================================================================== */
+:root {
+  --mn-paper: #FFFFFF;
+  --mn-tile: #EFEEEB;
+  --mn-ink: #000000;
+  --mn-grey: #76736D;
+  --mn-line: #E2E0DB;
+  --mn-ok: #2E6B4E;
+  --mn-nacar: linear-gradient(125deg, #F1E6F6 0%, #E2EDF6 34%, #F5EDE1 66%, #E6F2EC 100%);
+  --mn-display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --mn-text: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+  --mn-gutter: 16px;
+  --mn-max: 1320px;
+  --mn-ease: cubic-bezier(.2, .7, .2, 1);
+}
+@media (min-width: 990px) { :root { --mn-gutter: 40px; } }
+
+html { -webkit-text-size-adjust: 100%; }
+body.mn { margin: 0; background: var(--mn-paper); color: var(--mn-ink); font-family: var(--mn-text); font-size: 15px; line-height: 1.5; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+.mn *, .mn *::before, .mn *::after { box-sizing: border-box; }
+.mn img { max-width: 100%; }
+.mn a { color: inherit; }
+.mn :focus-visible { outline: 2px solid var(--mn-ink); outline-offset: 2px; }
+.mn button { font: inherit; color: inherit; }
+@media (max-width: 749px) { .mn input, .mn select, .mn textarea { font-size: 16px; } }
+
+.mn-wrap { max-width: var(--mn-max); margin: 0 auto; padding: 0 var(--mn-gutter); }
+.mn-sec { padding: 56px 0; }
+@media (min-width: 990px) { .mn-sec { padding: 96px 0; } }
+
+/* Tipos */
+.mn h1, .mn h2, .mn h3, .mn h4 { font-family: var(--mn-display); letter-spacing: -.02em; color: inherit; }
+.mn-h1, .mn-h2, .mn-h3 { font-family: var(--mn-display); font-weight: 700; letter-spacing: -.035em; margin: 0; font-variation-settings: "opsz" 96; }
+.mn-h1 { font-size: clamp(44px, 11vw, 120px); line-height: .92; }
+.mn-h2 { font-size: clamp(32px, 6.4vw, 64px); line-height: .98; }
+.mn-h3 { font-size: 22px; line-height: 1.1; letter-spacing: -.02em; }
+.mn-lead { font-size: 17px; line-height: 1.45; color: var(--mn-ink); max-width: 46ch; margin: 14px 0 0; }
+.mn-small { font-size: 13px; color: var(--mn-grey); }
+.mn-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.mn-head p { margin: 8px 0 0; color: var(--mn-grey); max-width: 52ch; }
+
+/* Botones */
+.mn-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 26px; border: 1px solid var(--mn-ink); border-radius: 999px; background: var(--mn-ink); color: #fff; font-family: var(--mn-text); font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer; transition: transform .15s ease, background .2s ease; }
+.mn-btn:active { transform: scale(.98); }
+.mn .mn-btn { color: #fff; }
+.mn .mn-btn--line { background: transparent; color: var(--mn-ink); }
+.mn .mn-btn--white { background: #fff; color: var(--mn-ink); border-color: #fff; }
+.mn-btn--block { display: flex; width: 100%; }
+.mn-btn[disabled] { opacity: .35; cursor: default; }
+.mn-btn.is-busy { opacity: .6; pointer-events: none; }
+.mn-link { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+/* Píldoras (filtros, variantes) */
+.mn-pills { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
+.mn-pills::-webkit-scrollbar { display: none; }
+.mn-pill { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 16px; border: 1px solid var(--mn-line); border-radius: 999px; background: #fff; font-size: 14px; cursor: pointer; text-decoration: none; white-space: nowrap; }
+.mn-pill sup { font-size: 10px; color: var(--mn-grey); }
+.mn-pill.is-on { background: var(--mn-ink); color: #fff; border-color: var(--mn-ink); }
+.mn-pill.is-on sup { color: rgba(255,255,255,.7); }
+.mn-pill[disabled] { color: var(--mn-grey); text-decoration: line-through; }
+.mn-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+.mn-dot--gold { background: radial-gradient(circle at 30% 30%, #FFF0BF, #D8AE52 55%, #9C7428); }
+.mn-dot--silver { background: radial-gradient(circle at 30% 30%, #fff, #C9C9C9 55%, #8A8A8A); }
+
+/* Huecos de foto (para las imágenes de Gemini) */
+.mn-ph { position: relative; display: block; width: 100%; overflow: hidden; background: var(--mn-tile); }
+.mn-ph > img, .mn-ph > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mn-ph__empty { position: absolute; inset: 10px; display: grid; place-items: center; align-content: center; gap: 6px; border: 1px dashed rgba(0,0,0,.28); text-align: center; padding: 12px; color: var(--mn-grey); }
+.mn-ph__empty b { font-family: var(--mn-display); font-size: 22px; color: var(--mn-ink); letter-spacing: -.02em; }
+.mn-ph--top .mn-ph__empty { align-content: start; padding-top: 64px; }
+.mn-ph__empty span { font-size: 12.5px; line-height: 1.35; max-width: 26ch; }
+
+/* Tarjeta de producto */
+.mn-card { position: relative; display: block; min-width: 0; }
+.mn-card__media { position: relative; display: block; aspect-ratio: 4 / 5; background: var(--mn-tile); overflow: hidden; }
+.mn-card__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: opacity .35s ease; }
+.mn-card__media img.is-alt { opacity: 0; object-fit: cover; mix-blend-mode: normal; }
+@media (hover: hover) { .mn-card:hover .mn-card__media img.is-alt { opacity: 1; } }
+.mn-card__add { position: absolute; right: 8px; top: 8px; display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #fff; cursor: pointer; box-shadow: 0 1px 0 rgba(0,0,0,.06); }
+.mn-card__add svg { width: 16px; height: 16px; }
+.mn-card__add.is-in { background: var(--mn-ink); color: #fff; }
+.mn-card__tag { position: absolute; left: 8px; bottom: 8px; padding: 4px 10px; border-radius: 999px; background: #fff; font-size: 12px; font-weight: 600; }
+.mn-card__body { display: flex; justify-content: space-between; gap: 10px; padding: 10px 2px 0; }
+.mn-card__t { font-size: 14px; line-height: 1.3; text-decoration: none; }
+.mn-card__p { font-size: 14px; font-weight: 600; white-space: nowrap; }
+.mn-card__dots { display: flex; gap: 4px; margin-top: 6px; }
+.mn-card__dots .mn-dot { width: 11px; height: 11px; }
+.mn-card__out { font-size: 12px; color: var(--mn-grey); }
+
+/* El estuche (3x2). Se usa en la ficha, en «Tu estuche», en la cesta y en el pop-up. */
+.mn-box { border-radius: 18px; background: var(--mn-ink); color: #fff; padding: 14px; }
+.mn-box__h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0 0 12px; }
+.mn-box__h b { font-family: var(--mn-display); font-size: 20px; letter-spacing: -.02em; line-height: 1.05; }
+.mn-box__h span { flex: none; font-size: 12.5px; color: rgba(255,255,255,.7); white-space: nowrap; }
+.mn-slots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.mn-slot { position: relative; display: block; width: 100%; aspect-ratio: 1; border: 0; border-radius: 12px; background: rgba(255,255,255,.08); padding: 0; overflow: hidden; cursor: pointer; text-align: left; color: #fff; }
+.mn-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: var(--mn-tile); mix-blend-mode: normal; }
+.mn-slot__plus { position: absolute; inset: 0; display: grid; place-items: center; font-size: 26px; font-weight: 300; color: rgba(255,255,255,.55); }
+.mn-slot__name { position: absolute; left: 6px; right: 6px; bottom: 6px; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,.92); color: var(--mn-ink); font-size: 10.5px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mn-slot__check { position: absolute; top: 6px; right: 6px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--mn-ink); color: #fff; }
+.mn-slot__check svg { width: 11px; height: 11px; }
+.mn-slot.is-off img { opacity: .25; }
+.mn-slot.is-off .mn-slot__check { background: rgba(255,255,255,.85); color: transparent; box-shadow: inset 0 0 0 1px var(--mn-ink); }
+/* el hueco del regalo: tornasol de nácar */
+.mn-slot.is-gift { background: var(--mn-nacar); }
+.mn-slot.is-gift::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px rgba(255,255,255,.9); background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 66%); background-size: 260% 100%; animation: mnSheen 3.6s ease-in-out infinite; pointer-events: none; }
+.mn-slot.is-gift img { mix-blend-mode: multiply; background: transparent; }
+.mn-slot.is-gift .mn-slot__name { background: var(--mn-ink); color: #fff; font-weight: 600; text-align: center; }
+.mn-slot.is-empty.is-gift .mn-slot__plus { color: var(--mn-ink); }
+@keyframes mnSheen { 0% { background-position: 130% 0; } 55%, 100% { background-position: -40% 0; } }
+@media (prefers-reduced-motion: reduce) { .mn-slot.is-gift::after { animation: none; } }
+.mn-box__sum { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 14px 2px 0; }
+.mn-box__sum span { font-size: 14px; color: rgba(255,255,255,.75); }
+.mn-box__sum b { font-family: var(--mn-display); font-size: 28px; letter-spacing: -.03em; }
+.mn-box__sum s { font-size: 14px; color: rgba(255,255,255,.55); margin-right: 8px; }
+.mn-box__note { margin: 4px 2px 0; font-size: 13px; color: rgba(255,255,255,.75); }
+
+/* Lista de garantías con iconos de línea */
+.mn-perks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.mn-perks li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; font-size: 14px; line-height: 1.4; }
+.mn-perks svg { width: 20px; height: 20px; margin-top: 1px; }
+.mn-perks small { display: block; color: var(--mn-grey); font-size: 13px; }
+
+/* Acordeón */
+.mn-acc details { border-top: 1px solid var(--mn-line); }
+.mn-acc details:last-child { border-bottom: 1px solid var(--mn-line); }
+.mn-acc summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 0; font-size: 16px; font-weight: 600; cursor: pointer; }
+.mn-acc summary::-webkit-details-marker { display: none; }
+.mn-acc summary::after { content: ""; flex: none; width: 12px; height: 12px; background: linear-gradient(currentColor, currentColor) center/12px 1.5px no-repeat, linear-gradient(currentColor, currentColor) center/1.5px 12px no-repeat; transition: transform .2s ease; }
+.mn-acc details[open] summary::after { transform: rotate(45deg); }
+.mn-acc .mn-acc__b { padding: 0 0 18px; color: #2B2A28; font-size: 15px; line-height: 1.6; max-width: 64ch; }
+.mn-acc .mn-acc__b p { margin: 0 0 10px; }
+
+/* Carrusel horizontal */
+.mn-rail { display: grid; grid-auto-flow: column; grid-auto-columns: 46%; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
+.mn-rail::-webkit-scrollbar { display: none; }
+.mn-rail > * { scroll-snap-align: start; }
+@media (min-width: 750px) { .mn-rail { grid-auto-columns: calc((100% - 30px) / 4); gap: 10px; } }
+
+/* Utilidades */
+.mn-hide { display: none !important; }
+.mn-vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+body.mn-lock { overflow: hidden; }
+
+/* Banner de cookies de Shopify: tarjeta compacta abajo (solo cambia el tamaño, no las opciones) */
+#shopify-pc__banner.shopify-pc__banner__dialog { max-width: 520px !important; left: 10px !important; right: 10px !important; bottom: 10px !important; margin: 0 auto !important; padding: 14px 16px !important; border-radius: 18px !important; background: #fff !important; border: 1px solid var(--mn-line) !important; box-shadow: 0 12px 34px rgba(0,0,0,.16) !important; font-family: var(--mn-text) !important; }
+#shopify-pc__banner .shopify-pc__banner__wrapper { display: block !important; padding: 0 !important; }
+#shopify-pc__banner .shopify-pc__banner__body { margin: 0 !important; padding: 0 !important; }
+#shopify-pc__banner #shopify-pc__banner__body-title { font-family: var(--mn-display) !important; font-weight: 700 !important; font-size: 17px !important; letter-spacing: -.02em !important; margin: 0 0 4px !important; }
+#shopify-pc__banner .shopify-pc__banner__body p { font-size: 12px !important; line-height: 1.45 !important; margin: 0 !important; display: -webkit-box !important; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden !important; }
+#shopify-pc__banner .shopify-pc__banner__btns { display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; gap: 8px !important; margin: 12px 0 0 !important; padding: 0 !important; width: 100% !important; }
+#shopify-pc__banner .shopify-pc__banner__btns button { flex: 1 1 0 !important; width: auto !important; min-width: 0 !important; min-height: 42px !important; margin: 0 !important; padding: 6px 10px !important; font-size: 14px !important; font-weight: 600 !important; border-radius: 999px !important; }
+#shopify-pc__banner #shopify-pc__banner__btn-accept { order: 1; background: #000 !important; color: #fff !important; border: 1px solid #000 !important; }
+#shopify-pc__banner #shopify-pc__banner__btn-decline { order: 2; background: #fff !important; color: #000 !important; border: 1px solid #000 !important; }
+#shopify-pc__banner #shopify-pc__banner__btn-manage-prefs { order: 3; flex: 1 0 100% !important; min-height: 22px !important; padding: 0 !important; border: 0 !important; background: none !important; color: var(--mn-grey) !important; font-size: 12px !important; text-decoration: underline !important; }
+
+/* WhatsApp flotante */
+.mn-wa { position: fixed; z-index: 60; right: 14px; bottom: 14px; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #fff; color: var(--mn-ink); box-shadow: 0 6px 20px rgba(0,0,0,.16); }
+.mn-wa svg { width: 26px; height: 26px; }
+body.mn-bar-on .mn-wa { bottom: 86px; }
+body.mn-pop-on .mn-wa { display: none; }
+
+/* Pop-up: el estuche */
+.mn-pop { position: fixed; z-index: 120; left: 10px; right: 10px; bottom: 10px; display: flex; justify-content: center; pointer-events: none; }
+.mn-pop[hidden] { display: none; }
+@media (min-width: 750px) { .mn-pop { left: auto; right: 24px; bottom: 24px; } }
+.mn-pop__box { pointer-events: auto; position: relative; width: min(370px, 100%); padding: 18px 16px 16px; border-radius: 22px; background: var(--mn-ink); color: #fff; box-shadow: 0 20px 50px rgba(0,0,0,.3); transform: translateY(24px); opacity: 0; transition: transform .4s var(--mn-ease), opacity .3s ease; }
+.mn-pop.is-on .mn-pop__box { transform: none; opacity: 1; }
+.mn-pop__x { position: absolute; top: 6px; right: 6px; display: grid; place-items: center; width: 38px; height: 38px; border: 0; background: none; color: rgba(255,255,255,.7); cursor: pointer; }
+.mn-pop__x svg { width: 18px; height: 18px; }
+.mn-pop__t { margin: 0; font-family: var(--mn-display); font-weight: 700; font-size: 26px; letter-spacing: -.035em; line-height: 1; padding-right: 30px; }
+.mn-pop__s { margin: 6px 0 14px; font-size: 14px; color: rgba(255,255,255,.7); }
+.mn-pop__g { position: relative; }
+.mn-pop__lid, .mn-pop__in { position: absolute; inset: 0; display: grid; place-items: center; transition: transform .5s var(--mn-ease), opacity .35s ease; }
+.mn-pop__lid svg { width: 38%; height: 38%; color: rgba(255,255,255,.85); animation: mnWiggle 2.6s ease-in-out infinite; }
+.mn-pop__g:nth-child(2) .mn-pop__lid svg { animation-delay: .3s; } .mn-pop__g:nth-child(3) .mn-pop__lid svg { animation-delay: .6s; color: var(--mn-ink); }
+@keyframes mnWiggle { 0%, 70%, 100% { transform: rotate(0); } 78% { transform: rotate(-9deg); } 86% { transform: rotate(7deg); } 94% { transform: rotate(-3deg); } }
+.mn-pop__in { opacity: 0; transform: scale(.85); background: var(--mn-tile); }
+.mn-pop__g.is-gift .mn-pop__in { background: transparent; }
+.mn-pop__in img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.mn-pop__g.is-open .mn-pop__lid { opacity: 0; transform: translateY(-60%); }
+.mn-pop__g.is-open .mn-pop__in { opacity: 1; transform: none; }
+.mn-pop__won { margin: 12px 0 0; font-size: 15px; font-weight: 600; }
+.mn .mn-pop__cta { margin-top: 12px; background: #fff; color: var(--mn-ink); border-color: #fff; min-height: 48px; }
+.mn-pop__more { display: grid; gap: 10px; margin-top: 12px; }
+.mn-pop__wa { font-size: 13px; color: rgba(255,255,255,.85); text-align: center; text-decoration: underline; text-underline-offset: 3px; }
+.mn-pop__form { display: flex; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.1); }
+.mn-pop__form input[type=email] { flex: 1; min-width: 0; height: 42px; border: 0; padding: 0 14px; background: none; color: #fff; }
+.mn-pop__form input::placeholder { color: rgba(255,255,255,.55); }
+.mn-pop__form button { border: 0; background: none; color: #fff; font-weight: 600; padding: 0 16px; cursor: pointer; }
+.mn-pop__ok { margin: 10px 0 0; font-size: 14px; color: #BFE3CF; }
+@media (prefers-reduced-motion: reduce) { .mn-pop__box, .mn-pop__lid, .mn-pop__in { transition: none; } .mn-pop__lid svg { animation: none; } }

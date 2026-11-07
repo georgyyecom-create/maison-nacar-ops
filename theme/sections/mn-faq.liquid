@@ -1,0 +1,26 @@
+{%- comment -%} Preguntas frecuentes v20 {%- endcomment -%}
+<style>
+  #mn-f-{{ section.id }} .f-grid { display: grid; gap: 20px; }
+  @media (min-width: 990px) { #mn-f-{{ section.id }} .f-grid { grid-template-columns: 1fr 1.4fr; gap: 64px; } }
+</style>
+<section id="mn-f-{{ section.id }}" class="mn-sec">
+  <div class="mn-wrap f-grid">
+    <div><h2 class="mn-h2">{{ section.settings.title }}</h2>{%- if section.settings.text != blank -%}<p class="mn-lead" style="color: var(--mn-grey)">{{ section.settings.text }}</p>{%- endif -%}</div>
+    <div class="mn-acc">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}><summary>{{ block.settings.q }}</summary><div class="mn-acc__b">{{ block.settings.a }}</div></details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Preguntas",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Preguntas" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "¿Otra duda? Escríbenos por WhatsApp." }
+  ],
+  "blocks": [ { "type": "q", "name": "Pregunta", "settings": [ { "type": "text", "id": "q", "label": "Pregunta" }, { "type": "richtext", "id": "a", "label": "Respuesta" } ] } ],
+  "presets": [ { "name": "Preguntas" } ]
+}
+{% endschema %}

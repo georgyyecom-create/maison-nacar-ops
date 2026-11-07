@@ -39,8 +39,11 @@
 - Los datos de Meta se quedan cortos por el banner de cookies: **mirar también Shopify** (sesiones, carritos, pedidos).
 
 ## Tema Shopify
-- Tema publicado: **v17**. La carpeta local `theme/` es la **v19** («Maison Nácar v19 (premium + 3x2)», id 208239362388, sin publicar): estética v17 + 3x2. La v18 (id 208237330772) se descartó: al dueño no le gustó (rojo, pegatinas, aspecto de AliExpress). El MCP no puede escribir en el tema MAIN.
-- v19: campaña en Configuración del tema → Maison Nácar → «Campaña activa» (cambia barra, home, ficha y pop-up). Reseñas apagadas con «Mostrar reseñas y estrellas». Conjuntos en la ficha: bloque «Completa el conjunto» (bloques «Conjunto 3x2» de la plantilla de producto). Enlace de anuncio: `/products/<collar>?pack=3`. Página `/pages/3x2` (Arma tu 3x2).
+- Tema publicado: **v17**. La carpeta local `theme/` es la **v20** («Maison Nácar v20.1 (de cero · el estuche)», id 208242901332, sin publicar). Hecha de cero (secciones `mn-*`, `assets/mn.css` y `mn.js`); la v18 y la v19 se descartaron.
+- v20, idea central: el 3x2 es **«tu estuche»** con 3 huecos; el tercero brilla con tornasol de nácar y es el regalo. Blanco, negro y fotos; tipos Bricolage Grotesque + Instrument Sans. Nada de rojo, pegatinas ni emojis.
+- Campaña: Configuración del tema → Maison Nácar → «Campaña activa». Reseñas: interruptor «Mostrar reseñas y estrellas» (sección «Opiniones»). Enlace de anuncio: `/products/<collar>?pack=3`. Página `/pages/3x2` = «Tu estuche».
+- Huecos de foto numerados («Foto 01»…); los prompts están en `PROMPTS_FOTOS_TIENDA_V20.md`. En productos: `#portada` sale primero y `#puesto` va a «Así queda puesto».
+- Ojo: Shopify rechaza las secciones con `"default": ""` en un ajuste de texto (y, en cascada, las plantillas que las usan).
 - Para subir cambios:
   1. Hacer un zip de `theme/`.
   2. `stagedUploadsCreate` (archivo; el campo del archivo va al final del curl).
@@ -66,8 +69,7 @@ Black Friday 27-nov · Cyber Monday 30-nov · último pedido para Navidad 14-dic
   1. Repo privado en GitHub.
   2. Radar de competencia (Biblioteca de Anuncios + Apify).
   3. 15–25 creativos estáticos antes del 20-nov.
-  4. Tienda v19 hecha y subida: falta que el dueño la publique, el enlace del canal de WhatsApp y las fotos nuevas.
-- Estilo de la tienda: premium y sobrio (marfil, negro, dorado, serif). Nada de rojo, pegatinas ni emojis.
-  5. Estrellas: ocultas en la v19 (el metacampo `aom.rating` sigue con valores falsos: borrarlos antes de activar reseñas).
+  4. Tienda v20 hecha y subida: falta que el dueño la publique, las fotos de Gemini y el enlace del canal de WhatsApp.
+  5. Estrellas: ocultas en la v20 (el metacampo `aom.rating` sigue con valores falsos: borrarlos antes de activar reseñas).
   6. Campaña nueva.
 - Documentos de detalle en la raíz: `LANZAMIENTO_META.md`, `PROMPTS_CREATIVOS_ADS.md`, `ESTRATEGIA_PRECIO_OFERTA_MARCA.md`.

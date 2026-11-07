@@ -1,0 +1,50 @@
+{%- comment -%} Colección v20: título grande, píldoras con el número de piezas y la cuadrícula con «+» {%- endcomment -%}
+{%- assign S = section.settings -%}
+<style>
+  #mn-col .c-top { padding: 28px 0 16px; }
+  #mn-col .c-top p { margin: 10px 0 0; color: var(--mn-grey); max-width: 52ch; }
+  #mn-col .c-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 10px; margin-top: 18px; }
+  @media (min-width: 750px) { #mn-col .c-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1200px) { #mn-col .c-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  #mn-col .c-strip { margin: 26px 0 0; padding: 16px; background: var(--mn-ink); color: #fff; border-radius: 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  #mn-col .c-strip b { font-family: var(--mn-display); font-size: 20px; letter-spacing: -.02em; }
+  #mn-col .c-strip .c-sub { display: block; font-size: 13px; color: rgba(255,255,255,.7); }
+  #mn-col .c-strip .mn-btn { flex: none; min-height: 44px; padding: 0 18px; }
+  #mn-col .c-pag { display: flex; justify-content: center; gap: 8px; margin: 36px 0 56px; }
+</style>
+<section id="mn-col">
+  <div class="mn-wrap">
+    <div class="c-top">
+      <h1 class="mn-h1" style="font-size: clamp(44px, 12vw, 96px)">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}<p>{{ collection.description | strip_html | truncate: 160 }}</p>{%- endif -%}
+    </div>
+    <div class="mn-pills">
+      {%- for l in linklists[S.menu].links -%}
+        {%- assign lc = l.object -%}
+        <a class="mn-pill{% if l.active or l.url == collection.url %} is-on{% endif %}" href="{{ l.url }}">{{ l.title }}{%- if l.type == 'collection_link' -%} <sup>{{ lc.products_count }}</sup>{%- endif -%}</a>
+      {%- endfor -%}
+    </div>
+    <a class="c-strip" href="/pages/3x2" style="text-decoration:none"><span><b>{% render 'aom-camp', k: 'short' %}</b><span class="c-sub">Con 3 joyas en la cesta, la de menor precio es tu regalo.</span></span><span class="mn-btn mn-btn--white">Tu estuche</span></a>
+    {%- paginate collection.products by S.per_page -%}
+      <div class="c-grid">
+        {%- for p in collection.products -%}{%- assign eg = false -%}{%- if forloop.index < 5 -%}{%- assign eg = true -%}{%- endif -%}{% render 'mn-card', product: p, eager: eg %}{%- else -%}<p>Esta colección aún no tiene joyas.</p>{%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="c-pag" aria-label="Páginas">
+          {%- if paginate.previous -%}<a class="mn-pill" href="{{ paginate.previous.url }}">Anterior</a>{%- endif -%}
+          <span class="mn-pill is-on">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+          {%- if paginate.next -%}<a class="mn-pill" href="{{ paginate.next.url }}">Siguiente</a>{%- endif -%}
+        </nav>
+      {%- else -%}<div style="height: 56px"></div>{%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Colección v20",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Píldoras (menú)", "default": "main-menu" },
+    { "type": "range", "id": "per_page", "label": "Joyas por página", "min": 8, "max": 48, "step": 4, "default": 24 }
+  ]
+}
+{% endschema %}

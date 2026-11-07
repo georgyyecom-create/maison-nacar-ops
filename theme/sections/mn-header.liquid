@@ -1,0 +1,157 @@
+{%- comment -%}
+  Maison Nácar v20 · Barra de aviso + cabecera + menú + cesta (el estuche).
+  La cesta muestra el 3x2 como un estuche de 3 huecos; el descuento real lo aplica
+  el descuento automático de Shopify «3x2: elige 3, paga 2».
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign menu = linklists[S.menu]
+  assign msgs = section.blocks | where: 'type', 'msg'
+  assign ship_short = settings.aom_ship_short | default: 'Envío gratis · Sale en 24/48 h'
+-%}
+{%- capture camp_short -%}{% render 'aom-camp', k: 'short' %}{%- endcapture -%}
+<style>
+  .mn-bar { background: var(--mn-ink); color: #fff; font-size: 13px; text-align: center; height: 34px; overflow: hidden; position: relative; }
+  .mn-bar p { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; padding: 0 12px; opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease; white-space: nowrap; }
+  .mn-bar p.is-on { opacity: 1; transform: none; }
+  .mn-bar a { text-decoration: none; }
+  .mn-hdr { position: sticky; top: 0; z-index: 40; background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid transparent; transition: border-color .2s ease; }
+  .mn-hdr.is-stuck { border-color: var(--mn-line); }
+  .mn-hdr__in { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 58px; }
+  .mn-hdr__l, .mn-hdr__r { display: flex; align-items: center; gap: 4px; }
+  .mn-hdr__r { justify-content: flex-end; }
+  .mn-ico { position: relative; display: grid; place-items: center; width: 42px; height: 42px; border: 0; background: none; cursor: pointer; text-decoration: none; }
+  .mn-ico svg { width: 23px; height: 23px; }
+  .mn-ico__n { position: absolute; top: 5px; right: 3px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--mn-ink); color: #fff; font-size: 11px; font-weight: 600; line-height: 18px; text-align: center; }
+  .mn-logo { font-family: var(--mn-display); font-weight: 800; font-size: 24px; letter-spacing: -.04em; word-spacing: .12em; line-height: 1; text-decoration: none; white-space: nowrap; font-variation-settings: "opsz" 96, "wdth" 82; }
+  .mn-nav { display: none; gap: 22px; list-style: none; margin: 0 0 0 10px; padding: 0; }
+  .mn-nav a { font-size: 14px; text-decoration: none; }
+  .mn-nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (min-width: 990px) { .mn-nav { display: flex; } .mn-hdr__burger { display: none !important; } .mn-hdr__in { height: 68px; } .mn-logo { font-size: 30px; } }
+  .mn-scrim { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+  .mn-scrim.is-on { opacity: 1; pointer-events: auto; }
+  .mn-panel { position: fixed; top: 0; bottom: 0; z-index: 100; display: flex; flex-direction: column; width: min(440px, 100%); background: #fff; transition: transform .35s var(--mn-ease); }
+  .mn-panel--l { left: 0; transform: translateX(-102%); }
+  .mn-panel--r { right: 0; transform: translateX(102%); }
+  .mn-panel.is-on { transform: none; }
+  .mn-panel__h { display: flex; justify-content: space-between; align-items: center; padding: 10px 10px 10px 18px; border-bottom: 1px solid var(--mn-line); }
+  .mn-panel__h b { font-family: var(--mn-display); font-size: 22px; letter-spacing: -.03em; }
+  .mn-panel__b { flex: 1; overflow-y: auto; padding: 16px 18px; }
+  .mn-menu { list-style: none; margin: 0; padding: 0; }
+  .mn-menu a, .mn-menu summary { display: block; padding: 12px 0; font-family: var(--mn-display); font-weight: 700; font-size: 30px; letter-spacing: -.035em; text-decoration: none; list-style: none; cursor: pointer; }
+  .mn-menu ul { list-style: none; padding: 0 0 8px; margin: 0; }
+  .mn-menu ul a { font-family: var(--mn-text); font-weight: 400; font-size: 17px; letter-spacing: 0; padding: 7px 0; }
+  .mn-menu__foot { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--mn-line); display: grid; gap: 6px; font-size: 14px; color: var(--mn-grey); }
+  /* Cesta */
+  .mn-cart__box { margin-bottom: 16px; }
+  .mn-cart__items { list-style: none; margin: 0; padding: 0; }
+  .mn-cart__it { display: grid; grid-template-columns: 76px 1fr auto; gap: 12px; padding: 12px 0; border-top: 1px solid var(--mn-line); }
+  .mn-cart__img { position: relative; display: block; width: 76px; aspect-ratio: 4 / 5; background: var(--mn-tile); }
+  .mn-cart__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .mn-cart__n { font-size: 14px; font-weight: 600; text-decoration: none; line-height: 1.3; }
+  .mn-cart__v { font-size: 12.5px; color: var(--mn-grey); margin: 2px 0 0; }
+  .mn-cart__q { display: inline-flex; align-items: center; margin-top: 10px; border: 1px solid var(--mn-line); border-radius: 999px; }
+  .mn-cart__q button { width: 32px; height: 30px; border: 0; background: none; cursor: pointer; font-size: 16px; }
+  .mn-cart__q span { min-width: 18px; text-align: center; font-size: 13px; }
+  .mn-cart__side { text-align: right; font-size: 14px; font-weight: 600; }
+  .mn-cart__side s { display: block; font-weight: 400; color: var(--mn-grey); font-size: 12.5px; }
+  .mn-cart__side em { display: block; font-style: normal; font-size: 12px; font-weight: 600; background: var(--mn-nacar); padding: 2px 8px; border-radius: 999px; margin-top: 4px; }
+  .mn-cart__rm { display: block; margin: 10px 0 0 auto; border: 0; background: none; font-size: 12.5px; color: var(--mn-grey); text-decoration: underline; cursor: pointer; }
+  .mn-cart__up { margin-top: 20px; }
+  .mn-cart__up h3 { font-family: var(--mn-display); font-size: 20px; letter-spacing: -.02em; margin: 0 0 10px; }
+  .mn-cart__up .mn-rail { grid-auto-columns: 40%; }
+  .mn-cart__empty { padding: 30px 0; text-align: center; }
+  .mn-cart__empty p { font-family: var(--mn-display); font-size: 26px; letter-spacing: -.03em; margin: 0 0 16px; }
+  .mn-cart__f { padding: 14px 18px calc(14px + env(safe-area-inset-bottom)); border-top: 1px solid var(--mn-line); }
+  .mn-cart__row { display: flex; justify-content: space-between; font-size: 14px; margin: 0 0 4px; }
+  .mn-cart__row--save { color: var(--mn-ink); }
+  .mn-cart__row--tot { font-size: 18px; font-weight: 700; margin: 8px 0 12px; }
+  .mn-cart__pay { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-top: 10px; }
+  .mn-cart__pay svg { width: 34px; height: 22px; }
+</style>
+
+{%- if msgs.size > 0 -%}
+  <div class="mn-bar" data-mn-bar role="region" aria-label="Avisos">
+    {%- for b in msgs -%}
+      {%- assign t = b.settings.text | replace: '[campaña]', camp_short | replace: '[envío]', ship_short | replace: '[devolución]', 'Devolución hasta el 15 de enero' -%}
+      <p class="{% if forloop.first %}is-on{% endif %}" {{ b.shopify_attributes }}>{%- if b.settings.link != blank -%}<a href="{{ b.settings.link }}">{{ t }}</a>{%- else -%}{{ t }}{%- endif -%}</p>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+<header class="mn-hdr" data-mn-hdr>
+  <div class="mn-wrap mn-hdr__in">
+    <div class="mn-hdr__l">
+      <button type="button" class="mn-ico mn-hdr__burger" data-mn-open="menu" aria-label="Abrir menú" aria-controls="mn-menu">{% render 'mn-icon', i: 'menu' %}</button>
+      <ul class="mn-nav">{%- for link in menu.links limit: 6 -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}</ul>
+    </div>
+    <a class="mn-logo" href="{{ routes.root_url }}">{{ S.logo_text | default: shop.name | downcase }}</a>
+    <div class="mn-hdr__r">
+      <a class="mn-ico" href="{{ routes.search_url }}" aria-label="Buscar">{% render 'mn-icon', i: 'search' %}</a>
+      <a class="mn-ico" href="{{ routes.cart_url }}" data-mn-open="cart" aria-label="Abrir la cesta" aria-controls="mn-cart">{% render 'mn-icon', i: 'bag' %}<span class="mn-ico__n" data-mn-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span></a>
+    </div>
+  </div>
+</header>
+
+<div class="mn-scrim" data-mn-scrim></div>
+
+<aside id="mn-menu" class="mn-panel mn-panel--l" data-mn-panel="menu" role="dialog" aria-modal="true" aria-label="Menú">
+  <div class="mn-panel__h"><b>Menú</b><button type="button" class="mn-ico" data-mn-close aria-label="Cerrar">{% render 'mn-icon', i: 'x' %}</button></div>
+  <div class="mn-panel__b">
+    <ul class="mn-menu">
+      {%- for link in menu.links -%}
+        <li>{%- if link.links.size > 0 -%}<details><summary>{{ link.title }}</summary><ul>{%- for c in link.links -%}<li><a href="{{ c.url }}">{{ c.title }}</a></li>{%- endfor -%}</ul></details>{%- else -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endif -%}</li>
+      {%- endfor -%}
+      <li><a href="/pages/3x2">Tu estuche 3x2</a></li>
+    </ul>
+    <div class="mn-menu__foot"><span>{{ ship_short }}</span><span>Devolución hasta el 15 de enero</span><span>WhatsApp {{ settings.aom_wa_number | slice: 2, 9 }}</span></div>
+  </div>
+</aside>
+
+<aside id="mn-cart" class="mn-panel mn-panel--r" data-mn-panel="cart" role="dialog" aria-modal="true" aria-label="Tu estuche">
+  <div class="mn-panel__h"><b>Tu estuche <span data-mn-cart-n></span></b><button type="button" class="mn-ico" data-mn-close aria-label="Cerrar">{% render 'mn-icon', i: 'x' %}</button></div>
+  <div class="mn-panel__b" data-mn-cart-body></div>
+  <div class="mn-cart__f" data-mn-cart-foot hidden>
+    <p class="mn-cart__row"><span>Subtotal</span><span data-mn-sub></span></p>
+    <p class="mn-cart__row mn-cart__row--save" data-mn-save-row hidden><span>Tu regalo (3x2)</span><span data-mn-save></span></p>
+    <p class="mn-cart__row"><span>Envío</span><span>Gratis</span></p>
+    <p class="mn-cart__row mn-cart__row--tot"><span>Total</span><span data-mn-total></span></p>
+    <a class="mn-btn mn-btn--block" href="{{ routes.root_url }}checkout">Finalizar compra</a>
+    <div class="mn-cart__pay">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag }}{%- endfor -%}</div>
+  </div>
+</aside>
+
+<script type="application/json" id="mn-data">
+  {
+    "money": {{ shop.money_format | json }},
+    "root": {{ routes.root_url | json }},
+    "upTitle": {{ S.upsell_title | default: 'Completa tu estuche' | json }},
+    "upsell": [
+      {%- for p in S.upsell_list limit: 12 -%}
+        {%- assign uv = p.selected_or_first_available_variant -%}
+        {%- if uv.available -%}{"id": {{ p.id }}, "t": {{ p.title | json }}, "u": {{ p.url | json }}, "img": {{ p.featured_image | image_url: width: 400 | json }}, "v": {{ uv.id }}, "p": {{ uv.price }}},{%- endif -%}
+      {%- endfor -%}
+      null
+    ]
+  }
+</script>
+<script src="{{ 'mn.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Cabecera v20",
+  "class": "mn-header-section",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Logo (texto)", "default": "maison nácar" },
+    { "type": "link_list", "id": "menu", "label": "Menú", "default": "main-menu" },
+    { "type": "product_list", "id": "upsell_list", "label": "Joyas sugeridas en la cesta («Completa tu estuche»)", "limit": 12, "info": "Mejor piezas de 29 € con mucho stock." },
+    { "type": "text", "id": "upsell_title", "label": "Título de las sugerencias", "default": "Completa tu estuche" }
+  ],
+  "blocks": [
+    { "type": "msg", "name": "Aviso", "settings": [
+      { "type": "text", "id": "text", "label": "Texto", "info": "[campaña], [envío] y [devolución] se sustituyen solos.", "default": "Elige 3, paga 2" },
+      { "type": "text", "id": "link", "label": "Enlace (opcional)" }
+    ] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,312 @@
+{%- comment -%}
+  Maison Nácar v20 · Ficha de producto (la página a la que llegan los anuncios de Meta)
+  · Galería 4:5 a sangre. La foto con «#portada» en el texto alternativo sale la primera.
+  · Tu estuche: si la pieza está en un bloque «Conjunto», salen las 3 y la de menor precio es el regalo.
+    Si no, la pieza + 2 huecos para elegir de las sugeridas. ?pack=1|2|3 en el enlace marca cuántas.
+  · El descuento real lo aplica el descuento automático «3x2: elige 3, paga 2».
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign current = product.selected_or_first_available_variant
+  assign cj = nil
+  for b in section.blocks
+    if b.type == 'conjunto'
+      for cp in b.settings.products
+        if cp.id == product.id
+          assign cj = b
+        endif
+      endfor
+    endif
+  endfor
+  assign gfirst = ''
+  assign grest = ''
+  for m in product.media
+    assign malt = m.alt | downcase
+    if malt contains '#puesto'
+      continue
+    endif
+    if malt contains '#portada' and gfirst == ''
+      assign gfirst = forloop.index0 | append: ''
+    else
+      assign grest = grest | append: forloop.index0 | append: ','
+    endif
+  endfor
+  if gfirst != ''
+    assign grest = gfirst | append: ',' | append: grest
+  endif
+  assign gorder = grest | split: ','
+  assign rating = product.metafields.reviews.rating.value.rating | default: product.metafields.aom.rating.value.rating
+  assign rcount = product.metafields.reviews.rating_count.value | default: product.metafields.aom.rating_count.value | default: 0
+-%}
+<style>
+  .mn-pdp { padding-bottom: 24px; }
+  .mn-pdp__grid { display: grid; }
+  @media (min-width: 990px) { .mn-pdp__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 56px; max-width: var(--mn-max); margin: 0 auto; padding: 24px var(--mn-gutter) 0; } }
+  .mn-gal { position: relative; }
+  .mn-gal__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; background: var(--mn-tile); }
+  .mn-gal__track::-webkit-scrollbar { display: none; }
+  .mn-gal__s { position: relative; flex: 0 0 100%; aspect-ratio: 4 / 5; scroll-snap-align: start; }
+  .mn-gal__s img, .mn-gal__s video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .mn-gal__s.is-white img { object-fit: contain; mix-blend-mode: multiply; }
+  .mn-gal__n { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: #fff; font-size: 12.5px; font-weight: 600; }
+  .mn-gal__tag { position: absolute; right: 12px; top: 12px; padding: 6px 12px; border-radius: 999px; background: var(--mn-nacar); font-size: 12.5px; font-weight: 600; }
+  @media (max-width: 749px) { .mn-gal__s { aspect-ratio: 1; } .mn-info { padding-top: 14px; } .mn-info__t { font-size: 30px; } .mn-pdp .mn-box { margin-top: 14px; } }
+  @media (min-width: 990px) {
+    .mn-gal__track { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; overflow: visible; background: none; }
+    .mn-gal__s { background: var(--mn-tile); }
+    .mn-gal__s:first-child { grid-column: 1 / -1; }
+    .mn-gal__n { display: none; }
+  }
+  .mn-info { padding: 18px var(--mn-gutter) 0; }
+  @media (min-width: 990px) { .mn-info { padding: 0; position: sticky; top: 92px; align-self: start; } }
+  .mn-info__top { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
+  .mn-info__t { font-family: var(--mn-display); font-weight: 700; font-size: clamp(30px, 7.6vw, 46px); line-height: .95; letter-spacing: -.04em; margin: 0; font-variation-settings: "opsz" 96; }
+  .mn-info__p { font-family: var(--mn-display); font-weight: 600; font-size: 26px; letter-spacing: -.03em; white-space: nowrap; }
+  .mn-info__m { margin: 8px 0 0; font-size: 14px; color: var(--mn-grey); }
+  .mn-info__r { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px; text-decoration: none; }
+  .mn-info__r svg { width: 14px; height: 14px; }
+  .mn-opt { margin-top: 16px; }
+  .mn-opt__l { font-size: 13px; color: var(--mn-grey); margin: 0 0 8px; }
+  .mn-opt__l b { color: var(--mn-ink); font-weight: 600; }
+  .mn-pdp .mn-box { margin-top: 18px; }
+  .mn-sugg { margin-top: 10px; }
+  .mn-sugg p { margin: 0 0 8px; font-size: 13px; color: rgba(255,255,255,.75); }
+  .mn-sugg .mn-rail { grid-auto-columns: 30%; }
+  .mn-sugg__it { position: relative; display: block; width: 100%; padding: 0; border: 0; border-radius: 10px; overflow: hidden; background: var(--mn-tile); cursor: pointer; aspect-ratio: 1; }
+  .mn-sugg__it img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .mn-sugg__it span { position: absolute; left: 4px; right: 4px; bottom: 4px; padding: 2px 4px; border-radius: 6px; background: rgba(255,255,255,.92); color: var(--mn-ink); font-size: 11px; text-align: center; }
+  .mn-sugg__it.is-on { box-shadow: inset 0 0 0 2px #fff; opacity: .45; }
+  .mn-buy { margin-top: 14px; }
+  .mn-buy .mn-btn { min-height: 58px; font-size: 16px; }
+  .mn-buy__l { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; margin: 10px 0 0; font-size: 13px; color: var(--mn-grey); }
+  .mn-info .mn-perks { margin-top: 22px; padding: 16px 0; border-top: 1px solid var(--mn-line); }
+  .mn-info .mn-acc { margin-top: 6px; }
+  .mn-sbar { position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 12px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--mn-line); transform: translateY(110%); transition: transform .3s var(--mn-ease); }
+  .mn-sbar.is-on { transform: none; }
+  .mn-sbar__t { flex: 1; min-width: 0; font-size: 13px; line-height: 1.3; }
+  .mn-sbar__t b { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px; }
+  .mn-sbar .mn-btn { min-height: 48px; padding: 0 20px; }
+  @media (min-width: 990px) { .mn-sbar { display: none; } }
+</style>
+
+<section class="mn-pdp" data-mn-pdp>
+  <div class="mn-pdp__grid">
+    <div class="mn-gal">
+      <div class="mn-gal__track" data-mn-gal>
+        {%- for gi in gorder -%}
+          {%- assign gidx = gi | plus: 0 -%}
+          {%- assign m = product.media[gidx] -%}
+          {%- assign malt = m.alt | downcase -%}
+          {%- assign isw = true -%}
+          {%- if malt contains '#portada' or malt contains '#foto' -%}{%- assign isw = false -%}{%- endif -%}
+          <div class="mn-gal__s{% if isw and m.media_type == 'image' %} is-white{% endif %}" data-media-id="{{ m.id }}">
+            {%- case m.media_type -%}
+              {%- when 'video' -%}{{ m | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+              {%- when 'external_video' -%}{{ m | external_video_tag }}
+              {%- else -%}
+                {%- liquid
+                  assign ld = 'lazy'
+                  assign fp = 'auto'
+                  if forloop.first
+                    assign ld = 'eager'
+                    assign fp = 'high'
+                  endif
+                  assign alt = m.alt | remove: '#portada' | remove: '#foto' | strip | default: product.title
+                -%}
+                {{ m.preview_image | image_url: width: 1400 | image_tag: loading: ld, fetchpriority: fp, widths: '450, 700, 900, 1200, 1400', sizes: '(min-width: 990px) 55vw, 100vw', alt: alt }}
+            {%- endcase -%}
+          </div>
+        {%- else -%}
+          <div class="mn-gal__s">{% render 'mn-ph', ratio: '4/5', n: '01', label: 'Portada de la joya puesta' %}</div>
+        {%- endfor -%}
+      </div>
+      {%- if gorder.size > 1 -%}<span class="mn-gal__n" data-mn-gal-n>1 / {{ gorder.size }}</span>{%- endif -%}
+      {%- if cj -%}<span class="mn-gal__tag">Elige 3, paga 2</span>{%- endif -%}
+    </div>
+
+    <div class="mn-info">
+      <div class="mn-info__top">
+        <h1 class="mn-info__t">{{ product.title }}</h1>
+        <span class="mn-info__p" data-mn-price>{{ current.price | money_without_trailing_zeros }}</span>
+      </div>
+      <p class="mn-info__m">{{ S.material }}</p>
+      {%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}
+        <a class="mn-info__r" href="#opiniones">{% render 'mn-icon', i: 'star' %}<b>{{ rating | round: 1 | replace: '.', ',' }}</b> · {{ rcount }} opiniones</a>
+      {%- endif -%}
+
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          {%- if option.values.size > 1 -%}
+            {%- assign on = option.name | downcase -%}
+            <div class="mn-opt">
+              <p class="mn-opt__l">{% render 'aom-opt-label', t: option.name %}: <b data-mn-optv="{{ forloop.index0 }}">{% render 'aom-opt-label', t: option.selected_value %}</b></p>
+              <div class="mn-pills" data-mn-opt="{{ forloop.index0 }}">
+                {%- for value in option.values -%}
+                  {%- assign vk = value | downcase -%}
+                  <button type="button" class="mn-pill{% if option.selected_value == value %} is-on{% endif %}" data-value="{{ value | escape }}">
+                    {%- if vk contains 'gold' -%}<i class="mn-dot mn-dot--gold"></i>{%- elsif vk contains 'silver' -%}<i class="mn-dot mn-dot--silver"></i>{%- endif -%}
+                    {% render 'aom-opt-label', t: value %}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endunless -%}
+
+      <div class="mn-box" data-mn-box data-mode="{% if cj %}set{% else %}free{% endif %}">
+        <p class="mn-box__h"><b>{% if cj %}{{ cj.settings.title }}{% else %}Tu estuche{% endif %}</b><span>{% render 'aom-camp', k: 'short' %}</span></p>
+        <div class="mn-slots" data-mn-slots></div>
+        <div class="mn-box__sum"><span data-mn-box-l></span><span><s data-mn-box-full></s><b data-mn-box-tot></b></span></div>
+        <p class="mn-box__note" data-mn-box-note></p>
+        {%- unless cj -%}
+          {%- if S.suggest.size > 0 -%}
+            <div class="mn-sugg"><p>Elige 2 más: la de menor precio es tu regalo.</p>
+              <div class="mn-rail">
+                {%- for sp in S.suggest limit: 10 -%}
+                  {%- assign sv = sp.selected_or_first_available_variant -%}
+                  {%- if sp.id != product.id and sv.available -%}
+                    <button type="button" class="mn-sugg__it" data-mn-sugg="{{ sp.id }}" aria-label="Añadir {{ sp.title | escape }} al estuche">{%- if sp.featured_image -%}{{ sp.featured_image | image_url: width: 260 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}<span>{{ sv.price | money_without_trailing_zeros }}</span></button>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endunless -%}
+      </div>
+
+      <div class="mn-buy">
+        <button type="button" class="mn-btn mn-btn--block" data-mn-buy{% unless current.available %} disabled{% endunless %}>{% if current.available %}Añadir a la cesta{% else %}Agotada{% endif %}</button>
+        <p class="mn-buy__l"><span>{{ settings.aom_ship_short | default: 'Envío gratis · Sale en 24/48 h' }}</span><span>Devolución hasta el {{ settings.aom_return_date | default: '15 de enero' }}</span></p>
+      </div>
+
+      <ul class="mn-perks">
+        <li>{% render 'mn-icon', i: 'shield' %}<span>Garantía de color de 3 años<small>Si con un uso normal pierde el dorado, te enviamos otra.</small></span></li>
+        <li>{% render 'mn-icon', i: 'drop' %}<span>No se oxida ni mancha la piel<small>Acero inoxidable con baño de oro 18k.</small></span></li>
+        <li>{% render 'mn-icon', i: 'box' %}<span>Llega en su estuche de regalo<small>Si es para otra persona, pon su dirección al pagar.</small></span></li>
+        <li>{% render 'mn-icon', i: 'chat' %}<span>¿Dudas? WhatsApp<small>Te respondemos de 10 a 20 h.</small></span></li>
+      </ul>
+
+      <div class="mn-acc">
+        {%- if product.description != blank -%}<details open><summary>Descripción</summary><div class="mn-acc__b">{{ product.description | replace: 'baño dorado o plateado (metal dorado o plateado)', 'baño de oro de 18 k (dorado) o acabado plateado' | replace: 'baño dorado (metal dorado)', 'baño de oro de 18 k' }}</div></details>{%- endif -%}
+        {%- if S.acc_1_t != blank -%}<details><summary>{{ S.acc_1_t }}</summary><div class="mn-acc__b">{{ S.acc_1 }}</div></details>{%- endif -%}
+        {%- if S.acc_2_t != blank -%}<details><summary>{{ S.acc_2_t }}</summary><div class="mn-acc__b">{{ S.acc_2 }}</div></details>{%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="mn-sbar" data-mn-sbar aria-hidden="true">
+    <div class="mn-sbar__t"><b>{% if cj %}{{ cj.settings.title }}{% else %}{{ product.title }}{% endif %}</b><span data-mn-sbar-p>{{ current.price | money_without_trailing_zeros }}</span></div>
+    <button type="button" class="mn-btn" data-mn-sbar-go tabindex="-1">Añadir</button>
+  </div>
+
+  <script type="application/json" data-mn-pdp-data>
+    {
+      "current": {{ current.id }},
+      "self": { "id": {{ product.id }}, "t": {{ product.title | json }}, "img": {{ product.featured_image | image_url: width: 400 | json }} },
+      "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "o": {{ v.options | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "m": {{ v.featured_media.id | default: 'null' }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+      "cands": [
+        {%- if cj -%}{%- assign k = 0 -%}{%- for cp in cj.settings.products -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}
+        {%- else -%}{%- assign k = 0 -%}{%- for cp in S.suggest limit: 10 -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}{%- endif -%}
+      ],
+      "preset": {% if cj %}{{ cj.settings.preset | default: 3 }}{% else %}1{% endif %}
+    }
+  </script>
+</section>
+
+<script>
+  (function () {
+    var root = document.querySelector('[data-mn-pdp]'); if (!root) return;
+    var D = JSON.parse(root.querySelector('[data-mn-pdp-data]').textContent);
+    function $(s) { return root.querySelector(s); }
+    function $$(s) { return Array.prototype.slice.call(root.querySelectorAll(s)); }
+    function money(c) { return window.MN ? MN.money(c) : (c / 100).toFixed(2).replace('.', ',') + ' €'; }
+    var mode = $('[data-mn-box]').getAttribute('data-mode');
+    var state = { v: D.variants.filter(function (x) { return x.id === D.current; })[0] || D.variants[0], picks: [] };
+
+    /* Galería: contador */
+    var gal = $('[data-mn-gal]'), gn = $('[data-mn-gal-n]');
+    if (gal && gn) gal.addEventListener('scroll', function () { gn.textContent = (Math.round(gal.scrollLeft / gal.clientWidth) + 1) + ' / ' + gal.children.length; }, { passive: true });
+
+    function metal(t) { return /silver|plat|white/i.test(String(t)) ? 's' : 'g'; }
+    function pick(c) { var m = metal(state.v.o.join(' ')), av = c.v.filter(function (x) { return x.a; }); return av.filter(function (x) { return metal(x.t) === m; })[0] || av[0] || null; }
+
+    /* Estuche: en modo conjunto, las 2 otras piezas fijas (se encienden/apagan); en modo libre, se eligen de las sugeridas */
+    var cands = D.cands.map(function (c) { return { c: c, on: true }; });
+    if (mode === 'set') {
+      var q = +(new URL(location.href).searchParams.get('pack') || D.preset || 3);
+      cands.forEach(function (x, i) { x.on = i < Math.max(0, Math.min(2, q - 1)); });
+    }
+    function units() {
+      var u = [{ name: D.self.t, img: D.self.img, price: state.v.p, id: state.v.id, on: true, self: true }];
+      if (mode === 'set') cands.forEach(function (x) { var v = pick(x.c); u.push({ name: x.c.t, img: x.c.img, price: v ? v.p : 0, id: v ? v.id : null, on: !!v && x.on, idx: u.length }); });
+      else state.picks.forEach(function (x) { var v = pick(x); if (v) u.push({ name: x.t, img: x.img, price: v.p, id: v.id, on: true, cid: x.id }); });
+      return u;
+    }
+    function render() {
+      var u = units(), on = u.filter(function (x) { return x.on; }), full = on.reduce(function (a, x) { return a + x.price; }, 0), gift = null;
+      if (on.length >= 3) { gift = on.reduce(function (a, x) { return x.price <= a.price ? x : a; }); gift.gift = true; }
+      var tot = full - (gift ? gift.price : 0);
+      $('[data-mn-slots]').innerHTML = MN.slotsHTML(u, { buttons: true, checks: mode === 'set' });
+      $('[data-mn-box-full]').textContent = gift ? money(full) : '';
+      $('[data-mn-box-tot]').textContent = money(tot);
+      $('[data-mn-box-l]').textContent = on.length === 1 ? '1 joya' : on.length + ' joyas';
+      $('[data-mn-box-note]').textContent = gift ? 'Te regalamos ' + gift.name + '. Sale a ' + money(Math.round(tot / on.length)) + ' cada joya.' : (on.length === 2 ? 'Añade una más: la de menor precio será tu regalo.' : 'Elige 2 joyas más: la de menor precio será tu regalo.');
+      var label = on.length >= 3 ? 'Añadir el estuche' : (on.length === 2 ? 'Añadir las 2' : 'Añadir a la cesta');
+      var buy = $('[data-mn-buy]'), ok = state.v.a;
+      buy.disabled = !ok; buy.textContent = ok ? label + ' · ' + money(tot) : 'Agotada';
+      $('[data-mn-price]').textContent = money(state.v.p);
+      $('[data-mn-sbar-p]').textContent = money(tot) + (on.length > 1 ? ' · ' + on.length + ' joyas' : '');
+      $$('[data-mn-sugg]').forEach(function (b) { b.classList.toggle('is-on', state.picks.some(function (p) { return p.id === +b.getAttribute('data-mn-sugg'); })); });
+      state.items = on.filter(function (x) { return x.id; }).map(function (x) { return { id: x.id, quantity: 1 }; });
+    }
+    root.addEventListener('click', function (e) {
+      var s = e.target.closest('[data-mn-slot]');
+      if (s) { var i = +s.getAttribute('data-mn-slot'); if (i === 0) return; if (mode === 'set') cands[i - 1].on = !cands[i - 1].on; else state.picks.splice(i - 1, 1); render(); return; }
+      var g = e.target.closest('[data-mn-sugg]');
+      if (g) { var id = +g.getAttribute('data-mn-sugg'), at = state.picks.map(function (p) { return p.id; }).indexOf(id); if (at > -1) state.picks.splice(at, 1); else if (state.picks.length < 2) state.picks.push(D.cands.filter(function (c) { return c.id === id; })[0]); render(); return; }
+      var o = e.target.closest('[data-mn-opt] button');
+      if (o) {
+        var grp = o.parentNode, idx = +grp.getAttribute('data-mn-opt');
+        grp.querySelectorAll('button').forEach(function (b) { b.classList.toggle('is-on', b === o); });
+        var opts = state.v.o.slice(); opts[idx] = o.getAttribute('data-value');
+        var m = D.variants.filter(function (v) { return v.o.join('|') === opts.join('|'); })[0];
+        if (m) { state.v = m; var lab = root.querySelector('[data-mn-optv="' + idx + '"]'); if (lab) lab.textContent = o.textContent.trim(); if (m.m) { $$('[data-media-id]').forEach(function (sl, k) { if (+sl.getAttribute('data-media-id') === m.m && gal) gal.scrollTo({ left: k * gal.clientWidth, behavior: 'smooth' }); }); } var url = new URL(location.href); url.searchParams.set('variant', m.id); history.replaceState({}, '', url); }
+        render();
+      }
+    });
+    function buy(btn) { if (!state.items.length) return; btn.classList.add('is-busy'); MN.add(state.items).then(function () { btn.classList.remove('is-busy'); }, function () { btn.classList.remove('is-busy'); }); }
+    var bb = $('[data-mn-buy]'); bb.addEventListener('click', function () { buy(bb); });
+    var sg = $('[data-mn-sbar-go]'); sg.addEventListener('click', function () { buy(sg); });
+    /* Barra fija cuando el botón sale de la pantalla */
+    var bar = $('[data-mn-sbar]'), tick = false;
+    function sync() { tick = false; var off = bb.getBoundingClientRect().bottom < 0; bar.classList.toggle('is-on', off); document.body.classList.toggle('mn-bar-on', off); bar.setAttribute('aria-hidden', off ? 'false' : 'true'); sg.tabIndex = off ? 0 : -1; }
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(sync); } }, { passive: true });
+    function start() { render(); sync(); }
+    if (window.MN) start(); else window.addEventListener('DOMContentLoaded', start);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Ficha v20",
+  "settings": [
+    { "type": "text", "id": "material", "label": "Línea bajo el título", "default": "Acero inoxidable con baño de oro 18k" },
+    { "type": "product_list", "id": "suggest", "label": "Joyas sugeridas para completar el estuche", "limit": 10, "info": "Para las piezas que no están en un conjunto. Mejor de 29 € y con stock." },
+    { "type": "text", "id": "acc_1_t", "label": "Desplegable 1", "default": "Envío y devoluciones" },
+    { "type": "richtext", "id": "acc_1", "label": "Texto 1", "default": "<p>Envío gratis a la España peninsular y Baleares. Sale en 24/48 h con número de seguimiento; los plazos de entrega están en la política de envíos. Lo que pidas desde ahora lo puedes devolver hasta el 15 de enero.</p>" },
+    { "type": "text", "id": "acc_2_t", "label": "Desplegable 2", "default": "Cuidados" },
+    { "type": "richtext", "id": "acc_2", "label": "Texto 2", "default": "<p>Guárdala en su estuche y evita perfumes, cremas y cloro directamente sobre la pieza. Así el baño dura más.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "conjunto", "name": "Conjunto 3x2",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Nombre", "default": "Conjunto" },
+        { "type": "product_list", "id": "products", "label": "Las 3 piezas", "limit": 3 },
+        { "type": "range", "id": "preset", "label": "Piezas marcadas al entrar", "min": 1, "max": 3, "step": 1, "default": 3, "info": "?pack=1, 2 o 3 en el enlace del anuncio lo cambia." }
+      ]
+    }
+  ]
+}
+{% endschema %}

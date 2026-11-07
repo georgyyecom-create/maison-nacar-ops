@@ -1,74 +1,69 @@
 {
   "sections": {
     "hero": {
-      "type": "aom-hero",
+      "type": "mn-hero",
       "settings": {
-        "image": "shopify://shop_images/Gemini_Generated_Image_r6zm6yr6zm6yr6zm.jpg",
-        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_ui8qdkui8qdkui8q.jpg",
-        "mob_layout": "overlay",
-        "mob_pos": 15,
-        "desk_pos": 25,
-        "h_mobile": 80,
-        "h_desktop": 90,
-        "shade": 70,
-        "kicker": "[campaña]",
-        "title": "Elige 3 joyas, <em>paga 2</em>",
-        "text": "Acero inoxidable con baño de oro 18k, en su estuche de regalo. La de menor precio es nuestro regalo.",
-        "btn_1": "Ver los conjuntos",
-        "link_1": "#conjuntos",
-        "btn_2": "Elegir mis 3 joyas",
-        "link_2": "/pages/3x2"
+        "kicker": "",
+        "title": "Elige 3. Paga 2.",
+        "text": "Llena tu estuche con 3 joyas: la de menor precio es nuestro regalo. Acero inoxidable con baño de oro 18k.",
+        "btn_1": "Llenar mi estuche",
+        "link_1": "/pages/3x2",
+        "btn_2": "Ver los conjuntos",
+        "link_2": "#conjuntos",
+        "box_title": "Conjunto Puntos de Luz",
+        "box_products": [
+          "collar-puntos-luz",
+          "brazalete-puntos-luz",
+          "anillo-baguette-brillante"
+        ]
       }
     },
-    "strip": {
-      "type": "aom-marquee",
+    "tabs": {
+      "type": "mn-tabs",
       "blocks": {
-        "t0": {
-          "type": "t",
-          "settings": {
-            "text": "Elige 3, paga 2"
-          }
-        },
         "t1": {
-          "type": "t",
+          "type": "tab",
           "settings": {
-            "text": "Envío gratis · Sale en 24/48 h"
+            "collection": "collares",
+            "label": "Collares"
           }
         },
         "t2": {
-          "type": "t",
+          "type": "tab",
           "settings": {
-            "text": "Estuche de regalo"
+            "collection": "pulseras",
+            "label": "Pulseras"
           }
         },
         "t3": {
-          "type": "t",
+          "type": "tab",
           "settings": {
-            "text": "Devolución hasta el 15 de enero"
+            "collection": "pendientes",
+            "label": "Pendientes"
           }
         },
         "t4": {
-          "type": "t",
+          "type": "tab",
           "settings": {
-            "text": "Paga con Bizum"
+            "collection": "anillos",
+            "label": "Anillos"
           }
         }
       },
       "block_order": [
-        "t0",
         "t1",
         "t2",
         "t3",
         "t4"
       ],
       "settings": {
-        "bg": "#121110",
-        "fg": "#F3EDE3",
-        "speed": 40
+        "title": "Elige tus 3",
+        "text": "Toca + para añadirla a tu estuche. Con 3, la de menor precio es tu regalo.",
+        "limit": 10
       }
     },
     "sets": {
-      "type": "aom-sets",
+      "type": "mn-sets",
       "blocks": {
         "s1": {
           "type": "set",
@@ -79,7 +74,9 @@
               "brazalete-puntos-luz",
               "anillo-baguette-brillante"
             ],
-            "note": ""
+            "n": "03",
+            "label": "El conjunto Puntos de Luz puesto",
+            "sub": "Collar, brazalete y anillo con circonitas: para brillar sin hacer ruido."
           }
         },
         "s2": {
@@ -91,7 +88,9 @@
               "pulsera-corazones-encadenados",
               "pendientes-tres-corazones"
             ],
-            "note": ""
+            "n": "04",
+            "label": "El conjunto Corazones puesto",
+            "sub": "Collar, pulsera y pendientes de corazones: el regalo que acierta."
           }
         }
       },
@@ -100,114 +99,81 @@
         "s2"
       ],
       "settings": {
-        "bg": "#FBF8F3",
-        "kicker": "Los conjuntos",
-        "title": "Tres joyas, <em>una de regalo</em>",
-        "text": "Collar, pulsera y una pieza más: la de menor precio te la regalamos.",
-        "link_text": "O elige tus propias 3 joyas",
-        "link": "/pages/3x2"
+        "bg": "#EFEEEB",
+        "title": "Estuches ya hechos",
+        "text": "Tres joyas que combinan: la de menor precio es tu regalo."
       }
     },
-    "cats": {
-      "type": "aom-categories",
+    "worn": {
+      "type": "mn-worn",
       "blocks": {
-        "c1": {
-          "type": "cat",
+        "w0": {
+          "type": "photo",
           "settings": {
-            "collection": "collares",
-            "image": "shopify://shop_images/Gemini_Generated_Image_ywjawdywjawdywja.jpg",
-            "label": "Collares"
+            "n": "05",
+            "label": "POV: espejo antes de salir, con el collar",
+            "caption": ""
           }
         },
-        "c2": {
-          "type": "cat",
+        "w1": {
+          "type": "photo",
           "settings": {
-            "collection": "pendientes",
-            "image": "shopify://shop_images/Gemini_Generated_Image_jiks1fjiks1fjiks.jpg",
-            "label": "Pendientes"
+            "n": "06",
+            "label": "Abriendo el estuche en el sofá",
+            "caption": ""
           }
         },
-        "c3": {
-          "type": "cat",
+        "w2": {
+          "type": "photo",
           "settings": {
-            "collection": "pulseras",
-            "image": "shopify://shop_images/Gemini_Generated_Image_o7cdrao7cdrao7cd.jpg",
-            "label": "Pulseras"
-          }
-        },
-        "c4": {
-          "type": "cat",
-          "settings": {
-            "collection": "gala",
-            "image": "shopify://shop_images/Gemini_Generated_Image_2mze0j2mze0j2mze.jpg",
-            "label": "Para las fiestas"
+            "n": "07",
+            "label": "Manos con la pulsera y el anillo, cena con amigas",
+            "caption": ""
           }
         }
       },
       "block_order": [
-        "c1",
-        "c2",
-        "c3",
-        "c4"
+        "w0",
+        "w1",
+        "w2"
       ],
       "settings": {
-        "kicker": "Las colecciones",
-        "title": "Elige <em>tu pieza</em>"
-      }
-    },
-    "best": {
-      "type": "aom-products",
-      "settings": {
-        "kicker": "Las más deseadas",
-        "title": "Favoritas de <em>esta temporada</em>",
-        "text": "Combina las que quieras: con 3 en la cesta, la de menor precio es un regalo.",
-        "collection": "frontpage",
-        "limit": 8,
-        "btn": "Ver todas las joyas",
-        "recommendations": false
+        "title": "Así se lleva",
+        "text": "",
+        "use_product": false
       }
     },
     "compare": {
-      "type": "aom-compare",
+      "type": "mn-compare",
       "blocks": {
         "r0": {
           "type": "row",
           "settings": {
-            "row": "No deja la piel verde",
-            "bad": "no",
-            "bad_text": "",
-            "good": "yes",
-            "good_text": ""
+            "row": "No deja la piel verde"
           }
         },
         "r1": {
           "type": "row",
           "settings": {
-            "row": "Aguanta el agua y el perfume",
-            "bad": "no",
-            "bad_text": "",
-            "good": "yes",
-            "good_text": ""
+            "row": "Aguanta el agua y el perfume"
           }
         },
         "r2": {
           "type": "row",
           "settings": {
-            "row": "Brillo que dura",
-            "bad": "no",
-            "bad_text": "",
-            "good": "yes",
-            "good_text": ""
+            "row": "El dorado dura (garantía de 3 años)"
           }
         },
         "r3": {
           "type": "row",
           "settings": {
-            "row": "Llega en estuche de regalo",
-            "bad": "no",
-            "bad_text": "",
-            "good": "yes",
-            "good_text": ""
+            "row": "Llega en estuche de regalo"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "row": "La tercera, de regalo"
           }
         }
       },
@@ -215,209 +181,84 @@
         "r0",
         "r1",
         "r2",
-        "r3"
+        "r3",
+        "r4"
       ],
       "settings": {
-        "bg": "#FBF8F3",
-        "kicker": "La diferencia",
-        "title": "Tu bisutería de siempre <em>vs</em> Maison Nácar",
-        "text": "Acero inoxidable con baño de oro 18k: no se oxida ni mancha la piel.",
-        "img_bad": "shopify://shop_images/Gemini_Generated_Image_awyeabawyeabawye.jpg",
-        "img_good": "shopify://shop_images/Gemini_Generated_Image_iy62kziy62kziy62.jpg",
-        "label_bad": "Bisutería común",
+        "title": "Tu joya de siempre vs Maison Nácar",
+        "label_bad": "La de siempre",
         "label_good": "Maison Nácar",
-        "note": "Comparativa con bisutería genérica de aleación. El material está indicado en cada pieza.",
-        "btn": "",
-        "link": "/collections/all"
-      }
-    },
-    "gift": {
-      "type": "aom-editorial",
-      "settings": {
-        "image": "shopify://shop_images/Gemini_Generated_Image_tecfwmtecfwmtecf.jpg",
-        "image_right": false,
-        "bg": "#F3EDE3",
-        "kicker": "Para regalar",
-        "title": "Este año <em>aciertas</em>",
-        "text": "Una para ti y dos para regalar, o al revés. Envíalo directo a quien quieras: llega en su estuche, listo para dar.",
-        "points": "3x2: la tercera joya, de regalo\nLlega en estuche de regalo\nDevolución hasta el 15 de enero",
-        "btn": "Elegir mis 3 joyas",
-        "link": "/pages/3x2"
+        "n_bad": "09",
+        "n_good": "10",
+        "note": "Comparativa con bisutería genérica de aleación. El material está indicado en cada pieza."
       }
     },
     "reviews": {
-      "type": "aom-reviews",
+      "type": "mn-reviews",
       "settings": {
-        "show": true,
-        "kicker": "Opiniones",
-        "title": "Lo que dicen <em>ellas</em>",
-        "limit": 12,
-        "only_featured": true,
-        "bg": "#F4EEE4",
-        "summary_rating": 0,
-        "summary_count": 0,
-        "note": "Solo mostramos opiniones reales de compradoras."
-      }
-    },
-    "promise": {
-      "type": "aom-promise",
-      "blocks": {
-        "p1": {
-          "type": "item",
-          "settings": {
-            "icon": "truck",
-            "title": "Envío gratis",
-            "text": "Sale en 24/48 h, con seguimiento"
-          }
-        },
-        "p2": {
-          "type": "item",
-          "settings": {
-            "icon": "lock",
-            "title": "Pago seguro",
-            "text": "Bizum, tarjeta y PayPal"
-          }
-        },
-        "p3": {
-          "type": "item",
-          "settings": {
-            "icon": "return",
-            "title": "Hasta el 15 de enero",
-            "text": "Para devolverlo si no acierta"
-          }
-        },
-        "p4": {
-          "type": "item",
-          "settings": {
-            "icon": "gem",
-            "title": "Garantía de color",
-            "text": "3 años: si pierde el dorado, otra"
-          }
-        }
-      },
-      "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4"
-      ],
-      "settings": {
-        "title": "Comprar aquí es <em>fácil</em>",
-        "bg": "#1C1A17",
-        "fg": "#F4EEE4"
+        "title": "Lo que dicen de su estuche",
+        "text": ""
       }
     },
     "faq": {
-      "type": "collapsible-content",
+      "type": "mn-faq",
       "blocks": {
-        "q1": {
-          "type": "collapsible_row",
+        "q0": {
+          "type": "q",
           "settings": {
-            "heading": "¿Cuándo me llega?",
-            "icon": "truck",
-            "row_content": "<p>Lo enviamos en 24/48 h con número de seguimiento. Normalmente lo recibes en 3–7 días laborables; los plazos exactos están en nuestra política de envíos. Para Navidad, pide antes del 14 de diciembre.</p>"
+            "q": "¿Cuándo me llega?",
+            "a": "<p>La enviamos en 24/48 h con seguimiento. Normalmente la recibes en 3–7 días laborables; los plazos exactos están en la política de envíos. Para Navidad, pide antes del 14 de diciembre.</p>"
+          }
+        },
+        "q1": {
+          "type": "q",
+          "settings": {
+            "q": "¿Cómo funciona el 3x2?",
+            "a": "<p>Llena tu estuche con 3 joyas cualesquiera y la de menor precio es nuestro regalo. Se descuenta sola en la cesta. Con 6, dos de regalo.</p>"
           }
         },
         "q2": {
-          "type": "collapsible_row",
+          "type": "q",
           "settings": {
-            "heading": "¿De qué material son?",
-            "icon": "heart",
-            "row_content": "<p>Acero inoxidable con baño de oro de 18 k (dorado) o acabado plateado. El acero no se oxida ni mancha la piel.</p>"
+            "q": "¿De qué material es?",
+            "a": "<p>Acero inoxidable con baño de oro de 18 k (dorado) o acabado plateado. El acero no se oxida ni mancha la piel.</p>"
           }
         },
         "q3": {
-          "type": "collapsible_row",
+          "type": "q",
           "settings": {
-            "heading": "¿Cómo funciona el 3x2?",
-            "icon": "price_tag",
-            "row_content": "<p>Elige 3 joyas cualesquiera y la de menor precio es un regalo. Se aplica solo en la cesta. Con 6, dos de regalo.</p>"
+            "q": "¿Y si no le gusta?",
+            "a": "<p>Lo que pidas desde ahora lo puedes devolver hasta el 15 de enero, aunque sea un regalo.</p>"
           }
         },
         "q4": {
-          "type": "collapsible_row",
+          "type": "q",
           "settings": {
-            "heading": "¿Y si no le gusta?",
-            "icon": "return",
-            "row_content": "<p>Lo que pidas desde ahora lo puedes devolver hasta el 15 de enero, aunque sea un regalo.</p>"
-          }
-        },
-        "q5": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "¿Tiene garantía?",
-            "icon": "lock",
-            "row_content": "<p>Garantía de color de 3 años: si con un uso normal pierde el dorado, te enviamos otra. Y si llega dañada, te enviamos otra sin coste.</p>"
+            "q": "¿Tiene garantía?",
+            "a": "<p>Garantía de color de 3 años: si con un uso normal pierde el dorado, te enviamos otra. Y si llega dañada, otra sin coste.</p>"
           }
         }
       },
       "block_order": [
+        "q0",
         "q1",
         "q2",
         "q3",
-        "q4",
-        "q5"
+        "q4"
       ],
       "settings": {
-        "caption": "",
-        "heading": "Preguntas frecuentes",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "layout": "none",
-        "container_color_scheme": "scheme-1",
-        "color_scheme": "scheme-1",
-        "open_first_collapsible_row": false,
-        "image_ratio": "adapt",
-        "desktop_layout": "image_second",
-        "padding_top": 48,
-        "padding_bottom": 48
-      }
-    },
-    "news": {
-      "type": "newsletter",
-      "blocks": {
-        "h": {
-          "type": "heading",
-          "settings": {
-            "heading": "Antes que nadie",
-            "heading_size": "h1"
-          }
-        },
-        "p": {
-          "type": "paragraph",
-          "settings": {
-            "text": "<p>Te avisamos 24 h antes del Black Friday y de las piezas nuevas. Sin spam.</p>"
-          }
-        },
-        "f": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "h",
-        "p",
-        "f"
-      ],
-      "settings": {
-        "color_scheme": "scheme-2",
-        "full_width": true,
-        "padding_top": 56,
-        "padding_bottom": 64
+        "title": "Preguntas",
+        "text": "¿Otra duda? Escríbenos por WhatsApp."
       }
     }
   },
   "order": [
     "hero",
-    "strip",
+    "tabs",
     "sets",
-    "cats",
-    "best",
+    "worn",
     "compare",
-    "gift",
     "reviews",
-    "promise",
-    "faq",
-    "news"
+    "faq"
   ]
 }

@@ -1,0 +1,61 @@
+{%- comment -%}
+  Opiniones v20. No se muestra nada hasta que actives «Mostrar reseñas y estrellas»
+  (Configuración del tema → Maison Nácar → Reseñas). Añade solo opiniones reales.
+  Si instalas una app de reseñas (Judge.me, etc.), puedes usar su bloque en lugar de este.
+{%- endcomment -%}
+{%- assign S = section.settings -%}
+{%- if settings.aom_reviews_on and section.blocks.size > 0 -%}
+<style>
+  #mn-r-{{ section.id }} .r-rail { display: grid; grid-auto-flow: column; grid-auto-columns: 82%; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0 var(--mn-gutter); }
+  #mn-r-{{ section.id }} .r-rail::-webkit-scrollbar { display: none; }
+  @media (min-width: 990px) { #mn-r-{{ section.id }} .r-rail { grid-auto-columns: calc((100% - 30px) / 3.3); max-width: var(--mn-max); margin: 0 auto; } }
+  #mn-r-{{ section.id }} article { scroll-snap-align: start; padding: 20px; background: var(--mn-tile); display: grid; gap: 12px; align-content: start; }
+  #mn-r-{{ section.id }} .r-st { display: flex; gap: 2px; }
+  #mn-r-{{ section.id }} .r-st svg { width: 15px; height: 15px; }
+  #mn-r-{{ section.id }} blockquote { margin: 0; font-family: var(--mn-display); font-size: 21px; line-height: 1.15; letter-spacing: -.02em; }
+  #mn-r-{{ section.id }} footer { font-size: 13px; color: var(--mn-grey); }
+  #mn-r-{{ section.id }} .r-img { display: block; aspect-ratio: 1; background: #ddd; overflow: hidden; }
+  #mn-r-{{ section.id }} .r-img img { width: 100%; height: 100%; object-fit: cover; }
+</style>
+<section id="opiniones" class="mn-sec">
+  <div id="mn-r-{{ section.id }}">
+    <div class="mn-wrap mn-head"><div><h2 class="mn-h2">{{ S.title }}</h2>{%- if S.text != blank -%}<p>{{ S.text }}</p>{%- endif -%}</div></div>
+    <div class="r-rail">
+      {%- for block in section.blocks -%}
+        {%- assign B = block.settings -%}
+        {%- if B.show_on == 'all' or product == nil or B.product == blank or B.product.id == product.id -%}
+          <article {{ block.shopify_attributes }}>
+            {%- if B.photo -%}<span class="r-img">{{ B.photo | image_url: width: 600 | image_tag: loading: 'lazy', alt: '' }}</span>{%- endif -%}
+            <span class="r-st" aria-label="{{ B.stars }} de 5">{%- for i in (1..B.stars) -%}{% render 'mn-icon', i: 'star' %}{%- endfor -%}</span>
+            <blockquote>{{ B.text }}</blockquote>
+            <footer>{{ B.name }}{% if B.city != blank %}, {{ B.city }}{% endif %}{% if B.product != blank %} · {{ B.product.title }}{% endif %}{% if B.verified %} · Compra verificada{% endif %}</footer>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Opiniones",
+  "settings": [
+    { "type": "paragraph", "content": "Solo se ve cuando activas «Mostrar reseñas y estrellas» en Configuración del tema → Maison Nácar. Añade únicamente opiniones reales." },
+    { "type": "text", "id": "title", "label": "Título", "default": "Lo que dicen de su estuche" },
+    { "type": "text", "id": "text", "label": "Texto" }
+  ],
+  "blocks": [
+    { "type": "review", "name": "Opinión", "settings": [
+      { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 },
+      { "type": "textarea", "id": "text", "label": "Opinión" },
+      { "type": "text", "id": "name", "label": "Nombre" },
+      { "type": "text", "id": "city", "label": "Ciudad" },
+      { "type": "product", "id": "product", "label": "Joya" },
+      { "type": "select", "id": "show_on", "label": "Dónde se ve", "options": [ { "value": "product", "label": "Solo en la ficha de esa joya (y en la home)" }, { "value": "all", "label": "En todas las fichas" } ], "default": "all" },
+      { "type": "image_picker", "id": "photo", "label": "Foto de la clienta (opcional)" },
+      { "type": "checkbox", "id": "verified", "label": "Compra verificada", "default": false }
+    ] }
+  ],
+  "presets": [ { "name": "Opiniones" } ]
+}
+{% endschema %}

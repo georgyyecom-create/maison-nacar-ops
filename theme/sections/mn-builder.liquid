@@ -1,0 +1,118 @@
+{%- comment -%}
+  Tu estuche (página /pages/3x2): el estuche fijo arriba se llena al tocar «+».
+  Con 3 joyas, la de menor precio sale como regalo. El descuento real lo aplica el 3x2 automático.
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign plist = S.collection.products
+  if S.collection == blank or S.collection.products.size == 0
+    assign plist = collections.all.products
+  endif
+-%}
+<style>
+  #mn-b-{{ section.id }} .b-top { padding: 28px 0 0; }
+  #mn-b-{{ section.id }} .b-top p { margin: 10px 0 0; color: var(--mn-grey); max-width: 44ch; }
+  #mn-b-{{ section.id }} .b-box { position: sticky; top: 66px; z-index: 20; margin: 18px 0 20px; }
+  @media (min-width: 990px) { #mn-b-{{ section.id }} .b-wrap { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; } #mn-b-{{ section.id }} .b-box { top: 92px; order: 2; margin-top: 28px; } }
+  #mn-b-{{ section.id }} .b-box .mn-btn { margin-top: 12px; background: #fff; color: var(--mn-ink); border-color: #fff; min-height: 50px; }
+  #mn-b-{{ section.id }} .b-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 10px; margin-top: 16px; }
+  @media (min-width: 750px) { #mn-b-{{ section.id }} .b-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  #mn-b-{{ section.id }} .b-it[hidden] { display: none; }
+  #mn-b-{{ section.id }} .b-it.is-in .mn-card__add { background: var(--mn-ink); color: #fff; }
+</style>
+<section id="mn-b-{{ section.id }}" data-mn-builder>
+  <div class="mn-wrap">
+    <div class="b-top">
+      <h1 class="mn-h1" style="font-size: clamp(44px, 12vw, 96px)">{{ S.title }}</h1>
+      <p>{{ S.text }}</p>
+    </div>
+    <div class="b-wrap">
+      <div class="b-box">
+        <div class="mn-box">
+          <p class="mn-box__h"><b data-b-h>Tu estuche</b><span>{% render 'aom-camp', k: 'short' %}</span></p>
+          <div class="mn-slots" data-b-slots></div>
+          <div class="mn-box__sum"><span data-b-l>0 joyas</span><span><s data-b-full></s><b data-b-tot></b></span></div>
+          <p class="mn-box__note" data-b-note></p>
+          <button type="button" class="mn-btn mn-btn--block" data-b-go disabled>Elige 3 joyas</button>
+        </div>
+      </div>
+      <div>
+        <div class="mn-pills" data-b-tabs>
+          <button type="button" class="mn-pill is-on" data-t="">Todas</button>
+          <button type="button" class="mn-pill" data-t="collar">Collares</button>
+          <button type="button" class="mn-pill" data-t="pulsera">Pulseras</button>
+          <button type="button" class="mn-pill" data-t="pendiente">Pendientes</button>
+          <button type="button" class="mn-pill" data-t="anillo">Anillos</button>
+        </div>
+        <div class="b-grid">
+          {%- for p in plist limit: 60 -%}
+            {%- liquid
+              assign v = p.selected_or_first_available_variant
+              for x in p.variants
+                assign xt = x.title | downcase
+                if x.available and xt contains 'gold'
+                  assign v = x
+                  break
+                endif
+              endfor
+            -%}
+            {%- if v.available -%}
+              <div class="mn-card b-it" data-b-it data-type="{{ p.type | downcase }}" data-v="{{ v.id }}" data-p="{{ v.price }}" data-n="{{ p.title | escape }}" data-img="{{ p.featured_image | image_url: width: 400 }}">
+                <a class="mn-card__media" href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 750px) 22vw, 46vw', alt: p.title }}{%- endif -%}</a>
+                <button type="button" class="mn-card__add" data-b-add aria-label="Añadir {{ p.title | escape }} al estuche">{% render 'mn-icon', i: 'plus' %}</button>
+                <div class="mn-card__body"><a class="mn-card__t" href="{{ p.url }}">{{ p.title }}</a><span class="mn-card__p">{{ v.price | money_without_trailing_zeros }}</span></div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  (function () {
+    var root = document.getElementById('mn-b-{{ section.id }}'); if (!root) return;
+    var picks = [];
+    var PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+    var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+    function q(s) { return root.querySelector(s); }
+    function paint() {
+      if (!window.MN) return;
+      var u = picks.map(function (it) { return { name: it.getAttribute('data-n'), img: it.getAttribute('data-img'), price: +it.getAttribute('data-p'), on: true, el: it }; });
+      var full = u.reduce(function (a, x) { return a + x.price; }, 0), gift = null;
+      if (u.length === 3) { gift = u.reduce(function (a, x) { return x.price <= a.price ? x : a; }); gift.gift = true; }
+      q('[data-b-slots]').innerHTML = MN.slotsHTML(u, { buttons: true });
+      q('[data-b-full]').textContent = gift ? MN.money(full) : '';
+      q('[data-b-tot]').textContent = MN.money(full - (gift ? gift.price : 0));
+      q('[data-b-l]').textContent = u.length === 1 ? '1 joya' : u.length + ' joyas';
+      q('[data-b-h]').textContent = u.length === 3 ? 'Estuche completo' : 'Tu estuche';
+      q('[data-b-note]').textContent = gift ? 'Te regalamos ' + gift.name + '. Toca un hueco para cambiarlo.' : (u.length === 2 ? 'Elige la tercera: la de menor precio es tu regalo.' : 'Elige 3 joyas: la de menor precio es tu regalo.');
+      var go = q('[data-b-go]'); go.disabled = u.length === 0; go.textContent = u.length === 3 ? 'Añadir el estuche' : (u.length ? 'Añadir ' + u.length + (u.length === 1 ? ' joya' : ' joyas') + ' · faltan ' + (3 - u.length) : 'Elige 3 joyas');
+      root.querySelectorAll('[data-b-it]').forEach(function (it) { var on = picks.indexOf(it) > -1; it.classList.toggle('is-in', on); it.querySelector('[data-b-add]').innerHTML = on ? CHECK : PLUS; });
+    }
+    root.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-b-add]');
+      if (a) { var it = a.closest('[data-b-it]'), i = picks.indexOf(it); if (i > -1) picks.splice(i, 1); else if (picks.length < 3) picks.push(it); else { picks[2] = it; } paint(); return; }
+      var s = e.target.closest('[data-mn-slot]');
+      if (s) { picks.splice(+s.getAttribute('data-mn-slot'), 1); paint(); return; }
+      var t = e.target.closest('[data-b-tabs] button');
+      if (t) { root.querySelectorAll('[data-b-tabs] button').forEach(function (x) { x.classList.toggle('is-on', x === t); }); var k = t.getAttribute('data-t'); root.querySelectorAll('[data-b-it]').forEach(function (it) { it.hidden = !!k && it.getAttribute('data-type').indexOf(k) < 0; }); }
+    });
+    q('[data-b-go]').addEventListener('click', function () {
+      var go = this; go.classList.add('is-busy');
+      MN.add(picks.map(function (it) { return { id: +it.getAttribute('data-v'), quantity: 1 }; })).then(function () { picks = []; go.classList.remove('is-busy'); paint(); }, function () { go.classList.remove('is-busy'); });
+    });
+    if (window.MN) paint(); else window.addEventListener('DOMContentLoaded', paint);
+  })();
+</script>
+{% schema %}
+{
+  "name": "Tu estuche (3x2)",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Tu estuche" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Elige 3 joyas y la de menor precio es nuestro regalo. Llega en su estuche, con envío gratis." },
+    { "type": "collection", "id": "collection", "label": "Joyas", "info": "Si está vacía o no está publicada, se muestran todas." }
+  ],
+  "presets": [ { "name": "Tu estuche (3x2)" } ]
+}
+{% endschema %}

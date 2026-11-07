@@ -1,0 +1,74 @@
+{%- comment -%}
+  Portada v20: foto a sangre (hueco para Gemini) con el titular grande y el estuche brillando.
+  El titular, si se deja vacío, sale de la campaña activa.
+{%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign mob = S.image_mobile | default: S.image
+-%}
+<style>
+  #mn-h-{{ section.id }} { position: relative; background: var(--mn-tile); color: #fff; overflow: hidden; }
+  #mn-h-{{ section.id }} .h-media { position: relative; height: calc(100svh - 92px); min-height: 560px; max-height: 900px; }
+  #mn-h-{{ section.id }} .h-media .mn-ph { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; }
+  #mn-h-{{ section.id }} .h-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.05) 30%, rgba(0,0,0,.55) 100%); pointer-events: none; }
+  #mn-h-{{ section.id }} .h-copy { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 0 var(--mn-gutter) 22px; max-width: var(--mn-max); margin: 0 auto; }
+  #mn-h-{{ section.id }} .h-k { display: inline-block; margin: 0 0 12px; padding: 6px 12px; border-radius: 999px; background: var(--mn-nacar); color: var(--mn-ink); font-size: 13px; font-weight: 600; }
+  #mn-h-{{ section.id }} h1 { color: #fff; max-width: none; font-size: clamp(54px, 15vw, 132px); }
+  #mn-h-{{ section.id }} .h-t { margin: 12px 0 0; max-width: 34ch; font-size: 16px; line-height: 1.45; color: rgba(255,255,255,.9); }
+  #mn-h-{{ section.id }} .h-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  #mn-h-{{ section.id }} .h-btns .mn-btn { flex: 1 1 auto; }
+  #mn-h-{{ section.id }} .h-btns .mn-btn--line { color: #fff; border-color: rgba(255,255,255,.8); }
+  #mn-h-{{ section.id }} .h-box { display: none; }
+  @media (min-width: 990px) {
+    #mn-h-{{ section.id }} .h-copy { padding-bottom: 56px; display: grid; grid-template-columns: 1fr 380px; align-items: end; gap: 40px; }
+    #mn-h-{{ section.id }} .h-btns .mn-btn { flex: 0 0 auto; }
+    #mn-h-{{ section.id }} .h-box { display: block; }
+  }
+</style>
+<section id="mn-h-{{ section.id }}">
+  <div class="h-media">
+    {%- if S.image -%}
+      <span class="mn-ph" style="position:absolute;inset:0">
+        <picture>
+          <source media="(min-width: 750px)" srcset="{{ S.image | image_url: width: 1600 }} 1600w, {{ S.image | image_url: width: 2400 }} 2400w" sizes="100vw">
+          {{ mob | image_url: width: 1000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500, 750, 1000, 1300', sizes: '100vw', alt: S.image.alt | default: '', style: 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover' }}
+        </picture>
+      </span>
+    {%- else -%}
+      {% render 'mn-ph', ratio: '4/5', n: '01', label: 'Portada: chica con el conjunto puesto, luz natural (vertical en móvil, apaisada en ordenador)', class: 'mn-ph--top' %}
+    {%- endif -%}
+    <div class="h-copy">
+      <div>
+        <span class="h-k">{%- if S.kicker != blank -%}{{ S.kicker }}{%- else -%}{% render 'aom-camp', k: 'kicker' %}{%- endif -%}</span>
+        <h1 class="mn-h1">{%- assign ht = S.title | default: 'Elige 3. Paga 2.' -%}{{ ht | replace: '. ', '.<br>' }}</h1>
+        {%- if S.text != blank -%}<p class="h-t">{{ S.text }}</p>{%- endif -%}
+        <div class="h-btns">
+          {%- if S.btn_1 != blank -%}<a class="mn-btn mn-btn--white" href="{{ S.link_1 }}">{{ S.btn_1 }}</a>{%- endif -%}
+          {%- if S.btn_2 != blank -%}<a class="mn-btn mn-btn--line" href="{{ S.link_2 }}">{{ S.btn_2 }}</a>{%- endif -%}
+        </div>
+      </div>
+      {%- if S.box_products.size > 0 -%}
+        <div class="h-box"><div class="mn-box" data-mn-static-box>{% render 'mn-box-static', items: S.box_products, title: S.box_title %}</div></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Portada v20",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Foto (ordenador, apaisada)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Foto (móvil, vertical 4:5)" },
+    { "type": "text", "id": "kicker", "label": "Etiqueta (vacío = la de la campaña)" },
+    { "type": "text", "id": "title", "label": "Titular", "default": "Elige 3. Paga 2." },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Llena tu estuche con 3 joyas: la de menor precio es nuestro regalo. Acero inoxidable con baño de oro 18k." },
+    { "type": "text", "id": "btn_1", "label": "Botón 1", "default": "Llenar mi estuche" },
+    { "type": "text", "id": "link_1", "label": "Enlace 1", "default": "/pages/3x2" },
+    { "type": "text", "id": "btn_2", "label": "Botón 2", "default": "Ver los conjuntos" },
+    { "type": "text", "id": "link_2", "label": "Enlace 2", "default": "#conjuntos" },
+    { "type": "text", "id": "box_title", "label": "Título del estuche (ordenador)", "default": "Conjunto Puntos de Luz" },
+    { "type": "product_list", "id": "box_products", "label": "Joyas del estuche (ordenador)", "limit": 3 }
+  ],
+  "presets": [ { "name": "Portada v20" } ]
+}
+{% endschema %}

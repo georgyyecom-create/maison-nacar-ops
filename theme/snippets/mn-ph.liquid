@@ -1,0 +1,18 @@
+{%- comment -%}
+  Hueco de foto. Si no hay imagen, muestra qué foto va y su proporción (para generarla con Gemini).
+  Uso: {% render 'mn-ph', image: section.settings.image, ratio: '4/5', n: '04', label: 'Conjunto puesto', sizes: '100vw', eager: false %}
+{%- endcomment -%}
+{%- liquid
+  assign r = ratio | default: '4/5'
+  assign ld = 'lazy'
+  if eager
+    assign ld = 'eager'
+  endif
+-%}
+<span class="mn-ph{% if class %} {{ class }}{% endif %}" style="aspect-ratio: {{ r }}">
+  {%- if image -%}
+    {{ image | image_url: width: 1800 | image_tag: loading: ld, widths: '400, 600, 800, 1000, 1400, 1800', sizes: sizes | default: '100vw', alt: image.alt | default: label | escape }}
+  {%- else -%}
+    <span class="mn-ph__empty"><b>Foto {{ n }}</b><span>{{ label }} · {{ r | replace: '/', ':' }}</span></span>
+  {%- endif -%}
+</span>

@@ -1,0 +1,49 @@
+{%- comment -%}
+  Estuche estático (sin JavaScript) con 3 joyas: la de menor precio sale como regalo.
+  Uso: {% render 'mn-box-static', items: block.settings.products, title: 'Conjunto', add: true, url: '' %}
+{%- endcomment -%}
+{%- liquid
+  assign full = 0
+  assign cheap = 999999999
+  assign ids = ''
+  assign n = 0
+  for p in items limit: 3
+    assign v = p.selected_or_first_available_variant
+    for x in p.variants
+      assign xt = x.title | downcase
+      if x.available and xt contains 'gold'
+        assign v = x
+        break
+      endif
+    endfor
+    assign n = n | plus: 1
+    assign full = full | plus: v.price
+    if v.price < cheap
+      assign cheap = v.price
+    endif
+    assign ids = ids | append: v.id | append: ','
+  endfor
+  assign total = full | minus: cheap
+  assign gift_done = false
+-%}
+<p class="mn-box__h"><b>{{ title }}</b><span>Elige 3, paga 2</span></p>
+<div class="mn-slots">
+  {%- for p in items limit: 3 -%}
+    {%- liquid
+      assign v = p.selected_or_first_available_variant
+      assign g = false
+      if v.price == cheap and gift_done == false and n == 3 and forloop.last
+        assign g = true
+        assign gift_done = true
+      endif
+    -%}
+    <span class="mn-slot{% if g %} is-gift{% endif %}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}<span class="mn-slot__name">{% if g %}Regalo{% else %}{{ p.title }}{% endif %}</span></span>
+  {%- endfor -%}
+</div>
+<div class="mn-box__sum"><span>{{ n }} joyas</span><span><s>{{ full | money_without_trailing_zeros }}</s><b>{{ total | money_without_trailing_zeros }}</b></span></div>
+{%- if add -%}
+  <div style="display:flex;gap:8px;margin-top:12px">
+    {%- if url != blank -%}<a class="mn-btn mn-btn--line" style="flex:1;min-height:46px;color:#fff;border-color:rgba(255,255,255,.6)" href="{{ url }}">Ver</a>{%- endif -%}
+    <button type="button" class="mn-btn mn-btn--white" style="flex:2;min-height:46px" data-mn-addset="{{ ids }}">Añadir el estuche</button>
+  </div>
+{%- endif -%}

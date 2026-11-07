@@ -1,0 +1,51 @@
+{%- comment -%}
+  Pestañas de joyas: Collares · Pulseras · Pendientes · Anillos, con el número de piezas
+  y un carrusel compacto. Cada joya se añade al estuche con «+».
+{%- endcomment -%}
+{%- assign S = section.settings -%}
+<section id="mn-t-{{ section.id }}" class="mn-sec" data-mn-tabs>
+  <div class="mn-wrap">
+    <div class="mn-head"><div><h2 class="mn-h2">{{ S.title }}</h2>{%- if S.text != blank -%}<p>{{ S.text }}</p>{%- endif -%}</div></div>
+    <div class="mn-pills" role="tablist" style="margin-bottom: 16px">
+      {%- for block in section.blocks -%}
+        {%- assign c = block.settings.collection -%}
+        {%- if c != blank -%}
+          <button type="button" class="mn-pill{% if forloop.first %} is-on{% endif %}" role="tab" aria-selected="{{ forloop.first }}" data-t="{{ forloop.index0 }}" {{ block.shopify_attributes }}>{{ block.settings.label | default: c.title }} <sup>{{ c.products_count }}</sup></button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- for block in section.blocks -%}
+      {%- assign c = block.settings.collection -%}
+      {%- if c != blank -%}
+        <div class="mn-rail" role="tabpanel" data-p="{{ forloop.index0 }}"{% unless forloop.first %} hidden{% endunless %}>
+          {%- for p in c.products limit: S.limit -%}{%- if p.available -%}{% render 'mn-card', product: p %}{%- endif -%}{%- endfor -%}
+        </div>
+        <p style="margin: 18px 0 0" data-l="{{ forloop.index0 }}"{% unless forloop.first %} hidden{% endunless %}><a class="mn-link" href="{{ c.url }}">Ver {{ block.settings.label | default: c.title | downcase }}</a></p>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+<script>
+  (function () {
+    var r = document.getElementById('mn-t-{{ section.id }}'); if (!r) return;
+    r.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-t]'); if (!b) return;
+      var k = b.getAttribute('data-t');
+      r.querySelectorAll('[data-t]').forEach(function (x) { x.classList.toggle('is-on', x === b); x.setAttribute('aria-selected', x === b); });
+      r.querySelectorAll('[data-p]').forEach(function (p) { p.hidden = p.getAttribute('data-p') !== k; });
+      r.querySelectorAll('[data-l]').forEach(function (p) { p.hidden = p.getAttribute('data-l') !== k; });
+    });
+  })();
+</script>
+{% schema %}
+{
+  "name": "Pestañas de joyas",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Elige tus 3" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Toca + para añadirla a tu estuche. Con 3, la de menor precio es tu regalo." },
+    { "type": "range", "id": "limit", "label": "Joyas por pestaña", "min": 4, "max": 16, "step": 1, "default": 10 }
+  ],
+  "blocks": [ { "type": "tab", "name": "Pestaña", "settings": [ { "type": "collection", "id": "collection", "label": "Colección" }, { "type": "text", "id": "label", "label": "Nombre" } ] } ],
+  "presets": [ { "name": "Pestañas de joyas" } ]
+}
+{% endschema %}

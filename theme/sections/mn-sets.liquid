@@ -1,0 +1,46 @@
+{%- comment -%} Conjuntos ya hechos: foto del conjunto puesto (hueco Gemini) + el estuche con sus 3 joyas {%- endcomment -%}
+{%- assign S = section.settings -%}
+<style>
+  #mn-st-{{ section.id }} .st-grid { display: grid; gap: 36px; }
+  @media (min-width: 990px) { #mn-st-{{ section.id }} .st-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  #mn-st-{{ section.id }} .st-item { position: relative; }
+  #mn-st-{{ section.id }} .st-item .mn-box { position: relative; margin: -64px 12px 0; }
+  @media (min-width: 990px) { #mn-st-{{ section.id }} .st-item .mn-box { margin: -96px 24px 0; } }
+  #mn-st-{{ section.id }} .st-sub { margin: 14px 2px 0; font-size: 14px; color: var(--mn-grey); }
+</style>
+<section id="conjuntos" class="mn-sec" style="background: {{ S.bg }}">
+  <div id="mn-st-{{ section.id }}" class="mn-wrap">
+    <div class="mn-head"><div><h2 class="mn-h2">{{ S.title }}</h2>{%- if S.text != blank -%}<p>{{ S.text }}</p>{%- endif -%}</div></div>
+    <div class="st-grid">
+      {%- for block in section.blocks -%}
+        {%- assign B = block.settings -%}
+        {%- assign first = B.products | first -%}
+        {%- assign surl = first.url | append: '?pack=3' -%}
+        <div class="st-item" {{ block.shopify_attributes }}>
+          <a href="{{ surl }}" style="display:block">{% render 'mn-ph', image: B.image, ratio: '4/5', n: B.n, label: B.label, sizes: '(min-width: 990px) 50vw, 100vw' %}</a>
+          <div class="mn-box">{% render 'mn-box-static', items: B.products, title: B.title, add: true, url: surl %}</div>
+          {%- if B.sub != blank -%}<p class="st-sub">{{ B.sub }}</p>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Conjuntos v20",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Fondo", "default": "#FFFFFF" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Estuches ya hechos" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Tres joyas que combinan: la de menor precio es tu regalo." }
+  ],
+  "blocks": [ { "type": "set", "name": "Conjunto", "settings": [
+    { "type": "text", "id": "title", "label": "Nombre", "default": "Conjunto" },
+    { "type": "product_list", "id": "products", "label": "Las 3 joyas (la más barata, la última)", "limit": 3 },
+    { "type": "image_picker", "id": "image", "label": "Foto del conjunto puesto (4:5)" },
+    { "type": "text", "id": "n", "label": "Número del hueco", "default": "03" },
+    { "type": "text", "id": "label", "label": "Qué foto va", "default": "El conjunto puesto" },
+    { "type": "text", "id": "sub", "label": "Frase" }
+  ] } ],
+  "presets": [ { "name": "Conjuntos v20" } ]
+}
+{% endschema %}

@@ -1,0 +1,61 @@
+{%- comment -%} Tu joya de siempre vs Maison Nácar (v20) {%- endcomment -%}
+{%- assign S = section.settings -%}
+<style>
+  #mn-c-{{ section.id }} { background: var(--mn-ink); color: #fff; }
+  #mn-c-{{ section.id }} .mn-h2 { max-width: 14ch; }
+  #mn-c-{{ section.id }} .c-pics { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 26px; }
+  #mn-c-{{ section.id }} .c-pic { position: relative; }
+  #mn-c-{{ section.id }} .c-pic .mn-ph { background: #1E1E1E; }
+  #mn-c-{{ section.id }} .c-pic .mn-ph__empty { border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.6); }
+  #mn-c-{{ section.id }} .c-pic .mn-ph__empty b { color: #fff; }
+  #mn-c-{{ section.id }} .c-tag { position: absolute; left: 8px; top: 8px; padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: #fff; color: var(--mn-ink); }
+  #mn-c-{{ section.id }} .c-pic--good .c-tag { background: var(--mn-nacar); }
+  #mn-c-{{ section.id }} table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+  #mn-c-{{ section.id }} th, #mn-c-{{ section.id }} td { padding: 14px 0; border-top: 1px solid rgba(255,255,255,.18); text-align: left; font-size: 15px; vertical-align: middle; }
+  #mn-c-{{ section.id }} th { font-weight: 400; }
+  #mn-c-{{ section.id }} td { width: 25%; text-align: center; }
+  #mn-c-{{ section.id }} .c-y, #mn-c-{{ section.id }} .c-n { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; }
+  #mn-c-{{ section.id }} .c-y { background: var(--mn-nacar); color: var(--mn-ink); }
+  #mn-c-{{ section.id }} .c-n { border: 1px solid rgba(255,255,255,.35); color: rgba(255,255,255,.55); }
+  #mn-c-{{ section.id }} .c-y svg, #mn-c-{{ section.id }} .c-n svg { width: 13px; height: 13px; }
+  #mn-c-{{ section.id }} thead td { font-size: 13px; color: rgba(255,255,255,.6); border-top: 0; padding-bottom: 6px; }
+  #mn-c-{{ section.id }} .c-note { margin: 14px 0 0; font-size: 12.5px; color: rgba(255,255,255,.5); }
+  @media (min-width: 990px) { #mn-c-{{ section.id }} .c-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; } #mn-c-{{ section.id }} .c-pics { margin-top: 0; } }
+</style>
+<section id="mn-c-{{ section.id }}" class="mn-sec">
+  <div class="mn-wrap c-grid">
+    <div class="c-pics">
+      <div class="c-pic">{% render 'mn-ph', image: S.img_bad, ratio: '4/5', n: S.n_bad, label: 'Bisutería que se ha puesto verde', sizes: '50vw' %}<span class="c-tag">{{ S.label_bad }}</span></div>
+      <div class="c-pic c-pic--good">{% render 'mn-ph', image: S.img_good, ratio: '4/5', n: S.n_good, label: 'La joya Maison Nácar, brillante', sizes: '50vw' %}<span class="c-tag">{{ S.label_good }}</span></div>
+    </div>
+    <div>
+      <h2 class="mn-h2" style="margin-top: 28px">{{ S.title }}</h2>
+      <table>
+        <thead><tr><th></th><td>{{ S.label_bad }}</td><td>{{ S.label_good }}</td></tr></thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}><th>{{ block.settings.row }}</th><td><span class="c-n">{% render 'mn-icon', i: 'x' %}</span></td><td><span class="c-y">{% render 'mn-icon', i: 'check' %}</span></td></tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      {%- if S.note != blank -%}<p class="c-note">{{ S.note }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Tu joya vs Maison Nácar",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Tu joya de siempre vs Maison Nácar" },
+    { "type": "text", "id": "label_bad", "label": "Etiqueta izquierda", "default": "La de siempre" },
+    { "type": "text", "id": "label_good", "label": "Etiqueta derecha", "default": "Maison Nácar" },
+    { "type": "image_picker", "id": "img_bad", "label": "Foto izquierda (4:5)" },
+    { "type": "text", "id": "n_bad", "label": "Número del hueco izquierdo", "default": "09" },
+    { "type": "image_picker", "id": "img_good", "label": "Foto derecha (4:5)" },
+    { "type": "text", "id": "n_good", "label": "Número del hueco derecho", "default": "10" },
+    { "type": "text", "id": "note", "label": "Nota", "default": "Comparativa con bisutería genérica de aleación. El material está indicado en cada pieza." }
+  ],
+  "blocks": [ { "type": "row", "name": "Fila", "settings": [ { "type": "text", "id": "row", "label": "Texto", "default": "No deja la piel verde" } ] } ],
+  "presets": [ { "name": "Tu joya vs Maison Nácar" } ]
+}
+{% endschema %}

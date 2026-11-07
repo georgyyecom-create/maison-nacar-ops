@@ -1,62 +1,16 @@
 {
-  "name": "t:sections.footer.name",
   "type": "footer",
+  "name": "Pie",
   "sections": {
-    "footer": {
-      "type": "footer",
-      "blocks": {
-        "brand": {
-          "type": "text",
-          "settings": {
-            "heading": "Maison Nácar",
-            "subtext": "<p>Joyas de acero inoxidable con baño de oro 18k. 3x2 en toda la tienda, envío gratis y estuche de regalo.</p><p><a href=\"https://wa.me/34621390548\">WhatsApp: 621 390 548</a> · de 10 a 20 h<br><a href=\"https://www.instagram.com/maisonnacar/\">Instagram @maisonnacar</a><br><a href=\"https://www.facebook.com/profile.php?id=61596175893524\">Facebook</a></p>"
-          }
-        },
-        "promise": {
-          "type": "text",
-          "settings": {
-            "heading": "Compra tranquila",
-            "subtext": "<p>Envío gratis · Sale en 24/48 h<br>Devolución hasta el 15 de enero<br>Garantía de color 3 años<br>¿Llega dañada? Te enviamos otra</p>"
-          }
-        },
-        "shop": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Tienda",
-            "menu": "main-menu"
-          }
-        },
-        "help": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Ayuda",
-            "menu": "footer"
-          }
-        }
-      },
-      "block_order": [
-        "brand",
-        "promise",
-        "shop",
-        "help"
-      ],
+    "mn-footer": {
+      "type": "mn-footer",
       "settings": {
-        "color_scheme": "scheme-3",
-        "newsletter_enable": false,
-        "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": false,
-        "show_social": true,
-        "enable_country_selector": false,
-        "enable_language_selector": false,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 48,
-        "padding_bottom": 36
+        "menu_1": "main-menu",
+        "menu_2": "footer"
       }
     }
   },
   "order": [
-    "footer"
+    "mn-footer"
   ]
 }

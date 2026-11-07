@@ -1,0 +1,81 @@
+{%- comment -%}
+  Pop-up v20: el estuche. Tarjeta pequeña abajo; tocas las 3 cajitas y se abren tus joyas;
+  la tercera brilla como regalo. Debajo, el canal de WhatsApp y el email.
+  Configuración del tema → Maison Nácar → Pop-up 3x2.
+{%- endcomment -%}
+{%- liquid
+  assign wa = settings.aom_wa_number | remove: ' ' | remove: '+' | remove: '-'
+  assign show = settings.aom_pop_show
+  if template.name == 'cart' or template.name == 'password'
+    assign show = false
+  endif
+  assign chan = settings.aom_wa_channel
+  if chan == blank and wa != blank
+    assign chan = 'https://wa.me/' | append: wa | append: '?text=Hola%2C%20quiero%20que%20me%20avis%C3%A9is%20del%20Black%20Friday%20%E2%9C%A8'
+  endif
+  assign pp = settings.aom_pop_products
+-%}
+{%- if show and pp.size > 0 -%}
+<div class="mn-pop" data-mn-pop hidden data-delay="{{ settings.aom_pop_delay | default: 18 }}" data-days="{{ settings.aom_pop_days | default: 7 }}"{% if request.design_mode and settings.aom_pop_preview %} data-preview{% endif %}>
+  <div class="mn-pop__box" role="dialog" aria-modal="false" aria-labelledby="mn-pop-t">
+    <button type="button" class="mn-pop__x" data-mn-pop-close aria-label="Cerrar">{% render 'mn-icon', i: 'x' %}</button>
+    <p class="mn-pop__t" id="mn-pop-t">{{ settings.aom_pop_title | default: 'Abre las 3 cajitas' }}</p>
+    <p class="mn-pop__s">{% render 'aom-camp', k: 'short' %}</p>
+    <div class="mn-slots mn-pop__slots">
+      {%- for gp in pp limit: 3 -%}
+        <button type="button" class="mn-slot mn-pop__g{% if forloop.last %} is-gift{% endif %}" data-mn-g aria-label="Abrir cajita {{ forloop.index }}">
+          <span class="mn-pop__lid" aria-hidden="true">{% render 'mn-icon', i: 'gift' %}</span>
+          <span class="mn-pop__in">{%- if gp.featured_image -%}{{ gp.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: gp.title }}{%- endif -%}<span class="mn-slot__name">{% if forloop.last %}Regalo{% else %}{{ gp.price | money_without_trailing_zeros }}{% endif %}</span></span>
+        </button>
+      {%- endfor -%}
+    </div>
+    <p class="mn-pop__won" data-mn-won hidden>{{ settings.aom_pop_won | default: 'La tercera es tu regalo: así funciona el 3x2.' }}</p>
+    <a class="mn-btn mn-btn--block mn-pop__cta" href="{{ settings.aom_pop_link | default: '/pages/3x2' }}" data-mn-pop-go>Llenar mi estuche</a>
+    <div class="mn-pop__more" data-mn-pop-more>
+      {%- if chan != blank -%}<a class="mn-pop__wa" href="{{ chan }}" target="_blank" rel="noopener" data-mn-pop-join>{{ settings.aom_pop_channel_text | default: 'Únete al canal de WhatsApp: avisamos 24 h antes del Black Friday' }}</a>{%- endif -%}
+      {%- if settings.aom_pop_email -%}
+        {%- form 'customer', id: 'mn-pop-form', class: 'mn-pop__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,popup-3x2">
+          <label class="mn-vh" for="mn-pop-email">Email</label>
+          <input id="mn-pop-email" type="email" name="contact[email]" placeholder="O tu email" autocomplete="email" required>
+          <button type="submit">Avisadme</button>
+          {%- if form.posted_successfully? -%}<span data-mn-pop-ok hidden></span>{%- endif -%}
+        {%- endform -%}
+      {%- endif -%}
+    </div>
+    <p class="mn-pop__ok" data-mn-pop-done hidden>Hecho: te avisaremos antes que a nadie.</p>
+  </div>
+</div>
+<script>
+  (function () {
+    var pop = document.querySelector('[data-mn-pop]'); if (!pop) return;
+    var KEY = 'mnPop', now = Date.now(), days = +pop.getAttribute('data-days') || 7;
+    function get() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } }
+    function set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+    function blocked() {
+      if (document.body.classList.contains('mn-lock')) return true;
+      var ck = document.getElementById('shopify-pc__banner');
+      if (ck) { var cs = getComputedStyle(ck), r = ck.getBoundingClientRect(); if (cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity > 0 && r.height > 0) return true; }
+      return false;
+    }
+    function open() { if (!pop.hidden || blocked()) return false; pop.hidden = false; requestAnimationFrame(function () { pop.classList.add('is-on'); }); document.body.classList.add('mn-pop-on'); return true; }
+    function close() { pop.classList.remove('is-on'); document.body.classList.remove('mn-pop-on'); setTimeout(function () { pop.hidden = true; }, 300); if (!get().joined) set({ seen: Date.now() }); }
+    function done() { set({ joined: 1 }); pop.querySelector('[data-mn-pop-done]').hidden = false; pop.querySelector('[data-mn-pop-more]').hidden = true; }
+    pop.querySelector('[data-mn-pop-close]').addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) close(); });
+    var j = pop.querySelector('[data-mn-pop-join]'); if (j) j.addEventListener('click', function () { setTimeout(done, 400); });
+    pop.querySelector('[data-mn-pop-go]').addEventListener('click', function () { set({ seen: Date.now() }); });
+    var opened = 0, gs = pop.querySelectorAll('[data-mn-g]');
+    gs.forEach(function (b) { b.addEventListener('click', function () { if (b.classList.contains('is-open')) return; b.classList.add('is-open'); opened++; if (opened === gs.length) { pop.classList.add('is-won'); pop.querySelector('[data-mn-won]').hidden = false; } }); });
+    if (pop.querySelector('[data-mn-pop-ok]')) { open(); done(); return; }
+    if (pop.hasAttribute('data-preview')) { open(); return; }
+    var st = get(); if (st.joined || (st.seen && now - st.seen < days * 864e5)) return;
+    var fired = false, start = Date.now();
+    function trigger() { if (fired || Date.now() - start < 8000) return; if (open()) { fired = true; cleanup(); } }
+    var t = setInterval(function () { if (Date.now() - start >= (+pop.getAttribute('data-delay') || 18) * 1000) trigger(); }, 1000);
+    function onScroll() { var h = document.documentElement.scrollHeight - innerHeight; if (h > 0 && scrollY / h > 0.5) trigger(); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    function cleanup() { clearInterval(t); window.removeEventListener('scroll', onScroll); }
+  })();
+</script>
+{%- endif -%}

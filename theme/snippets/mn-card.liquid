@@ -1,0 +1,55 @@
+{%- comment -%}
+  Tarjeta de producto v20. Uso: {% render 'mn-card', product: p, eager: false %}
+  El «+» añade la joya a la cesta (al estuche) sin salir de la página.
+{%- endcomment -%}
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+  for x in product.variants
+    assign xt = x.title | downcase
+    if x.available and xt contains 'gold'
+      assign v = x
+      break
+    endif
+  endfor
+  assign alt_img = nil
+  for m in product.media
+    if forloop.index > 1 and m.media_type == 'image'
+      assign alt_img = m.preview_image
+      break
+    endif
+  endfor
+  assign ld = 'lazy'
+  if eager
+    assign ld = 'eager'
+  endif
+  assign has_gold = false
+  assign has_silver = false
+  for x in product.variants
+    assign xt = x.title | downcase
+    if xt contains 'gold'
+      assign has_gold = true
+    endif
+    if xt contains 'silver'
+      assign has_silver = true
+    endif
+  endfor
+-%}
+<div class="mn-card">
+  <a class="mn-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+    {%- if product.featured_image -%}
+      {{ product.featured_image | image_url: width: 700 | image_tag: loading: ld, widths: '300, 450, 600, 700', sizes: '(min-width: 750px) 25vw, 46vw', alt: product.title }}
+      {%- if alt_img -%}{{ alt_img | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300, 450, 600, 700', sizes: '(min-width: 750px) 25vw, 46vw', alt: '', class: 'is-alt' }}{%- endif -%}
+    {%- endif -%}
+    {%- if product.tags contains 'nuevo' -%}<span class="mn-card__tag">Nuevo</span>{%- endif -%}
+  </a>
+  {%- if v.available -%}
+    <button type="button" class="mn-card__add" data-mn-add="{{ v.id }}" aria-label="Añadir {{ product.title | escape }} al estuche">{% render 'mn-icon', i: 'plus' %}</button>
+  {%- endif -%}
+  <div class="mn-card__body">
+    <div>
+      <a class="mn-card__t" href="{{ product.url }}">{{ product.title }}</a>
+      {%- if has_gold and has_silver -%}<div class="mn-card__dots"><i class="mn-dot mn-dot--gold" title="Dorado"></i><i class="mn-dot mn-dot--silver" title="Plateado"></i></div>{%- endif -%}
+    </div>
+    {%- if v.available -%}<span class="mn-card__p">{{ v.price | money_without_trailing_zeros }}</span>{%- else -%}<span class="mn-card__out">Agotada</span>{%- endif -%}
+  </div>
+</div>

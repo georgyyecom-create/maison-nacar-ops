@@ -1,0 +1,62 @@
+{%- comment -%} Maison Nácar v20 · Pie de página con la firma gigante {%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign wa = settings.aom_wa_number | remove: ' ' | remove: '+'
+-%}
+<style>
+  .mn-foot { background: var(--mn-ink); color: #fff; padding: 48px 0 0; overflow: hidden; }
+  .mn-foot a { text-decoration: none; }
+  .mn-foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .mn-foot__promise { list-style: none; margin: 0 0 40px; padding: 0 0 32px; border-bottom: 1px solid rgba(255,255,255,.18); display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 990px) { .mn-foot__promise { grid-template-columns: repeat(4, 1fr); } }
+  .mn-foot__promise li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; font-size: 14px; line-height: 1.4; }
+  .mn-foot__promise svg { width: 22px; height: 22px; }
+  .mn-foot__promise small { display: block; color: rgba(255,255,255,.6); font-size: 13px; }
+  .mn-foot__cols { display: grid; gap: 28px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 990px) { .mn-foot__cols { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+  .mn-foot .mn-foot__cols h3 { font-family: var(--mn-text); font-size: 13px; font-weight: 600; letter-spacing: 0; color: rgba(255,255,255,.6); margin: 0 0 10px; }
+  .mn-foot__cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; font-family: var(--mn-text); }
+  .mn-foot__about { grid-column: 1 / -1; max-width: 40ch; font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.85); margin: 0; }
+  @media (min-width: 990px) { .mn-foot__about { grid-column: auto; } }
+  .mn-foot__pay { display: flex; flex-wrap: wrap; gap: 6px; margin: 36px 0 0; }
+  .mn-foot__pay svg { width: 38px; height: 24px; }
+  .mn-foot__legal { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; font-size: 12.5px; color: rgba(255,255,255,.55); }
+  .mn-foot__mark { display: block; margin: 28px 0 -0.18em; font-family: var(--mn-display); font-weight: 800; font-size: 21.5vw; line-height: .8; letter-spacing: -.055em; word-spacing: .1em; white-space: nowrap; color: #fff; font-variation-settings: "opsz" 96, "wdth" 75; }
+  @media (min-width: 1320px) { .mn-foot__mark { font-size: 284px; } }
+</style>
+<footer class="mn-foot">
+  <div class="mn-wrap">
+    <ul class="mn-foot__promise">
+      <li>{% render 'mn-icon', i: 'truck' %}<span>Envío gratis<small>Sale en 24/48 h</small></span></li>
+      <li>{% render 'mn-icon', i: 'return' %}<span>Devolución<small>Hasta el {{ settings.aom_return_date | default: '15 de enero' }}</small></span></li>
+      <li>{% render 'mn-icon', i: 'shield' %}<span>Garantía de color<small>3 años: si pierde el dorado, otra</small></span></li>
+      <li>{% render 'mn-icon', i: 'box' %}<span>Estuche de regalo<small>En cada pedido</small></span></li>
+    </ul>
+    <div class="mn-foot__cols">
+      <p class="mn-foot__about">{{ S.about }}</p>
+      <div><h3>Comprar</h3><ul>{%- for l in linklists[S.menu_1].links -%}<li><a href="{{ l.url }}">{{ l.title }}</a></li>{%- endfor -%}<li><a href="/pages/3x2">Tu estuche 3x2</a></li></ul></div>
+      <div><h3>Ayuda</h3><ul>{%- for l in linklists[S.menu_2].links -%}<li><a href="{{ l.url }}">{{ l.title }}</a></li>{%- endfor -%}</ul></div>
+      <div><h3>Hablamos</h3><ul>
+        {%- if wa != blank -%}<li><a href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">WhatsApp</a></li>{%- endif -%}
+        {%- if settings.aom_wa_channel != blank -%}<li><a href="{{ settings.aom_wa_channel }}" target="_blank" rel="noopener">Canal de WhatsApp</a></li>{%- endif -%}
+        {%- if settings.social_instagram_link != blank -%}<li><a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener">Instagram</a></li>{%- endif -%}
+        {%- if settings.social_facebook_link != blank -%}<li><a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener">Facebook</a></li>{%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}<li><a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener">TikTok</a></li>{%- endif -%}
+      </ul></div>
+    </div>
+    <div class="mn-foot__pay">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag }}{%- endfor -%}</div>
+    <div class="mn-foot__legal"><span>© {{ 'now' | date: '%Y' }} Maison Nácar</span>{%- for p in shop.policies -%}<a href="{{ p.url }}">{{ p.title }}</a>{%- endfor -%}</div>
+  </div>
+  <span class="mn-foot__mark" aria-hidden="true">maison nácar</span>
+</footer>
+{% schema %}
+{
+  "name": "Pie v20",
+  "class": "mn-footer-section",
+  "settings": [
+    { "type": "textarea", "id": "about", "label": "Texto", "default": "Joyas de acero inoxidable con baño de oro 18k. Para ti, para regalar o las dos cosas: elige 3 y la de menor precio es nuestro regalo." },
+    { "type": "link_list", "id": "menu_1", "label": "Menú «Comprar»", "default": "main-menu" },
+    { "type": "link_list", "id": "menu_2", "label": "Menú «Ayuda»", "default": "footer" }
+  ]
+}
+{% endschema %}

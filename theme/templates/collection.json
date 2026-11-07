@@ -1,62 +1,65 @@
 {
   "sections": {
     "main": {
-      "type": "aom-collection",
+      "type": "mn-collection",
       "settings": {
+        "menu": "main-menu",
         "per_page": 24
       }
     },
-    "promise": {
-      "type": "aom-promise",
-      "settings": {
-        "title": "Comprar aquí es <em>fácil</em>",
-        "bg": "#1C1A17",
-        "fg": "#F4EEE4"
-      },
+    "compare": {
+      "type": "mn-compare",
       "blocks": {
-        "p1": {
-          "type": "item",
+        "r0": {
+          "type": "row",
           "settings": {
-            "icon": "truck",
-            "title": "Envío gratis",
-            "text": "Sale en 24/48 h, con seguimiento"
+            "row": "No deja la piel verde"
           }
         },
-        "p2": {
-          "type": "item",
+        "r1": {
+          "type": "row",
           "settings": {
-            "icon": "lock",
-            "title": "Pago seguro",
-            "text": "Tarjeta, PayPal y Bizum"
+            "row": "Aguanta el agua y el perfume"
           }
         },
-        "p3": {
-          "type": "item",
+        "r2": {
+          "type": "row",
           "settings": {
-            "icon": "return",
-            "title": "30 días",
-            "text": "Para devolver sin explicaciones"
+            "row": "El dorado dura (garantía de 3 años)"
           }
         },
-        "p4": {
-          "type": "item",
+        "r3": {
+          "type": "row",
           "settings": {
-            "icon": "chat",
-            "title": "Te atendemos",
-            "text": "Por email y WhatsApp"
+            "row": "Llega en estuche de regalo"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "row": "La tercera, de regalo"
           }
         }
       },
       "block_order": [
-        "p1",
-        "p2",
-        "p3",
-        "p4"
-      ]
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "title": "Tu joya de siempre vs Maison Nácar",
+        "label_bad": "La de siempre",
+        "label_good": "Maison Nácar",
+        "n_bad": "09",
+        "n_good": "10",
+        "note": "Comparativa con bisutería genérica de aleación. El material está indicado en cada pieza."
+      }
     }
   },
   "order": [
     "main",
-    "promise"
+    "compare"
   ]
 }
