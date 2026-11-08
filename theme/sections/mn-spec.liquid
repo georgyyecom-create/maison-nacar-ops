@@ -12,6 +12,8 @@
   @media (min-width: 990px) { #mn-s-{{ section.id }} .s-grid { grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; } }
   #mn-s-{{ section.id }} .s-fig { position: relative; aspect-ratio: 1; background: var(--mn-tile); }
   #mn-s-{{ section.id }} .s-fig img { position: absolute; inset: 12%; width: 76%; height: 76%; object-fit: contain; mix-blend-mode: multiply; }
+  #mn-s-{{ section.id }} .s-fig--box { aspect-ratio: 4 / 5; overflow: hidden; }
+  #mn-s-{{ section.id }} .s-fig--box img { inset: 0; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: normal; }
   #mn-s-{{ section.id }} .s-fig svg { position: absolute; inset: 0; width: 100%; height: 100%; color: rgba(0,0,0,.45); }
   #mn-s-{{ section.id }} .s-fig small { position: absolute; font-size: 11.5px; color: var(--mn-grey); background: var(--mn-tile); padding: 0 6px; }
   #mn-s-{{ section.id }} dl { margin: 0; display: grid; grid-template-columns: auto 1fr; }
@@ -20,12 +22,16 @@
 </style>
 <section id="mn-s-{{ section.id }}" class="mn-sec">
   <div class="mn-wrap s-grid">
+    {%- if S.image != blank -%}
+    <div class="s-fig s-fig--box">{{ S.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 800, 1200', sizes: '(min-width: 990px) 50vw, 100vw', alt: S.title }}</div>
+    {%- else -%}
     <div class="s-fig">
       {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '500, 800, 1000', sizes: '(min-width: 990px) 50vw, 100vw', alt: product.title }}{%- endif -%}
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width=".25" aria-hidden="true"><path d="M8 6v88M6 8h2M6 92h2M12 96h76M12 94v4M88 94v4" vector-effect="non-scaling-stroke"/><path d="M8 50h4M50 96v-4" stroke-dasharray="1 1" vector-effect="non-scaling-stroke"/></svg>
       <small style="left: 50%; bottom: 1.2%; transform: translateX(-50%)">{{ S.w_label }}</small>
       <small style="left: .5%; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left center;">{{ S.h_label }}</small>
     </div>
+    {%- endif -%}
     <div>
       <h2 class="mn-h2">{{ S.title }}</h2>
       <dl style="margin-top: 22px">
@@ -37,6 +43,7 @@
             {%- if key.size < 22 and val != blank -%}<dt>{{ key }}</dt><dd>{{ val }}</dd>{%- endif -%}
           {%- endif -%}
         {%- endfor -%}
+        {%- if S.box_line != blank -%}<dt>Llega en</dt><dd>{{ S.box_line }}</dd>{%- endif -%}
         <dt>Garantía</dt><dd>Color: 3 años</dd>
       </dl>
     </div>
@@ -47,6 +54,8 @@
   "name": "Ficha técnica",
   "settings": [
     { "type": "text", "id": "title", "label": "Título", "default": "La pieza, al detalle" },
+    { "type": "image_picker", "id": "image", "label": "Foto común (así llega)", "info": "La misma para todos los productos: el estuche abierto con una joya. Si está vacía, sale la foto del producto con las cotas." },
+    { "type": "text", "id": "box_line", "label": "Cómo llega", "default": "Su estuche negro con tarjeta de regalo" },
     { "type": "text", "id": "w_label", "label": "Cota horizontal", "default": "tamaño real" },
     { "type": "text", "id": "h_label", "label": "Cota vertical" }
   ],

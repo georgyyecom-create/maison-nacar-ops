@@ -39,7 +39,7 @@
 - Los datos de Meta se quedan cortos por el banner de cookies: **mirar también Shopify** (sesiones, carritos, pedidos).
 
 ## Tema Shopify
-- Tema publicado: **v20.6** (id 208311091540). Siguiente: **v20.7** (id 208326459732, portada del móvil con menos texto). La v20.4 se descartó. Esperar a que `processing` sea false tras `themeDuplicate` antes de `themeFilesUpsert`, o se pisa. El MCP no puede escribir en el tema publicado: para cambios, `themeDuplicate` del publicado (conserva lo editado por el dueño) y `themeFilesUpsert` solo de los archivos cambiados. Hecha de cero (secciones `mn-*`, `assets/mn.css` y `mn.js`); la v18 y la v19 se descartaron.
+- Tema publicado: **v20.7** (id 208326459732). Siguiente: **v20.8** (id 208328786260, foto común «así llega» en la ficha). Caja elegida: negra; tarjeta: rosa claro ondulada (o lisa sin texto si la hay). La v20.4 se descartó. Esperar a que `processing` sea false tras `themeDuplicate` antes de `themeFilesUpsert`, o se pisa. El MCP no puede escribir en el tema publicado: para cambios, `themeDuplicate` del publicado (conserva lo editado por el dueño) y `themeFilesUpsert` solo de los archivos cambiados. Hecha de cero (secciones `mn-*`, `assets/mn.css` y `mn.js`); la v18 y la v19 se descartaron.
 - v20, idea central: el 3x2 es **«tu estuche»** con 3 huecos; el tercero brilla con tornasol de nácar y es el regalo. Blanco, negro y fotos; tipos Bricolage Grotesque + Instrument Sans. Nada de rojo, pegatinas ni emojis.
 - Estrellas: la ficha solo lee el metacampo real `reviews.rating` (app de reseñas), nunca `aom.rating`.
 - Color de acento sutil: champán `--mn-accent: #B8975A` (puntos de la barra, tachado del estuche, línea bajo títulos).
