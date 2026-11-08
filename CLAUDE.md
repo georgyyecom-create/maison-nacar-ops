@@ -39,7 +39,7 @@
 - Los datos de Meta se quedan cortos por el banner de cookies: **mirar también Shopify** (sesiones, carritos, pedidos).
 
 ## Tema Shopify
-- Tema publicado: **v20.2** (id 208259907924). Siguiente: **v20.3** (id 208303849812, sin publicar). El MCP no puede escribir en el tema publicado: para cambios, `themeDuplicate` del publicado (conserva lo editado por el dueño) y `themeFilesUpsert` solo de los archivos cambiados. Hecha de cero (secciones `mn-*`, `assets/mn.css` y `mn.js`); la v18 y la v19 se descartaron.
+- Tema publicado: **v20.2** (id 208259907924). Siguiente: **v20.4** (id 208304341332, sin publicar; la v20.3 ya se publicó). El MCP no puede escribir en el tema publicado: para cambios, `themeDuplicate` del publicado (conserva lo editado por el dueño) y `themeFilesUpsert` solo de los archivos cambiados. Hecha de cero (secciones `mn-*`, `assets/mn.css` y `mn.js`); la v18 y la v19 se descartaron.
 - v20, idea central: el 3x2 es **«tu estuche»** con 3 huecos; el tercero brilla con tornasol de nácar y es el regalo. Blanco, negro y fotos; tipos Bricolage Grotesque + Instrument Sans. Nada de rojo, pegatinas ni emojis.
 - Estrellas: la ficha solo lee el metacampo real `reviews.rating` (app de reseñas), nunca `aom.rating`.
 - Color de acento sutil: champán `--mn-accent: #B8975A` (puntos de la barra, tachado del estuche, línea bajo títulos).
