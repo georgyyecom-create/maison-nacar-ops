@@ -5,6 +5,7 @@
 {%- liquid
   assign S = section.settings
   assign mob = S.image_mobile | default: S.image
+  assign desk = S.image | default: S.image_mobile
 -%}
 <style>
   #mn-h-{{ section.id }} { position: relative; background: var(--mn-tile); color: #fff; overflow: hidden; }
@@ -27,11 +28,11 @@
 </style>
 <section id="mn-h-{{ section.id }}">
   <div class="h-media">
-    {%- if S.image -%}
+    {%- if desk -%}
       <span class="mn-ph" style="position:absolute;inset:0">
         <picture>
-          <source media="(min-width: 750px)" srcset="{{ S.image | image_url: width: 1600 }} 1600w, {{ S.image | image_url: width: 2400 }} 2400w" sizes="100vw">
-          {{ mob | image_url: width: 1000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500, 750, 1000, 1300', sizes: '100vw', alt: S.image.alt | default: '', style: 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover' }}
+          <source media="(min-width: 750px)" srcset="{{ desk | image_url: width: 1600 }} 1600w, {{ desk | image_url: width: 2400 }} 2400w" sizes="100vw">
+          {{ mob | image_url: width: 1000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500, 750, 1000, 1300', sizes: '100vw', alt: desk.alt | default: '', style: 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover' }}
         </picture>
       </span>
     {%- else -%}
