@@ -20,6 +20,7 @@
   #mn-h-{{ section.id }} .h-btns .mn-btn { flex: 1 1 auto; }
   #mn-h-{{ section.id }} .h-btns .mn-btn--line { color: #fff; border-color: rgba(255,255,255,.8); }
   #mn-h-{{ section.id }} .h-box { display: none; }
+  @media (max-width: 989px) { #mn-h-{{ section.id }} .h-media { height: auto; min-height: 0; max-height: none; aspect-ratio: 9 / 16; } }
   @media (min-width: 990px) {
     #mn-h-{{ section.id }} .h-copy { padding-bottom: 56px; display: grid; grid-template-columns: 1fr 380px; align-items: end; gap: 40px; }
     #mn-h-{{ section.id }} .h-btns .mn-btn { flex: 0 0 auto; }
