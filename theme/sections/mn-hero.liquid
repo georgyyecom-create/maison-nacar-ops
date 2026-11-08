@@ -20,12 +20,6 @@
   #mn-h-{{ section.id }} .h-btns .mn-btn { flex: 1 1 auto; }
   #mn-h-{{ section.id }} .h-btns .mn-btn--line { color: #fff; border-color: rgba(255,255,255,.8); }
   #mn-h-{{ section.id }} .h-box { display: none; }
-  @media (max-width: 989px) {
-    #mn-h-{{ section.id }} .h-media { height: auto; min-height: 0; max-height: none; }
-    #mn-h-{{ section.id }} .h-media::after { display: none; }
-    #mn-h-{{ section.id }} .h-media > .mn-ph { position: relative !important; inset: auto !important; height: auto !important; aspect-ratio: 4 / 5 !important; }
-    #mn-h-{{ section.id }} .h-copy { position: relative; background: var(--mn-ink); padding-top: 22px; padding-bottom: 28px; }
-  }
   @media (min-width: 990px) {
     #mn-h-{{ section.id }} .h-copy { padding-bottom: 56px; display: grid; grid-template-columns: 1fr 380px; align-items: end; gap: 40px; }
     #mn-h-{{ section.id }} .h-btns .mn-btn { flex: 0 0 auto; }
