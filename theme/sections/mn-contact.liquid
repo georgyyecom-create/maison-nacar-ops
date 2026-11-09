@@ -1,0 +1,58 @@
+{%- comment -%} Maison Nácar v20 · Contacto: WhatsApp primero y formulario sencillo. {%- endcomment -%}
+{%- liquid
+  assign S = section.settings
+  assign wa = settings.aom_wa_number | remove: ' ' | remove: '+' | remove: '-'
+-%}
+<style>
+  .mn-ct { padding: 32px 0 64px; }
+  .mn-ct__grid { display: grid; gap: 32px; }
+  @media (min-width: 990px) { .mn-ct__grid { grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; } .mn-ct { padding: 64px 0 96px; } }
+  .mn-ct__lead { margin: 14px 0 0; color: var(--mn-grey); max-width: 42ch; }
+  .mn-ct__wa { margin-top: 22px; }
+  .mn-ct__list { list-style: none; margin: 26px 0 0; padding: 0; font-size: 15px; }
+  .mn-ct__list li { padding: 14px 0; border-top: 1px solid var(--mn-line); }
+  .mn-ct__list b { display: block; font-weight: 600; }
+  .mn-ct__list span { color: var(--mn-grey); }
+  .mn-ct form { display: grid; gap: 12px; }
+  .mn-ct label { display: grid; gap: 6px; font-size: 13px; color: var(--mn-grey); }
+  .mn-ct input, .mn-ct textarea { width: 100%; padding: 14px 16px; border: 1px solid var(--mn-line); border-radius: 14px; background: #fff; font: inherit; font-size: 16px; color: var(--mn-ink); }
+  .mn-ct textarea { min-height: 140px; resize: vertical; }
+  .mn-ct input:focus, .mn-ct textarea:focus { outline: none; border-color: var(--mn-ink); }
+  .mn-ct__ok { padding: 14px 16px; border-radius: 14px; background: var(--mn-tile); }
+  .mn-ct__err { padding: 14px 16px; border-radius: 14px; border: 1px solid var(--mn-ink); }
+</style>
+<section class="mn-ct">
+  <div class="mn-wrap mn-ct__grid">
+    <div>
+      <h1 class="mn-h2">{{ S.title }}</h1>
+      <p class="mn-ct__lead">{{ S.text }}</p>
+      {%- if wa != blank -%}<a class="mn-btn mn-ct__wa" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>{%- endif -%}
+      <ul class="mn-ct__list">
+        <li><b>Horario</b><span>{{ S.hours }}</span></li>
+        <li><b>Envíos</b><span>Gratis a la España peninsular y Baleares. Sale en 24/48 h.</span></li>
+        <li><b>Devoluciones</b><span>Hasta el {{ settings.aom_return_date | default: '15 de enero' }}.</span></li>
+      </ul>
+    </div>
+    <div>
+      {%- form 'contact', id: 'mn-contact-form' -%}
+        {%- if form.posted_successfully? -%}<p class="mn-ct__ok" role="status">Gracias. Te respondemos en menos de 24 h.</p>{%- endif -%}
+        {%- if form.errors -%}<p class="mn-ct__err" role="alert">Revisa el correo y el mensaje, por favor.</p>{%- endif -%}
+        <label>Nombre<input type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}"></label>
+        <label>Correo<input type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"></label>
+        <label>Número de pedido (si lo tienes)<input type="text" name="contact[pedido]"></label>
+        <label>Mensaje<textarea name="contact[body]" required>{{ form.body }}</textarea></label>
+        <button type="submit" class="mn-btn mn-btn--block">Enviar</button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Contacto v20",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "¿Hablamos?" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Por WhatsApp te respondemos antes. Si lo prefieres, escríbenos aquí y te contestamos por correo." },
+    { "type": "text", "id": "hours", "label": "Horario", "default": "De lunes a viernes, de 10 a 20 h" }
+  ]
+}
+{% endschema %}

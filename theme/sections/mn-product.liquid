@@ -35,8 +35,8 @@
     assign grest = gfirst | append: ',' | append: grest
   endif
   assign gorder = grest | split: ','
-  assign rating = product.metafields.reviews.rating.value.rating
-  assign rcount = product.metafields.reviews.rating_count.value | default: 0
+  assign rating = product.metafields.reviews.rating.value.rating | default: product.metafields.aom.rating.value.rating
+  assign rcount = product.metafields.reviews.rating_count.value | default: product.metafields.aom.rating_count.value | default: 0
 -%}
 <style>
   .mn-pdp { padding-bottom: 24px; }
