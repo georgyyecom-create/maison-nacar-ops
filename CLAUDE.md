@@ -36,6 +36,7 @@
   - Anuncio: apagar si CTR < 0,8 %, o si gasta 25 € sin ningún carrito.
   - Conjunto: pausar a los 75–80 € sin compras.
   - Escalar un 20 % cada 48 h si el CPA está por debajo de 30 €.
+- Campaña 2 «MN | Ventas | ABO | ES | BF anticipado | 10-nov» (id 120252473507860623, en pausa): conjuntos PDL (120252473512680623) y COR (120252473513320623), 25 €/día cada uno, desde el 10-nov 07:00, mujeres 24–50 (sugerencia A+A), píxel Compra, Feed/Stories/Reels/Explorar. Catálogo asignado: el de Shopify de Maison Nácar (1745513163954264). Falta: excluir Canarias, Ceuta y Melilla y crear los 6 anuncios.
 - Los datos de Meta se quedan cortos por el banner de cookies: **mirar también Shopify** (sesiones, carritos, pedidos).
 
 ## Tema Shopify
