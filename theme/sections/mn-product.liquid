@@ -264,7 +264,7 @@
       var label = on.length >= 3 ? 'Añadir el estuche' : (on.length === 2 ? 'Añadir las 2' : 'Añadir a la cesta');
       var buy = $('[data-mn-buy]'), ok = state.v.a;
       buy.disabled = !ok; buy.textContent = ok ? label + ' · ' + money(tot) : 'Agotada';
-      var pe = $('[data-mn-price]'); if (gift) pe.innerHTML = '<s>' + money(full) + '</s>' + money(tot) + '<small>' + on.length + ' joyas · −' + Math.round((full - tot) / full * 100) + ' %</small>'; else pe.textContent = money(state.v.p);
+      var pe = $('[data-mn-price]'); if (gift) pe.innerHTML = '<s>' + money(state.v.p) + '</s>' + money(Math.round(state.v.p * tot / full)) + '<small>con el 3x2 · −' + Math.round((full - tot) / full * 100) + ' %</small>'; else pe.textContent = money(state.v.p);
       $('[data-mn-sbar-p]').textContent = money(tot) + (on.length > 1 ? ' · ' + on.length + ' joyas' : '');
       $$('[data-mn-sugg]').forEach(function (b) { b.classList.toggle('is-on', state.picks.some(function (p) { return p.id === +b.getAttribute('data-mn-sugg'); })); });
       state.items = on.filter(function (x) { return x.id; }).map(function (x) { return { id: x.id, quantity: 1 }; });
