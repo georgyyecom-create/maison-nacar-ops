@@ -82,6 +82,7 @@
   .mn-sugg__it img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
   .mn-sugg__it span { position: absolute; left: 4px; right: 4px; bottom: 4px; padding: 2px 4px; border-radius: 6px; background: rgba(255,255,255,.92); color: var(--mn-ink); font-size: 11px; text-align: center; }
   .mn-sugg__it.is-on { box-shadow: inset 0 0 0 2px #fff; opacity: .45; }
+  .mn-box__alt { display: block; margin: 10px 2px 0; font-size: 13px; color: #fff; text-underline-offset: 3px; }
   .mn-buy { margin-top: 14px; }
   .mn-buy .mn-btn { min-height: 58px; font-size: 16px; }
   .mn-buy__l { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; margin: 10px 0 0; font-size: 13px; color: var(--mn-grey); }
@@ -168,6 +169,7 @@
         <div class="mn-slots" data-mn-slots></div>
         <div class="mn-box__sum"><span data-mn-box-l></span><span><s data-mn-box-full></s><b data-mn-box-tot></b></span></div>
         <p class="mn-box__note" data-mn-box-note></p>
+        {%- if cj -%}<a class="mn-box__alt" href="{{ routes.root_url }}pages/3x2">¿Prefieres otras? Crea tu estuche con las que quieras →</a>{%- endif -%}
         {%- unless cj -%}
           {%- if S.suggest.size > 0 -%}
             <div class="mn-sugg"><p>Elige 2 más: la de menor precio es tu regalo.</p>
@@ -213,10 +215,10 @@
     {
       "current": {{ current.id }},
       "self": { "id": {{ product.id }}, "h": {{ product.handle | json }}, "t": {{ product.title | json }}, "img": {{ product.featured_image | image_url: width: 400 | json }} },
-      "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "o": {{ v.options | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "m": {{ v.featured_media.id | default: 'null' }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+      "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "o": {{ v.options | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "m": {{ v.featured_media.id | default: 'null' }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
       "cands": [
-        {%- if cj -%}{%- assign k = 0 -%}{%- for cp in cj.settings.products -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}
-        {%- else -%}{%- assign k = 0 -%}{%- for cp in S.suggest limit: 10 -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}{%- endif -%}
+        {%- if cj -%}{%- assign k = 0 -%}{%- for cp in cj.settings.products -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}
+        {%- else -%}{%- assign k = 0 -%}{%- for cp in S.suggest limit: 10 -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}{%- endif -%}
       ],
       "preset": {% if cj %}{{ cj.settings.preset | default: 3 }}{% else %}1{% endif %}
     }
@@ -238,7 +240,7 @@
     if (gal && gn) gal.addEventListener('scroll', function () { var w = gal.children[0] ? gal.children[0].getBoundingClientRect().width + 6 : gal.clientWidth; gn.textContent = Math.min(gal.children.length, Math.round(gal.scrollLeft / w) + 1) + ' / ' + gal.children.length; }, { passive: true });
 
     function metal(t) { return /silver|plat|white/i.test(String(t)) ? 's' : 'g'; }
-    function pick(c) { var m = metal(state.v.o.join(' ')), av = c.v.filter(function (x) { return x.a; }); return av.filter(function (x) { return metal(x.t) === m; })[0] || av[0] || null; }
+    function pick(c) { var m = metal(state.v.o.join(' ')), av = c.v.filter(function (x) { return x.a; }); return av.filter(function (x) { return metal(x.t) === m; })[0] || (mode === 'set' ? null : av[0]) || null; }
 
     /* Estuche: en modo conjunto, las 2 otras piezas fijas (se encienden/apagan); en modo libre, se eligen de las sugeridas */
     var cands = D.cands.map(function (c) { return { c: c, on: true }; });
@@ -247,8 +249,8 @@
       cands.forEach(function (x, i) { x.on = i < Math.max(0, Math.min(2, q - 1)); });
     }
     function units() {
-      var u = [{ name: D.self.t, img: D.self.img, price: state.v.p, id: state.v.id, on: true, self: true }];
-      if (mode === 'set') cands.forEach(function (x) { var v = pick(x.c); u.push({ name: x.c.t, img: x.c.img, price: v ? v.p : 0, id: v ? v.id : null, on: !!v && x.on, idx: u.length }); });
+      var u = [{ name: D.self.t, img: state.v.img || D.self.img, price: state.v.p, id: state.v.id, on: true, self: true }];
+      if (mode === 'set') cands.forEach(function (x) { var v = pick(x.c); u.push({ name: v ? x.c.t : x.c.t + ' · agotada en este color', img: (v && v.img) || x.c.img, price: v ? v.p : 0, id: v ? v.id : null, on: !!v && x.on, idx: u.length }); });
       else state.picks.forEach(function (x) { var v = pick(x); if (v) u.push({ name: x.t, img: x.img, price: v.p, id: v.id, on: true, cid: x.id }); });
       return u;
     }
@@ -261,6 +263,7 @@
       $('[data-mn-box-tot]').textContent = money(tot);
       $('[data-mn-box-l]').textContent = on.length === 1 ? '1 joya' : on.length + ' joyas';
       $('[data-mn-box-note]').textContent = gift ? 'Te regalamos ' + gift.name + '. Sale a ' + money(Math.round(tot / on.length)) + ' cada joya.' : (on.length === 2 ? 'Añade una más: la de menor precio será tu regalo.' : 'Elige 2 joyas más: la de menor precio será tu regalo.');
+      if (mode === 'set' && u.some(function (x) { return !x.self && !x.id; })) $('[data-mn-box-note]').textContent = 'En este color no queda todo el conjunto. Elige dorado o crea tu estuche con otras joyas.';
       var label = on.length >= 3 ? 'Añadir el estuche' : (on.length === 2 ? 'Añadir las 2' : 'Añadir a la cesta');
       var buy = $('[data-mn-buy]'), ok = state.v.a;
       buy.disabled = !ok; buy.textContent = ok ? label + ' · ' + money(tot) : 'Agotada';
@@ -271,7 +274,7 @@
     }
     root.addEventListener('click', function (e) {
       var s = e.target.closest('[data-mn-slot]');
-      if (s) { var i = +s.getAttribute('data-mn-slot'); if (i === 0) return; if (mode === 'set') cands[i - 1].on = !cands[i - 1].on; else state.picks.splice(i - 1, 1); render(); return; }
+      if (s) { var i = +s.getAttribute('data-mn-slot'); if (i === 0) return; if (mode === 'set') { if (!pick(cands[i - 1].c)) return; cands[i - 1].on = !cands[i - 1].on; } else state.picks.splice(i - 1, 1); render(); return; }
       var g = e.target.closest('[data-mn-sugg]');
       if (g) { var id = +g.getAttribute('data-mn-sugg'), at = state.picks.map(function (p) { return p.id; }).indexOf(id); if (at > -1) state.picks.splice(at, 1); else if (state.picks.length < 2) state.picks.push(D.cands.filter(function (c) { return c.id === id; })[0]); render(); return; }
       var o = e.target.closest('[data-mn-opt] button');
