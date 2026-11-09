@@ -61,7 +61,13 @@
   @media (min-width: 990px) { .mn-info { padding: 0; position: sticky; top: 92px; align-self: start; } }
   .mn-info__top { display: flex; justify-content: space-between; align-items: start; gap: 14px; }
   .mn-info__t { font-family: var(--mn-display); font-weight: 700; font-size: clamp(30px, 7.6vw, 46px); line-height: .95; letter-spacing: -.04em; margin: 0; font-variation-settings: "opsz" 96; }
-  .mn-info__p { font-family: var(--mn-display); font-weight: 600; font-size: 26px; letter-spacing: -.03em; white-space: nowrap; }
+  .mn-info__p { font-family: var(--mn-display); font-weight: 600; font-size: 26px; letter-spacing: -.03em; white-space: nowrap; text-align: right; line-height: 1; }
+  .mn-info__p s { display: block; margin-bottom: 4px; font-size: 15px; font-weight: 500; color: var(--mn-grey); text-decoration-color: var(--mn-accent); }
+  .mn-info__p small { display: block; margin-top: 6px; font-family: var(--mn-text); font-size: 12px; font-weight: 600; letter-spacing: 0; color: var(--mn-accent); }
+  .mn-acts { display: flex; gap: 8px; margin-top: 12px; }
+  .mn-act { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border: 1px solid var(--mn-line); border-radius: 999px; background: #fff; font-size: 13px; cursor: pointer; }
+  .mn-act svg { width: 16px; height: 16px; }
+  .mn-act[aria-pressed="true"] svg { fill: currentColor; }
   .mn-info__m { margin: 8px 0 0; font-size: 14px; color: var(--mn-grey); }
   .mn-info__r { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px; text-decoration: none; }
   .mn-info__r svg { width: 14px; height: 14px; }
@@ -132,6 +138,7 @@
         <span class="mn-info__p" data-mn-price>{{ current.price | money_without_trailing_zeros }}</span>
       </div>
       <p class="mn-info__m">{{ S.material }}</p>
+      <div class="mn-acts"><button type="button" class="mn-act" data-mn-like aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg><span>Me gusta</span></button><button type="button" class="mn-act" data-mn-share><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M5 12v8h14v-8"/></svg><span>Compartir</span></button></div>
       {%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}
         <a class="mn-info__r" href="#opiniones">{% render 'mn-icon', i: 'star' %}<b>{{ rating | round: 1 | replace: '.', ',' }}</b> · {{ rcount }} opiniones</a>
       {%- endif -%}
@@ -205,7 +212,7 @@
   <script type="application/json" data-mn-pdp-data>
     {
       "current": {{ current.id }},
-      "self": { "id": {{ product.id }}, "t": {{ product.title | json }}, "img": {{ product.featured_image | image_url: width: 400 | json }} },
+      "self": { "id": {{ product.id }}, "h": {{ product.handle | json }}, "t": {{ product.title | json }}, "img": {{ product.featured_image | image_url: width: 400 | json }} },
       "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "o": {{ v.options | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "m": {{ v.featured_media.id | default: 'null' }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
       "cands": [
         {%- if cj -%}{%- assign k = 0 -%}{%- for cp in cj.settings.products -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}
@@ -257,7 +264,7 @@
       var label = on.length >= 3 ? 'Añadir el estuche' : (on.length === 2 ? 'Añadir las 2' : 'Añadir a la cesta');
       var buy = $('[data-mn-buy]'), ok = state.v.a;
       buy.disabled = !ok; buy.textContent = ok ? label + ' · ' + money(tot) : 'Agotada';
-      $('[data-mn-price]').textContent = money(state.v.p);
+      var pe = $('[data-mn-price]'); if (gift) pe.innerHTML = '<s>' + money(full) + '</s>' + money(tot) + '<small>' + on.length + ' joyas · −' + Math.round((full - tot) / full * 100) + ' %</small>'; else pe.textContent = money(state.v.p);
       $('[data-mn-sbar-p]').textContent = money(tot) + (on.length > 1 ? ' · ' + on.length + ' joyas' : '');
       $$('[data-mn-sugg]').forEach(function (b) { b.classList.toggle('is-on', state.picks.some(function (p) { return p.id === +b.getAttribute('data-mn-sugg'); })); });
       state.items = on.filter(function (x) { return x.id; }).map(function (x) { return { id: x.id, quantity: 1 }; });
@@ -284,6 +291,13 @@
     var bar = $('[data-mn-sbar]'), tick = false;
     function sync() { tick = false; var off = bb.getBoundingClientRect().bottom < 0; bar.classList.toggle('is-on', off); document.body.classList.toggle('mn-bar-on', off); bar.setAttribute('aria-hidden', off ? 'false' : 'true'); sg.tabIndex = off ? 0 : -1; }
     window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(sync); } }, { passive: true });
+    /* Me gusta y compartir */
+    var lk = $('[data-mn-like]'), sh = $('[data-mn-share]');
+    function likes() { try { return JSON.parse(localStorage.getItem('mnLikes') || '[]'); } catch (e) { return []; } }
+    function paintLike() { var on = likes().indexOf(D.self.h) > -1; lk.setAttribute('aria-pressed', on); lk.querySelector('span').textContent = on ? 'Te gusta' : 'Me gusta'; }
+    lk.addEventListener('click', function () { var l = likes(), i = l.indexOf(D.self.h); if (i > -1) l.splice(i, 1); else l.push(D.self.h); try { localStorage.setItem('mnLikes', JSON.stringify(l)); } catch (e) {} paintLike(); });
+    sh.addEventListener('click', function () { var u = location.origin + location.pathname; if (navigator.share) navigator.share({ title: D.self.t, url: u }).catch(function () {}); else if (navigator.clipboard) navigator.clipboard.writeText(u).then(function () { sh.querySelector('span').textContent = 'Enlace copiado'; }); });
+    paintLike();
     function start() { render(); sync(); }
     if (window.MN) start(); else window.addEventListener('DOMContentLoaded', start);
   })();
