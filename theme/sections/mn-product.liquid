@@ -79,6 +79,7 @@
   .mn-deal__s { font-size: 12.5px; color: rgba(255,255,255,.75); }
   .mn-pay { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 10px; }
   .mn-pay svg { width: 38px; height: 24px; }
+  .mn-pay--k { align-items: center; gap: 8px; margin: 10px 0 0; font-size: 13.5px; color: var(--mn-ink); }
   .mn-sbar__t s { margin-right: 4px; color: var(--mn-grey); text-decoration-color: var(--mn-accent); }
   .mn-opt { margin-top: 16px; }
   .mn-opt__l { font-size: 13px; color: var(--mn-grey); margin: 0 0 8px; }
@@ -196,7 +197,7 @@
       <div class="mn-buy">
         <button type="button" class="mn-btn mn-btn--block" data-mn-buy{% unless current.available %} disabled{% endunless %}>{% if current.available %}Añadir a la cesta{% else %}Agotada{% endif %}</button>
         <p class="mn-buy__l"><span>{{ settings.aom_ship_short | default: 'Envío gratis · Sale en 24/48 h' }}</span><span>Devolución hasta el {{ settings.aom_return_date | default: '15 de enero' }}</span></p>
-        {%- if shop.enabled_payment_types.size > 0 -%}<div class="mn-pay" aria-label="Formas de pago">{%- for t in shop.enabled_payment_types limit: 6 -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>{%- endif -%}
+        {%- if shop.enabled_payment_types contains 'klarna' -%}<p class="mn-pay mn-pay--k">{{ 'klarna' | payment_type_svg_tag }}<span>O en 3 plazos de <b data-mn-k3></b> sin intereses</span></p>{%- elsif shop.enabled_payment_types.size > 0 -%}<div class="mn-pay" aria-label="Formas de pago">{%- for t in shop.enabled_payment_types limit: 6 -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>{%- endif -%}
       </div>
 
       <ul class="mn-perks">
@@ -278,6 +279,7 @@
       buy.disabled = !ok; buy.textContent = ok ? label + ' · ' + money(tot) : 'Agotada';
       var pe = $('[data-mn-price]'); if (gift) pe.innerHTML = '<s>' + money(state.v.p) + '</s>' + money(Math.round(state.v.p * tot / full)) + '<small>con el 3x2 · −' + Math.round((full - tot) / full * 100) + ' %</small>'; else pe.textContent = money(state.v.p);
       $('[data-mn-sbar-p]').innerHTML = (on.length > 1 ? on.length + ' joyas · ' : '') + (gift ? '<s>' + money(full) + '</s>' : '') + money(tot);
+      var k3 = $('[data-mn-k3]'); if (k3) k3.textContent = money(Math.round(tot / 3));
       var dt = $('[data-mn-deal-t]'); if (dt) { $('[data-mn-deal]').hidden = !gift; if (gift) { dt.textContent = money(tot); $('[data-mn-deal-f]').textContent = money(full); } }
       sg.disabled = !ok; sg.textContent = ok ? (on.length >= 3 ? 'Añadir estuche' : 'Añadir') : 'Agotada';
       $$('[data-mn-sugg]').forEach(function (b) { b.classList.toggle('is-on', state.picks.some(function (p) { return p.id === +b.getAttribute('data-mn-sugg'); })); });
