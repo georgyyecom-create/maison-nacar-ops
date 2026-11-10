@@ -11,7 +11,7 @@ Inspirada en «ads-competitor» (AgriciDaniel/claude-ads), adaptada.
 - `ads_library_search` (MCP de Meta), país ES. Busca por términos («collar acero», «joyas regalo», «3x2 joyas», «baño de oro 18k») y por páginas de marcas.
   - Marcas a seguir: Singularu, PDPAOLA, Luxenter, Aristocrazy, Murona y las tiendas de acero/dropshipping que vayan apareciendo.
 - Capturas que mande el dueño (Instagram, TikTok).
-- No hacer scraping de Instagram con sesión iniciada. Apify, solo para la Biblioteca de Anuncios (**aprobado por el dueño el 7-nov-2026**).
+- No hacer scraping de Instagram con sesión iniciada. Apify: Biblioteca de Anuncios (**aprobado el 7-nov-2026**) y perfiles y hashtags públicos de Instagram para buscar microinfluencers (**aprobado el 10-nov-2026**, sin iniciar sesión, gasto pequeño).
 
 ## Apify (texto completo e imágenes)
 - La clave está guardada en el entorno (secreto de red para `api.apify.com`): llamar sin cabecera de autorización.
