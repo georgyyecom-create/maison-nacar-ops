@@ -64,13 +64,14 @@
   .mn-info__p { font-family: var(--mn-display); font-weight: 600; font-size: 26px; letter-spacing: -.03em; white-space: nowrap; text-align: right; line-height: 1; }
   .mn-info__p s { display: block; margin-bottom: 4px; font-size: 15px; font-weight: 500; color: var(--mn-grey); text-decoration-color: var(--mn-accent); }
   .mn-info__p small { display: block; margin-top: 6px; font-family: var(--mn-text); font-size: 12px; font-weight: 600; letter-spacing: 0; color: var(--mn-accent); }
-  .mn-acts { display: flex; gap: 8px; margin-top: 12px; }
-  .mn-act { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border: 1px solid var(--mn-line); border-radius: 999px; background: #fff; font-size: 13px; cursor: pointer; }
-  .mn-act svg { width: 16px; height: 16px; }
+  .mn-acts { position: absolute; z-index: 2; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .mn-act { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--mn-ink); box-shadow: 0 1px 6px rgba(0,0,0,.12); cursor: pointer; }
+  .mn-act span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .mn-act svg { width: 19px; height: 19px; }
   .mn-act[aria-pressed="true"] svg { fill: currentColor; }
   .mn-info__m { margin: 8px 0 0; font-size: 14px; color: var(--mn-grey); }
-  .mn-info__r { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px; text-decoration: none; }
-  .mn-info__r svg { width: 14px; height: 14px; }
+  .mn-info__r { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; color: var(--mn-ink); font-size: 13px; text-decoration: none; white-space: nowrap; }
+  .mn-info__r svg { width: 12px; height: 12px; }
   .mn-opt { margin-top: 16px; }
   .mn-opt__l { font-size: 13px; color: var(--mn-grey); margin: 0 0 8px; }
   .mn-opt__l b { color: var(--mn-ink); font-weight: 600; }
@@ -138,11 +139,8 @@
         <h1 class="mn-info__t">{{ product.title }}</h1>
         <span class="mn-info__p" data-mn-price>{{ current.price | money_without_trailing_zeros }}</span>
       </div>
-      <p class="mn-info__m">{{ S.material }}</p>
+      <p class="mn-info__m">{{ S.material }}{%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}<a class="mn-info__r" href="#opiniones">· {% render 'mn-icon', i: 'star' %}<b>{{ rating | round: 1 | replace: '.', ',' }}</b> ({{ rcount }})</a>{%- endif -%}</p>
       <div class="mn-acts"><button type="button" class="mn-act" data-mn-like aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg><span>Me gusta</span></button><button type="button" class="mn-act" data-mn-share><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M5 12v8h14v-8"/></svg><span>Compartir</span></button></div>
-      {%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}
-        <a class="mn-info__r" href="#opiniones">{% render 'mn-icon', i: 'star' %}<b>{{ rating | round: 1 | replace: '.', ',' }}</b> · {{ rcount }} opiniones</a>
-      {%- endif -%}
 
       {%- unless product.has_only_default_variant -%}
         {%- for option in product.options_with_values -%}
@@ -297,9 +295,10 @@
     /* Me gusta y compartir */
     var lk = $('[data-mn-like]'), sh = $('[data-mn-share]');
     function likes() { try { return JSON.parse(localStorage.getItem('mnLikes') || '[]'); } catch (e) { return []; } }
-    function paintLike() { var on = likes().indexOf(D.self.h) > -1; lk.setAttribute('aria-pressed', on); lk.querySelector('span').textContent = on ? 'Te gusta' : 'Me gusta'; }
+    function paintLike() { var on = likes().indexOf(D.self.h) > -1; lk.setAttribute('aria-pressed', on); lk.querySelector('span').textContent = on ? 'Quitar de me gusta' : 'Me gusta'; lk.setAttribute('aria-label', on ? 'Quitar de me gusta' : 'Me gusta'); }
     lk.addEventListener('click', function () { var l = likes(), i = l.indexOf(D.self.h); if (i > -1) l.splice(i, 1); else l.push(D.self.h); try { localStorage.setItem('mnLikes', JSON.stringify(l)); } catch (e) {} paintLike(); });
-    sh.addEventListener('click', function () { var u = location.origin + location.pathname; if (navigator.share) navigator.share({ title: D.self.t, url: u }).catch(function () {}); else if (navigator.clipboard) navigator.clipboard.writeText(u).then(function () { sh.querySelector('span').textContent = 'Enlace copiado'; }); });
+    sh.addEventListener('click', function () { var u = location.origin + location.pathname; if (navigator.share) navigator.share({ title: D.self.t, url: u }).catch(function () {}); else if (navigator.clipboard) navigator.clipboard.writeText(u).then(function () { sh.setAttribute('aria-label', 'Enlace copiado'); sh.style.background = 'var(--mn-ink)'; sh.style.color = '#fff'; setTimeout(function () { sh.style.background = ''; sh.style.color = ''; }, 1500); }); });
+    var acts = $('.mn-acts'); if (gal && gal.children[0] && acts) gal.children[0].appendChild(acts);
     paintLike();
     function start() { render(); sync(); }
     if (window.MN) start(); else window.addEventListener('DOMContentLoaded', start);
