@@ -72,6 +72,14 @@
   .mn-info__m { margin: 8px 0 0; font-size: 14px; color: var(--mn-grey); }
   .mn-info__r { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; color: var(--mn-ink); font-size: 13px; text-decoration: none; white-space: nowrap; }
   .mn-info__r svg { width: 12px; height: 12px; }
+  .mn-deal { display: flex; flex-direction: column; gap: 2px; width: 100%; margin: 14px 0 0; padding: 11px 14px; border: 1px solid var(--mn-ink); border-radius: 12px; background: var(--mn-ink); color: #fff; font: inherit; text-align: left; cursor: pointer; }
+  .mn-deal b { font-family: var(--mn-display); font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
+  .mn-deal i { font-style: normal; }
+  .mn-deal s { margin-left: 6px; font-size: 14px; color: rgba(255,255,255,.6); text-decoration-color: var(--mn-accent); }
+  .mn-deal__s { font-size: 12.5px; color: rgba(255,255,255,.75); }
+  .mn-pay { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 10px; }
+  .mn-pay svg { width: 38px; height: 24px; }
+  .mn-sbar__t s { margin-right: 4px; color: var(--mn-grey); text-decoration-color: var(--mn-accent); }
   .mn-opt { margin-top: 16px; }
   .mn-opt__l { font-size: 13px; color: var(--mn-grey); margin: 0 0 8px; }
   .mn-opt__l b { color: var(--mn-ink); font-weight: 600; }
@@ -123,7 +131,7 @@
                   endif
                   assign alt = m.alt | remove: '#portada' | remove: '#foto' | strip | default: product.title
                 -%}
-                {{ m.preview_image | image_url: width: 1400 | image_tag: loading: ld, fetchpriority: fp, widths: '450, 700, 900, 1200, 1400', sizes: '(min-width: 990px) 55vw, 100vw', alt: alt }}
+                {{ m.preview_image | image_url: width: 1400 | image_tag: loading: ld, fetchpriority: fp, widths: '450, 700, 900, 1200, 1400', sizes: '(min-width: 990px) 55vw, 76vw', alt: alt }}
             {%- endcase -%}
           </div>
         {%- else -%}
@@ -140,6 +148,7 @@
         <span class="mn-info__p" data-mn-price>{{ current.price | money_without_trailing_zeros }}</span>
       </div>
       <p class="mn-info__m">{{ S.material }}{%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}<a class="mn-info__r" href="#opiniones">· {% render 'mn-icon', i: 'star' %}<b>{{ rating | round: 1 | replace: '.', ',' }}</b> ({{ rcount }})</a>{%- endif -%}</p>
+      {%- if cj -%}<button type="button" class="mn-deal" data-mn-deal><span><b>Los 3 por <i data-mn-deal-t></i></b> <s data-mn-deal-f></s></span><span class="mn-deal__s">La 3.ª es tu regalo · Envío gratis ↓</span></button>{%- endif -%}
       <div class="mn-acts"><button type="button" class="mn-act" data-mn-like aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg><span>Me gusta</span></button><button type="button" class="mn-act" data-mn-share><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M5 12v8h14v-8"/></svg><span>Compartir</span></button></div>
 
       {%- unless product.has_only_default_variant -%}
@@ -187,6 +196,7 @@
       <div class="mn-buy">
         <button type="button" class="mn-btn mn-btn--block" data-mn-buy{% unless current.available %} disabled{% endunless %}>{% if current.available %}Añadir a la cesta{% else %}Agotada{% endif %}</button>
         <p class="mn-buy__l"><span>{{ settings.aom_ship_short | default: 'Envío gratis · Sale en 24/48 h' }}</span><span>Devolución hasta el {{ settings.aom_return_date | default: '15 de enero' }}</span></p>
+        {%- if shop.enabled_payment_types.size > 0 -%}<div class="mn-pay" aria-label="Formas de pago">{%- for t in shop.enabled_payment_types limit: 6 -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>{%- endif -%}
       </div>
 
       <ul class="mn-perks">
@@ -206,7 +216,7 @@
 
   <div class="mn-sbar" data-mn-sbar aria-hidden="true">
     <div class="mn-sbar__t"><b>{% if cj %}{{ cj.settings.title }}{% else %}{{ product.title }}{% endif %}</b><span data-mn-sbar-p>{{ current.price | money_without_trailing_zeros }}</span></div>
-    <button type="button" class="mn-btn" data-mn-sbar-go tabindex="-1">Ver mi estuche</button>
+    <button type="button" class="mn-btn" data-mn-sbar-go tabindex="-1">Añadir</button>
   </div>
 
   <script type="application/json" data-mn-pdp-data>
@@ -231,6 +241,7 @@
     function $$(s) { return Array.prototype.slice.call(root.querySelectorAll(s)); }
     function money(c) { return window.MN ? MN.money(c) : (c / 100).toFixed(2).replace('.', ',') + ' €'; }
     var mode = $('[data-mn-box]').getAttribute('data-mode');
+    var sg = $('[data-mn-sbar-go]');
     var state = { v: D.variants.filter(function (x) { return x.id === D.current; })[0] || D.variants[0], picks: [] };
 
     /* Galería: contador */
@@ -266,7 +277,9 @@
       var buy = $('[data-mn-buy]'), ok = state.v.a;
       buy.disabled = !ok; buy.textContent = ok ? label + ' · ' + money(tot) : 'Agotada';
       var pe = $('[data-mn-price]'); if (gift) pe.innerHTML = '<s>' + money(state.v.p) + '</s>' + money(Math.round(state.v.p * tot / full)) + '<small>con el 3x2 · −' + Math.round((full - tot) / full * 100) + ' %</small>'; else pe.textContent = money(state.v.p);
-      $('[data-mn-sbar-p]').textContent = money(tot) + (on.length > 1 ? ' · ' + on.length + ' joyas' : '');
+      $('[data-mn-sbar-p]').innerHTML = (on.length > 1 ? on.length + ' joyas · ' : '') + (gift ? '<s>' + money(full) + '</s>' : '') + money(tot);
+      var dt = $('[data-mn-deal-t]'); if (dt) { $('[data-mn-deal]').hidden = !gift; if (gift) { dt.textContent = money(tot); $('[data-mn-deal-f]').textContent = money(full); } }
+      sg.disabled = !ok; sg.textContent = ok ? (on.length >= 3 ? 'Añadir estuche' : 'Añadir') : 'Agotada';
       $$('[data-mn-sugg]').forEach(function (b) { b.classList.toggle('is-on', state.picks.some(function (p) { return p.id === +b.getAttribute('data-mn-sugg'); })); });
       state.items = on.filter(function (x) { return x.id; }).map(function (x) { return { id: x.id, quantity: 1 }; });
     }
@@ -287,10 +300,11 @@
     });
     function buy(btn) { if (!state.items.length) return; btn.classList.add('is-busy'); MN.add(state.items).then(function () { btn.classList.remove('is-busy'); }, function () { btn.classList.remove('is-busy'); }); }
     var bb = $('[data-mn-buy]'); bb.addEventListener('click', function () { buy(bb); });
-    var sg = $('[data-mn-sbar-go]'), bx = $('[data-mn-box]'); sg.addEventListener('click', function () { var y = bx.getBoundingClientRect().top + window.scrollY - 76; window.scrollTo({ top: y, behavior: 'smooth' }); bx.classList.remove('is-flash'); void bx.offsetWidth; bx.classList.add('is-flash'); });
-    /* Barra fija cuando el botón sale de la pantalla */
+    var dl = $('[data-mn-deal]'), bx = $('[data-mn-box]'); if (dl) dl.addEventListener('click', function () { var y = bx.getBoundingClientRect().top + window.scrollY - 76; window.scrollTo({ top: y, behavior: 'smooth' }); bx.classList.remove('is-flash'); void bx.offsetWidth; bx.classList.add('is-flash'); });
+    sg.addEventListener('click', function () { buy(sg); });
+    /* Barra fija mientras el botón de compra no se ve (también en la primera pantalla) */
     var bar = $('[data-mn-sbar]'), tick = false;
-    function sync() { tick = false; var off = bb.getBoundingClientRect().bottom < 0; bar.classList.toggle('is-on', off); document.body.classList.toggle('mn-bar-on', off); bar.setAttribute('aria-hidden', off ? 'false' : 'true'); sg.tabIndex = off ? 0 : -1; }
+    function sync() { tick = false; var rb = bb.getBoundingClientRect(), off = rb.bottom < 0 || rb.top > window.innerHeight - 70; bar.classList.toggle('is-on', off); document.body.classList.toggle('mn-bar-on', off); bar.setAttribute('aria-hidden', off ? 'false' : 'true'); sg.tabIndex = off ? 0 : -1; }
     window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(sync); } }, { passive: true });
     /* Me gusta y compartir */
     var lk = $('[data-mn-like]'), sh = $('[data-mn-share]');
