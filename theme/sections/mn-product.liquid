@@ -197,7 +197,7 @@
       <div class="mn-buy">
         <button type="button" class="mn-btn mn-btn--block" data-mn-buy{% unless current.available %} disabled{% endunless %}>{% if current.available %}Añadir a la cesta{% else %}Agotada{% endif %}</button>
         <p class="mn-buy__l"><span>{{ settings.aom_ship_short | default: 'Envío gratis · Sale en 24/48 h' }}</span><span>Devolución hasta el {{ settings.aom_return_date | default: '15 de enero' }}</span></p>
-        {%- if shop.enabled_payment_types contains 'klarna' -%}<p class="mn-pay mn-pay--k">{{ 'klarna' | payment_type_svg_tag }}<span>O en 3 plazos de <b data-mn-k3></b> sin intereses</span></p>{%- elsif shop.enabled_payment_types.size > 0 -%}<div class="mn-pay" aria-label="Formas de pago">{%- for t in shop.enabled_payment_types limit: 6 -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>{%- endif -%}
+        {%- if shop.enabled_payment_types contains 'klarna' -%}<p class="mn-pay mn-pay--k">{{ 'klarna' | payment_type_svg_tag }}<span>Paga con <b>Bizum</b> o en 3 plazos de <b data-mn-k3></b> con Klarna</span></p>{%- elsif shop.enabled_payment_types.size > 0 -%}<div class="mn-pay" aria-label="Formas de pago">{%- for t in shop.enabled_payment_types limit: 6 -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>{%- endif -%}
       </div>
 
       <ul class="mn-perks">
