@@ -132,7 +132,7 @@
                   endif
                   assign alt = m.alt | remove: '#portada' | remove: '#foto' | strip | default: product.title
                 -%}
-                {{ m.preview_image | image_url: width: 1400 | image_tag: loading: ld, fetchpriority: fp, widths: '450, 700, 900, 1200, 1400', sizes: '(min-width: 990px) 55vw, 76vw', alt: alt }}
+                {{ m.preview_image | image_url: width: 1400 | image_tag: loading: ld, fetchpriority: fp, widths: '450, 600, 700, 900, 1200, 1400', sizes: '(min-width: 990px) 55vw, 52vw', alt: alt }}
             {%- endcase -%}
           </div>
         {%- else -%}
