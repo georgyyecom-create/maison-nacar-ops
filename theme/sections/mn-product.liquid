@@ -81,6 +81,20 @@
   .mn-pay svg { width: 38px; height: 24px; }
   .mn-pay--k { align-items: center; gap: 8px; margin: 10px 0 0; font-size: 13.5px; color: var(--mn-ink); }
   .mn-sbar__t s { margin-right: 4px; color: var(--mn-grey); text-decoration-color: var(--mn-accent); }
+  .mn-pick { display: grid; gap: 10px; margin-top: 18px; }
+  .mn-pick__q { margin: 0; font-size: 13px; color: var(--mn-grey); }
+  .mn-pick__o { position: relative; display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 12px; width: 100%; padding: 14px 14px; border: 1.5px solid var(--mn-line); border-radius: 14px; background: #fff; color: var(--mn-ink); font: inherit; text-align: left; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+  .mn-pick__o.is-on { border-color: var(--mn-ink); box-shadow: inset 0 0 0 1px var(--mn-ink); }
+  .mn-pick__r { display: grid; place-items: center; width: 20px; height: 20px; border: 1.5px solid var(--mn-ink); border-radius: 50%; }
+  .mn-pick__o.is-on .mn-pick__r::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--mn-ink); }
+  .mn-pick__t b { display: block; font-size: 15px; font-weight: 600; }
+  .mn-pick__t small { display: block; margin-top: 2px; font-size: 12.5px; color: var(--mn-grey); }
+  .mn-pick__p { text-align: right; white-space: nowrap; line-height: 1.1; }
+  .mn-pick__p b { font-family: var(--mn-display); font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+  .mn-pick__p s { display: block; margin-bottom: 2px; font-size: 12.5px; color: var(--mn-grey); text-decoration-color: var(--mn-accent); }
+  .mn-pick__p s:empty { display: none; }
+  .mn-pick__tag { position: absolute; top: -10px; right: 12px; padding: 3px 9px; border-radius: 99px; background: var(--mn-ink); color: #fff; font-size: 11px; font-style: normal; font-weight: 600; }
+  .mn-pick__tag:empty { display: none; }
   .mn-opt { margin-top: 16px; }
   .mn-opt__l { font-size: 13px; color: var(--mn-grey); margin: 0 0 8px; }
   .mn-opt__l b { color: var(--mn-ink); font-weight: 600; }
@@ -172,6 +186,33 @@
         {%- endfor -%}
       {%- endunless -%}
 
+      {%- if cj -%}
+        {%- liquid
+          assign solo_w = product.title | split: ' ' | first | downcase
+          assign solo_l = solo_w | slice: -1
+          assign solo_a = 'el'
+          if solo_l == 's'
+            assign solo_a = 'los'
+          elsif solo_l == 'a'
+            assign solo_a = 'la'
+          endif
+        -%}
+        <div class="mn-pick" data-mn-pick role="radiogroup" aria-label="¿Qué te llevas?">
+          <p class="mn-pick__q">¿Qué te llevas?</p>
+          <button type="button" class="mn-pick__o is-on" data-mn-pick-o="set" role="radio" aria-checked="true">
+            <span class="mn-pick__r" aria-hidden="true"></span>
+            <span class="mn-pick__t"><b>El conjunto · 3 joyas</b><small>{{ solo_w | capitalize }} + 2 piezas · la 3.ª de regalo</small></span>
+            <span class="mn-pick__p"><s data-mn-pick-sf></s><b data-mn-pick-st></b></span>
+            <i class="mn-pick__tag" data-mn-pick-save></i>
+          </button>
+          <button type="button" class="mn-pick__o" data-mn-pick-o="solo" role="radio" aria-checked="false">
+            <span class="mn-pick__r" aria-hidden="true"></span>
+            <span class="mn-pick__t"><b>Solo {{ solo_a }} {{ solo_w }}</b><small>1 joya</small></span>
+            <span class="mn-pick__p"><s data-mn-pick-of></s><b data-mn-pick-ot></b></span>
+          </button>
+        </div>
+      {%- endif -%}
+
       <div class="mn-box" data-mn-box data-mode="{% if cj %}set{% else %}free{% endif %}">
         <p class="mn-box__h"><b>{% if cj %}{{ cj.settings.title }}{% else %}Tu estuche{% endif %}</b><span>{% render 'aom-camp', k: 'short' %}</span></p>
         <div class="mn-slots" data-mn-slots></div>
@@ -224,10 +265,10 @@
     {
       "current": {{ current.id }},
       "self": { "id": {{ product.id }}, "h": {{ product.handle | json }}, "t": {{ product.title | json }}, "img": {{ product.featured_image | image_url: width: 400 | json }} },
-      "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "o": {{ v.options | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "m": {{ v.featured_media.id | default: 'null' }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
+      "variants": [{%- for v in product.variants -%}{"id": {{ v.id }}, "o": {{ v.options | json }}, "p": {{ v.price }}, "c": {{ v.compare_at_price | default: 0 }}, "a": {{ v.available }}, "m": {{ v.featured_media.id | default: 'null' }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}],
       "cands": [
-        {%- if cj -%}{%- assign k = 0 -%}{%- for cp in cj.settings.products -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}
-        {%- else -%}{%- assign k = 0 -%}{%- for cp in S.suggest limit: 10 -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "a": {{ v.available }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}{%- endif -%}
+        {%- if cj -%}{%- assign k = 0 -%}{%- for cp in cj.settings.products -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "c": {{ v.compare_at_price | default: 0 }}, "a": {{ v.available }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}
+        {%- else -%}{%- assign k = 0 -%}{%- for cp in S.suggest limit: 10 -%}{%- if cp.id != product.id -%}{%- if k > 0 -%},{%- endif -%}{%- assign k = k | plus: 1 -%}{"id": {{ cp.id }}, "t": {{ cp.title | json }}, "img": {{ cp.featured_image | image_url: width: 400 | json }}, "v": [{%- for v in cp.variants -%}{"id": {{ v.id }}, "t": {{ v.title | json }}, "p": {{ v.price }}, "c": {{ v.compare_at_price | default: 0 }}, "a": {{ v.available }}, "img": {% if v.featured_image %}{{ v.featured_image | image_url: width: 400 | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]}{%- endif -%}{%- endfor -%}{%- endif -%}
       ],
       "preset": {% if cj %}{{ cj.settings.preset | default: 3 }}{% else %}1{% endif %}
     }
@@ -259,17 +300,17 @@
       cands.forEach(function (x, i) { x.on = i < Math.max(0, Math.min(2, q - 1)); });
     }
     function units() {
-      var u = [{ name: D.self.t, img: state.v.img || D.self.img, price: state.v.p, id: state.v.id, on: true, self: true }];
-      if (mode === 'set') cands.forEach(function (x) { var v = pick(x.c); u.push({ name: v ? x.c.t : x.c.t + ' · agotada en este color', img: (v && v.img) || x.c.img, price: v ? v.p : 0, id: v ? v.id : null, on: !!v && x.on, idx: u.length }); });
-      else state.picks.forEach(function (x) { var v = pick(x); if (v) u.push({ name: x.t, img: x.img, price: v.p, id: v.id, on: true, cid: x.id }); });
+      var u = [{ name: D.self.t, img: state.v.img || D.self.img, price: state.v.p, ref: Math.max(state.v.c || 0, state.v.p), id: state.v.id, on: true, self: true }];
+      if (mode === 'set') cands.forEach(function (x) { var v = pick(x.c); u.push({ name: v ? x.c.t : x.c.t + ' · agotada en este color', img: (v && v.img) || x.c.img, price: v ? v.p : 0, ref: v ? Math.max(v.c || 0, v.p) : 0, id: v ? v.id : null, on: !!v && x.on, idx: u.length }); });
+      else state.picks.forEach(function (x) { var v = pick(x); if (v) u.push({ name: x.t, img: x.img, price: v.p, ref: Math.max(v.c || 0, v.p), id: v.id, on: true, cid: x.id }); });
       return u;
     }
     function render() {
       var u = units(), on = u.filter(function (x) { return x.on; }), full = on.reduce(function (a, x) { return a + x.price; }, 0), gift = null;
       if (on.length >= 3) { gift = on.reduce(function (a, x) { return x.price <= a.price ? x : a; }); gift.gift = true; }
-      var tot = full - (gift ? gift.price : 0);
+      var tot = full - (gift ? gift.price : 0), ref = on.reduce(function (a, x) { return a + (x.ref || x.price); }, 0), strike = (gift || ref > full) && ref > tot;
       $('[data-mn-slots]').innerHTML = MN.slotsHTML(u, { buttons: true, checks: mode === 'set' });
-      $('[data-mn-box-full]').textContent = gift ? money(full) : '';
+      $('[data-mn-box-full]').textContent = strike ? money(ref) : '';
       $('[data-mn-box-tot]').textContent = money(tot);
       $('[data-mn-box-l]').textContent = on.length === 1 ? '1 joya' : on.length + ' joyas';
       $('[data-mn-box-note]').textContent = gift ? 'Te regalamos ' + gift.name + '. Sale a ' + money(Math.round(tot / on.length)) + ' cada joya.' : (on.length === 2 ? 'Añade una más: la de menor precio será tu regalo.' : 'Elige 2 joyas más: la de menor precio será tu regalo.');
@@ -277,15 +318,27 @@
       var label = on.length >= 3 ? 'Añadir el estuche' : (on.length === 2 ? 'Añadir las 2' : 'Añadir a la cesta');
       var buy = $('[data-mn-buy]'), ok = state.v.a;
       buy.disabled = !ok; buy.textContent = ok ? label + ' · ' + money(tot) : 'Agotada';
-      var pe = $('[data-mn-price]'); if (gift) pe.innerHTML = '<s>' + money(state.v.p) + '</s>' + money(Math.round(state.v.p * tot / full)) + '<small>con el 3x2 · −' + Math.round((full - tot) / full * 100) + ' %</small>'; else pe.textContent = money(state.v.p);
-      $('[data-mn-sbar-p]').innerHTML = (on.length > 1 ? on.length + ' joyas · ' : '') + (gift ? '<s>' + money(full) + '</s>' : '') + money(tot);
+      var pe = $('[data-mn-price]'), sref = Math.max(state.v.c || 0, state.v.p); if (gift) pe.innerHTML = '<s>' + money(sref) + '</s>' + money(Math.round(state.v.p * tot / full)) + '<small>con el 3x2 · −' + Math.round((ref - tot) / ref * 100) + ' %</small>'; else pe.innerHTML = (sref > state.v.p ? '<s>' + money(sref) + '</s>' : '') + money(state.v.p);
+      $('[data-mn-sbar-p]').innerHTML = (on.length > 1 ? on.length + ' joyas · ' : '') + (strike ? '<s>' + money(ref) + '</s>' : '') + money(tot);
       var k3 = $('[data-mn-k3]'); if (k3) k3.textContent = money(Math.round(tot / 3));
-      var dt = $('[data-mn-deal-t]'); if (dt) { $('[data-mn-deal]').hidden = !gift; if (gift) { dt.textContent = money(tot); $('[data-mn-deal-f]').textContent = money(full); } }
+      var dt = $('[data-mn-deal-t]'); if (dt) { $('[data-mn-deal]').hidden = !gift; if (gift) { dt.textContent = money(tot); $('[data-mn-deal-f]').textContent = money(ref); } }
+      var pk = $('[data-mn-pick]');
+      if (pk) {
+        var su = [{ p: state.v.p, r: Math.max(state.v.c || 0, state.v.p) }]; cands.forEach(function (x) { var v = pick(x.c); if (v) su.push({ p: v.p, r: Math.max(v.c || 0, v.p) }); });
+        var sp = su.reduce(function (a, x) { return a + x.p; }, 0), sr = su.reduce(function (a, x) { return a + x.r; }, 0), st = su.length >= 3 ? sp - Math.min.apply(null, su.map(function (x) { return x.p; })) : sp;
+        $('[data-mn-pick-st]').textContent = money(st); $('[data-mn-pick-sf]').textContent = sr > st ? money(sr) : ''; $('[data-mn-pick-save]').textContent = sr > st ? 'Ahorras ' + money(sr - st) : '';
+        $('[data-mn-pick-ot]').textContent = money(state.v.p); $('[data-mn-pick-of]').textContent = sref > state.v.p ? money(sref) : '';
+        var mode1 = on.length === 1 ? 'solo' : (on.length === su.length ? 'set' : '');
+        $$('[data-mn-pick-o]').forEach(function (b) { var is = b.getAttribute('data-mn-pick-o') === mode1; b.classList.toggle('is-on', is); b.setAttribute('aria-checked', is); });
+        pk.querySelector('[data-mn-pick-o="set"]').hidden = su.length < 3;
+      }
       sg.disabled = !ok; sg.textContent = ok ? (on.length >= 3 ? 'Añadir estuche' : 'Añadir') : 'Agotada';
       $$('[data-mn-sugg]').forEach(function (b) { b.classList.toggle('is-on', state.picks.some(function (p) { return p.id === +b.getAttribute('data-mn-sugg'); })); });
       state.items = on.filter(function (x) { return x.id; }).map(function (x) { return { id: x.id, quantity: 1 }; });
     }
     root.addEventListener('click', function (e) {
+      var po = e.target.closest('[data-mn-pick-o]');
+      if (po) { var solo = po.getAttribute('data-mn-pick-o') === 'solo'; cands.forEach(function (x) { x.on = !solo && !!pick(x.c); }); render(); return; }
       var s = e.target.closest('[data-mn-slot]');
       if (s) { var i = +s.getAttribute('data-mn-slot'); if (i === 0) return; if (mode === 'set') { if (!pick(cands[i - 1].c)) return; cands[i - 1].on = !cands[i - 1].on; } else state.picks.splice(i - 1, 1); render(); return; }
       var g = e.target.closest('[data-mn-sugg]');

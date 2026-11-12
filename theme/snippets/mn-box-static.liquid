@@ -4,6 +4,7 @@
 {%- endcomment -%}
 {%- liquid
   assign full = 0
+  assign ref = 0
   assign cheap = 999999999
   assign ids = ''
   assign n = 0
@@ -18,6 +19,11 @@
     endfor
     assign n = n | plus: 1
     assign full = full | plus: v.price
+    if v.compare_at_price > v.price
+      assign ref = ref | plus: v.compare_at_price
+    else
+      assign ref = ref | plus: v.price
+    endif
     if v.price < cheap
       assign cheap = v.price
     endif
@@ -40,7 +46,7 @@
     <span class="mn-slot{% if g %} is-gift{% endif %}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}<span class="mn-slot__name">{% if g %}Regalo{% else %}{{ p.title }}{% endif %}</span></span>
   {%- endfor -%}
 </div>
-<div class="mn-box__sum"><span>{{ n }} joyas</span><span><s>{{ full | money_without_trailing_zeros }}</s><b>{{ total | money_without_trailing_zeros }}</b></span></div>
+<div class="mn-box__sum"><span>{{ n }} joyas</span><span><s>{{ ref | money_without_trailing_zeros }}</s><b>{{ total | money_without_trailing_zeros }}</b></span></div>
 {%- if add -%}
   <div style="display:flex;gap:8px;margin-top:12px">
     {%- if url != blank -%}<a class="mn-btn mn-btn--line" style="flex:1;min-height:46px;color:#fff;border-color:rgba(255,255,255,.6)" href="{{ url }}">Ver</a>{%- endif -%}

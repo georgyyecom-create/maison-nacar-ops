@@ -1,0 +1,2 @@
+{%- comment -%}Precio de tarjeta. Tacha compare_at_price solo si el dueño lo ha puesto y es mayor (Ómnibus: debe ser el precio más bajo de los últimos 30 días).{%- endcomment -%}
+<span class="mn-card__p">{%- if v.compare_at_price > v.price -%}<s>{{ v.compare_at_price | money_without_trailing_zeros }}</s> {% endif -%}{{ v.price | money_without_trailing_zeros }}</span>

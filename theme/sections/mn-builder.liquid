@@ -79,14 +79,14 @@
               assign vt = v.title | downcase
             -%}
             {%- if v.available -%}
-              <div class="mn-card b-it" data-b-it data-type="{{ p.type | downcase }}" data-v="{{ v.id }}" data-p="{{ v.price }}" data-n="{{ p.title | escape }}" data-img="{% if v.featured_image %}{{ v.featured_image | image_url: width: 400 }}{% else %}{{ p.featured_image | image_url: width: 400 }}{% endif %}">
+              <div class="mn-card b-it" data-b-it data-type="{{ p.type | downcase }}" data-v="{{ v.id }}" data-p="{{ v.price }}" data-k="{% if v.compare_at_price > v.price %}{{ v.compare_at_price }}{% else %}0{% endif %}" data-n="{{ p.title | escape }}" data-img="{% if v.featured_image %}{{ v.featured_image | image_url: width: 400 }}{% else %}{{ p.featured_image | image_url: width: 400 }}{% endif %}">
                 <a class="mn-card__media" href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', sizes: '(min-width: 750px) 22vw, 46vw', alt: p.title }}{%- endif -%}</a>
                 <button type="button" class="mn-card__add" data-b-add aria-label="Añadir {{ p.title | escape }} al estuche">{% render 'mn-icon', i: 'plus' %}</button>
-                <div class="mn-card__body"><a class="mn-card__t" href="{{ p.url }}">{{ p.title }}</a><span class="mn-card__p">{{ v.price | money_without_trailing_zeros }}</span></div>
+                <div class="mn-card__body"><a class="mn-card__t" href="{{ p.url }}">{{ p.title }}</a>{% render 'mn-price', v: v %}</div>
                 {%- if sv and vt contains 'gold' -%}
                   <div class="b-cols">
                     {%- for cv in p.variants -%}{%- assign ct = cv.title | downcase -%}{%- if cv.id == v.id or cv.id == sv.id -%}
-                      <button type="button" class="b-col{% if cv.id == v.id %} is-on{% endif %}" data-b-col data-v="{{ cv.id }}" data-p="{{ cv.price }}" data-c="{% if ct contains 'silver' %}Plateado{% else %}Dorado{% endif %}" data-img="{% if cv.featured_image %}{{ cv.featured_image | image_url: width: 400 }}{% else %}{{ p.featured_image | image_url: width: 400 }}{% endif %}" aria-label="{% if ct contains 'silver' %}Plateado{% else %}Dorado{% endif %}"><i class="mn-dot mn-dot--{% if ct contains 'silver' %}silver{% else %}gold{% endif %}"></i></button>
+                      <button type="button" class="b-col{% if cv.id == v.id %} is-on{% endif %}" data-b-col data-v="{{ cv.id }}" data-p="{{ cv.price }}" data-k="{% if cv.compare_at_price > cv.price %}{{ cv.compare_at_price }}{% else %}0{% endif %}" data-c="{% if ct contains 'silver' %}Plateado{% else %}Dorado{% endif %}" data-img="{% if cv.featured_image %}{{ cv.featured_image | image_url: width: 400 }}{% else %}{{ p.featured_image | image_url: width: 400 }}{% endif %}" aria-label="{% if ct contains 'silver' %}Plateado{% else %}Dorado{% endif %}"><i class="mn-dot mn-dot--{% if ct contains 'silver' %}silver{% else %}gold{% endif %}"></i></button>
                     {%- endif -%}{%- endfor -%}
                   </div>
                 {%- endif -%}
@@ -112,11 +112,11 @@
     function q(s) { return root.querySelector(s); }
     function paint() {
       if (!window.MN) return;
-      var u = picks.map(function (x) { return { name: x.n, img: x.img, price: x.p, on: true, el: x.el }; });
-      var full = u.reduce(function (a, x) { return a + x.price; }, 0), gift = null;
+      var u = picks.map(function (x) { return { name: x.n, img: x.img, price: x.p, ref: Math.max(x.k || 0, x.p), on: true, el: x.el }; });
+      var full = u.reduce(function (a, x) { return a + x.price; }, 0), ref = u.reduce(function (a, x) { return a + x.ref; }, 0), gift = null;
       if (u.length === 3) { gift = u.reduce(function (a, x) { return x.price <= a.price ? x : a; }); gift.gift = true; }
       q('[data-b-slots]').innerHTML = MN.slotsHTML(u, { buttons: true });
-      q('[data-b-full]').textContent = gift ? MN.money(full) : '';
+      q('[data-b-full]').textContent = (gift || ref > full) ? MN.money(ref) : '';
       q('[data-b-tot]').textContent = MN.money(full - (gift ? gift.price : 0));
       q('[data-b-l]').textContent = u.length === 1 ? '1 joya' : u.length + ' joyas';
       q('[data-b-h]').textContent = u.length === 3 ? 'Estuche completo' : 'Tu estuche';
@@ -134,9 +134,9 @@
     q('[data-b-mini-go]').addEventListener('click', function () { q('[data-b-go]').click(); });
     root.addEventListener('click', function (e) {
       var a = e.target.closest('[data-b-add]');
-      if (a) { var it = a.closest('[data-b-it]'), on = it.querySelector('[data-b-col].is-on'), snap = { el: it, v: it.getAttribute('data-v'), p: +it.getAttribute('data-p'), img: it.getAttribute('data-img'), n: it.getAttribute('data-n') + (on && on.getAttribute('data-c') === 'Plateado' ? ' · plateado' : '') }; if (picks.length < 3) picks.push(snap); else picks[2] = snap; paint(); return; }
+      if (a) { var it = a.closest('[data-b-it]'), on = it.querySelector('[data-b-col].is-on'), snap = { el: it, v: it.getAttribute('data-v'), p: +it.getAttribute('data-p'), k: +it.getAttribute('data-k') || 0, img: it.getAttribute('data-img'), n: it.getAttribute('data-n') + (on && on.getAttribute('data-c') === 'Plateado' ? ' · plateado' : '') }; if (picks.length < 3) picks.push(snap); else picks[2] = snap; paint(); return; }
       var col = e.target.closest('[data-b-col]');
-      if (col) { var ci = col.closest('[data-b-it]'); ci.querySelectorAll('[data-b-col]').forEach(function (b) { b.classList.toggle('is-on', b === col); }); ['data-v', 'data-p', 'data-img'].forEach(function (k) { ci.setAttribute(k, col.getAttribute(k)); }); ci.querySelector('.mn-card__p').textContent = MN.money(+col.getAttribute('data-p')); var im = ci.querySelector('.mn-card__media img'); if (im) { im.removeAttribute('srcset'); im.src = col.getAttribute('data-img'); } return; }
+      if (col) { var ci = col.closest('[data-b-it]'); ci.querySelectorAll('[data-b-col]').forEach(function (b) { b.classList.toggle('is-on', b === col); }); ['data-v', 'data-p', 'data-k', 'data-img'].forEach(function (k) { ci.setAttribute(k, col.getAttribute(k)); }); var ck = +col.getAttribute('data-k') || 0, cp = +col.getAttribute('data-p'); ci.querySelector('.mn-card__p').innerHTML = (ck > cp ? '<s>' + MN.money(ck) + '</s> ' : '') + MN.money(cp); var im = ci.querySelector('.mn-card__media img'); if (im) { im.removeAttribute('srcset'); im.src = col.getAttribute('data-img'); } return; }
       var s = e.target.closest('[data-mn-slot]');
       if (s) { picks.splice(+s.getAttribute('data-mn-slot'), 1); paint(); return; }
       var t = e.target.closest('[data-b-tabs] button');

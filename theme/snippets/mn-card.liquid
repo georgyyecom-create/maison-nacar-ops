@@ -50,6 +50,6 @@
       <a class="mn-card__t" href="{{ product.url }}">{{ product.title }}</a>
       {%- if has_gold and has_silver -%}<div class="mn-card__dots"><i class="mn-dot mn-dot--gold" title="Dorado"></i><i class="mn-dot mn-dot--silver" title="Plateado"></i></div>{%- endif -%}
     </div>
-    {%- if v.available -%}<span class="mn-card__p">{{ v.price | money_without_trailing_zeros }}</span>{%- else -%}<span class="mn-card__out">Agotada</span>{%- endif -%}
+    {%- if v.available -%}{% render 'mn-price', v: v %}{%- else -%}<span class="mn-card__out">Agotada</span>{%- endif -%}
   </div>
 </div>
