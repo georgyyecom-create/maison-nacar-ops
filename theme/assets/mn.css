@@ -107,6 +107,10 @@ body.mn { margin: 0; background: var(--mn-paper); color: var(--mn-ink); font-fam
 .mn-slot__check { position: absolute; top: 6px; right: 6px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--mn-ink); color: #fff; }
 .mn-slot__check svg { width: 11px; height: 11px; }
 .mn-slot.is-off img { opacity: .25; }
+.mn-slot__name b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.mn-slot__name i { display: block; font-style: normal; font-weight: 700; white-space: nowrap; }
+.mn-slot__name i s { margin-right: 2px; font-weight: 500; opacity: .6; }
+.mn-slot.is-gift .mn-slot__name i s { opacity: .7; }
 .mn-slot.is-off .mn-slot__check { background: rgba(255,255,255,.85); color: transparent; box-shadow: inset 0 0 0 1px var(--mn-ink); }
 /* el hueco del regalo: tornasol de nácar */
 .mn-slot.is-gift { background: var(--mn-nacar); }

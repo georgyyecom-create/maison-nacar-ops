@@ -16,7 +16,9 @@
   var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
   var PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
 
-  /* Huecos del estuche. units: [{ img, name, on, gift }] (máx. 3). */
+  /* Nombre corto para el hueco: «Collar», «Pulsera»… */
+  function short(n) { n = String(n || ''); return n.indexOf(' · ') > -1 ? n : n.split(' ')[0]; }
+  /* Huecos del estuche. units: [{ img, name, on, gift, price, ref }] (máx. 3). opts.prices: nombre corto + precio (tachado si hay precio de comparación; «Gratis» en el regalo). */
   function slotsHTML(units, opts) {
     opts = opts || {};
     var h = '';
@@ -25,7 +27,7 @@
       var gift = (u && u.gift) || (!u && i === 2);
       var cls = 'mn-slot' + (gift ? ' is-gift' : '') + (u ? '' : ' is-empty') + (u && u.on === false ? ' is-off' : '');
       var inner = u
-        ? (u.img ? '<img src="' + esc(img(u.img, 240)) + '" alt="">' : '') + (opts.checks ? '<span class="mn-slot__check">' + CHECK + '</span>' : '') + '<span class="mn-slot__name">' + (gift && u.on !== false ? 'Regalo' : esc(u.name)) + '</span>'
+        ? (u.img ? '<img src="' + esc(img(u.img, 240)) + '" alt="">' : '') + (opts.checks ? '<span class="mn-slot__check">' + CHECK + '</span>' : '') + '<span class="mn-slot__name">' + (opts.prices && u.price ? '<b>' + esc(short(u.name)) + '</b><i>' + (gift && u.on !== false ? '<s>' + money(u.ref || u.price) + '</s> Gratis' : ((u.ref || 0) > u.price ? '<s>' + money(u.ref) + '</s> ' : '') + money(u.price)) + '</i>' : (gift && u.on !== false ? 'Regalo' : esc(u.name))) + '</span>'
         : '<span class="mn-slot__plus">+</span>' + (i === 2 ? '<span class="mn-slot__name">Regalo</span>' : '');
       var tag = opts.buttons && u ? 'button type="button" data-mn-slot="' + i + '" aria-pressed="' + (u.on !== false) + '" aria-label="' + esc(u.name) + '"' : 'span';
       h += '<' + tag + ' class="' + cls + '">' + inner + '</' + tag.split(' ')[0] + '>';

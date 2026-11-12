@@ -160,7 +160,7 @@
     <div class="mn-info">
       <div class="mn-info__top">
         <h1 class="mn-info__t">{{ product.title }}</h1>
-        <span class="mn-info__p" data-mn-price>{{ current.price | money_without_trailing_zeros }}</span>
+        <span class="mn-info__p" data-mn-price>{%- if current.compare_at_price > current.price -%}<s>{{ current.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}{{ current.price | money_without_trailing_zeros }}</span>
       </div>
       <p class="mn-info__m">{{ S.material }}{%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}<a class="mn-info__r" href="#opiniones">· {% render 'mn-icon', i: 'star' %}<b>{{ rating | round: 1 | replace: '.', ',' }}</b> ({{ rcount }})</a>{%- endif -%}</p>
       {%- if cj -%}<button type="button" class="mn-deal" data-mn-deal><span><b>Los 3 por <i data-mn-deal-t></i></b> <s data-mn-deal-f></s></span><span class="mn-deal__s">La 3.ª es tu regalo · Envío gratis ↓</span></button>{%- endif -%}
@@ -309,16 +309,17 @@
       var u = units(), on = u.filter(function (x) { return x.on; }), full = on.reduce(function (a, x) { return a + x.price; }, 0), gift = null;
       if (on.length >= 3) { gift = on.reduce(function (a, x) { return x.price <= a.price ? x : a; }); gift.gift = true; }
       var tot = full - (gift ? gift.price : 0), ref = on.reduce(function (a, x) { return a + (x.ref || x.price); }, 0), strike = (gift || ref > full) && ref > tot;
-      $('[data-mn-slots]').innerHTML = MN.slotsHTML(u, { buttons: true, checks: mode === 'set' });
+      $('[data-mn-slots]').innerHTML = MN.slotsHTML(u, { buttons: true, checks: mode === 'set', prices: true });
       $('[data-mn-box-full]').textContent = strike ? money(ref) : '';
       $('[data-mn-box-tot]').textContent = money(tot);
       $('[data-mn-box-l]').textContent = on.length === 1 ? '1 joya' : on.length + ' joyas';
-      $('[data-mn-box-note]').textContent = gift ? 'Te regalamos ' + gift.name + '. Sale a ' + money(Math.round(tot / on.length)) + ' cada joya.' : (on.length === 2 ? 'Añade una más: la de menor precio será tu regalo.' : 'Elige 2 joyas más: la de menor precio será tu regalo.');
+      $('[data-mn-box-note]').textContent = gift ? 'Te regalamos ' + gift.name + '. Sale a ' + money(Math.round(tot / on.length)) + ' por joya.' : (on.length === 2 ? 'Añade una más: la de menor precio será tu regalo.' : 'Elige 2 joyas más: la de menor precio será tu regalo.');
       if (mode === 'set' && u.some(function (x) { return !x.self && !x.id; })) $('[data-mn-box-note]').textContent = 'En este color no queda todo el conjunto. Elige dorado o crea tu estuche con otras joyas.';
       var label = on.length >= 3 ? 'Añadir el estuche' : (on.length === 2 ? 'Añadir las 2' : 'Añadir a la cesta');
       var buy = $('[data-mn-buy]'), ok = state.v.a;
       buy.disabled = !ok; buy.textContent = ok ? label + ' · ' + money(tot) : 'Agotada';
-      var pe = $('[data-mn-price]'), sref = Math.max(state.v.c || 0, state.v.p); if (gift) pe.innerHTML = '<s>' + money(sref) + '</s>' + money(Math.round(state.v.p * tot / full)) + '<small>con el 3x2 · −' + Math.round((ref - tot) / ref * 100) + ' %</small>'; else pe.innerHTML = (sref > state.v.p ? '<s>' + money(sref) + '</s>' : '') + money(state.v.p);
+      var pe = $('[data-mn-price]'), sref = Math.max(state.v.c || 0, state.v.p); pe.innerHTML = (sref > state.v.p ? '<s>' + money(sref) + '</s>' : '') + money(state.v.p) + (gift ? '<small>En el 3x2: ' + money(Math.round(tot / on.length)) + ' por joya</small>' : '');
+      var sbt = $('.mn-sbar__t b'); if (sbt) { if (!sbt.getAttribute('data-t')) sbt.setAttribute('data-t', sbt.textContent); sbt.textContent = on.length > 1 ? sbt.getAttribute('data-t') : D.self.t; }
       $('[data-mn-sbar-p]').innerHTML = (on.length > 1 ? on.length + ' joyas · ' : '') + (strike ? '<s>' + money(ref) + '</s>' : '') + money(tot);
       var k3 = $('[data-mn-k3]'); if (k3) k3.textContent = money(Math.round(tot / 3));
       var dt = $('[data-mn-deal-t]'); if (dt) { $('[data-mn-deal]').hidden = !gift; if (gift) { dt.textContent = money(tot); $('[data-mn-deal-f]').textContent = money(ref); } }
@@ -326,7 +327,7 @@
       if (pk) {
         var su = [{ p: state.v.p, r: Math.max(state.v.c || 0, state.v.p) }]; cands.forEach(function (x) { var v = pick(x.c); if (v) su.push({ p: v.p, r: Math.max(v.c || 0, v.p) }); });
         var sp = su.reduce(function (a, x) { return a + x.p; }, 0), sr = su.reduce(function (a, x) { return a + x.r; }, 0), st = su.length >= 3 ? sp - Math.min.apply(null, su.map(function (x) { return x.p; })) : sp;
-        $('[data-mn-pick-st]').textContent = money(st); $('[data-mn-pick-sf]').textContent = sr > st ? money(sr) : ''; $('[data-mn-pick-save]').textContent = sr > st ? 'Ahorras ' + money(sr - st) : '';
+        $('[data-mn-pick-st]').textContent = money(st); $('[data-mn-pick-sf]').textContent = sr > st ? money(sr) : ''; var allc = su.every(function (x) { return x.r > x.p; }); $('[data-mn-pick-save]').textContent = sr > st ? (allc ? 'Antes ' + money(sr) + ' · Ahorras ' + money(sr - st) : 'Ahorras ' + money(sr - st)) : '';
         $('[data-mn-pick-ot]').textContent = money(state.v.p); $('[data-mn-pick-of]').textContent = sref > state.v.p ? money(sref) : '';
         var mode1 = on.length === 1 ? 'solo' : (on.length === su.length ? 'set' : '');
         $$('[data-mn-pick-o]').forEach(function (b) { var is = b.getAttribute('data-mn-pick-o') === mode1; b.classList.toggle('is-on', is); b.setAttribute('aria-checked', is); });

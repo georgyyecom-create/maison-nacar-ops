@@ -115,7 +115,7 @@
       var u = picks.map(function (x) { return { name: x.n, img: x.img, price: x.p, ref: Math.max(x.k || 0, x.p), on: true, el: x.el }; });
       var full = u.reduce(function (a, x) { return a + x.price; }, 0), ref = u.reduce(function (a, x) { return a + x.ref; }, 0), gift = null;
       if (u.length === 3) { gift = u.reduce(function (a, x) { return x.price <= a.price ? x : a; }); gift.gift = true; }
-      q('[data-b-slots]').innerHTML = MN.slotsHTML(u, { buttons: true });
+      q('[data-b-slots]').innerHTML = MN.slotsHTML(u, { buttons: true, prices: true });
       q('[data-b-full]').textContent = (gift || ref > full) ? MN.money(ref) : '';
       q('[data-b-tot]').textContent = MN.money(full - (gift ? gift.price : 0));
       q('[data-b-l]').textContent = u.length === 1 ? '1 joya' : u.length + ' joyas';
