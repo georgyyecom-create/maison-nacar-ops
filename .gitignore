@@ -3,3 +3,4 @@
 *.log
 node_modules/
 vista-ficha-movil.png
+__pycache__/
