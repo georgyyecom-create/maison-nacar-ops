@@ -76,3 +76,10 @@ Black Friday 27-nov · Cyber Monday 30-nov · último pedido para Navidad 14-dic
   5. Estrellas: ocultas en la v20 (el metacampo `aom.rating` sigue con valores falsos: borrarlos antes de activar reseñas).
   6. Campaña nueva.
 - Documentos de detalle en la raíz: `LANZAMIENTO_META.md`, `PROMPTS_CREATIVOS_ADS.md`, `ESTRATEGIA_PRECIO_OFERTA_MARCA.md`.
+
+## Nuevo rumbo (14-nov-2026)
+- Maison Nácar en pausa (anuncios parados, ~270 € gastados, 0 ventas). El dueño (firma como **Georgy Symonov**) trabaja por las mañanas y busca capitalizarse por las tardes en el Poniente almeriense (vive en San Agustín, El Ejido).
+- Habilidades: webs, imágenes IA realistas, Meta Ads, análisis de competencia. Le falta la parte comercial: llegar a quien paga.
+- Ideas en estudio (pendiente de su investigación en otro chat): captar clientes por resultado para sectores de mucho dinero (invernaderos/riego, placas solares agrícolas, fincas, empleo agrícola, inmobiliarias de costa) y contratos públicos menores de servicios digitales (ayuntamientos del Poniente, Diputación, UAL).
+- Material ya hecho en `servicios/`: 280 negocios del Poniente (Apify, 14-nov), auditoría de webs de 82 inmobiliarias, mensajes y perfil de WhatsApp. **LSSI art. 21: nada de WhatsApp/email comercial en frío**; captar en persona o por teléfono fijo, WhatsApp solo con permiso.
+- Filtro para elegir negocio: mucho dinero por cliente, poca competencia buena, poder llegar en persona, cobro por resultado, primer euro en < 30 días. Elegir UNO y dedicarle 30 días.
