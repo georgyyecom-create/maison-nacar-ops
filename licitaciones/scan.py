@@ -27,6 +27,8 @@ CPV = {
 }
 KW = r"p[aá]gina web|portal web|sitio web|\bweb\b|redes sociales|community|contenidos? digital|dise[ñn]o gr[aá]fico|identidad corporativa|logotipo|cartel|campa[ñn]a|publicidad|marketing|v[ií]deo|audiovisual|fotograf|comunicaci[oó]n|app\b|aplicaci[oó]n m[oó]vil|realidad virtual|ilustraci"
 PRESENCIAL = r"montaje|escenario|sonido|iluminaci[oó]n|carpa|catering|seguridad|limpieza|transporte|actuaci[oó]n|fiestas?\b|espect[aá]culo|instalaci[oó]n|mantenimiento de (equipos|instalaciones)|vigilancia"
+# Contratos de servicio continuo o con compra de medios: no encajan (24/7, solvencia alta, adelantar dinero)
+NO_ENCAJA = r"mantenimiento|alojamiento|hosting|soporte t[eé]cnico|gesti[oó]n publicitaria|agencia de medios|inserci[oó]n|compra de (espacios|medios)|acuerdo marco|suscripci[oó]n|licencias?\b|saas"
 PROC = {"1": "Abierto", "2": "Restringido", "3": "Negociado con publicidad", "4": "Negociado sin publicidad", "6": "Diálogo competitivo",
         "8": "Derivado de acuerdo marco", "9": "Abierto simplificado", "10": "Asociación para la innovación", "100": "Normas internas", "999": "Otros"}
 
@@ -100,7 +102,9 @@ def fit(x):
     kw = re.search(KW, x["title"], re.I)
     if not cat and not kw:
         return None
-    pres = re.search(PRESENCIAL, x["title"], re.I)
+    if re.search(NO_ENCAJA, x["title"], re.I):
+        return cat or "Comunicación/creativo", 0, "Servicio continuo o compra de medios: no encaja"
+    pres = re.search(PRESENCIAL, x["title"], re.I) or re.search(r"fotograf[ií]a y (grabaci|v[ií]deo)|cobertura|grabaci[oó]n de (actos|plenos|eventos)", x["title"], re.I)
     remote = bool(re.search(r"web|dise[ñn]o|redes|contenido|v[ií]deo|audiovisual|campa[ñn]a|publicidad|marketing|gr[aá]fic|app|logotipo|ilustraci", x["title"], re.I))
     score = 2 if (remote and not pres) else (1 if not pres else 0)
     note = "Se puede hacer a distancia" if score == 2 else ("Revisar si exige presencia" if score == 1 else "Probablemente presencial")
