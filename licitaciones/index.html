@@ -1,0 +1,154 @@
+<meta name="dash-one-writer">
+<style>
+  .rl { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+  .rl-h1 { margin: 0; font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); text-wrap: balance; }
+  .rl-lead { margin: 0; max-width: 62ch; font-size: var(--cds-font-size-body); line-height: 1.5; }
+  .rl-lead b { font-variant-numeric: tabular-nums; }
+  .rl-meta { margin: 0; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .rl-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--cds-gap-md); }
+  .rl-tile { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-xs); min-width: 0; }
+  .rl-tile span { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .rl-tile b { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; }
+  .rl-bar { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .rl-bar label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); display: grid; gap: 4px; }
+  .rl-wrap { overflow-x: auto; }
+  .rl-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-body); }
+  .rl-table th { text-align: left; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); padding: var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+  .rl-table td { padding: var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .rl-table td.num { font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+  .rl-table a { color: var(--color-fg); text-underline-offset: 3px; }
+  .rl-org { display: block; margin-top: 2px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .rl-pill { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: var(--cds-font-size-caption); font-weight: var(--cds-font-weight-medium); white-space: nowrap; border: 1px solid currentColor; }
+  .rl-pill.ok { color: var(--color-ok); } .rl-pill.warn { color: var(--color-warn); } .rl-pill.bad { color: var(--color-fg-muted); }
+  .rl-soon { color: var(--color-bad); font-weight: var(--cds-font-weight-medium); }
+  .rl-empty { padding: var(--cds-pad-lg); color: var(--color-fg-muted); }
+  [data-dash-source-state=refreshing] { opacity: .5; }
+  @media (max-width: 640px) {
+    .rl-table thead { display: none; }
+    .rl-table, .rl-table tbody, .rl-table tr, .rl-table td { display: block; width: 100%; }
+    .rl-table tr { padding: var(--cds-pad-sm) 0; border-bottom: 1px solid var(--color-border-line); }
+    .rl-table td { border: 0; padding: 2px 0; text-align: left; }
+    .rl-table td.num { text-align: left; }
+    .rl-table td[data-l]::before { content: attr(data-l) " · "; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  }
+</style>
+
+<div class="rl" id="radar">
+  <header style="display:grid;gap:var(--cds-gap-sm)">
+    <h1 class="rl-h1" id="titulo">Radar de Licitaciones</h1>
+    <p class="rl-lead" id="resumen">Hay <b data-draw="encajan" data-source="resumen" data-field="encajan" data-row="0">—</b> licitaciones abiertas de servicios digitales y creativos que puedes hacer a distancia, por <b data-draw="importe" data-source="resumen" data-field="importe_encajan" data-row="0">—</b> en total sin IVA. <b data-draw="cierran" data-source="resumen" data-field="cierran7" data-row="0">—</b> cierran en los próximos 7 días.</p>
+    <p class="rl-meta">Toda España · servicios de hasta 60.000 € sin IVA · plazo abierto · fuente: Plataforma de Contratación del Sector Público. Última revisión: <span data-draw="fecha" data-source="licitaciones" data-field="detectada" data-row="0">—</span>.</p>
+  </header>
+
+  <section class="rl-tiles" id="cifras" aria-label="Resumen">
+    <div class="rl-tile"><span>Encajan contigo</span><b data-draw="t-encajan" data-source="resumen" data-field="encajan" data-row="0">—</b></div>
+    <div class="rl-tile"><span>A revisar</span><b data-draw="t-revisar" data-source="resumen" data-field="revisar" data-row="0">—</b></div>
+    <div class="rl-tile"><span>Importe de las que encajan</span><b data-draw="t-importe" data-source="resumen" data-field="importe_encajan" data-row="0">—</b></div>
+    <div class="rl-tile"><span>Cierran en 7 días</span><b data-draw="t-cierran" data-source="resumen" data-field="cierran7" data-row="0">—</b></div>
+  </section>
+
+  <section id="listado" style="display:grid;gap:var(--cds-gap-md)">
+    <div class="rl-bar">
+      <label>Encaje
+        <select class="dash-select" id="f-encaje" aria-label="Filtrar por encaje">
+          <option value="Encaja">Encajan</option>
+          <option value="Revisar">A revisar</option>
+          <option value="">Todas</option>
+        </select>
+      </label>
+      <label>Zona
+        <select class="dash-select" data-draw="f-region" aria-label="Filtrar por zona" data-source="licitaciones"></select>
+      </label>
+    </div>
+    <div class="rl-wrap">
+      <table class="rl-table" data-source="licitaciones" data-row-key="id">
+        <thead><tr><th data-field="titulo">Licitación</th><th data-field="region">Zona</th><th data-field="importe">Importe</th><th data-field="plazo">Plazo</th><th data-field="encaje">Encaje</th></tr></thead>
+        <tbody data-draw="tabla"></tbody>
+      </table>
+    </div>
+    <p class="rl-meta">Pulsa el título para abrir el pliego en la Plataforma. «Encaja» = se puede hacer a distancia; «A revisar» = mira si exige presencia; las presenciales (montajes, espectáculos) se ocultan por defecto.</p>
+  </section>
+</div>
+
+<script>
+  window.rlState = window.rlState || { encaje: 'Encaja', region: '' };
+  var eur = function (n) { return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n); };
+  window.rlEur = eur;
+  dash.calc('resumen', {
+    inputs: ['licitaciones'],
+    title: 'Resumen de licitaciones',
+    description: 'Cuenta las que encajan y las que hay que revisar, suma su importe y cuenta las que cierran en los próximos 7 días.',
+    fn: function (licitaciones) {
+      var hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+      var lim = new Date(hoy.getTime() + 7 * 864e5);
+      var enc = licitaciones.filter(function (r) { return r.encaje === 'Encaja'; });
+      return [{
+        encajan: enc.length,
+        revisar: licitaciones.filter(function (r) { return r.encaje === 'Revisar'; }).length,
+        importe_encajan: Math.round(enc.reduce(function (a, r) { return a + (+r.importe || 0); }, 0)),
+        cierran7: enc.filter(function (r) { var d = r.plazo ? new Date(r.plazo + 'T23:59:00') : null; return d && d >= hoy && d <= lim; }).length
+      }];
+    }
+  });
+  function cell(name, field, fmt) {
+    dash.draw(name, function (el) {
+      var r = dash.data('resumen');
+      el.textContent = (r.status === 'ok' && r.data && r.data[0]) ? fmt(r.data[0][field]) : '—';
+    });
+  }
+  var n = function (v) { return String(v); };
+  cell('encajan', 'encajan', n); cell('t-encajan', 'encajan', n); cell('t-revisar', 'revisar', n);
+  cell('cierran', 'cierran7', n); cell('t-cierran', 'cierran7', n);
+  cell('importe', 'importe_encajan', eur); cell('t-importe', 'importe_encajan', eur);
+  dash.draw('fecha', function (el) {
+    var d = dash.data('licitaciones');
+    el.textContent = (d.status === 'ok' && d.data[0]) ? d3.utcFormat('%d/%m/%Y')(new Date(d.data[0].detectada + 'T00:00:00Z')) : '—';
+  });
+  document.querySelectorAll('#f-encaje').forEach(function (s) {
+    s.value = window.rlState.encaje;
+    s.addEventListener('change', function () { window.rlState.encaje = s.value; dash.draw('tabla'); });
+  });
+</script>
+
+<script>
+  dash.draw('f-region', function (sel) {
+    var d = dash.data('licitaciones');
+    var regs = d.status === 'ok' ? Array.from(new Set(d.data.map(function (r) { return r.region; }))).sort() : [];
+    sel.replaceChildren(new Option('Todas', ''), ...regs.map(function (r) { return new Option(r, r); }));
+    sel.value = window.rlState.region;
+    sel.onchange = function () { window.rlState.region = sel.value; dash.draw('tabla'); };
+  });
+
+  dash.draw('tabla', function (tb) {
+    var d = dash.data('licitaciones');
+    tb.replaceChildren();
+    if (d.status !== 'ok') {
+      var tr0 = document.createElement('tr'); var td0 = document.createElement('td'); td0.colSpan = 5; td0.className = 'rl-empty';
+      td0.textContent = d.status === 'error' ? 'No se han podido cargar las licitaciones.' : 'Cargando…'; tr0.appendChild(td0); tb.appendChild(tr0); return;
+    }
+    var st = window.rlState, hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    var rows = d.data.filter(function (r) { return (!st.encaje || r.encaje === st.encaje) && (!st.region || r.region === st.region); })
+      .sort(function (a, b) { return (a.plazo || '9999').localeCompare(b.plazo || '9999'); });
+    if (!rows.length) {
+      var tr1 = document.createElement('tr'); var td1 = document.createElement('td'); td1.colSpan = 5; td1.className = 'rl-empty';
+      td1.textContent = 'No hay licitaciones con estos filtros hoy.'; tr1.appendChild(td1); tb.appendChild(tr1); return;
+    }
+    rows.forEach(function (r) {
+      var tr = document.createElement('tr'); tr.setAttribute('data-key', encodeURIComponent(r.id));
+      var t = document.createElement('td');
+      var a = document.createElement('a'); a.textContent = r.titulo; a.target = '_blank'; a.rel = 'noopener';
+      if (/^https:\/\/contrataciondelestado\.es\//.test(r.enlace || '')) a.href = r.enlace;
+      var o = document.createElement('span'); o.className = 'rl-org'; o.textContent = r.organismo + ' · ' + r.categoria;
+      t.append(a, o);
+      var z = document.createElement('td'); z.textContent = r.region; z.setAttribute('data-l', 'Zona');
+      var i = document.createElement('td'); i.className = 'num'; i.textContent = window.rlEur(+r.importe); i.setAttribute('data-l', 'Importe');
+      var p = document.createElement('td'); p.className = 'num'; p.setAttribute('data-l', 'Plazo');
+      var pd = r.plazo ? new Date(r.plazo + 'T00:00:00') : null;
+      p.textContent = pd ? d3.timeFormat('%d/%m/%Y')(pd) + (r.hora ? ' ' + r.hora : '') : '—';
+      if (pd && (pd - hoy) / 864e5 <= 3) p.classList.add('rl-soon');
+      var e = document.createElement('td'); var pill = document.createElement('span');
+      pill.className = 'rl-pill ' + (r.encaje === 'Encaja' ? 'ok' : r.encaje === 'Revisar' ? 'warn' : 'bad'); pill.textContent = r.encaje; e.appendChild(pill);
+      tr.append(t, z, i, p, e); tb.appendChild(tr);
+    });
+  });
+</script>
