@@ -33,10 +33,17 @@ PROC = {"1": "Abierto", "2": "Restringido", "3": "Negociado con publicidad", "4"
         "8": "Derivado de acuerdo marco", "9": "Abierto simplificado", "10": "Asociación para la innovación", "100": "Normas internas", "999": "Otros"}
 
 
-def fetch(url):
+def fetch(url, tries=4):
+    import time
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (licitaciones-scan)"})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return r.read()
+    for i in range(tries):
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                return r.read()
+        except Exception:
+            if i == tries - 1:
+                raise
+            time.sleep(2 ** (i + 1))
 
 
 def txt(el, path):
