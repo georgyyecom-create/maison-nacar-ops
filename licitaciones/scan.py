@@ -8,6 +8,8 @@ Sin dependencias externas.
 import json, re, sys, urllib.request, datetime as dt, xml.etree.ElementTree as ET
 
 FEED = "https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
+# Plataformas autonómicas agregadas (Andalucía, Madrid, Cataluña, País Vasco, Galicia, Navarra, La Rioja…)
+FEED_AGR = "https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_1044/PlataformasAgregadasSinMenores.atom"
 NS = {
     "a": "http://www.w3.org/2005/Atom",
     "cbc": "urn:dgpe:names:draft:codice:schema:xsd:CommonBasicComponents-2",
@@ -108,29 +110,37 @@ def fit(x):
 def main():
     days = int(sys.argv[1]) if len(sys.argv) > 1 else 2
     cutoff = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)
-    url, out, pages = FEED, {}, 0
-    while url and pages < 60:
-        root = ET.fromstring(fetch(url))
-        pages += 1
-        oldest = None
-        for e in root.findall("a:entry", NS):
-            x = parse_entry(e)
-            upd = txt(e, "a:updated")
+    out, seen, pages = {}, set(), 0
+    for feed in (FEED, FEED_AGR):
+        url, n = feed, 0
+        while url and n < 400:
             try:
-                u = dt.datetime.fromisoformat(upd)
-                oldest = u if oldest is None or u < oldest else oldest
-            except ValueError:
-                pass
-            if not x:
-                continue
-            f = fit(x)
-            if f:
-                x["cat"], x["score"], x["note"] = f
-                out[x["id"]] = x  # el más reciente gana (el feed va de nuevo a viejo)
-        nxt = root.find("a:link[@rel='next']", NS)
-        url = nxt.get("href") if nxt is not None else None
-        if oldest and oldest < cutoff:
-            break
+                root = ET.fromstring(fetch(url))
+            except Exception as ex:
+                print(f"aviso: {url}: {ex}", file=sys.stderr)
+                break
+            n += 1
+            oldest = None
+            for e in root.findall("a:entry", NS):
+                upd = txt(e, "a:updated")
+                try:
+                    u = dt.datetime.fromisoformat(upd)
+                    oldest = u if oldest is None or u < oldest else oldest
+                except ValueError:
+                    pass
+                x = parse_entry(e)
+                if not x or x["id"] in seen:
+                    continue  # el feed va de nuevo a viejo: la primera aparición es el estado actual
+                seen.add(x["id"])
+                f = fit(x)
+                if f:
+                    x["cat"], x["score"], x["note"] = f
+                    out[x["id"]] = x
+            nxt = root.find("a:link[@rel='next']", NS)
+            url = nxt.get("href") if nxt is not None else None
+            if oldest and oldest < cutoff:
+                break
+        pages += n
     res = sorted(out.values(), key=lambda x: (-x["score"], x["deadline"] or "9999"))
     json.dump({"generated": dt.datetime.now().isoformat(timespec="minutes"), "pages": pages, "items": res}, sys.stdout, ensure_ascii=False, indent=1)
 
