@@ -16,7 +16,7 @@
     "fix": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<style>.mn-pop{display:none!important}.mn-bar{display:none!important}.mna-slot{grid-template-columns:34px 1fr;gap:7px}.mna-slot__i{width:34px;height:42px}.mna-slot b{white-space:nowrap}</style>",
+        "custom_liquid": "<style>.mn-pop{display:none!important}.mn-bar{display:none!important}body.mn-pop-on .mn-wa{display:grid!important}.mna-slot{grid-template-columns:34px 1fr;gap:7px}.mna-slot__i{width:34px;height:42px}.mna-slot b{white-space:nowrap}</style>",
         "padding_top": 0,
         "padding_bottom": 0
       }

@@ -76,6 +76,7 @@
   .mna-m.is-on img, .mna-m[aria-checked="true"] img { box-shadow: 0 0 0 2px var(--mn-ink); }
   .mna-m span { display: block; margin-top: 6px; font-weight: 600; }
   .mna-m em { display: block; font-style: normal; color: var(--mn-grey); }
+  .mna-m em.is-low { color: var(--mna-wine); font-weight: 600; }
   .mna-m[disabled] { opacity: .35; cursor: default; }
 
   .mna-case { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
@@ -190,7 +191,7 @@
               <a class="mna-m{% if p.id == product.id %} is-on{% endif %}" href="{{ p.url }}"{% if p.id == product.id %} aria-current="page"{% endif %}>
                 {{ p.featured_image | image_url: width: 240, height: 300, crop: 'center' | image_tag: loading: 'lazy', alt: '' }}
                 <span>{{ p.title | remove: 'Calendario de Adviento ' | strip }}</span>
-                <em>{%- if p.available -%}{%- if pv.inventory_management and pv.inventory_quantity < 30 -%}Quedan {{ pv.inventory_quantity }}{%- else -%}{{ pv.price | money_without_trailing_zeros }}{%- endif -%}{%- else -%}Agotado{%- endif -%}</em>
+                <em{% if p.available and pv.inventory_management and pv.inventory_quantity < 30 %} class="is-low"{% endif %}>{%- if p.available -%}{%- if pv.inventory_management and pv.inventory_quantity < 30 -%}Quedan {{ pv.inventory_quantity }}{%- else -%}{{ pv.price | money_without_trailing_zeros }}{%- endif -%}{%- else -%}Agotado{%- endif -%}</em>
               </a>
             {%- endfor -%}
           </div>
@@ -379,7 +380,10 @@
     if (shb) shb.addEventListener('click', function () { var u = location.origin + location.pathname; if (navigator.share) navigator.share({ title: {{ product.title | json }}, url: u }).catch(function () {}); else if (navigator.clipboard) navigator.clipboard.writeText(u).then(function () { shb.querySelector('span').textContent = 'Enlace copiado'; }); });
     paintLike();
     var bar = $('[data-bar]'), cta = $('.mna-cta');
-    if (bar && cta && 'IntersectionObserver' in window) new IntersectionObserver(function (e) { bar.classList.toggle('is-on', !e[0].isIntersecting && e[0].boundingClientRect.top < 0); }).observe(cta);
+    var ticking = false;
+    function sync() { ticking = false; if (bar && cta) bar.classList.toggle('is-on', cta.getBoundingClientRect().bottom < 0); }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+    sync();
     paint();
   })();
 </script>
