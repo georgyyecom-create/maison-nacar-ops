@@ -150,3 +150,21 @@ Textos (Meta: 125 caracteres visibles y titular de 40 como máximo):
    - Google Shopping gratis (canal de Google en Shopify);
    - vender 3–5 a conocidos;
    - publicar en tus Stories.
+
+## 8. Viabilidad en porcentajes (`ads-math`, simulación de 200.000 casos)
+
+**Supuestos:**
+- Coste por visita con una incertidumbre de ±45 %.
+- Conversión de visita a compra sacada de lo que esperaba antes de los datos y corregida con lo observado: 0 compras en 112 visitas reales desde Instagram.
+- Margen: 35,4 €.
+- Presupuesto: 150 €.
+
+| Escenario | ≥1 venta | ≥3 ventas | Recuperar los 150 € | Resultado medio |
+|---|---|---|---|---|
+| Como antes (2,60 €/visita) | 30 % | 2 % | <1 % | −136 € |
+| Plan v2 (1,30 €/visita) | 47 % | 8 % | 2 % | −121 € |
+| v2 + confianza (muestra real, sin falsos) | 56 % | 12 % | 3 % | −112 € |
+| Optimista (1 €/visita, conversión 1,5 %) | 80 % | 38 % | 17 % | −62 € |
+| Muy optimista (0,80 €/visita, 2 %) | 91 % | 61 % | 36 % | −3 € |
+
+**Lectura:** con los datos reales, la probabilidad de recuperar el dinero con Meta está entre el 3 y el 17 %. Lo más probable es perder entre 60 y 120 € a cambio de aprender si el calendario vende.
