@@ -1,6 +1,6 @@
 # Campaña Calendarios de Adviento · plan (15-nov-2026)
 
-Hecho con las skills `ads-meta`, `ads-math`, `ads-budget`, `ad-creative`, `cro` y `offers`, con los datos reales de las campañas 1–3 (Meta) y de Shopify (5 al 15-nov).
+Hecho con mi criterio (sin ejecutar todavía las skills instaladas) y con los datos reales de las campañas 1–3 (Meta) y de Shopify (5 al 15-nov).
 
 ## 1. Qué pasó en las 3 pruebas (≈256 €)
 
@@ -25,7 +25,7 @@ Visitas que llegan a la web, por ubicación:
 
 **Por qué pasó:** las campañas optimizaban «Compra» con una cuenta sin ninguna compra. Meta no tenía de quién aprender y buscó a quien hace clic barato: toques sin querer y gente que cierra antes de cargar.
 
-## 2. Números del calendario (`ads-math`)
+## 2. Números del calendario
 
 - **Margen de un calendario:** 69 € − ~32 € de coste − ~1,6 € de pago ≈ **35 €**.
 - **CPA máximo para no perder: 35 €.** ROAS mínimo: 2,0.
@@ -58,7 +58,7 @@ Cuánto tiene que convertir la web para no perder:
    - Mensaje: «Los viste. Llegan antes del 4 de diciembre».
    - Es el público más barato de convertir y nunca lo hemos usado.
 
-### D. Creativos (`ad-creative`): 3 anuncios, uno por ángulo
+### D. Creativos: 3 anuncios, uno por ángulo
 1. **Vídeo** abriendo cajones (Veo, `PROMPTS_ADVIENTO.md`).
    - Primer segundo: la mano abre el cajón y brilla la joya.
    - Texto: «6 joyas en 6 cajones · 69 €».
@@ -69,7 +69,7 @@ Reglas comunes:
 - Primera línea del texto: «6 joyas en 6 cajones · 69 € · envío gratis · llega antes del 4-dic».
 - Nada de «oro» a secas, ni de clientas falsas, ni de estrellas.
 
-### E. Página (`cro`)
+### E. Página
 - Ya va rápida: LCP de 1,5–2,2 s en 4G simulado (antes 3,9–6,2 s).
 - El enlace va **directo al Corazón Rojo** (116 unidades) con UTM.
 - **Bloqueantes antes de gastar un euro:**
@@ -79,12 +79,12 @@ Reglas comunes:
   4. Hacer una compra de prueba y comprobar que el píxel registra la «Compra».
   5. Confirmar por escrito con Yehwang el plazo y si el paquete lleva precio o albarán.
 
-### F. Tráfico gratis en paralelo (`offers`, `social`)
+### F. Tráfico gratis en paralelo
 - **Google, fichas gratuitas:** con el canal de Google en Shopify, el calendario sale en Google Shopping sin pagar, ante gente que busca «calendario adviento joyas». Es tráfico con intención de compra.
 - **Conocidos:** vender 3–5 a gente cercana. Son las primeras ventas reales y permiten fotos y opiniones de verdad.
 - **Estados de WhatsApp e Instagram propios:** no es mensaje directo en frío, así que no choca con la LSSI.
 
-## 4. Calendario y cortes (`ads-budget`)
+## 4. Calendario y cortes
 
 **Ventana:** del 18 al 23-nov, tope de 150 €. Apagar el 24-nov pase lo que pase.
 
