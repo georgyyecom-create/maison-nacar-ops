@@ -11,11 +11,24 @@
   assign per = pr | divided_by: 6
   assign coll = S.collection
   assign short = product.title | remove: 'Calendario de Adviento ' | strip
+  assign cmp = v.compare_at_price | default: 0
+  assign rating = product.metafields.reviews.rating.value.rating | default: product.metafields.aom.rating.value.rating
+  assign rcount = product.metafields.reviews.rating_count.value | default: product.metafields.aom.rating_count.value | default: 0
 -%}
 <style>
   .mn-adv { --adv-wine: #5C1A24; --adv-cream: #FBF6EF; --adv-gold: var(--mn-accent); }
-  .mn-adv__band { background: var(--adv-wine); color: #F7E9D7; text-align: center; font-size: 13px; padding: 9px var(--mn-gutter); letter-spacing: .01em; }
-  .mn-adv__band b { color: #fff; }
+  .mn-adv__band { background: var(--adv-wine); color: #F7E9D7; text-align: center; font-size: 13px; line-height: 1.3; padding: 9px var(--mn-gutter); }
+  .mn-adv__band b { color: #fff; letter-spacing: .06em; }
+  .mn-adv__band span[data-cd] { display: inline-block; font-variant-numeric: tabular-nums; font-weight: 600; color: #fff; }
+  .mn-adv-cd { display: flex; gap: 8px; margin-top: 18px; }
+  .mn-adv-cd div { flex: 1; background: #fff; border-radius: 12px; padding: 10px 4px; text-align: center; box-shadow: inset 0 0 0 1px rgba(184,151,90,.55); }
+  .mn-adv-cd b { display: block; font-family: var(--mn-display); font-size: 28px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--adv-wine); }
+  .mn-adv-cd span { font-size: 11px; color: var(--mn-grey); }
+  .mn-adv__price s { font-size: 18px; color: var(--mn-grey); }
+  .mn-adv__save { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--adv-wine); color: #fff; font-size: 12.5px; font-weight: 600; }
+  .mn-adv__stars { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 13.5px; text-decoration: none; }
+  .mn-adv__stars svg { width: 15px; height: 15px; }
+  .mn-adv__opt s { color: var(--mn-grey); margin-right: 3px; }
   .mn-adv__grid { display: grid; }
   @media (min-width: 990px) { .mn-adv__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 56px; max-width: var(--mn-max); margin: 0 auto; padding: 24px var(--mn-gutter) 0; } }
   .mn-adv__gal { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 6px; }
@@ -23,8 +36,8 @@
   .mn-adv__s { position: relative; flex: 0 0 86%; aspect-ratio: 4 / 5; scroll-snap-align: start; background: var(--adv-cream); }
   .mn-adv__s:only-child { flex-basis: 100%; }
   .mn-adv__s img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .mn-adv__s.is-white img { object-fit: contain; mix-blend-mode: multiply; padding: 6%; }
-  @media (max-width: 989px) { .mn-adv__gal { padding: 0 var(--mn-gutter); scroll-padding: 0 var(--mn-gutter); } .mn-adv__s { aspect-ratio: 1 / 1; flex-basis: 74%; } .mn-adv__s.is-white img { padding: 3%; } .mn-adv__info { padding-top: 14px; } }
+  .mn-adv__s img { object-position: center; }
+  @media (max-width: 989px) { .mn-adv__gal { padding: 0 var(--mn-gutter); scroll-padding: 0 var(--mn-gutter); } .mn-adv__s { flex-basis: 72%; } .mn-adv__info { padding-top: 14px; } }
   @media (min-width: 990px) { .mn-adv__gal { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; } .mn-adv__s { flex: none; } .mn-adv__s:first-child { grid-column: 1 / -1; } }
   .mn-adv__tag { position: absolute; left: 12px; top: 12px; padding: 6px 12px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--adv-gold); font-size: 12.5px; font-weight: 600; }
   .mn-adv__info { padding: 18px var(--mn-gutter) 0; }
@@ -39,7 +52,7 @@
   .mn-adv__pick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
   .mn-adv__opt { display: block; text-decoration: none; border: 1px solid var(--mn-line); border-radius: 12px; padding: 6px 6px 8px; text-align: center; background: #fff; }
   .mn-adv__opt.is-on { border-color: var(--mn-ink); box-shadow: inset 0 0 0 1px var(--mn-ink); }
-  .mn-adv__opt img { display: block; width: 100%; height: auto !important; aspect-ratio: 1 / 1; object-fit: contain; mix-blend-mode: multiply; background: var(--adv-cream); border-radius: 8px; }
+  .mn-adv__opt img { display: block; width: 100%; height: auto !important; aspect-ratio: 4 / 5; object-fit: cover; background: var(--adv-cream); border-radius: 8px; }
   .mn-adv__opt b { display: block; margin-top: 6px; font-size: 12px; line-height: 1.15; }
   .mn-adv__opt span { display: block; font-size: 11.5px; color: var(--mn-grey); }
   .mn-adv__opt em { display: block; font-style: normal; font-size: 11px; color: var(--adv-wine); font-weight: 600; }
@@ -52,9 +65,9 @@
   .mn-adv__cta { margin-top: 16px; }
   .mn-adv__ship { margin: 10px 0 0; font-size: 13.5px; text-align: center; }
   .mn-adv__ship b { color: var(--adv-wine); }
-  .mn-adv__pay { margin: 8px 0 0; font-size: 13.5px; color: #333; }
+  .mn-adv__pay { margin: 12px 0 0; font-size: 13.5px; color: #333; text-align: center; }
   .mn-adv__pay b { font-weight: 600; }
-  .mn-adv__icons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .mn-adv__icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
   .mn-adv__icons svg { width: 38px; height: 24px; }
   .mn-adv__trust { list-style: none; padding: 12px 0 0; margin: 14px 0 0; border-top: 1px solid var(--mn-line); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; text-align: center; }
   .mn-adv__trust li { font-size: 12px; line-height: 1.25; color: var(--mn-grey); }
@@ -94,10 +107,12 @@
   .mn-adv-bar__t b { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mn-adv-bar .mn-btn { min-height: 48px; padding: 0 20px; }
   @media (min-width: 990px) { .mn-adv-bar { display: none; } }
+  .mn-wa { transition: bottom .25s var(--mn-ease); }
+  @media (max-width: 989px) { body:has(.mn-adv-bar.is-on) .mn-wa { bottom: calc(80px + env(safe-area-inset-bottom)); } }
 </style>
 
 <div class="mn-adv">
-  {%- if S.band != blank -%}<div class="mn-adv__band">{{ S.band }}</div>{%- endif -%}
+  <div class="mn-adv__band" data-bf="{{ S.bf_end }}" data-ship="{{ S.ship_end }}"><b>{{ S.band }}</b> <span data-band-msg></span> <span data-cd></span></div>
 
   <div class="mn-adv__grid">
     <div>
@@ -106,7 +121,7 @@
           {%- if m.media_type == 'image' -%}
             {%- assign malt = m.alt | downcase -%}
             {%- assign ld = 'lazy' -%}{%- if forloop.first -%}{%- assign ld = 'eager' -%}{%- endif -%}
-            <div class="mn-adv__s{% unless malt contains '#foto' %} is-white{% endunless %}">
+            <div class="mn-adv__s">
               {%- if forloop.first -%}<span class="mn-adv__tag">Edición Navidad 2026</span>{%- endif -%}
               {{ m | image_url: width: 1200 | image_tag: loading: ld, sizes: '(min-width: 990px) 55vw, 86vw', widths: '400, 600, 800, 1000, 1200', alt: product.title }}
             </div>
@@ -118,10 +133,9 @@
     <div class="mn-adv__info">
       <p class="mn-adv__eye">Calendario de Adviento de joyas</p>
       <h1 class="mn-adv__t">{{ short }}</h1>
+      {%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}<a class="mn-adv__stars" href="#opiniones">{%- for i in (1..5) -%}{% render 'mn-icon', i: 'star' %}{%- endfor -%}<b>{{ rating | round: 1 | replace: '.', ',' }}</b> ({{ rcount }})</a>{%- endif -%}
       <p class="mn-adv__sub">{{ S.subtitle }}</p>
-      <div class="mn-adv__price"><b data-adv-price>{{ pr | money_without_trailing_zeros }}</b><span>6 joyas · sale a {{ per | money }} cada una</span></div>
-      <p class="mn-adv__pay">Paga con tarjeta, <b>Bizum</b> o en <b>3 plazos de {{ pr | divided_by: 3 | money }} con Klarna</b>, sin intereses.</p>
-      <div class="mn-adv__icons" aria-label="Métodos de pago">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>
+      <div class="mn-adv__price">{%- if cmp > pr -%}<s>{{ cmp | money_without_trailing_zeros }}</s>{%- endif -%}<b data-adv-price>{{ pr | money_without_trailing_zeros }}</b>{%- if cmp > pr -%}<span class="mn-adv__save">Ahorras {{ cmp | minus: pr | money_without_trailing_zeros }}</span>{%- else -%}<span>6 joyas · sale a {{ per | money }} cada una</span>{%- endif -%}</div>
 
       {%- if coll != blank and coll.products.size > 1 -%}
         <p class="mn-adv__lbl">Elige su calendario</p>
@@ -132,7 +146,7 @@
             <a class="mn-adv__opt{% if p.id == product.id %} is-on{% endif %}" href="{{ p.url }}"{% if p.id == product.id %} aria-current="true"{% endif %}>
               {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: pn }}{%- endif -%}
               <b>{{ pn }}</b>
-              <span>{{ p.price | money_without_trailing_zeros }}</span>
+              <span>{%- if pv.compare_at_price > pv.price -%}<s>{{ pv.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}{{ pv.price | money_without_trailing_zeros }}</span>
               {%- if p.available == false -%}<em>Agotado</em>{%- elsif pv.inventory_management and pv.inventory_quantity < 30 -%}<em>Quedan {{ pv.inventory_quantity }}</em>{%- endif -%}
             </a>
           {%- endfor -%}
@@ -152,6 +166,8 @@
           <button type="button" class="mn-btn mn-btn--block" disabled>Agotado</button>
         {%- endif -%}
       </div>
+      <p class="mn-adv__pay">Paga con tarjeta, <b>Bizum</b> o en <b>3 plazos de {{ pr | divided_by: 3 | money }} con Klarna</b>, sin intereses.</p>
+      <div class="mn-adv__icons" aria-label="Métodos de pago">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>
       {%- if S.ship != blank -%}<p class="mn-adv__ship">{{ S.ship }}</p>{%- endif -%}
 
       <ul class="mn-adv__trust">
@@ -166,7 +182,9 @@
 
   <section class="mn-sec mn-adv-days" style="margin-top:48px">
     <div class="mn-wrap">
-      <div class="mn-head"><div><h2 class="mn-h2">Una joya cada 4 días</h2><p>6 cajones numerados. El primero se abre el 4 de diciembre y el último, en Nochebuena. <span data-adv-count></span></p></div></div>
+      <div class="mn-head"><div><h2 class="mn-h2">Una joya cada 4 días</h2><p>6 cajones numerados. El primero se abre el 4 de diciembre y el último, en Nochebuena.</p></div></div>
+      <p class="mn-adv__lbl" data-cd2-l style="margin-bottom:0">Para abrir el primer cajón faltan</p>
+      <div class="mn-adv-cd" data-cd2 aria-live="off"><div><b data-u="d">–</b><span>días</span></div><div><b data-u="h">–</b><span>horas</span></div><div><b data-u="m">–</b><span>min</span></div><div><b data-u="s">–</b><span>seg</span></div></div>
       <div class="mn-adv-days__row" aria-hidden="true">
         <div class="mn-adv-days__d"><b>4</b><span>dic</span></div>
         <div class="mn-adv-days__d"><b>8</b><span>dic</span></div>
@@ -252,11 +270,23 @@
     root.querySelectorAll('[data-adv-buy]').forEach(function (b) { b.addEventListener('click', function () { buy(b, q); }); });
     var three = root.querySelector('[data-adv-three]');
     if (three) three.addEventListener('click', function () { buy(three, 3); });
-    var cnt = root.querySelector('[data-adv-count]');
-    if (cnt) {
-      var now = new Date(), d = new Date(now.getFullYear(), 11, 4), days = Math.ceil((d - now) / 864e5);
-      if (days > 1) cnt.textContent = 'Faltan ' + days + ' días para el primero.';
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    function parts(ms) { var s = Math.max(0, Math.floor(ms / 1000)); return { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 }; }
+    var band = root.querySelector('.mn-adv__band'), bmsg = root.querySelector('[data-band-msg]'), bcd = root.querySelector('[data-cd]');
+    var bf = Date.parse(band.getAttribute('data-bf') || ''), sh = Date.parse(band.getAttribute('data-ship') || '');
+    var first = new Date(new Date().getFullYear(), 11, 4).getTime();
+    var cd2 = root.querySelector('[data-cd2]');
+    function tick() {
+      var now = Date.now(), t, lbl;
+      if (bf && bf > now) { t = bf; lbl = 'Termina en'; } else if (sh && sh > now) { t = sh; lbl = 'Pide en'; } else { t = 0; }
+      if (t) { var p = parts(t - now); bmsg.textContent = '· ' + lbl; bcd.textContent = (p.d ? p.d + 'd ' : '') + pad(p.h) + ':' + pad(p.m) + ':' + pad(p.s) + (lbl === 'Pide en' ? ' y llega antes del 4 de diciembre' : ''); }
+      else { bmsg.textContent = ''; bcd.textContent = ''; }
+      if (cd2) {
+        if (first > now) { var q = parts(first - now); ['d', 'h', 'm', 's'].forEach(function (u) { cd2.querySelector('[data-u="' + u + '"]').textContent = u === 'd' ? q.d : pad(q[u]); }); }
+        else { cd2.hidden = true; var l = root.querySelector('[data-cd2-l]'); if (l) l.hidden = true; }
+      }
     }
+    tick(); setInterval(tick, 1000);
     var bar = root.querySelector('[data-adv-bar]'), main = root.querySelector('.mn-adv__cta');
     if (bar && main && 'IntersectionObserver' in window) {
       new IntersectionObserver(function (e) { bar.classList.toggle('is-on', !e[0].isIntersecting && e[0].boundingClientRect.top < 0); }).observe(main);
@@ -269,7 +299,9 @@
   "name": "MN · Calendario Adviento",
   "settings": [
     { "type": "collection", "id": "collection", "label": "Colección de calendarios (selector)" },
-    { "type": "text", "id": "band", "label": "Franja superior", "default": "Envío gratis · El primer cajón se abre el 4 de diciembre" },
+    { "type": "text", "id": "band", "label": "Franja superior (texto en negrita)", "default": "BLACK FRIDAY · 3x2 en calendarios" },
+    { "type": "text", "id": "bf_end", "label": "Fin de la oferta (cuenta atrás)", "info": "Formato 2026-11-30T23:59:00+01:00. Ponlo SOLO si el descuento termina de verdad ese día (ley de consumo). Vacío = sin cuenta atrás de oferta." },
+    { "type": "text", "id": "ship_end", "label": "Último día para que llegue antes del 4-dic", "default": "2026-11-27T23:59:00+01:00", "info": "Si no hay fin de oferta, la franja cuenta atrás hasta esta fecha." },
     { "type": "textarea", "id": "subtitle", "label": "Subtítulo", "default": "6 joyas escondidas en 6 cajones. Una sorpresa cada 4 días hasta Nochebuena." },
     { "type": "text", "id": "ship", "label": "Línea de plazo bajo el botón", "default": "Pide antes del 27 de noviembre y llega antes del primer cajón." },
     { "type": "textarea", "id": "faq_time", "label": "FAQ: ¿llega a tiempo?", "default": "Sí, si lo pides antes del 27 de noviembre. El primer cajón se abre el 4 de diciembre, así que tienes margen." },

@@ -6,14 +6,21 @@
         "collection": "calendarios-adviento"
       }
     },
+    "reviews": {
+      "type": "mn-reviews",
+      "settings": {
+        "title": "Lo que dicen de su calendario",
+        "text": ""
+      }
+    },
     "fix": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<style>.mn-pop{display:none!important}</style>",
+        "custom_liquid": "<style>.mn-pop{display:none!important}.mn-bar{display:none!important}</style>",
         "padding_top": 0,
         "padding_bottom": 0
       }
     }
   },
-  "order": ["main", "fix"]
+  "order": ["main", "reviews", "fix"]
 }

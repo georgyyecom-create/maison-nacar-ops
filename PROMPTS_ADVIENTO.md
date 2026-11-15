@@ -10,6 +10,34 @@
 
 ---
 
+## Qué fotos lleva cada calendario y en qué orden
+
+**Formato de todas las fotos de producto: 4:5 vertical (1200 × 1500 px).** La ficha y el selector ya recortan a 4:5, así que no quedan márgenes. Con Gemini, pide «formato vertical 4:5». Las fotos actuales de Yehwang son 2:3 y la web las recorta por arriba y por abajo; quedan bien, pero no tan bien como las nuevas.
+
+**Orden de la galería (el mismo en los 4 calendarios):**
+1. **Portada:** la caja **medio abierta** sobre fondo crema, con una joya saliendo del cajón 24, una ramita de abeto y destellos dorados. Es lo primero que ve quien llega del anuncio, y también la miniatura del selector, así que **la caja tiene que verse grande y centrada**.
+2. **Las 6 joyas** ordenadas delante de la caja abierta (prompt A2).
+3. **Manos abriendo un cajón** junto al árbol (prompt A1).
+4. **POV llevándolo puesto** (prompt A3).
+5. **Envuelta bajo el árbol** (prompt A4).
+6. La foto de Yehwang de **la caja cerrada sobre blanco**, para que se vea el producto real.
+7. La foto de Yehwang de **las joyas sobre blanco**.
+
+En Shopify, arrastra la portada a la primera posición. Las 4 fotos de ambiente (A1–A4) súbelas también a los huecos de «El regalo que dura todo diciembre», desde el editor del tema.
+
+**Ajustes por calendario** (cambia en los prompts el color de la caja y las joyas):
+
+| Calendario | Caja | Joyas | Fondo de la portada |
+|---|---|---|---|
+| Corazón Rojo | Rosa, lazo rosa | Collar y pulseras de corazones rojos, pulsera de bolitas doradas, aros dorados, charm de árbol | Crema con abeto |
+| Corazón Dorado | Rosa, lazo rosa | Collar y pulsera de corazones dorados, aros de corazón, pulsera de cuentas rojas, charm de árbol, pinza perla | Crema con lazo rojo |
+| Estrella Dorada | Roja, lazo rojo | Collar, pulsera y aros de estrellas doradas, anillo de corazón, coletero con lazo, colgante de flores | Granate oscuro con luces doradas |
+| Turquesa | Crema, lazo crema | Collar y pulsera de bolitas plateadas, 2 pulseras turquesa, pendientes y anillo plateados | Blanco nieve con ramas plateadas |
+
+**Prioridad:** primero **la portada del Corazón Rojo** (es el que se anuncia), después sus fotos A1–A4 y, al final, las portadas de los otros 3.
+
+---
+
 ## Fotos de la ficha (huecos A1–A4, formato 4:5)
 
 **A1 · Manos abriendo un cajón**
