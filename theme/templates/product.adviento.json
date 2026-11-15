@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "mn-advent",
+      "settings": {
+        "collection": "calendarios-adviento"
+      }
+    },
+    "fix": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>.mn-pop{display:none!important}</style>",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": ["main", "fix"]
+}
