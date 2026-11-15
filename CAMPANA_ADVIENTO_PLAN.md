@@ -1,15 +1,21 @@
-# Campaña Calendarios de Adviento · plan (15-nov-2026)
+# Campaña Calendarios de Adviento · plan v2 (15-nov-2026)
 
-Hecho con mi criterio (sin ejecutar todavía las skills instaladas) y con los datos reales de las campañas 1–3 (Meta) y de Shopify (5 al 15-nov).
+**Skills ejecutadas:** `ads-meta`, `ads-math`, `ad-creative`, `cro` y `offers`.
+**Datos usados:**
+- Meta: anuncios por ubicación, píxel (eventos y calidad) y públicos.
+- Shopify: sesiones y embudo del 5 al 15-nov.
+- La ficha en un móvil (iPhone 13), con el píxel bloqueado.
 
-## 1. Qué pasó en las 3 pruebas (≈256 €)
+## 1. Auditoría de la cuenta (`ads-meta`)
 
-| Paso | Dato | Lectura |
+| Control | Estado | Detalle |
 |---|---|---|
-| Anuncio → clic | 719 clics, CTR 3–7 %, CPC 0,14–0,79 € | **Los anuncios funcionan.** |
-| Clic → visita real | 96 visitas (13 %) | **Aquí se perdió casi todo el dinero.** |
-| Visita → carrito | 10 carritos en móvil (5 %) | Normal o bueno. |
-| Carrito → pago | 2 pagos iniciados, 0 compras | Pocos datos, pero es flojo. |
+| Píxel y API de conversiones | ✅ | Eventos en tiempo real. Calidad de coincidencia: 6,8 (PageView) a 7,7 (InitiateCheckout). |
+| Historial de compras | ❌ arranque en frío | Solo hay 2 eventos «Purchase», del 4-nov: la compra de prueba. |
+| Datos limpios | ❌ | Mis pruebas automáticas de la tienda dispararon el píxel. El 7-nov hubo 74 AddToCart y hoy 405 PageView, de robots. También explica las 493 sesiones de ordenador con un 94 % de rebote. **Arreglado:** desde hoy todas las pruebas bloquean el píxel. |
+| Públicos personalizados | ❌ | Ninguno. Nunca se ha hecho retargeting. |
+| Ubicaciones | ⚠️ | 719 clics y solo 96 visitas (13 %). |
+| Optimización | ⚠️ | «Compra» sin compras previas: Meta no tenía de qué aprender. |
 
 Visitas que llegan a la web, por ubicación:
 
@@ -21,86 +27,126 @@ Visitas que llegan a la web, por ubicación:
 | Reels de Facebook | 11 |
 | Reels de Instagram | 4 |
 
-**Coste real por visita: unos 2,60 €.** Es la cifra que nos mató.
+## 2. Números (`ads-math`)
 
-**Por qué pasó:** las campañas optimizaban «Compra» con una cuenta sin ninguna compra. Meta no tenía de quién aprender y buscó a quien hace clic barato: toques sin querer y gente que cierra antes de cargar.
+**Fórmulas:**
+- Margen = precio − coste de Yehwang − comisión de pago.
+- CPA máximo = margen.
+- ROAS mínimo = precio ÷ margen.
 
-## 2. Números del calendario
+| Caso | Margen | CPA máximo | ROAS mínimo |
+|---|---|---|---|
+| Sin ingresar IVA (situación actual) | 69 − 32 − 1,6 = **35,4 €** | 35 € | 1,95 |
+| Ingresando IVA del 21 % (si te das de alta) | 57,0 − 32 − 1,6 = **23,4 €** | 23 € | 2,95 |
 
-- **Margen de un calendario:** 69 € − ~32 € de coste − ~1,6 € de pago ≈ **35 €**.
-- **CPA máximo para no perder: 35 €.** ROAS mínimo: 2,0.
-- **3 por 138 €:** ≈42 € de margen, apenas más que uno. No empujar el 3x2 como gancho.
+Escenarios con 150 €:
 
-Cuánto tiene que convertir la web para no perder:
+| Escenario | € por visita | Visita → carrito | Carrito → compra | Ventas | Resultado (sin IVA) |
+|---|---|---|---|---|---|
+| Bajo (como antes) | 2,70 | 5 % | 20 % | 0,6 | **−130 €** |
+| Medio | 1,20 | 5 % | 35 % | 2,2 | **−73 €** |
+| Alto | 0,70 | 6 % | 45 % | 5,8 | **+55 €** |
 
-| Coste por visita | Conversión necesaria |
-|---|---|
-| 2,60 € (lo de antes) | 7,4 % → imposible |
-| 1,00 € | 2,9 % → difícil |
-| 0,70 € | 2,0 % → realista |
+**Lectura:** con 150 € solo se gana dinero en el escenario alto, y solo sin ingresar IVA. La prueba sirve para **aprender si el producto vende**, no para ganar. Por eso hay que bajar el riesgo antes de gastar (puntos 3 y 4).
 
-**Conclusión:** con 150 € y el coste por visita de antes salen unas 58 visitas y ~1 venta, es decir, se pierde seguro. **Lo único que cambia el resultado es bajar el coste por visita real a 1 € o menos.** Todo el plan va a eso.
+## 3. Oferta (`offers`, ecuación de valor)
 
-## 3. Qué cambia frente a las pruebas anteriores
-
-### A. Optimizar «Visitas a la página de destino», no «Compra»
-- Meta cobra igual, pero busca a gente que **sí carga la página**. Ataca directamente el 13 %.
-- Con 0 compras en la cuenta, la optimización por compra no aprende con 150 €.
-- Cuando haya 3 o más compras, se pasa a «Compra».
-
-### B. Solo Instagram, feed + Stories, solo móvil
-- Son las 2 ubicaciones que mejor llegaron (26 % y 20 %).
-- Fuera los Reels (4 %) y todo Facebook.
-
-### C. Dos conjuntos, no uno
-1. **Frío · 18 €/día:** mujeres de 25 a 55 años, España, sugerencia A+A.
-2. **Caliente · 7 €/día:** las ~700 visitas a la web en 30 días + quien interactuó con el IG o la página de Facebook en 60 días.
-   - Mensaje: «Los viste. Llegan antes del 4 de diciembre».
-   - Es el público más barato de convertir y nunca lo hemos usado.
-
-### D. Creativos: 3 anuncios, uno por ángulo
-1. **Vídeo** abriendo cajones (Veo, `PROMPTS_ADVIENTO.md`).
-   - Primer segundo: la mano abre el cajón y brilla la joya.
-   - Texto: «6 joyas en 6 cajones · 69 €».
-2. **Estática «para ella»:** el calendario cerrado con lazo y el texto «El regalo que dura 24 días».
-3. **Estática «lo que hay dentro»:** las 6 joyas en fila con los días 4, 8, 12, 16, 20 y 24 y el precio. Es la que quita la duda de «¿qué trae?».
-
-Reglas comunes:
-- Primera línea del texto: «6 joyas en 6 cajones · 69 € · envío gratis · llega antes del 4-dic».
-- Nada de «oro» a secas, ni de clientas falsas, ni de estrellas.
-
-### E. Página
-- Ya va rápida: LCP de 1,5–2,2 s en 4G simulado (antes 3,9–6,2 s).
-- El enlace va **directo al Corazón Rojo** (116 unidades) con UTM.
-- **Bloqueantes antes de gastar un euro:**
-  1. Quitar las estrellas 4,9 (478) y el tachado de 99 € del Corazón Rojo. Si alguien lo ve, la marca muere, y además es ilegal.
-  2. Publicar la v20.19.
-  3. Ocultar Bizum manual.
-  4. Hacer una compra de prueba y comprobar que el píxel registra la «Compra».
-  5. Confirmar por escrito con Yehwang el plazo y si el paquete lleva precio o albarán.
-
-### F. Tráfico gratis en paralelo
-- **Google, fichas gratuitas:** con el canal de Google en Shopify, el calendario sale en Google Shopping sin pagar, ante gente que busca «calendario adviento joyas». Es tráfico con intención de compra.
-- **Conocidos:** vender 3–5 a gente cercana. Son las primeras ventas reales y permiten fotos y opiniones de verdad.
-- **Estados de WhatsApp e Instagram propios:** no es mensaje directo en frío, así que no choca con la LSSI.
-
-## 4. Calendario y cortes
-
-**Ventana:** del 18 al 23-nov, tope de 150 €. Apagar el 24-nov pase lo que pase.
-
-| Momento | Si pasa esto | Hacer |
+| Palanca | Nota | Por qué |
 |---|---|---|
-| Días 1–2 | — | No tocar. |
-| 40 € gastados | Coste por visita > 1,20 € | Cambiar el creativo. |
-| 40 € gastados | 0 carritos | Cambiar el creativo o el ángulo. |
-| 80 € gastados | Carritos pero ningún pago | Problema de confianza o de pago: revisar la caja y el checkout. |
-| 150 € gastados | 0 ventas | Fin de Meta para Maison Nácar. |
-| En cualquier momento | CPA < 35 € | Subir un 20 % cada 48 h hasta el 27-nov. |
+| Resultado soñado | 8/10 | Seis sorpresas para ella hasta Nochebuena. |
+| **Probabilidad percibida** | **3/10** | Es el freno principal: marca nueva, 0 reseñas y fotos de IA. Y las estrellas falsas, si alguien las detecta, hunden la confianza. |
+| Tiempo de espera | 7/10 | Llega antes del 4-dic. |
+| Esfuerzo | 8/10 | Un clic y viene en caja regalo. |
 
-**Mirar cada día en Shopify:** sesiones desde Instagram, carritos y pagos. Meta se queda corto por el banner de cookies.
+**Cambio único de esta ronda: subir la confianza.**
+1. **Pedir ya 1 Corazón Rojo a Yehwang (~32 €).**
+   - Llega hacia el 20-nov.
+   - Con él grabas el unboxing real con el móvil: tus manos abriendo los cajones. Sirve para la ficha, los anuncios y los Stories.
+   - Es la prueba honesta que hoy no existe.
+   - Luego lo regalas o lo vendes.
+2. **Quitar lo falso:** las estrellas 4,9 (478) y el tachado de 99 € («Ahorras 30 €»). Hoy salen en la primera pantalla.
+3. **Urgencia, solo la real:**
+   - Fecha límite de pedido para que llegue antes del 4-dic (pendiente de que Yehwang la confirme).
+   - El 3x2 termina el 30-nov.
+   - Unidades reales en «Quedan X».
+4. **El 3x2 no va de gancho.** Apenas da margen extra (42 € frente a 35 €). Se queda en la ficha para quien quiera 3.
 
-## 5. Probabilidad, siendo honestos
+## 4. Ficha (`cro`, captura del móvil)
 
-Si se cumple lo de arriba (visita ≤ 1 €, conversión del 2–3 %), con 150 € salen unas **4–6 ventas**: entre empatar y ganar poco. Si el coste por visita sigue en 2,60 €, se pierde: por eso el corte de los 40 €.
+**Arreglos rápidos:**
+1. Quitar las estrellas falsas y el tachado (punto 3).
+2. **El precio y el botón no se ven en la primera pantalla:**
+   - la foto ocupa casi todo;
+   - el banner de cookies tapa justo esa zona.
+   - Arreglo: foto más baja en el móvil y la línea «69 € · envío gratis · llega antes del 4-dic» junto al título.
+3. **El banner de cookies es grande:**
+   - hacerlo más pequeño;
+   - mientras nadie acepta, el píxel no cuenta la visita. Es una de las razones de que Meta vea pocas visitas.
+4. Ocultar Bizum manual en «Tarjeta, Bizum o…».
 
-Lo que más sube las opciones no es Meta, sino la lista de bloqueantes del punto E y las primeras ventas a conocidos.
+**Cambios importantes:**
+- En cuanto llegue la muestra, poner arriba en la galería el vídeo o la foto real del unboxing.
+- La foto 2 (proveedor, «ADVENT CALENDAR» en inglés) va a la cuarta posición.
+
+**Ideas para probar:**
+- Abrir con el bloque «Qué hay dentro» con fotos de las 6 joyas, frente a la ficha actual.
+
+## 5. Creativos (`ad-creative`, a partir de los datos)
+
+**Lo que ganó** (CTR del 7 % o más):
+- B3 «lo que quería» y A3 «llegan 3»: situaciones concretas en formato POV y en primera persona.
+
+**Lo que perdió** (CTR por debajo del 3 %):
+- Las comparativas (C1, C2) y el espejo genérico.
+
+**Falta:**
+- No hay reseñas ni comentarios reales que usar. No se inventa ninguno.
+
+| # | Formato (nivel en la skill) | Gancho (imagen + texto) | Hipótesis que puede fallar |
+|---|---|---|---|
+| 1 | **Fundador** (S) | Tú, con el calendario real: «Monté una tienda de joyas en Almería. Este es el regalo que más me piden» (solo si es cierto; si no: «el que más me gusta»). | Coste por visita al menos un 20 % menor que el anuncio 2. |
+| 2 | **Unboxing POV**, vídeo real o Veo | Visual: la mano abre el cajón 4 y sale el collar. Texto: «POV: el 4 de diciembre abre el primer cajón». | CTR ≥ 3 % y al menos un 30 % de clics que llegan, en Stories de IG. |
+| 3 | **Cuadrícula estática** (A) | Las 6 joyas en fila con los días 4·8·12·16·20·24. Titular: «6 joyas, 6 cajones, 69 €». | Más carritos por visita que el 1 y el 2, porque responde a «¿qué trae?». |
+
+Textos (Meta: 125 caracteres visibles y titular de 40 como máximo):
+- **Texto principal:** «Seis joyas, una cada cuatro días, hasta Nochebuena. 69 €, envío gratis y llega antes del 4 de diciembre.» (104)
+- **Titulares:**
+  - «El regalo que dura hasta Nochebuena» (35)
+  - «6 joyas en 6 cajones · 69 €» (27)
+  - «Para ella, abrir un cajón cada 4 días» (37)
+- **Reglas:**
+  - Sin rayas largas ni «no es X, es Y».
+  - Sin «oro» a secas: «baño de oro 18k».
+  - Sin clientas inventadas.
+  - Si sale gente creada con IA, va en formato POV.
+
+## 6. Estructura de la campaña
+
+- **Objetivo:** Ventas, optimizando **«Visitas a la página de destino»** hasta tener 3 compras; después, «Compra».
+- **Ubicaciones:** solo feed y Stories de Instagram, solo móvil.
+- **Conjunto frío (18 €/día):** mujeres de 25 a 55 años, España, con los 3 anuncios.
+- **Conjunto caliente (7 €/día):** visitantes de la web en 30 días + interacciones con IG y Facebook en 60 días. Hay que crear los públicos; los preparo en pausa.
+- **Fechas:** del 18 al 23-nov, tope de 150 €, se apaga el 24-nov.
+
+**Cortes:**
+
+| Gasto | Si pasa esto | Hacer |
+|---|---|---|
+| 40 € | Visita > 1,20 € o 0 carritos | Cambiar el creativo. |
+| 80 € | Carritos y 0 compras | Revisar la confianza y el pago. |
+| 150 € | 0 ventas | Fin de Meta para Maison Nácar. |
+| En cualquier momento | CPA < 35 € | Subir un 20 % cada 48 h. |
+
+## 7. Orden de trabajo
+
+1. **Hoy:**
+   - quitar las estrellas y el tachado;
+   - ocultar Bizum;
+   - pedir la muestra a Yehwang y preguntarle el plazo y si el paquete lleva albarán.
+2. **Yo:** ajustar la ficha (precio en la primera pantalla y banner de cookies) en un tema nuevo, y crear los públicos en pausa.
+3. **Tú:** publicar el tema y hacer una compra de prueba con el píxel.
+4. **18-nov:** lanzar con los anuncios 2 y 3. El anuncio 1 (fundador) entra cuando llegue la muestra.
+5. **En paralelo:**
+   - Google Shopping gratis (canal de Google en Shopify);
+   - vender 3–5 a conocidos;
+   - publicar en tus Stories.
