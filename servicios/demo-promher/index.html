@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROMHER Inmobiliaria · El Ejido (demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#14231c;--muted:#5d6b64;--bg:#faf7f2;--card:#fff;--line:#e6e0d6;--accent:#1f5b43;--accent2:#c8744a;--soft:#efe8dc}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif}
+  a{color:inherit}
+  .demo{background:#14231c;color:#f3efe7;font-size:12px;text-align:center;padding:6px 16px}
+  header{position:sticky;top:0;z-index:5;background:rgba(250,247,242,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{max-width:1080px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+  .logo{font-family:Fraunces,serif;font-weight:600;font-size:20px;letter-spacing:.5px}
+  .logo small{display:block;font:500 10px Inter;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+  .sp{flex:1}
+  .lang{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden}
+  .lang button{border:0;background:none;padding:6px 9px;font:600 12px Inter;color:var(--muted);cursor:pointer}
+  .lang button.on{background:var(--ink);color:#fff}
+  .wa{background:var(--accent);color:#fff;text-decoration:none;border-radius:99px;padding:8px 14px;font-weight:600;font-size:14px;white-space:nowrap}
+  @media(max-width:480px){.bar .wa{display:none}.lang button{padding:6px 8px}}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+  .hero{padding:40px 0 28px;display:grid;gap:24px}
+  @media(min-width:900px){.hero{grid-template-columns:1.1fr .9fr;align-items:center;padding:64px 0}}
+  h1{font-family:Fraunces,serif;font-weight:500;font-size:clamp(32px,7vw,52px);line-height:1.05;margin:0 0 14px}
+  .lead{color:var(--muted);font-size:17px;margin:0 0 18px;max-width:46ch}
+  .stars{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+  .stars b{color:var(--ink)}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+  .btn{display:inline-block;border-radius:12px;padding:13px 18px;font-weight:600;text-decoration:none;border:1px solid var(--ink)}
+  .btn.p{background:var(--ink);color:#fff}
+  .form{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 10px 30px rgba(20,35,28,.06)}
+  .form h2{font-family:Fraunces,serif;font-weight:500;font-size:24px;margin:0 0 4px}
+  .form p{margin:0 0 14px;color:var(--muted);font-size:14px}
+  label{display:block;font-size:13px;font-weight:600;margin:10px 0 4px}
+  input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .chk{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);margin:12px 0}
+  .chk input{width:auto;margin-top:3px}
+  .send{width:100%;background:var(--accent2);color:#fff;border:0;border-radius:12px;padding:14px;font:600 16px Inter;cursor:pointer}
+  .ok{display:none;background:#e7f1ec;border-radius:12px;padding:14px;font-size:14px;margin-top:10px}
+  section{padding:36px 0}
+  h2.t{font-family:Fraunces,serif;font-weight:500;font-size:clamp(26px,5vw,36px);margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 20px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .home{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .ph{aspect-ratio:4/3;position:relative}
+  .ph svg{width:100%;height:100%;display:block}
+  .tag{position:absolute;top:10px;left:10px;background:#fff;border-radius:99px;padding:4px 10px;font-size:12px;font-weight:600}
+  .home .in{padding:14px 16px}
+  .price{font-family:Fraunces,serif;font-size:24px}
+  .meta{color:var(--muted);font-size:14px}
+  .ba{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;max-width:760px;background:#ddd;user-select:none}
+  .ba svg{position:absolute;inset:0;width:100%;height:100%}
+  .ba .after{clip-path:inset(0 0 0 50%)}
+  .ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;padding:0}
+  .ba .knob{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;pointer-events:none}
+  .ba .knob::after{content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:99px;width:36px;height:36px;display:grid;place-items:center;font-size:16px}
+  .lbl{position:absolute;bottom:10px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:4px 10px;border-radius:99px}
+  .why{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .why div{background:var(--soft);border-radius:16px;padding:18px}
+  .why b{display:block;font-family:Fraunces,serif;font-weight:500;font-size:20px;margin-bottom:4px}
+  .contact{background:var(--ink);color:#f3efe7;border-radius:22px;padding:26px}
+  .contact a{color:#fff}
+  footer{color:var(--muted);font-size:12px;text-align:center;padding:30px 16px 90px}
+  .float{position:fixed;right:16px;bottom:16px;background:#25d366;color:#fff;border-radius:99px;padding:13px 18px;font-weight:600;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+</style>
+</head>
+<body>
+<div class="demo">Demo preparada por Georgy Symonov para PROMHER · no es la web oficial · los pisos son de ejemplo</div>
+<header><div class="bar">
+  <div class="logo">PROMHER<small>Inmobiliaria · El Ejido</small></div>
+  <div class="sp"></div>
+  <div class="lang"><button data-l="es" class="on">ES</button><button data-l="en">EN</button><button data-l="de">DE</button><button data-l="fr">FR</button></div>
+  <a class="wa" href="#contacto" data-i="wa">WhatsApp</a>
+</div></header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1 data-i="h1">Vende tu casa en El Ejido con quien conoce cada calle.</h1>
+      <p class="lead" data-i="lead">Valoramos tu vivienda gratis en 24 horas y la mostramos a compradores de España y de toda Europa.</p>
+      <div class="stars"><span style="color:#e3a11b">★★★★★</span><span><b>4,5</b> · <span data-i="rev">59 opiniones en Google</span></span></div>
+      <div class="cta"><a class="btn p" href="#valora" data-i="c1">Valora tu casa gratis</a><a class="btn" href="#pisos" data-i="c2">Ver viviendas</a></div>
+    </div>
+    <form class="form" id="valora" onsubmit="event.preventDefault();this.querySelector('.ok').style.display='block'">
+      <h2 data-i="fh">¿Cuánto vale tu casa?</h2>
+      <p data-i="fp">Cuatro datos y te llamamos con una valoración real, sin compromiso.</p>
+      <label data-i="f1">Tipo de vivienda</label>
+      <select><option data-i="o1">Piso</option><option data-i="o2">Casa / chalet</option><option data-i="o3">Dúplex o ático</option><option data-i="o4">Terreno o finca</option></select>
+      <div class="row">
+        <div><label data-i="f2">Zona</label><select><option>El Ejido</option><option>Santa María del Águila</option><option>Almerimar</option><option>Las Norias</option><option>San Agustín</option><option>Balerma</option></select></div>
+        <div><label data-i="f3">Metros (aprox.)</label><input inputmode="numeric" placeholder="90"></div>
+      </div>
+      <label data-i="f4">Teléfono</label><input type="tel" placeholder="600 000 000" required>
+      <div class="chk"><input type="checkbox" required id="rgpd"><label for="rgpd" style="margin:0;font-weight:400" data-i="rg">Acepto que PROMHER Inmobiliaria use mis datos para contactarme sobre la valoración. Política de privacidad.</label></div>
+      <button class="send" data-i="fs">Quiero mi valoración gratis</button>
+      <div class="ok" data-i="okm">¡Gracias! Te llamamos en menos de 24 horas.</div>
+    </form>
+  </div>
+
+  <section id="pisos">
+    <h2 class="t" data-i="ph">Viviendas destacadas</h2>
+    <p class="sub" data-i="ps">Se actualizan solas desde nuestro programa de gestión.</p>
+    <div class="grid">
+      <article class="home"><div class="ph"><svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#d9cbb5"/><rect y="200" width="400" height="100" fill="#b9a88d"/><rect x="90" y="70" width="220" height="140" fill="#f4ede1"/><rect x="120" y="100" width="50" height="50" fill="#8fb3c9"/><rect x="230" y="100" width="50" height="50" fill="#8fb3c9"/><rect x="180" y="150" width="40" height="60" fill="#7a5a3c"/><polygon points="80,72 200,20 320,72" fill="#a4553a"/></svg><span class="tag" data-i="t1">Nuevo</span></div>
+        <div class="in"><div class="price">168.000 €</div><div class="meta" data-i="h1m">Piso · 3 hab. · 2 baños · 105 m² · El Ejido centro</div></div></article>
+      <article class="home"><div class="ph"><svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#bcd6e6"/><rect y="210" width="400" height="90" fill="#4f8fb8"/><rect x="60" y="80" width="280" height="130" fill="#fbf7f0"/><rect x="85" y="105" width="70" height="45" fill="#7da5bf"/><rect x="175" y="105" width="70" height="45" fill="#7da5bf"/><rect x="265" y="105" width="50" height="45" fill="#7da5bf"/><rect x="60" y="160" width="280" height="8" fill="#ddd2c1"/></svg><span class="tag" data-i="t2">Vistas al mar</span></div>
+        <div class="in"><div class="price">239.000 €</div><div class="meta" data-i="h2m">Ático · 2 hab. · terraza 30 m² · Almerimar</div></div></article>
+      <article class="home"><div class="ph"><svg viewBox="0 0 400 300"><rect width="400" height="300" fill="#e7dcc6"/><rect y="215" width="400" height="85" fill="#9bb07a"/><rect x="70" y="95" width="260" height="120" fill="#fff8ec"/><polygon points="60,98 200,40 340,98" fill="#b35f3d"/><rect x="100" y="125" width="55" height="45" fill="#9cbcd0"/><rect x="245" y="125" width="55" height="45" fill="#9cbcd0"/><rect x="178" y="150" width="44" height="65" fill="#6f4f33"/><circle cx="350" cy="190" r="26" fill="#6e8f4f"/></svg><span class="tag" data-i="t3">Con piscina</span></div>
+        <div class="in"><div class="price">315.000 €</div><div class="meta" data-i="h3m">Chalet · 4 hab. · parcela 400 m² · Santa María del Águila</div></div></article>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="t" data-i="vh">Pisos vacíos que se ven como un hogar</h2>
+    <p class="sub" data-i="vs">Amueblamos las fotos de forma virtual para que el comprador se imagine viviendo allí. Desliza para comparar.</p>
+    <div class="ba" id="ba">
+      <svg viewBox="0 0 800 500"><rect width="800" height="500" fill="#efe9df"/><rect y="360" width="800" height="140" fill="#d8c8ae"/><rect x="480" y="90" width="200" height="200" fill="#bfd6e4" stroke="#fff" stroke-width="10"/></svg>
+      <svg class="after" viewBox="0 0 800 500"><rect width="800" height="500" fill="#efe9df"/><rect y="360" width="800" height="140" fill="#d8c8ae"/><rect x="480" y="90" width="200" height="200" fill="#bfd6e4" stroke="#fff" stroke-width="10"/><rect x="460" y="300" width="250" height="40" fill="#e9dfcf"/><rect x="90" y="300" width="300" height="80" rx="16" fill="#5f7a6a"/><rect x="90" y="270" width="300" height="45" rx="16" fill="#6f8b7a"/><rect x="150" y="395" width="180" height="20" rx="8" fill="#8a6a4b"/><ellipse cx="240" cy="440" rx="190" ry="26" fill="#cdb894"/><rect x="120" y="120" width="140" height="100" fill="#f7f2ea" stroke="#8a6a4b" stroke-width="6"/><circle cx="720" cy="330" r="34" fill="#6e8f4f"/><rect x="710" y="350" width="20" height="30" fill="#a4553a"/></svg>
+      <span class="lbl" style="left:10px" data-i="b1">Antes</span><span class="lbl" style="right:10px" data-i="b2">Amueblado virtual</span>
+      <div class="knob" id="knob"></div>
+      <input type="range" min="0" max="100" value="50" aria-label="Comparar antes y después" id="rng">
+    </div>
+  </section>
+
+  <section>
+    <h2 class="t" data-i="wh">¿Por qué PROMHER?</h2>
+    <div class="why">
+      <div><b data-i="w1">Del Ejido, de toda la vida</b><span data-i="w1t">Conocemos cada barrio, cada precio y cada comprador de la zona.</span></div>
+      <div><b data-i="w2">Compradores de toda Europa</b><span data-i="w2t">Tu casa, en español, inglés, alemán y francés.</span></div>
+      <div><b data-i="w3">Fotos que venden</b><span data-i="w3t">Fotos cuidadas y amueblado virtual para los pisos vacíos.</span></div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="contact">
+      <h2 class="t" style="color:#fff" data-i="ch">Pásate o escríbenos</h2>
+      <p>C. Carrera San Isidro, 2 · 04700 El Ejido<br><a href="tel:+34620904415">620 90 44 15</a></p>
+      <p><a class="btn p" style="background:#25d366;border-color:#25d366" href="#" data-i="wa2">Escríbenos por WhatsApp</a></p>
+    </div>
+  </section>
+</main>
+<footer>Demo · Inmobiliaria PROMHER · El Ejido (Almería)</footer>
+<a class="float" href="#valora" data-i="fl">Valora tu casa</a>
+
+<script>
+const T={
+en:{wa:"WhatsApp",h1:"Sell your home in El Ejido with people who know every street.",lead:"Free valuation in 24 hours, and we show your home to buyers from Spain and all over Europe.",rev:"59 reviews on Google",c1:"Free home valuation",c2:"See homes",fh:"What is your home worth?",fp:"Four details and we call you with a real valuation, no strings attached.",f1:"Type of home",o1:"Apartment",o2:"House / villa",o3:"Duplex or penthouse",o4:"Land or farm",f2:"Area",f3:"Size (m², approx.)",f4:"Phone",rg:"I agree that PROMHER Inmobiliaria may use my details to contact me about the valuation. Privacy policy.",fs:"Get my free valuation",okm:"Thank you! We'll call you within 24 hours.",ph:"Featured homes",ps:"Updated automatically from our property software.",t1:"New",t2:"Sea views",t3:"With pool",h1m:"Apartment · 3 bed · 2 bath · 105 m² · El Ejido centre",h2m:"Penthouse · 2 bed · 30 m² terrace · Almerimar",h3m:"Villa · 4 bed · 400 m² plot · Santa María del Águila",vh:"Empty homes that look like home",vs:"We virtually furnish the photos so buyers can picture living there. Slide to compare.",b1:"Before",b2:"Virtually furnished",wh:"Why PROMHER?",w1:"Local, born and raised",w1t:"We know every neighbourhood, price and buyer in the area.",w2:"Buyers from all over Europe",w2t:"Your home, in Spanish, English, German and French.",w3:"Photos that sell",w3t:"Great photos and virtual staging for empty homes.",ch:"Visit us or send a message",wa2:"Message us on WhatsApp",fl:"Value your home"},
+de:{wa:"WhatsApp",h1:"Verkaufen Sie Ihr Haus in El Ejido mit Leuten, die jede Straße kennen.",lead:"Kostenlose Bewertung in 24 Stunden – wir zeigen Ihr Haus Käufern aus Spanien und ganz Europa.",rev:"59 Bewertungen bei Google",c1:"Kostenlose Bewertung",c2:"Immobilien ansehen",fh:"Was ist Ihr Haus wert?",fp:"Vier Angaben, und wir rufen Sie mit einer echten Bewertung an – unverbindlich.",f1:"Art der Immobilie",o1:"Wohnung",o2:"Haus / Villa",o3:"Maisonette oder Penthouse",o4:"Grundstück oder Finca",f2:"Gegend",f3:"Größe (m², ca.)",f4:"Telefon",rg:"Ich bin einverstanden, dass PROMHER Inmobiliaria meine Daten nutzt, um mich wegen der Bewertung zu kontaktieren. Datenschutz.",fs:"Kostenlose Bewertung anfordern",okm:"Danke! Wir rufen Sie innerhalb von 24 Stunden an.",ph:"Ausgewählte Immobilien",ps:"Automatisch aus unserer Software aktualisiert.",t1:"Neu",t2:"Meerblick",t3:"Mit Pool",h1m:"Wohnung · 3 Zi. · 2 Bäder · 105 m² · El Ejido Zentrum",h2m:"Penthouse · 2 Zi. · 30 m² Terrasse · Almerimar",h3m:"Villa · 4 Zi. · 400 m² Grundstück · Santa María del Águila",vh:"Leere Wohnungen, die wie ein Zuhause wirken",vs:"Wir möblieren die Fotos virtuell. Zum Vergleichen schieben.",b1:"Vorher",b2:"Virtuell möbliert",wh:"Warum PROMHER?",w1:"Von hier, seit jeher",w1t:"Wir kennen jedes Viertel, jeden Preis und jeden Käufer.",w2:"Käufer aus ganz Europa",w2t:"Ihr Haus auf Spanisch, Englisch, Deutsch und Französisch.",w3:"Fotos, die verkaufen",w3t:"Gute Fotos und virtuelles Home Staging.",ch:"Besuchen Sie uns oder schreiben Sie uns",wa2:"Per WhatsApp schreiben",fl:"Haus bewerten"},
+fr:{wa:"WhatsApp",h1:"Vendez votre maison à El Ejido avec ceux qui connaissent chaque rue.",lead:"Estimation gratuite en 24 heures, et votre bien présenté aux acheteurs d'Espagne et de toute l'Europe.",rev:"59 avis sur Google",c1:"Estimation gratuite",c2:"Voir les biens",fh:"Combien vaut votre maison ?",fp:"Quatre informations et nous vous appelons avec une estimation réelle, sans engagement.",f1:"Type de bien",o1:"Appartement",o2:"Maison / villa",o3:"Duplex ou attique",o4:"Terrain ou finca",f2:"Secteur",f3:"Surface (m², env.)",f4:"Téléphone",rg:"J'accepte que PROMHER Inmobiliaria utilise mes données pour me contacter au sujet de l'estimation. Politique de confidentialité.",fs:"Recevoir mon estimation",okm:"Merci ! Nous vous appelons sous 24 heures.",ph:"Biens à la une",ps:"Mis à jour automatiquement depuis notre logiciel.",t1:"Nouveau",t2:"Vue mer",t3:"Avec piscine",h1m:"Appartement · 3 ch. · 2 sdb · 105 m² · centre d'El Ejido",h2m:"Attique · 2 ch. · terrasse 30 m² · Almerimar",h3m:"Villa · 4 ch. · terrain 400 m² · Santa María del Águila",vh:"Des logements vides qui ressemblent à un foyer",vs:"Nous meublons les photos virtuellement. Glissez pour comparer.",b1:"Avant",b2:"Meublé virtuellement",wh:"Pourquoi PROMHER ?",w1:"D'ici, depuis toujours",w1t:"Nous connaissons chaque quartier, chaque prix et chaque acheteur.",w2:"Des acheteurs de toute l'Europe",w2t:"Votre bien en espagnol, anglais, allemand et français.",w3:"Des photos qui vendent",w3t:"De belles photos et du home staging virtuel.",ch:"Passez nous voir ou écrivez-nous",wa2:"Écrivez-nous sur WhatsApp",fl:"Estimer ma maison"}};
+const ES={};document.querySelectorAll('[data-i]').forEach(e=>ES[e.dataset.i]=e.textContent);T.es=ES;
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{const l=b.dataset.l;document.documentElement.lang=l;
+  document.querySelectorAll('.lang button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('[data-i]').forEach(e=>{const v=T[l][e.dataset.i];if(v)e.textContent=v;});});
+const rng=document.getElementById('rng'),aft=document.querySelector('.ba .after'),kn=document.getElementById('knob');
+rng.oninput=()=>{aft.style.clipPath=`inset(0 0 0 ${rng.value}%)`;kn.style.left=rng.value+'%';};
+</script>
+</body>
+</html>
