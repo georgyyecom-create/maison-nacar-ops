@@ -1,11 +1,143 @@
 {
   "version": 2,
   "skills": {
+    "ab-testing": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/ab-testing/SKILL.md",
+      "computedHash": "56e4fd344bf686d5d3a083b2728a9fd65f173f047a6535eeb05712dd7ee10f13"
+    },
+    "ad-creative": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/ad-creative/SKILL.md",
+      "computedHash": "24cbcb16e03336bf568175d2ddad0aa772c493ea48deb44431bd23cfc16489d7"
+    },
+    "ads": {
+      "source": "AgriciDaniel/claude-ads",
+      "sourceType": "github",
+      "skillPath": "ads/SKILL.md",
+      "computedHash": "7bd4ef88eb53d72e048216073735a8ad604618619f90f3da61e75a8b4fca4c3d"
+    },
+    "ads-budget": {
+      "source": "AgriciDaniel/claude-ads",
+      "sourceType": "github",
+      "skillPath": "skills/ads-budget/SKILL.md",
+      "computedHash": "a6a1eb9dc6c25a162cf3cfebe119dc476b8887f6d55a7a00def14b306d58ea4b"
+    },
+    "ads-math": {
+      "source": "AgriciDaniel/claude-ads",
+      "sourceType": "github",
+      "skillPath": "skills/ads-math/SKILL.md",
+      "computedHash": "d9fc4b8c887b2046ff1e66012cb7f70075126171ead39cd155d89df7649259d7"
+    },
+    "ads-meta": {
+      "source": "AgriciDaniel/claude-ads",
+      "sourceType": "github",
+      "skillPath": "skills/ads-meta/SKILL.md",
+      "computedHash": "8879df50a1b9505862e9fea5df7957135419db26c1b5391ff2339d071dca1c4c"
+    },
+    "ai-seo": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/ai-seo/SKILL.md",
+      "computedHash": "5b5dbb143389784211c56e357e20bd44a12c3a0245dbf6dcfbb40348daaaf4ef"
+    },
+    "apify-ultimate-scraper": {
+      "source": "apify/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/apify-ultimate-scraper/SKILL.md",
+      "computedHash": "2b2402b1dda9c0e083632455ead9fac2f143455b403e80c4b9e9a02cac5d9827"
+    },
+    "copywriting": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/copywriting/SKILL.md",
+      "computedHash": "b948ac03ec661626b8fc198786ecf761a97e0dacf626cb90d3b5016e9e3baf2f"
+    },
+    "cro": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/cro/SKILL.md",
+      "computedHash": "cc8040529654755144b4dedce5f075ead4667969978257596a05fa4282a5b42f"
+    },
+    "dropshipping-product-research": {
+      "source": "nexscope-ai/eCommerce-Skills",
+      "sourceType": "github",
+      "skillPath": "dropshipping-product-research/SKILL.md",
+      "computedHash": "2aa4113470215aecf55e8e75c90a38009f62cb63aa2807d38b984b75d17fe39e"
+    },
+    "ecommerce-checkout-optimization": {
+      "source": "nexscope-ai/eCommerce-Skills",
+      "sourceType": "github",
+      "skillPath": "ecommerce-checkout-optimization/SKILL.md",
+      "computedHash": "89268be2e5997eab18c064f7f18703acc480e2446890e5353aeaa1daa37d1dc6"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
       "skillPath": "skills/find-skills/SKILL.md",
       "computedHash": "7bc223e2aafbdbf6e50ea243ba6ef67fe432bb069ab439fea0390795dac0bf7f"
+    },
+    "offers": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/offers/SKILL.md",
+      "computedHash": "3641ad9980f4cfb0e5b8810b0cfecd7f724b9e0076152930c06de8884d1ad791"
+    },
+    "popups": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/popups/SKILL.md",
+      "computedHash": "c279f5d46798ad27c5a9ae04925bc22e346b04f372ced1d80b2bc5eee4459b16"
+    },
+    "pricing": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/pricing/SKILL.md",
+      "computedHash": "9bea1819645df0b2d95429ecb64745ef5d2940b0bb161a40131eae3db8222813"
+    },
+    "product-description-generator": {
+      "source": "nexscope-ai/eCommerce-Skills",
+      "sourceType": "github",
+      "skillPath": "product-description-generator/SKILL.md",
+      "computedHash": "204671f84071000507b230894db40e87982a16739b0aef190f9f48405dca5e48"
+    },
+    "reverse-engineer-marketing": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/reverse-engineer-marketing/SKILL.md",
+      "computedHash": "8aa7c101abf2aabe3bdd9f6bd262511c78533fe786f9319f725e4d943281f60d"
+    },
+    "schema": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/schema/SKILL.md",
+      "computedHash": "f8704ea70fc7d7ff985b9d902e52bac2d455baa6678b803b4306c8afb99997b1"
+    },
+    "shopify": {
+      "source": "Shopify/Shopify-AI-Toolkit",
+      "sourceType": "github",
+      "skillPath": "skills/shopify/SKILL.md",
+      "computedHash": "c2866243c6ea8f722cf46cc5120af12d007bb87e1786848099d4d2a13570ca79"
+    },
+    "shopify-email-flows": {
+      "source": "nexscope-ai/eCommerce-Skills",
+      "sourceType": "github",
+      "skillPath": "shopify-email-flows/SKILL.md",
+      "computedHash": "d4e07108bd99e9653db78e80bdb66936177fb04338fa043e368cc83d7c4510d7"
+    },
+    "social": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/social/SKILL.md",
+      "computedHash": "91bfb578ae1c1c1d488a59bc734ff1716b1d924a8451be31021d1cb3a411f241"
+    },
+    "video": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "skillPath": "skills/video/SKILL.md",
+      "computedHash": "cc02f05021211688122d58500b92b577de597f705f73b85e25192146bfeb82fc"
     }
   }
 }

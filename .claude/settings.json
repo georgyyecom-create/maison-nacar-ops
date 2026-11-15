@@ -1,0 +1,7 @@
+{
+  "env": {
+    "OPT_OUT_INSTRUMENTATION": "true",
+    "DISABLE_TELEMETRY": "1",
+    "DO_NOT_TRACK": "1"
+  }
+}
