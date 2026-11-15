@@ -1,296 +1,345 @@
 {%- comment -%}
-  Maison Nácar · Ficha de Calendario de Adviento (Navidad 2026)
-  · Galería del producto + selector entre los calendarios de la colección elegida.
-  · El 3x2 automático también aplica: «Para 3 (pagas 2)».
-  · Huecos de foto (A1–A4) para las imágenes de Gemini.
+  Maison Nácar · Ficha de Calendario de Adviento (v2, 16-nov-2026)
+  Pensada para quien llega desde un anuncio en el móvil buscando 1–3 regalos.
+  · «Para 1»: miniaturas de los calendarios (enlazan a cada ficha).
+  · «Para 3»: el estuche de 3 regalos; en cada fila se elige el calendario. El de menor precio es gratis (3x2 automático).
+  · Precio tachado: solo si el dueño rellena «Precio de comparación» (Ómnibus: precio más bajo de los últimos 30 días).
 {%- endcomment -%}
 {%- liquid
   assign S = section.settings
   assign v = product.selected_or_first_available_variant
   assign pr = v.price
-  assign per = pr | divided_by: 6
+  assign cmp = v.compare_at_price | default: 0
   assign coll = S.collection
   assign short = product.title | remove: 'Calendario de Adviento ' | strip
-  assign cmp = v.compare_at_price | default: 0
   assign rating = product.metafields.reviews.rating.value.rating | default: product.metafields.aom.rating.value.rating
   assign rcount = product.metafields.reviews.rating_count.value | default: product.metafields.aom.rating_count.value | default: 0
+  assign cur_i = 0
+  if coll != blank
+    for p in coll.products limit: 4
+      if p.id == product.id
+        assign cur_i = forloop.index0
+      endif
+    endfor
+  endif
 -%}
 <style>
-  .mn-adv { --adv-wine: #5C1A24; --adv-cream: #FBF6EF; --adv-gold: var(--mn-accent); }
-  .mn-adv__band { background: var(--adv-wine); color: #F7E9D7; text-align: center; font-size: 13px; line-height: 1.3; padding: 9px var(--mn-gutter); }
-  .mn-adv__band b { color: #fff; letter-spacing: .06em; }
-  .mn-adv__band span[data-cd] { display: inline-block; font-variant-numeric: tabular-nums; font-weight: 600; color: #fff; }
-  .mn-adv-cd { display: flex; gap: 8px; margin-top: 18px; }
-  .mn-adv-cd div { flex: 1; background: #fff; border-radius: 12px; padding: 10px 4px; text-align: center; box-shadow: inset 0 0 0 1px rgba(184,151,90,.55); }
-  .mn-adv-cd b { display: block; font-family: var(--mn-display); font-size: 28px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--adv-wine); }
-  .mn-adv-cd span { font-size: 11px; color: var(--mn-grey); }
-  .mn-adv__price s { font-size: 18px; color: var(--mn-grey); }
-  .mn-adv__save { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--adv-wine); color: #fff; font-size: 12.5px; font-weight: 600; }
-  .mn-adv__stars { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 13.5px; text-decoration: none; }
-  .mn-adv__stars svg { width: 15px; height: 15px; }
-  .mn-adv__opt s { color: var(--mn-grey); margin-right: 3px; }
-  .mn-adv__grid { display: grid; }
-  @media (min-width: 990px) { .mn-adv__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 56px; max-width: var(--mn-max); margin: 0 auto; padding: 24px var(--mn-gutter) 0; } }
-  .mn-adv__gal { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 6px; }
-  .mn-adv__gal::-webkit-scrollbar { display: none; }
-  .mn-adv__s { position: relative; flex: 0 0 86%; aspect-ratio: 4 / 5; scroll-snap-align: start; background: var(--adv-cream); }
-  .mn-adv__s:only-child { flex-basis: 100%; }
-  .mn-adv__s img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .mn-adv__s img { object-position: center; }
-  @media (max-width: 989px) { .mn-adv__gal { padding: 0 var(--mn-gutter); scroll-padding: 0 var(--mn-gutter); } .mn-adv__s { flex-basis: 72%; } .mn-adv__info { padding-top: 14px; } }
-  @media (min-width: 990px) { .mn-adv__gal { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; } .mn-adv__s { flex: none; } .mn-adv__s:first-child { grid-column: 1 / -1; } }
-  .mn-adv__tag { position: absolute; left: 12px; top: 12px; padding: 6px 12px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--adv-gold); font-size: 12.5px; font-weight: 600; }
-  .mn-adv__info { padding: 18px var(--mn-gutter) 0; }
-  @media (min-width: 990px) { .mn-adv__info { padding: 0; position: sticky; top: 90px; align-self: start; } }
-  .mn-adv__eye { margin: 0; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--adv-wine); }
-  .mn-adv__t { margin: 6px 0 0; font-family: var(--mn-display); font-weight: 700; font-size: clamp(30px, 4.4vw, 46px); line-height: 1; letter-spacing: -.03em; }
-  .mn-adv__sub { margin: 10px 0 0; font-size: 16px; line-height: 1.45; color: #2a2a2a; }
-  .mn-adv__price { display: flex; align-items: baseline; gap: 12px; margin-top: 16px; }
-  .mn-adv__price b { font-family: var(--mn-display); font-size: 32px; letter-spacing: -.02em; }
-  .mn-adv__price span { font-size: 14px; color: var(--mn-grey); }
-  .mn-adv__lbl { margin: 22px 0 10px; font-size: 13px; font-weight: 600; }
-  .mn-adv__pick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-  .mn-adv__opt { display: block; text-decoration: none; border: 1px solid var(--mn-line); border-radius: 12px; padding: 6px 6px 8px; text-align: center; background: #fff; }
-  .mn-adv__opt.is-on { border-color: var(--mn-ink); box-shadow: inset 0 0 0 1px var(--mn-ink); }
-  .mn-adv__opt img { display: block; width: 100%; height: auto !important; aspect-ratio: 4 / 5; object-fit: cover; background: var(--adv-cream); border-radius: 8px; }
-  .mn-adv__opt b { display: block; margin-top: 6px; font-size: 12px; line-height: 1.15; }
-  .mn-adv__opt span { display: block; font-size: 11.5px; color: var(--mn-grey); }
-  .mn-adv__opt em { display: block; font-style: normal; font-size: 11px; color: var(--adv-wine); font-weight: 600; }
-  .mn-adv__qty { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .mn-adv__q { border: 1px solid var(--mn-line); border-radius: 12px; padding: 12px; background: #fff; text-align: left; cursor: pointer; }
-  .mn-adv__q.is-on { border-color: var(--mn-ink); box-shadow: inset 0 0 0 1px var(--mn-ink); }
-  .mn-adv__q b { display: block; font-size: 14.5px; }
-  .mn-adv__q span { display: block; font-size: 12.5px; color: var(--mn-grey); margin-top: 2px; }
-  .mn-adv__q i { font-style: normal; display: inline-block; margin-top: 6px; font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--mn-nacar); }
-  .mn-adv__cta { margin-top: 16px; }
-  .mn-adv__ship { margin: 10px 0 0; font-size: 13.5px; text-align: center; }
-  .mn-adv__ship b { color: var(--adv-wine); }
-  .mn-adv__pay { margin: 12px 0 0; font-size: 13.5px; color: #333; text-align: center; }
-  .mn-adv__pay b { font-weight: 600; }
-  .mn-adv__icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
-  .mn-adv__icons svg { width: 38px; height: 24px; }
-  .mn-adv__trust { list-style: none; padding: 12px 0 0; margin: 14px 0 0; border-top: 1px solid var(--mn-line); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; text-align: center; }
-  .mn-adv__trust li { font-size: 12px; line-height: 1.25; color: var(--mn-grey); }
-  .mn-adv__trust b { display: block; font-size: 13px; color: var(--mn-ink); }
-  .mn-adv__inside { margin-top: 14px; border-top: 1px solid var(--mn-line); border-bottom: 1px solid var(--mn-line); padding: 14px 0; font-size: 14.5px; }
-  .mn-adv__inside summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
-  .mn-adv__inside summary::after { content: "+"; font-size: 20px; line-height: 1; }
-  .mn-adv__inside[open] summary::after { content: "–"; }
-  .mn-adv__inside h3 { font-size: 17px; margin: 14px 0 6px; }
-  .mn-adv__inside ul { margin: 0; padding-left: 18px; }
-  .mn-adv__inside p { margin: 8px 0; }
-  .mn-adv-days { background: var(--adv-cream); }
-  .mn-adv-days__row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: 22px; }
-  .mn-adv-days__d { aspect-ratio: 1; display: grid; place-items: center; align-content: center; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1px rgba(184,151,90,.55); text-align: center; }
-  .mn-adv-days__d b { font-family: var(--mn-display); font-size: clamp(22px, 5vw, 40px); letter-spacing: -.03em; color: var(--adv-wine); }
-  .mn-adv-days__d span { font-size: 11px; color: var(--mn-grey); }
-  .mn-adv-days__d:last-child { background: var(--adv-wine); }
-  .mn-adv-days__d:last-child b, .mn-adv-days__d:last-child span { color: #F7E9D7; }
-  .mn-adv-pics { display: grid; gap: 14px 8px; grid-template-columns: 1fr 1fr; margin-top: 18px; }
-  @media (min-width: 990px) { .mn-adv-pics { grid-template-columns: repeat(4, 1fr); gap: 12px; } }
-  .mn-adv-pics .mn-ph { aspect-ratio: 4 / 5; border-radius: 14px; }
-  .mn-adv-pics figure { margin: 0; }
-  .mn-adv-pics figcaption { margin-top: 8px; font-size: 13px; line-height: 1.3; color: var(--mn-grey); }
-  .mn-adv-pics figcaption b { display: block; font-family: var(--mn-display); font-size: 17px; letter-spacing: -.02em; color: var(--mn-ink); }
-  .mn-adv-three { background: var(--adv-wine); color: #F7E9D7; border-radius: 22px; padding: 28px 22px; display: grid; gap: 14px; }
-  @media (min-width: 750px) { .mn-adv-three { grid-template-columns: 1.4fr 1fr; align-items: center; padding: 40px; } }
-  .mn-adv-three h2 { color: #fff; }
-  .mn-adv-three p { margin: 8px 0 0; }
-  .mn-adv-faq details { border-bottom: 1px solid var(--mn-line); padding: 14px 0; }
-  .mn-adv-faq summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
-  .mn-adv-faq summary::after { content: "+"; font-size: 20px; line-height: 1; }
-  .mn-adv-faq details[open] summary::after { content: "–"; }
-  .mn-adv-faq p { margin: 8px 0 0; color: #333; }
-  .mn-adv-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; gap: 10px; align-items: center; padding: 10px var(--mn-gutter) calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--mn-line); transform: translateY(110%); transition: transform .25s var(--mn-ease); }
-  .mn-adv-bar.is-on { transform: none; }
-  .mn-adv-bar__t { flex: 1; min-width: 0; font-size: 13px; line-height: 1.25; }
-  .mn-adv-bar__t b { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mn-adv-bar .mn-btn { min-height: 48px; padding: 0 20px; }
-  @media (min-width: 990px) { .mn-adv-bar { display: none; } }
+  .mna { --mna-gold: var(--mn-accent); --mna-soft: #F6F4F0; }
+  .mna-band { margin: 0; background: var(--mn-ink); color: #fff; font-size: 13px; line-height: 34px; height: 34px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 var(--mn-gutter); }
+  .mna-band [data-band-cd] { font-variant-numeric: tabular-nums; color: #E9D3A6; }
+
+  .mna-top { display: grid; }
+  @media (min-width: 990px) { .mna-top { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; max-width: var(--mn-max); margin: 0 auto; padding: 28px var(--mn-gutter) 0; } }
+
+  .mna-gal { display: flex; gap: 6px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .mna-gal::-webkit-scrollbar { display: none; }
+  .mna-gal figure { position: relative; flex: 0 0 66%; margin: 0; aspect-ratio: 4 / 5; scroll-snap-align: start; background: var(--mna-soft); overflow: hidden; }
+  .mna-gal img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 989px) { .mna-gal { padding: 12px var(--mn-gutter) 0; scroll-padding: 0 var(--mn-gutter); } }
+  @media (min-width: 990px) { .mna-gal { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; } .mna-gal figure { flex: none; } .mna-gal figure:first-child { grid-column: 1 / -1; } }
+
+  .mna-info { padding: 16px var(--mn-gutter) 0; }
+  @media (min-width: 990px) { .mna-info { padding: 0; position: sticky; top: 96px; align-self: start; max-width: 480px; } }
+  .mna-t { margin: 0; font-family: var(--mn-display); font-weight: 700; font-size: clamp(30px, 8vw, 44px); line-height: 1; letter-spacing: -.035em; }
+  .mna-sub { margin: 6px 0 0; font-size: 15px; color: var(--mn-grey); }
+  .mna-stars { display: inline-flex; align-items: center; gap: 3px; margin-top: 8px; font-size: 13.5px; color: var(--mn-ink); text-decoration: none; }
+  .mna-stars svg { width: 14px; height: 14px; }
+  .mna-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin-top: 12px; }
+  .mna-price b { font-family: var(--mn-display); font-size: 30px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .mna-price s { font-size: 17px; color: var(--mn-grey); text-decoration-color: var(--mna-gold); }
+  .mna-save { font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--mna-gold); }
+  .mna-ship { display: flex; gap: 8px; align-items: flex-start; margin: 10px 0 0; font-size: 14px; line-height: 1.35; }
+  .mna-ship svg { flex: none; width: 18px; height: 18px; color: var(--mn-ok); margin-top: 1px; }
+
+  .mna-mode { display: grid; grid-template-columns: 1fr 1fr; margin-top: 18px; padding: 4px; border-radius: 999px; background: var(--mna-soft); }
+  .mna-mode button { min-height: 44px; border: 0; border-radius: 999px; background: none; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .mna-mode button[aria-pressed="true"] { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .mna-mode small { font-size: 13px; font-weight: 500; color: var(--mn-grey); }
+
+  .mna-panel { margin-top: 14px; }
+  .mna-panel[hidden] { display: none; }
+  .mna-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .mna-m { position: relative; display: block; padding: 0; border: 0; background: none; text-align: center; text-decoration: none; color: inherit; cursor: pointer; font-size: 12px; line-height: 1.2; }
+  .mna-m img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; background: var(--mna-soft); box-shadow: inset 0 0 0 1px var(--mn-line); transition: box-shadow .15s ease; }
+  .mna-m.is-on img, .mna-m[aria-checked="true"] img { box-shadow: 0 0 0 2px var(--mn-ink); }
+  .mna-m span { display: block; margin-top: 6px; font-weight: 600; }
+  .mna-m em { display: block; font-style: normal; color: var(--mn-grey); }
+  .mna-m[disabled] { opacity: .35; cursor: default; }
+
+  .mna-gift { display: grid; gap: 8px; }
+  .mna-gift__r { border-radius: 14px; padding: 10px 10px 12px; background: var(--mna-soft); transition: background .2s ease; }
+  .mna-gift__r.is-gift { background: var(--mn-nacar); }
+  .mna-gift__h { display: flex; justify-content: space-between; align-items: baseline; margin: 0 2px 8px; font-size: 13px; }
+  .mna-gift__h b { font-weight: 600; }
+  .mna-gift__h span { color: var(--mn-grey); font-variant-numeric: tabular-nums; }
+  .mna-gift__r.is-gift .mna-gift__h span { color: var(--mn-ink); font-weight: 600; }
+  .mna-gift .mna-m span { font-size: 11.5px; font-weight: 500; }
+
+  .mna-cta { margin-top: 16px; }
+  .mna-cta .mn-btn { width: 100%; font-size: 16px; }
+  .mna-pay { margin: 10px 0 0; font-size: 13px; color: var(--mn-grey); text-align: center; }
+  .mna-pay b { color: var(--mn-ink); font-weight: 600; }
+  .mna-icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-top: 8px; }
+  .mna-icons svg { width: 34px; height: 22px; }
+
+  .mna-trust { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 16px 0 0; padding: 14px 0; border-top: 1px solid var(--mn-line); border-bottom: 1px solid var(--mn-line); text-align: center; font-size: 12px; line-height: 1.3; color: var(--mn-grey); }
+  .mna-trust b { display: block; font-size: 13px; font-weight: 600; color: var(--mn-ink); }
+  .mna-acc { border-bottom: 1px solid var(--mn-line); }
+  .mna-acc summary { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; font-weight: 600; cursor: pointer; list-style: none; }
+  .mna-acc summary::-webkit-details-marker { display: none; }
+  .mna-acc summary::after { content: ""; width: 9px; height: 9px; border-right: 1.5px solid; border-bottom: 1.5px solid; transform: rotate(45deg) translateY(-3px); transition: transform .2s ease; }
+  .mna-acc[open] summary::after { transform: rotate(225deg); }
+  .mna-acc__b { padding: 0 0 16px; font-size: 14.5px; line-height: 1.5; }
+  .mna-acc__b h3 { font-size: 15px; margin: 12px 0 4px; }
+  .mna-acc__b ul { margin: 0; padding-left: 18px; }
+  .mna-acc__b p { margin: 6px 0; }
+
+  .mna-sec { padding-top: 52px; }
+  @media (min-width: 990px) { .mna-sec { padding-top: 88px; } }
+  .mna-h2 { margin: 0; font-family: var(--mn-display); font-weight: 700; font-size: clamp(26px, 6vw, 44px); line-height: 1.02; letter-spacing: -.03em; }
+  .mna-lead { margin: 8px 0 0; color: var(--mn-grey); max-width: 46ch; }
+
+  .mna-line { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); margin: 26px 0 0; padding: 0; }
+  .mna-line::before { content: ""; position: absolute; left: calc(100% / 12); right: calc(100% / 12); top: 7px; height: 1px; background: var(--mna-gold); opacity: .6; }
+  .mna-line li { position: relative; list-style: none; text-align: center; font-size: 12px; color: var(--mn-grey); }
+  .mna-line li::before { content: ""; display: block; width: 15px; height: 15px; margin: 0 auto 10px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1.5px var(--mna-gold); }
+  .mna-line li:last-child::before { background: var(--mn-nacar); box-shadow: inset 0 0 0 1.5px var(--mn-ink); }
+  .mna-line b { display: block; font-family: var(--mn-display); font-size: 22px; line-height: 1; letter-spacing: -.02em; color: var(--mn-ink); }
+  .mna-when { margin: 18px 0 0; font-size: 14.5px; }
+  .mna-when b { font-variant-numeric: tabular-nums; }
+
+  .mna-who { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 8px; margin-top: 20px; }
+  @media (min-width: 990px) { .mna-who { grid-template-columns: repeat(4, 1fr); gap: 14px; } }
+  .mna-who figure { margin: 0; }
+  .mna-who .mn-ph { aspect-ratio: 4 / 5; }
+  .mna-who figcaption { margin-top: 8px; font-size: 13px; line-height: 1.3; color: var(--mn-grey); }
+  .mna-who figcaption b { display: block; font-size: 15px; color: var(--mn-ink); }
+
+  .mna-faq { max-width: 760px; padding-bottom: 24px; }
+  .mna-faq .mna-h2 { margin-bottom: 18px; }
+  .mna-faq .mna-h2 + .mna-acc { border-top: 1px solid var(--mn-line); }
+
+  .mna-bar { position: fixed; z-index: 45; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 12px; padding: 10px var(--mn-gutter) calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--mn-line); transform: translateY(110%); transition: transform .25s var(--mn-ease); }
+  .mna-bar.is-on { transform: none; }
+  .mna-bar__t { flex: 1; min-width: 0; margin: 0; font-size: 13px; line-height: 1.25; color: var(--mn-grey); }
+  .mna-bar__t b { display: block; font-size: 15px; color: var(--mn-ink); font-variant-numeric: tabular-nums; }
+  .mna-bar .mn-btn { min-height: 48px; padding: 0 22px; }
+  @media (min-width: 990px) { .mna-bar { display: none; } }
   .mn-wa { transition: bottom .25s var(--mn-ease); }
-  @media (max-width: 989px) { body:has(.mn-adv-bar.is-on) .mn-wa { bottom: calc(80px + env(safe-area-inset-bottom)); } }
+  @media (max-width: 989px) { body:has(.mna-bar.is-on) .mn-wa { bottom: calc(82px + env(safe-area-inset-bottom)); } }
+  @media (prefers-reduced-motion: reduce) { .mna-bar, .mna-m img, .mna-gift__r, .mn-wa { transition: none; } }
 </style>
 
-<div class="mn-adv">
-  <div class="mn-adv__band" data-bf="{{ S.bf_end }}" data-ship="{{ S.ship_end }}"><b>{{ S.band }}</b> <span data-band-msg></span> <span data-cd></span></div>
+<div class="mna" data-mna data-cur="{{ cur_i }}" data-bf="{{ S.bf_end }}" data-ship="{{ S.ship_end }}">
+  <p class="mna-band">{{ S.band }}<span data-band-cd></span></p>
 
-  <div class="mn-adv__grid">
-    <div>
-      <div class="mn-adv__gal" aria-label="Fotos del calendario">
-        {%- for m in product.media -%}
-          {%- if m.media_type == 'image' -%}
-            {%- assign malt = m.alt | downcase -%}
-            {%- assign ld = 'lazy' -%}{%- if forloop.first -%}{%- assign ld = 'eager' -%}{%- endif -%}
-            <div class="mn-adv__s">
-              {%- if forloop.first -%}<span class="mn-adv__tag">Edición Navidad 2026</span>{%- endif -%}
-              {{ m | image_url: width: 1200 | image_tag: loading: ld, sizes: '(min-width: 990px) 55vw, 86vw', widths: '400, 600, 800, 1000, 1200', alt: product.title }}
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+  <div class="mna-top">
+    <div class="mna-gal" aria-label="Fotos de {{ product.title | escape }}">
+      {%- for m in product.media -%}
+        {%- if m.media_type == 'image' -%}
+          {%- assign ld = 'lazy' -%}{%- if forloop.first -%}{%- assign ld = 'eager' -%}{%- endif -%}
+          <figure>{{ m | image_url: width: 1200 | image_tag: loading: ld, sizes: '(min-width: 990px) 55vw, 66vw', widths: '400, 600, 800, 1000, 1200', alt: product.title }}</figure>
+        {%- endif -%}
+      {%- endfor -%}
     </div>
 
-    <div class="mn-adv__info">
-      <p class="mn-adv__eye">Calendario de Adviento de joyas</p>
-      <h1 class="mn-adv__t">{{ short }}</h1>
-      {%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}<a class="mn-adv__stars" href="#opiniones">{%- for i in (1..5) -%}{% render 'mn-icon', i: 'star' %}{%- endfor -%}<b>{{ rating | round: 1 | replace: '.', ',' }}</b> ({{ rcount }})</a>{%- endif -%}
-      <p class="mn-adv__sub">{{ S.subtitle }}</p>
-      <div class="mn-adv__price">{%- if cmp > pr -%}<s>{{ cmp | money_without_trailing_zeros }}</s>{%- endif -%}<b data-adv-price>{{ pr | money_without_trailing_zeros }}</b>{%- if cmp > pr -%}<span class="mn-adv__save">Ahorras {{ cmp | minus: pr | money_without_trailing_zeros }}</span>{%- else -%}<span>6 joyas · sale a {{ per | money }} cada una</span>{%- endif -%}</div>
+    <div class="mna-info">
+      <h1 class="mna-t">{{ short }}</h1>
+      <p class="mna-sub">{{ S.subtitle }}</p>
+      {%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}
+        <a class="mna-stars" href="#opiniones">{%- for i in (1..5) -%}{% render 'mn-icon', i: 'star' %}{%- endfor -%}&nbsp;{{ rating | round: 1 | replace: '.', ',' }} ({{ rcount }})</a>
+      {%- endif -%}
 
-      {%- if coll != blank and coll.products.size > 1 -%}
-        <p class="mn-adv__lbl">Elige su calendario</p>
-        <div class="mn-adv__pick">
-          {%- for p in coll.products limit: 4 -%}
-            {%- assign pv = p.selected_or_first_available_variant -%}
-            {%- assign pn = p.title | remove: 'Calendario de Adviento ' | strip -%}
-            <a class="mn-adv__opt{% if p.id == product.id %} is-on{% endif %}" href="{{ p.url }}"{% if p.id == product.id %} aria-current="true"{% endif %}>
-              {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: pn }}{%- endif -%}
-              <b>{{ pn }}</b>
-              <span>{%- if pv.compare_at_price > pv.price -%}<s>{{ pv.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}{{ pv.price | money_without_trailing_zeros }}</span>
-              {%- if p.available == false -%}<em>Agotado</em>{%- elsif pv.inventory_management and pv.inventory_quantity < 30 -%}<em>Quedan {{ pv.inventory_quantity }}</em>{%- endif -%}
-            </a>
-          {%- endfor -%}
+      <div class="mna-price" aria-live="polite">
+        <b data-price>{{ pr | money_without_trailing_zeros }}</b>
+        <s data-ref{% unless cmp > pr %} hidden{% endunless %}>{{ cmp | money_without_trailing_zeros }}</s>
+        <span class="mna-save" data-save{% unless cmp > pr %} hidden{% endunless %}>Ahorras {{ cmp | minus: pr | money_without_trailing_zeros }}</span>
+      </div>
+      <p class="mna-ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Envío gratis. <span data-ship-txt>{{ S.ship }}</span></span></p>
+
+      <div class="mna-mode" role="group" aria-label="Cuántos regalos">
+        <button type="button" aria-pressed="true" data-mode="1">Para 1</button>
+        <button type="button" aria-pressed="false" data-mode="3">Para 3 <small>pagas 2</small></button>
+      </div>
+
+      {%- if coll != blank -%}
+        <div class="mna-panel" data-panel="1">
+          <div class="mna-row">
+            {%- for p in coll.products limit: 4 -%}
+              {%- assign pv = p.selected_or_first_available_variant -%}
+              <a class="mna-m{% if p.id == product.id %} is-on{% endif %}" href="{{ p.url }}"{% if p.id == product.id %} aria-current="page"{% endif %}>
+                {{ p.featured_image | image_url: width: 240, height: 300, crop: 'center' | image_tag: loading: 'lazy', alt: '' }}
+                <span>{{ p.title | remove: 'Calendario de Adviento ' | strip }}</span>
+                <em>{%- if p.available -%}{%- if pv.inventory_management and pv.inventory_quantity < 30 -%}Quedan {{ pv.inventory_quantity }}{%- else -%}{{ pv.price | money_without_trailing_zeros }}{%- endif -%}{%- else -%}Agotado{%- endif -%}</em>
+              </a>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="mna-panel" data-panel="3" hidden>
+          <div class="mna-gift">
+            {%- for slot in (1..3) -%}
+              <div class="mna-gift__r" data-slot="{{ forloop.index0 }}">
+                <p class="mna-gift__h"><b>Regalo {{ slot }}</b><span data-slot-p></span></p>
+                <div class="mna-row" role="radiogroup" aria-label="Calendario del regalo {{ slot }}">
+                  {%- for p in coll.products limit: 4 -%}
+                    <button type="button" class="mna-m" role="radio" aria-checked="{% if p.id == product.id %}true{% else %}false{% endif %}" data-pick="{{ forloop.index0 }}"{% unless p.available %} disabled{% endunless %}>
+                      {{ p.featured_image | image_url: width: 200, height: 250, crop: 'center' | image_tag: loading: 'lazy', alt: '' }}
+                      <span>{{ p.title | remove: 'Calendario de Adviento ' | strip }}</span>
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
         </div>
       {%- endif -%}
 
-      <p class="mn-adv__lbl">¿Para cuántas?</p>
-      <div class="mn-adv__qty" role="radiogroup" aria-label="Cantidad">
-        <button type="button" class="mn-adv__q is-on" role="radio" aria-checked="true" data-adv-q="1"><b>Para 1</b><span>{{ pr | money_without_trailing_zeros }}</span></button>
-        <button type="button" class="mn-adv__q" role="radio" aria-checked="false" data-adv-q="3"><b>Para 3</b><span>{{ pr | times: 2 | money_without_trailing_zeros }} en total</span><i>3x2: uno gratis</i></button>
-      </div>
-
-      <div class="mn-adv__cta">
+      <div class="mna-cta">
         {%- if v.available -%}
-          <button type="button" class="mn-btn mn-btn--block" data-adv-buy data-v="{{ v.id }}">Regalarlo · <span data-adv-total>{{ pr | money_without_trailing_zeros }}</span></button>
+          <button type="button" class="mn-btn" data-buy><span data-buy-t>Añadir a la cesta</span>&nbsp;·&nbsp;<span data-buy-p>{{ pr | money_without_trailing_zeros }}</span></button>
         {%- else -%}
-          <button type="button" class="mn-btn mn-btn--block" disabled>Agotado</button>
+          <button type="button" class="mn-btn" disabled>Agotado</button>
         {%- endif -%}
       </div>
-      <p class="mn-adv__pay">Paga con tarjeta, <b>Bizum</b> o en <b>3 plazos de {{ pr | divided_by: 3 | money }} con Klarna</b>, sin intereses.</p>
-      <div class="mn-adv__icons" aria-label="Métodos de pago">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>
-      {%- if S.ship != blank -%}<p class="mn-adv__ship">{{ S.ship }}</p>{%- endif -%}
+      <p class="mna-pay">Tarjeta, Bizum o <b>3 plazos de <span data-k>{{ pr | divided_by: 3 | money_without_trailing_zeros }}</span> con Klarna</b>, sin intereses</p>
+      <div class="mna-icons" aria-label="Métodos de pago">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>
 
-      <ul class="mn-adv__trust">
-        <li><b>Caja regalo</b>con lazo, lista para dar</li>
+      <ul class="mna-trust">
+        <li><b>Caja regalo</b>con lazo</li>
         <li><b>Envío gratis</b>península y Baleares</li>
         <li><b>Devolución</b>hasta el 15 de enero</li>
       </ul>
-
-      <details class="mn-adv__inside"><summary>Qué hay dentro · 6 joyas</summary>{{ product.description }}</details>
+      <details class="mna-acc"><summary>Qué hay dentro</summary><div class="mna-acc__b">{{ product.description }}</div></details>
     </div>
   </div>
 
-  <section class="mn-sec mn-adv-days" style="margin-top:48px">
-    <div class="mn-wrap">
-      <div class="mn-head"><div><h2 class="mn-h2">Una joya cada 4 días</h2><p>6 cajones numerados. El primero se abre el 4 de diciembre y el último, en Nochebuena.</p></div></div>
-      <p class="mn-adv__lbl" data-cd2-l style="margin-bottom:0">Para abrir el primer cajón faltan</p>
-      <div class="mn-adv-cd" data-cd2 aria-live="off"><div><b data-u="d">–</b><span>días</span></div><div><b data-u="h">–</b><span>horas</span></div><div><b data-u="m">–</b><span>min</span></div><div><b data-u="s">–</b><span>seg</span></div></div>
-      <div class="mn-adv-days__row" aria-hidden="true">
-        <div class="mn-adv-days__d"><b>4</b><span>dic</span></div>
-        <div class="mn-adv-days__d"><b>8</b><span>dic</span></div>
-        <div class="mn-adv-days__d"><b>12</b><span>dic</span></div>
-        <div class="mn-adv-days__d"><b>16</b><span>dic</span></div>
-        <div class="mn-adv-days__d"><b>20</b><span>dic</span></div>
-        <div class="mn-adv-days__d"><b>24</b><span>dic</span></div>
-      </div>
+  <section class="mna-sec mn-wrap" aria-labelledby="mna-days">
+    <h2 class="mna-h2" id="mna-days">Una joya cada 4 días</h2>
+    <p class="mna-lead">Seis cajones numerados. El último se abre en Nochebuena.</p>
+    <ol class="mna-line">
+      <li><b>4</b>dic</li><li><b>8</b>dic</li><li><b>12</b>dic</li><li><b>16</b>dic</li><li><b>20</b>dic</li><li><b>24</b>dic</li>
+    </ol>
+    <p class="mna-when" data-when hidden>El primero se abre en <b data-when-cd></b>.</p>
+  </section>
+
+  <section class="mna-sec mn-wrap" aria-labelledby="mna-who">
+    <h2 class="mna-h2" id="mna-who">¿Para quién es?</h2>
+    <div class="mna-who">
+      {%- for i in (1..4) -%}
+        {%- liquid
+          assign k = 'img' | append: i
+          assign lk = 'lbl' | append: i
+          assign tk = 'ttl' | append: i
+          assign ck = 'cap' | append: i
+          assign im = S[k]
+        -%}
+        <figure>
+          <div class="mn-ph">
+            {%- if im -%}{{ im | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '400, 600, 900', alt: S[lk] }}{%- else -%}<div class="mn-ph__empty"><b>Foto A{{ i }}</b><span>{{ S[lk] }}</span></div>{%- endif -%}
+          </div>
+          <figcaption><b>{{ S[tk] }}</b>{{ S[ck] }}</figcaption>
+        </figure>
+      {%- endfor -%}
     </div>
   </section>
 
-  <section class="mn-sec">
-    <div class="mn-wrap">
-      <div class="mn-head"><div><h2 class="mn-h2">El regalo que dura todo diciembre</h2><p>No se abre una vez: se abre seis.</p></div></div>
-      <div class="mn-adv-pics">
-        {%- for i in (1..4) -%}
-          {%- liquid
-            assign k = 'img' | append: i
-            assign lk = 'lbl' | append: i
-            assign tk = 'ttl' | append: i
-            assign ck = 'cap' | append: i
-            assign im = S[k]
-          -%}
-          <figure>
-            <div class="mn-ph">
-              {%- if im -%}{{ im | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '400, 600, 900', alt: S[lk] }}{%- else -%}<div class="mn-ph__empty"><b>Foto A{{ i }}</b><span>{{ S[lk] }}</span></div>{%- endif -%}
-            </div>
-            <figcaption><b>{{ S[tk] }}</b>{{ S[ck] }}</figcaption>
-          </figure>
-        {%- endfor -%}
-      </div>
-    </div>
-  </section>
-
-  <section class="mn-sec" style="padding-top:0">
-    <div class="mn-wrap">
-      <div class="mn-adv-three">
-        <div><h2 class="mn-h2">¿Tienes a más de una en la lista?</h2><p>Llévate 3 calendarios y el de menor precio es gratis. Se aplica solo en la cesta, también si combinas modelos.</p></div>
-        <div><button type="button" class="mn-btn mn-btn--white mn-btn--block" data-adv-three>Añadir 3 · {{ pr | times: 2 | money_without_trailing_zeros }}</button></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="mn-sec mn-adv-faq" style="padding-top:0">
-    <div class="mn-wrap" style="max-width:820px">
-      <div class="mn-head"><div><h2 class="mn-h2">Preguntas</h2></div></div>
-      <details><summary>¿Llega a tiempo?</summary><p>{{ S.faq_time }}</p></details>
-      <details><summary>¿Cuántas joyas trae y cuándo se abren?</summary><p>6 joyas, cada una en su cajón numerado: 4, 8, 12, 16, 20 y 24 de diciembre.</p></details>
-      <details><summary>¿De qué material son?</summary><p>Acero inoxidable en tono dorado o plateado, con cuentas acrílicas y esmalte según el modelo. El detalle de cada calendario está arriba, en «Qué hay dentro».</p></details>
-      <details><summary>¿Y si no le gusta?</summary><p>Tiene hasta el 15 de enero para devolverlo, para que pueda abrirlo en Navidad con tranquilidad.</p></details>
-      <details><summary>¿Viene listo para regalar?</summary><p>Sí: llega en su caja de regalo con lazo.</p></details>
-    </div>
+  <section class="mna-sec mn-wrap mna-faq" aria-labelledby="mna-faq">
+    <h2 class="mna-h2" id="mna-faq">Preguntas</h2>
+    <details class="mna-acc"><summary>¿Llega a tiempo?</summary><div class="mna-acc__b"><p>{{ S.faq_time }}</p></div></details>
+    <details class="mna-acc"><summary>¿Cómo funciona el 3x2?</summary><div class="mna-acc__b"><p>Elige 3 calendarios, iguales o distintos: el de menor precio sale gratis. Se descuenta solo en la cesta.</p></div></details>
+    <details class="mna-acc"><summary>¿De qué material son las joyas?</summary><div class="mna-acc__b"><p>Acero inoxidable en tono dorado o plateado, con cuentas acrílicas y esmalte según el modelo. El detalle está en «Qué hay dentro».</p></div></details>
+    <details class="mna-acc"><summary>¿Y si no le gusta?</summary><div class="mna-acc__b"><p>Tiene hasta el 15 de enero para devolverlo.</p></div></details>
   </section>
 
   {%- if v.available -%}
-    <div class="mn-adv-bar" data-adv-bar>
-      <div class="mn-adv-bar__t"><b>{{ product.title }}</b><span data-adv-bar-p>{{ pr | money_without_trailing_zeros }} · envío gratis</span></div>
-      <button type="button" class="mn-btn" data-adv-buy data-v="{{ v.id }}">Regalarlo</button>
+    <div class="mna-bar" data-bar>
+      <p class="mna-bar__t"><b data-bar-p>{{ pr | money_without_trailing_zeros }}</b><span data-bar-t>{{ short }}</span></p>
+      <button type="button" class="mn-btn" data-buy>Añadir a la cesta</button>
     </div>
   {%- endif -%}
+
+  <script type="application/json" data-models>[
+    {%- for p in coll.products limit: 4 -%}
+      {%- assign pv = p.selected_or_first_available_variant -%}
+      {"v": {{ pv.id }}, "p": {{ pv.price }}, "c": {{ pv.compare_at_price | default: 0 }}}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]</script>
 </div>
 
 <script>
   (function () {
-    var root = document.currentScript.previousElementSibling, q = 1;
-    var price = {{ pr | json }};
-    function fmt(c) { return window.MN ? window.MN.money(c).replace(',00', '') : (c / 100) + ' €'; }
-    var qs = root.querySelectorAll('[data-adv-q]'), tot = root.querySelectorAll('[data-adv-total]');
-    qs.forEach(function (b) {
-      b.addEventListener('click', function () {
-        q = +b.getAttribute('data-adv-q');
-        qs.forEach(function (x) { var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-checked', on); });
-        var t = fmt(q === 3 ? price * 2 : price);
-        tot.forEach(function (s) { s.textContent = t; });
-      });
-    });
-    function buy(btn, n) {
-      if (!window.MN) return;
-      btn.classList.add('is-busy');
-      window.MN.add([{ id: +btn.getAttribute('data-v') || +root.querySelector('[data-adv-buy]').getAttribute('data-v'), quantity: n }])
-        .then(function () { btn.classList.remove('is-busy'); }, function () { btn.classList.remove('is-busy'); });
+    var root = document.querySelector('[data-mna]'); if (!root) return;
+    var M = []; try { M = JSON.parse(root.querySelector('[data-models]').textContent); } catch (e) {}
+    var cur = +root.getAttribute('data-cur') || 0, mode = 1, sel = [cur, cur, cur];
+    var self = { v: {{ v.id }}, p: {{ pr | json }}, c: {{ cmp | json }} };
+    var $ = function (s) { return root.querySelector(s); }, $$ = function (s) { return root.querySelectorAll(s); };
+    function eur(c) { return window.MN ? window.MN.money(c).replace(',00', '') : Math.round(c / 100) + ' €'; }
+    function mod(i) { return M[i] || self; }
+    function ref(m) { return m.c > m.p ? m.c : m.p; }
+    function gift() { var g = 0; sel.forEach(function (i, k) { if (mod(i).p <= mod(sel[g]).p) g = k; }); return g; }
+    function calc() {
+      if (mode === 1) { var m = mod(cur); return { total: m.p, ref: m.c > m.p ? m.c : 0, n: 1 }; }
+      var sum = 0, refs = 0, min = Infinity;
+      sel.forEach(function (i) { var m = mod(i); sum += m.p; refs += ref(m); if (m.p < min) min = m.p; });
+      return { total: sum - min, ref: refs, n: 3 };
     }
-    root.querySelectorAll('[data-adv-buy]').forEach(function (b) { b.addEventListener('click', function () { buy(b, q); }); });
-    var three = root.querySelector('[data-adv-three]');
-    if (three) three.addEventListener('click', function () { buy(three, 3); });
-    function pad(n) { return n < 10 ? '0' + n : '' + n; }
-    function parts(ms) { var s = Math.max(0, Math.floor(ms / 1000)); return { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 }; }
-    var band = root.querySelector('.mn-adv__band'), bmsg = root.querySelector('[data-band-msg]'), bcd = root.querySelector('[data-cd]');
-    var bf = Date.parse(band.getAttribute('data-bf') || ''), sh = Date.parse(band.getAttribute('data-ship') || '');
-    var first = new Date(new Date().getFullYear(), 11, 4).getTime();
-    var cd2 = root.querySelector('[data-cd2]');
-    function tick() {
-      var now = Date.now(), t, lbl;
-      if (bf && bf > now) { t = bf; lbl = 'Termina en'; } else if (sh && sh > now) { t = sh; lbl = 'Pide en'; } else { t = 0; }
-      if (t) { var p = parts(t - now); bmsg.textContent = '· ' + lbl; bcd.textContent = (p.d ? p.d + 'd ' : '') + pad(p.h) + ':' + pad(p.m) + ':' + pad(p.s) + (lbl === 'Pide en' ? ' y llega antes del 4 de diciembre' : ''); }
-      else { bmsg.textContent = ''; bcd.textContent = ''; }
-      if (cd2) {
-        if (first > now) { var q = parts(first - now); ['d', 'h', 'm', 's'].forEach(function (u) { cd2.querySelector('[data-u="' + u + '"]').textContent = u === 'd' ? q.d : pad(q[u]); }); }
-        else { cd2.hidden = true; var l = root.querySelector('[data-cd2-l]'); if (l) l.hidden = true; }
+    function paint() {
+      var r = calc();
+      $('[data-price]').textContent = eur(r.total);
+      var s = $('[data-ref]'), sv = $('[data-save]'), show = r.ref > r.total;
+      s.hidden = sv.hidden = !show;
+      if (show) { s.textContent = eur(r.ref); sv.textContent = 'Ahorras ' + eur(r.ref - r.total); }
+      var bp = $('[data-buy-p]'); if (bp) bp.textContent = eur(r.total);
+      var bt = $('[data-buy-t]'); if (bt) bt.textContent = r.n === 3 ? 'Añadir los 3' : 'Añadir a la cesta';
+      $('[data-k]').textContent = eur(Math.round(r.total / 3));
+      var barP = $('[data-bar-p]'); if (barP) { barP.textContent = eur(r.total); $('[data-bar-t]').textContent = r.n === 3 ? '3 calendarios, pagas 2' : {{ short | json }}; }
+      if (r.n === 3) {
+        var g = gift();
+        $$('[data-slot]').forEach(function (row, i) {
+          row.classList.toggle('is-gift', i === g);
+          row.querySelector('[data-slot-p]').textContent = i === g ? 'Gratis' : eur(mod(sel[i]).p);
+          row.querySelectorAll('[data-pick]').forEach(function (b) { b.setAttribute('aria-checked', +b.getAttribute('data-pick') === sel[i]); });
+        });
       }
     }
-    tick(); setInterval(tick, 1000);
-    var bar = root.querySelector('[data-adv-bar]'), main = root.querySelector('.mn-adv__cta');
-    if (bar && main && 'IntersectionObserver' in window) {
-      new IntersectionObserver(function (e) { bar.classList.toggle('is-on', !e[0].isIntersecting && e[0].boundingClientRect.top < 0); }).observe(main);
+    $$('[data-mode]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        mode = +b.getAttribute('data-mode');
+        $$('[data-mode]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+        $$('[data-panel]').forEach(function (p) { p.hidden = +p.getAttribute('data-panel') !== mode; });
+        paint();
+      });
+    });
+    $$('[data-slot]').forEach(function (row, i) {
+      row.addEventListener('click', function (e) { var b = e.target.closest('[data-pick]'); if (!b || b.disabled) return; sel[i] = +b.getAttribute('data-pick'); paint(); });
+    });
+    $$('[data-buy]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!window.MN) return;
+        var q = {};
+        (mode === 3 ? sel : [cur]).forEach(function (i) { var id = mod(i).v; q[id] = (q[id] || 0) + 1; });
+        b.classList.add('is-busy');
+        window.MN.add(Object.keys(q).map(function (id) { return { id: +id, quantity: q[id] }; }))
+          .then(function () { b.classList.remove('is-busy'); }, function () { b.classList.remove('is-busy'); });
+      });
+    });
+
+    /* Cuentas atrás reales: fin de la oferta (solo si el dueño la pone), último día de envío y primer cajón */
+    function left(t) { var s = Math.max(0, Math.floor((t - Date.now()) / 1000)), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60); return d ? d + ' d ' + h + ' h' : h + ' h ' + m + ' min'; }
+    var bf = Date.parse(root.getAttribute('data-bf') || ''), sh = Date.parse(root.getAttribute('data-ship') || '');
+    var first = new Date(new Date().getFullYear(), 11, 4).getTime();
+    function tick() {
+      var now = Date.now();
+      $('[data-band-cd]').textContent = bf > now ? '. Termina en ' + left(bf) : '';
+      if (sh > now) $('[data-ship-txt]').textContent = 'Pide en ' + left(sh) + ' y llega antes del 4 de diciembre.';
+      var w = $('[data-when]'); if (first > now) { w.hidden = false; $('[data-when-cd]').textContent = left(first); } else w.hidden = true;
     }
+    tick(); setInterval(tick, 30000);
+
+    var bar = $('[data-bar]'), cta = $('.mna-cta');
+    if (bar && cta && 'IntersectionObserver' in window) new IntersectionObserver(function (e) { bar.classList.toggle('is-on', !e[0].isIntersecting && e[0].boundingClientRect.top < 0); }).observe(cta);
+    paint();
   })();
 </script>
 
@@ -299,28 +348,28 @@
   "name": "MN · Calendario Adviento",
   "settings": [
     { "type": "collection", "id": "collection", "label": "Colección de calendarios (selector)" },
-    { "type": "text", "id": "band", "label": "Franja superior (texto en negrita)", "default": "BLACK FRIDAY · 3x2 en calendarios" },
-    { "type": "text", "id": "bf_end", "label": "Fin de la oferta (cuenta atrás)", "info": "Formato 2026-11-30T23:59:00+01:00. Ponlo SOLO si el descuento termina de verdad ese día (ley de consumo). Vacío = sin cuenta atrás de oferta." },
-    { "type": "text", "id": "ship_end", "label": "Último día para que llegue antes del 4-dic", "default": "2026-11-27T23:59:00+01:00", "info": "Si no hay fin de oferta, la franja cuenta atrás hasta esta fecha." },
-    { "type": "textarea", "id": "subtitle", "label": "Subtítulo", "default": "6 joyas escondidas en 6 cajones. Una sorpresa cada 4 días hasta Nochebuena." },
-    { "type": "text", "id": "ship", "label": "Línea de plazo bajo el botón", "default": "Pide antes del 27 de noviembre y llega antes del primer cajón." },
-    { "type": "textarea", "id": "faq_time", "label": "FAQ: ¿llega a tiempo?", "default": "Sí, si lo pides antes del 27 de noviembre. El primer cajón se abre el 4 de diciembre, así que tienes margen." },
+    { "type": "text", "id": "band", "label": "Franja superior (una línea)", "default": "Black Friday: llévate 3 calendarios y paga 2" },
+    { "type": "text", "id": "bf_end", "label": "Fin de la oferta (cuenta atrás en la franja)", "info": "Formato 2026-11-30T23:59:00+01:00. Ponlo SOLO si el descuento termina de verdad ese día. Vacío = sin cuenta atrás." },
+    { "type": "text", "id": "ship_end", "label": "Último día para que llegue antes del 4-dic", "default": "2026-11-27T23:59:00+01:00" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo", "default": "Calendario de Adviento con 6 joyas" },
+    { "type": "text", "id": "ship", "label": "Plazo (cuando ya pasó la fecha de arriba)", "default": "Llega en 3–7 días laborables." },
+    { "type": "textarea", "id": "faq_time", "label": "FAQ: ¿llega a tiempo?", "default": "Sí, si lo pides antes del 27 de noviembre. El primer cajón se abre el 4 de diciembre, así que hay margen." },
     { "type": "image_picker", "id": "img1", "label": "Foto A1" },
     { "type": "text", "id": "lbl1", "label": "Texto del hueco A1", "default": "Manos abriendo un cajón del calendario junto al árbol" },
     { "type": "text", "id": "ttl1", "label": "Título bajo la foto A1", "default": "Para tu pareja" },
-    { "type": "text", "id": "cap1", "label": "Texto bajo la foto A1", "default": "El detalle que la sorprende cada 4 días." },
+    { "type": "text", "id": "cap1", "label": "Texto bajo la foto A1", "default": "Un detalle nuevo cada 4 días." },
     { "type": "image_picker", "id": "img2", "label": "Foto A2" },
     { "type": "text", "id": "lbl2", "label": "Texto del hueco A2", "default": "Las 6 joyas sobre la caja abierta" },
     { "type": "text", "id": "ttl2", "label": "Título bajo la foto A2", "default": "Para tu madre" },
     { "type": "text", "id": "cap2", "label": "Texto bajo la foto A2", "default": "Seis momentos para ella hasta Nochebuena." },
     { "type": "image_picker", "id": "img3", "label": "Foto A3" },
     { "type": "text", "id": "lbl3", "label": "Texto del hueco A3", "default": "POV: llevando el collar y la pulsera del calendario" },
-    { "type": "text", "id": "ttl3", "label": "Título bajo la foto A3", "default": "Para tu hermana o tu amiga" },
+    { "type": "text", "id": "ttl3", "label": "Título bajo la foto A3", "default": "Para tu hermana" },
     { "type": "text", "id": "cap3", "label": "Texto bajo la foto A3", "default": "El regalo que no se espera." },
     { "type": "image_picker", "id": "img4", "label": "Foto A4" },
     { "type": "text", "id": "lbl4", "label": "Texto del hueco A4", "default": "La caja envuelta bajo el árbol, con lazo" },
     { "type": "text", "id": "ttl4", "label": "Título bajo la foto A4", "default": "Para el amigo invisible" },
-    { "type": "text", "id": "cap4", "label": "Texto bajo la foto A4", "default": "Quedas como nadie sin pensarlo mucho." }
+    { "type": "text", "id": "cap4", "label": "Texto bajo la foto A4", "default": "Quedas bien sin pensarlo mucho." }
   ]
 }
 {% endschema %}
