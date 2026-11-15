@@ -32,16 +32,16 @@
 ## Anuncios estáticos (4:5 para el feed y 9:16 para Stories)
 
 **Anuncio 1 · «El regalo que se abre 6 veces»**
-> Imagen publicitaria vertical 4:5. La caja rosa del calendario de Adviento de la foto adjunta, abierta, con las 6 joyas exactas delante sobre fondo crema con ramitas de abeto. Arriba, en tipografía sans serif negra grande: «El regalo que se abre 6 veces». Debajo, más pequeño: «6 joyas · una cada 4 días hasta Nochebuena». Abajo, en una píldora blanca: «59 € · Envío gratis». Estética limpia, mucho aire, nada recargado.
+> Imagen publicitaria vertical 4:5. La caja rosa del calendario de Adviento de la foto adjunta, abierta, con las 6 joyas exactas delante sobre fondo crema con ramitas de abeto. Arriba, en tipografía sans serif negra grande: «El regalo que se abre 6 veces». Debajo, más pequeño: «6 joyas · una cada 4 días hasta Nochebuena». Abajo, en una píldora blanca: «69 € · Envío gratis». Estética limpia, mucho aire, nada recargado.
 
 **Anuncio 2 · POV del regalo (estilo nativo)**
 > Imagen vertical 9:16 estilo historia de Instagram, como una foto hecha con el móvil. Unas manos sostienen la caja rosa del calendario de Adviento de la foto adjunta delante de un árbol de Navidad. Texto superpuesto con fondo blanco tipo Instagram: «POV: tu regalo de Navidad dura todo diciembre». Abajo, pequeño: «Imagen creada con IA».
 
 **Anuncio 3 · Para quién**
-> Imagen vertical 4:5 sobre fondo crema. Arriba, en negro grande: «¿No sabes qué regalarle?». Debajo, la caja rosa del calendario de Adviento de la foto adjunta, cerrada con su lazo. Debajo, en tres líneas: «Para tu pareja ✓  Para tu madre ✓  Para tu amiga invisible ✓». Abajo: «6 joyas · 59 € · llega antes del 4 de diciembre».
+> Imagen vertical 4:5 sobre fondo crema. Arriba, en negro grande: «¿No sabes qué regalarle?». Debajo, la caja rosa del calendario de Adviento de la foto adjunta, cerrada con su lazo. Debajo, en tres líneas: «Para tu pareja ✓  Para tu madre ✓  Para tu amiga invisible ✓». Abajo: «6 joyas · 69 € · llega antes del 4 de diciembre».
 
 **Anuncio 4 · Calendario de los cajones**
-> Imagen vertical 4:5. Fondo granate oscuro (#5C1A24). En el centro, la caja rosa abierta del calendario de la foto adjunta. Encima, una fila de 6 círculos dorados con los números 4, 8, 12, 16, 20 y 24, y debajo «diciembre». Texto en color crema: «Una joya cada 4 días. La última, en Nochebuena». Abajo, pequeño: «59 € · Envío gratis».
+> Imagen vertical 4:5. Fondo granate oscuro (#5C1A24). En el centro, la caja rosa abierta del calendario de la foto adjunta. Encima, una fila de 6 círculos dorados con los números 4, 8, 12, 16, 20 y 24, y debajo «diciembre». Texto en color crema: «Una joya cada 4 días. La última, en Nochebuena». Abajo, pequeño: «69 € · Envío gratis».
 
 ---
 
@@ -51,4 +51,4 @@
 
 **Si Veo 3 no respeta la caja:** usa la foto de la caja como imagen inicial (imagen a vídeo) y quita del prompt la descripción de la caja.
 
-**Texto para poner encima en CapCut:** «El regalo que se abre 6 veces» (0–3 s) · «59 € · Envío gratis» (5–8 s) · «Imagen creada con IA», pequeño, durante todo el vídeo.
+**Texto para poner encima en CapCut:** «El regalo que se abre 6 veces» (0–3 s) · «69 € · Envío gratis» (5–8 s) · «Imagen creada con IA», pequeño, durante todo el vídeo.
