@@ -10,6 +10,11 @@
   assign v = product.selected_or_first_available_variant
   assign pr = v.price
   assign cmp = v.compare_at_price | default: 0
+  unless S.show_cmp
+    assign cmp = 0
+  endunless
+  assign per = pr | divided_by: 6
+  assign inside = product.description | split: '</h3>' | last | split: '</ul>' | first | split: '<li>'
   assign coll = S.collection
   assign short = product.title | remove: 'Calendario de Adviento ' | strip
   assign rating = product.metafields.reviews.rating.value.rating | default: product.metafields.aom.rating.value.rating
@@ -38,7 +43,7 @@
 
   .mna-gal { display: flex; gap: 6px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .mna-gal::-webkit-scrollbar { display: none; }
-  .mna-gal figure { position: relative; flex: 0 0 66%; margin: 0; aspect-ratio: 4 / 5; scroll-snap-align: start; background: var(--mna-soft); overflow: hidden; }
+  .mna-gal figure { position: relative; flex: 0 0 56%; margin: 0; aspect-ratio: 4 / 5; scroll-snap-align: start; background: var(--mna-soft); overflow: hidden; }
   .mna-gal img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .mna-acts { position: absolute; z-index: 2; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 8px; }
   .mna-act { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--mn-ink); box-shadow: 0 1px 6px rgba(0,0,0,.12); cursor: pointer; }
@@ -61,6 +66,12 @@
   .mna-ship { display: flex; gap: 8px; align-items: flex-start; margin: 10px 0 0; font-size: 14px; line-height: 1.35; }
   .mna-ship svg { flex: none; width: 18px; height: 18px; color: var(--mn-ok); margin-top: 1px; }
 
+  .mna-val { margin: 14px 0 0; padding: 12px 14px; border-radius: 14px; background: var(--mna-soft); }
+  .mna-val__h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 0; font-size: 14px; font-weight: 600; }
+  .mna-val__h span { font-weight: 500; color: var(--mna-wine); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mna-val ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; margin: 8px 0 0; padding: 0; list-style: none; counter-reset: d; font-size: 13px; line-height: 1.3; }
+  .mna-val li { display: flex; gap: 6px; align-items: baseline; }
+  .mna-val li::before { counter-increment: d; content: counter(d); flex: none; width: 16px; font-family: var(--mn-display); font-weight: 700; color: var(--mna-wine); }
   .mna-mode { display: grid; grid-template-columns: 1fr 1fr; margin-top: 18px; padding: 4px; border-radius: 999px; background: var(--mna-soft); }
   .mna-mode button { min-height: 44px; border: 0; border-radius: 999px; background: none; font-size: 14px; font-weight: 600; cursor: pointer; }
   .mna-mode button[aria-pressed="true"] { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
@@ -187,7 +198,7 @@
     <div class="mna-info">
       <h1 class="mna-t">{{ short }}</h1>
       <p class="mna-sub">{{ S.subtitle }}</p>
-      {%- if settings.aom_reviews_on and rating != blank and rcount > 0 -%}
+      {%- if S.show_stars and settings.aom_reviews_on and rating != blank and rcount > 0 -%}
         <a class="mna-stars" href="#opiniones">{%- for i in (1..5) -%}{% render 'mn-icon', i: 'star' %}{%- endfor -%}&nbsp;{{ rating | round: 1 | replace: '.', ',' }} ({{ rcount }})</a>
       {%- endif -%}
 
@@ -197,6 +208,12 @@
         <span class="mna-save" data-save{% unless cmp > pr %} hidden{% endunless %}>Ahorras {{ cmp | minus: pr | money_without_trailing_zeros }}</span>
       </div>
       <p class="mna-ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Envío gratis. <span data-ship-txt>{{ S.ship }}</span></span></p>
+      {%- if inside.size > 1 -%}
+        <div class="mna-val">
+          <p class="mna-val__h">6 joyas en su caja regalo <span>{{ per | divided_by: 100 }},{{ per | modulo: 100 | prepend: '0' | slice: -2, 2 }} € por joya</span></p>
+          <ol>{%- for it in inside offset: 1 -%}<li>{{ it | split: '</li>' | first | strip_html | strip }}</li>{%- endfor -%}</ol>
+        </div>
+      {%- endif -%}
 
       <div class="mna-mode" role="group" aria-label="Cuántos regalos">
         <button type="button" aria-pressed="true" data-mode="1">Para 1</button>
@@ -243,7 +260,7 @@
           <button type="button" class="mn-btn" disabled>Agotado</button>
         {%- endif -%}
       </div>
-      <p class="mna-pay">Tarjeta, Bizum o <b>3 plazos de <span data-k>{{ pr | divided_by: 3 | money_without_trailing_zeros }}</span> con Klarna</b>, sin intereses</p>
+      <p class="mna-pay">Tarjeta, Apple Pay, Google Pay o <b>3 plazos de <span data-k>{{ pr | divided_by: 3 | money_without_trailing_zeros }}</span> con Klarna</b>, sin intereses</p>
       <div class="mna-icons" aria-label="Métodos de pago">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>
 
       <ul class="mna-trust">
@@ -303,7 +320,7 @@
   <script type="application/json" data-models>[
     {%- for p in coll.products limit: 4 -%}
       {%- assign pv = p.selected_or_first_available_variant -%}
-      {"v": {{ pv.id }}, "p": {{ pv.price }}, "c": {{ pv.compare_at_price | default: 0 }}}{%- unless forloop.last -%},{%- endunless -%}
+      {"v": {{ pv.id }}, "p": {{ pv.price }}, "c": {% if S.show_cmp %}{{ pv.compare_at_price | default: 0 }}{% else %}0{% endif %}}{%- unless forloop.last -%},{%- endunless -%}
     {%- endfor -%}
   ]</script>
 </div>
@@ -402,7 +419,7 @@
     paintLike();
     var bar = $('[data-bar]'), cta = $('.mna-cta');
     var ticking = false;
-    function sync() { ticking = false; if (bar && cta) bar.classList.toggle('is-on', cta.getBoundingClientRect().bottom < 0); }
+    function sync() { ticking = false; if (bar && cta) var rc = cta.getBoundingClientRect(); bar.classList.toggle('is-on', rc.bottom < 0 || rc.top > window.innerHeight - 70); }
     window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
     sync();
     paint();
@@ -413,6 +430,8 @@
 {
   "name": "MN · Calendario Adviento",
   "settings": [
+    { "type": "checkbox", "id": "show_stars", "label": "Mostrar estrellas", "info": "Solo con reseñas reales.", "default": false },
+    { "type": "checkbox", "id": "show_cmp", "label": "Mostrar precio de comparación tachado", "info": "Solo si es el precio más bajo de los últimos 30 días (Ómnibus).", "default": false },
     { "type": "collection", "id": "collection", "label": "Colección de calendarios (selector)" },
     { "type": "text", "id": "band", "label": "Primer aviso de la franja", "default": "Black Friday: llévate 3 calendarios y paga 2" },
     { "type": "text", "id": "bf_end", "label": "Fin del 3x2 (cuenta atrás)", "default": "2026-11-30T23:59:00+01:00", "info": "Debe coincidir con la fecha de fin del descuento en Shopify. Vacío = sin cuenta atrás." },
