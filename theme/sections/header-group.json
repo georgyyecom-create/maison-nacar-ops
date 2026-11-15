@@ -5,6 +5,13 @@
     "mn-header": {
       "type": "mn-header",
       "blocks": {
+        "m0": {
+          "type": "msg",
+          "settings": {
+            "text": "Nuevo: Calendarios de Adviento",
+            "link": "/collections/calendarios-adviento"
+          }
+        },
         "m1": {
           "type": "msg",
           "settings": {
@@ -56,6 +63,7 @@
         }
       },
       "block_order": [
+        "m0",
         "m1",
         "m2",
         "m3",

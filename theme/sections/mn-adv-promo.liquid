@@ -1,0 +1,45 @@
+{%- comment -%} Maison Nácar · Banner de Calendarios de Adviento para la portada {%- endcomment -%}
+{%- assign coll = section.settings.collection -%}
+<style>
+  .mn-advp { background: #5C1A24; color: #F7E9D7; }
+  .mn-advp__in { display: grid; gap: 18px; padding: 28px var(--mn-gutter); max-width: var(--mn-max); margin: 0 auto; }
+  @media (min-width: 990px) { .mn-advp__in { grid-template-columns: 1fr 1.3fr; align-items: center; padding: 48px var(--mn-gutter); } }
+  .mn-advp__k { margin: 0; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #E9C98F; }
+  .mn-advp h2 { margin: 6px 0 0; color: #fff; }
+  .mn-advp p.mn-advp__t { margin: 10px 0 0; font-size: 16px; }
+  .mn-advp__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .mn-advp__grid a { display: block; text-decoration: none; color: #F7E9D7; text-align: center; font-size: 12px; line-height: 1.2; }
+  .mn-advp__grid img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; background: #FBF6EF; border-radius: 12px; padding: 6%; }
+  .mn-advp__grid b { display: block; margin-top: 6px; color: #fff; }
+  .mn-advp .mn-btn { margin-top: 16px; }
+</style>
+<section class="mn-advp">
+  <div class="mn-advp__in">
+    <div>
+      <p class="mn-advp__k">{{ section.settings.kicker }}</p>
+      <h2 class="mn-h2">{{ section.settings.title }}</h2>
+      <p class="mn-advp__t">{{ section.settings.text }}</p>
+      {%- if coll != blank -%}<a class="mn-btn mn-btn--white" href="{{ coll.url }}">{{ section.settings.btn }}</a>{%- endif -%}
+    </div>
+    {%- if coll != blank -%}
+      <div class="mn-advp__grid">
+        {%- for p in coll.products limit: 4 -%}
+          <a href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}<b>{{ p.title | remove: 'Calendario de Adviento ' }}</b>{{ p.price | money_without_trailing_zeros }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "MN · Banner Adviento",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Colección" },
+    { "type": "text", "id": "kicker", "label": "Antetítulo", "default": "Nuevo · Edición Navidad" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Calendarios de Adviento" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "6 joyas, una cada 4 días hasta Nochebuena. En su caja regalo, con envío gratis." },
+    { "type": "text", "id": "btn", "label": "Botón", "default": "Ver los calendarios" }
+  ],
+  "presets": [{ "name": "MN · Banner Adviento" }]
+}
+{% endschema %}

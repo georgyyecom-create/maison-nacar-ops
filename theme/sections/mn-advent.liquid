@@ -39,7 +39,7 @@
   .mn-adv__pick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
   .mn-adv__opt { display: block; text-decoration: none; border: 1px solid var(--mn-line); border-radius: 12px; padding: 6px 6px 8px; text-align: center; background: #fff; }
   .mn-adv__opt.is-on { border-color: var(--mn-ink); box-shadow: inset 0 0 0 1px var(--mn-ink); }
-  .mn-adv__opt img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; mix-blend-mode: multiply; background: var(--adv-cream); border-radius: 8px; }
+  .mn-adv__opt img { display: block; width: 100%; height: auto !important; aspect-ratio: 1 / 1; object-fit: contain; mix-blend-mode: multiply; background: var(--adv-cream); border-radius: 8px; }
   .mn-adv__opt b { display: block; margin-top: 6px; font-size: 12px; line-height: 1.15; }
   .mn-adv__opt span { display: block; font-size: 11.5px; color: var(--mn-grey); }
   .mn-adv__opt em { display: block; font-style: normal; font-size: 11px; color: var(--adv-wine); font-weight: 600; }
@@ -52,10 +52,17 @@
   .mn-adv__cta { margin-top: 16px; }
   .mn-adv__ship { margin: 10px 0 0; font-size: 13.5px; text-align: center; }
   .mn-adv__ship b { color: var(--adv-wine); }
-  .mn-adv__trust { list-style: none; padding: 0; margin: 18px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .mn-adv__trust li { background: var(--adv-cream); border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.3; }
-  .mn-adv__trust b { display: block; font-size: 13.5px; }
-  .mn-adv__inside { margin-top: 22px; border-top: 1px solid var(--mn-line); padding-top: 16px; font-size: 14.5px; }
+  .mn-adv__pay { margin: 8px 0 0; font-size: 13.5px; color: #333; }
+  .mn-adv__pay b { font-weight: 600; }
+  .mn-adv__icons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .mn-adv__icons svg { width: 38px; height: 24px; }
+  .mn-adv__trust { list-style: none; padding: 12px 0 0; margin: 14px 0 0; border-top: 1px solid var(--mn-line); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; text-align: center; }
+  .mn-adv__trust li { font-size: 12px; line-height: 1.25; color: var(--mn-grey); }
+  .mn-adv__trust b { display: block; font-size: 13px; color: var(--mn-ink); }
+  .mn-adv__inside { margin-top: 14px; border-top: 1px solid var(--mn-line); border-bottom: 1px solid var(--mn-line); padding: 14px 0; font-size: 14.5px; }
+  .mn-adv__inside summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+  .mn-adv__inside summary::after { content: "+"; font-size: 20px; line-height: 1; }
+  .mn-adv__inside[open] summary::after { content: "–"; }
   .mn-adv__inside h3 { font-size: 17px; margin: 14px 0 6px; }
   .mn-adv__inside ul { margin: 0; padding-left: 18px; }
   .mn-adv__inside p { margin: 8px 0; }
@@ -66,12 +73,12 @@
   .mn-adv-days__d span { font-size: 11px; color: var(--mn-grey); }
   .mn-adv-days__d:last-child { background: var(--adv-wine); }
   .mn-adv-days__d:last-child b, .mn-adv-days__d:last-child span { color: #F7E9D7; }
-  .mn-adv-for { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 22px; }
-  .mn-adv-for div { border: 1px solid var(--mn-line); border-radius: 16px; padding: 16px; }
-  .mn-adv-for b { display: block; font-family: var(--mn-display); font-size: 19px; letter-spacing: -.02em; }
-  .mn-adv-for span { font-size: 14px; color: var(--mn-grey); }
-  .mn-adv-pics { display: grid; gap: 6px; grid-template-columns: 1fr 1fr; margin-top: 22px; }
-  .mn-adv-pics .mn-ph { aspect-ratio: 4 / 5; }
+  .mn-adv-pics { display: grid; gap: 14px 8px; grid-template-columns: 1fr 1fr; margin-top: 18px; }
+  @media (min-width: 990px) { .mn-adv-pics { grid-template-columns: repeat(4, 1fr); gap: 12px; } }
+  .mn-adv-pics .mn-ph { aspect-ratio: 4 / 5; border-radius: 14px; }
+  .mn-adv-pics figure { margin: 0; }
+  .mn-adv-pics figcaption { margin-top: 8px; font-size: 13px; line-height: 1.3; color: var(--mn-grey); }
+  .mn-adv-pics figcaption b { display: block; font-family: var(--mn-display); font-size: 17px; letter-spacing: -.02em; color: var(--mn-ink); }
   .mn-adv-three { background: var(--adv-wine); color: #F7E9D7; border-radius: 22px; padding: 28px 22px; display: grid; gap: 14px; }
   @media (min-width: 750px) { .mn-adv-three { grid-template-columns: 1.4fr 1fr; align-items: center; padding: 40px; } }
   .mn-adv-three h2 { color: #fff; }
@@ -113,6 +120,8 @@
       <h1 class="mn-adv__t">{{ short }}</h1>
       <p class="mn-adv__sub">{{ S.subtitle }}</p>
       <div class="mn-adv__price"><b data-adv-price>{{ pr | money_without_trailing_zeros }}</b><span>6 joyas · sale a {{ per | money }} cada una</span></div>
+      <p class="mn-adv__pay">Paga con tarjeta, <b>Bizum</b> o en <b>3 plazos de {{ pr | divided_by: 3 | money }} con Klarna</b>, sin intereses.</p>
+      <div class="mn-adv__icons" aria-label="Métodos de pago">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag }}{%- endfor -%}</div>
 
       {%- if coll != blank and coll.products.size > 1 -%}
         <p class="mn-adv__lbl">Elige su calendario</p>
@@ -146,13 +155,12 @@
       {%- if S.ship != blank -%}<p class="mn-adv__ship">{{ S.ship }}</p>{%- endif -%}
 
       <ul class="mn-adv__trust">
-        <li><b>Caja regalo con lazo</b>Lista para entregar</li>
-        <li><b>Envío gratis</b>A toda la península y Baleares</li>
-        <li><b>Devolución hasta el 15 de enero</b>Por si no acierta</li>
-        <li><b>Paga como quieras</b>Tarjeta, Bizum o 3 plazos con Klarna</li>
+        <li><b>Caja regalo</b>con lazo, lista para dar</li>
+        <li><b>Envío gratis</b>península y Baleares</li>
+        <li><b>Devolución</b>hasta el 15 de enero</li>
       </ul>
 
-      <div class="mn-adv__inside">{{ product.description }}</div>
+      <details class="mn-adv__inside"><summary>Qué hay dentro · 6 joyas</summary>{{ product.description }}</details>
     </div>
   </div>
 
@@ -172,23 +180,22 @@
 
   <section class="mn-sec">
     <div class="mn-wrap">
-      <div class="mn-head"><div><h2 class="mn-h2">El regalo que dura todo diciembre</h2><p>No se abre una vez: se abre seis. Y cada vez, se acuerda de ti.</p></div></div>
-      <div class="mn-adv-for">
-        <div><b>Para tu pareja</b><span>El detalle que la sorprende cada 4 días.</span></div>
-        <div><b>Para tu madre</b><span>Seis momentos para ella hasta Nochebuena.</span></div>
-        <div><b>Para tu hermana o tu amiga</b><span>El regalo que no se espera.</span></div>
-        <div><b>Para el amigo invisible</b><span>Quedas como nadie, sin pensarlo mucho.</span></div>
-      </div>
+      <div class="mn-head"><div><h2 class="mn-h2">El regalo que dura todo diciembre</h2><p>No se abre una vez: se abre seis.</p></div></div>
       <div class="mn-adv-pics">
         {%- for i in (1..4) -%}
           {%- liquid
             assign k = 'img' | append: i
             assign lk = 'lbl' | append: i
+            assign tk = 'ttl' | append: i
+            assign ck = 'cap' | append: i
             assign im = S[k]
           -%}
-          <div class="mn-ph">
-            {%- if im -%}{{ im | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 40vw, 50vw', widths: '400, 600, 900', alt: S[lk] }}{%- else -%}<div class="mn-ph__empty"><b>Foto A{{ i }}</b><span>{{ S[lk] }}</span></div>{%- endif -%}
-          </div>
+          <figure>
+            <div class="mn-ph">
+              {%- if im -%}{{ im | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', widths: '400, 600, 900', alt: S[lk] }}{%- else -%}<div class="mn-ph__empty"><b>Foto A{{ i }}</b><span>{{ S[lk] }}</span></div>{%- endif -%}
+            </div>
+            <figcaption><b>{{ S[tk] }}</b>{{ S[ck] }}</figcaption>
+          </figure>
         {%- endfor -%}
       </div>
     </div>
@@ -268,12 +275,20 @@
     { "type": "textarea", "id": "faq_time", "label": "FAQ: ¿llega a tiempo?", "default": "Sí, si lo pides antes del 27 de noviembre. El primer cajón se abre el 4 de diciembre, así que tienes margen." },
     { "type": "image_picker", "id": "img1", "label": "Foto A1" },
     { "type": "text", "id": "lbl1", "label": "Texto del hueco A1", "default": "Manos abriendo un cajón del calendario junto al árbol" },
+    { "type": "text", "id": "ttl1", "label": "Título bajo la foto A1", "default": "Para tu pareja" },
+    { "type": "text", "id": "cap1", "label": "Texto bajo la foto A1", "default": "El detalle que la sorprende cada 4 días." },
     { "type": "image_picker", "id": "img2", "label": "Foto A2" },
     { "type": "text", "id": "lbl2", "label": "Texto del hueco A2", "default": "Las 6 joyas sobre la caja abierta" },
+    { "type": "text", "id": "ttl2", "label": "Título bajo la foto A2", "default": "Para tu madre" },
+    { "type": "text", "id": "cap2", "label": "Texto bajo la foto A2", "default": "Seis momentos para ella hasta Nochebuena." },
     { "type": "image_picker", "id": "img3", "label": "Foto A3" },
     { "type": "text", "id": "lbl3", "label": "Texto del hueco A3", "default": "POV: llevando el collar y la pulsera del calendario" },
+    { "type": "text", "id": "ttl3", "label": "Título bajo la foto A3", "default": "Para tu hermana o tu amiga" },
+    { "type": "text", "id": "cap3", "label": "Texto bajo la foto A3", "default": "El regalo que no se espera." },
     { "type": "image_picker", "id": "img4", "label": "Foto A4" },
-    { "type": "text", "id": "lbl4", "label": "Texto del hueco A4", "default": "La caja envuelta bajo el árbol, con lazo" }
+    { "type": "text", "id": "lbl4", "label": "Texto del hueco A4", "default": "La caja envuelta bajo el árbol, con lazo" },
+    { "type": "text", "id": "ttl4", "label": "Título bajo la foto A4", "default": "Para el amigo invisible" },
+    { "type": "text", "id": "cap4", "label": "Texto bajo la foto A4", "default": "Quedas como nadie sin pensarlo mucho." }
   ]
 }
 {% endschema %}

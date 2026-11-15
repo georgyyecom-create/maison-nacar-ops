@@ -3,6 +3,8 @@
     "hero": {
       "type": "mn-hero",
       "settings": {
+        "image": "shopify://shop_images/Gemini_Generated_Image_tc687ctc687ctc68.jpg",
+        "image_mobile": "shopify://shop_images/Gemini_Generated_Image_4tszua4tszua4tsz.jpg",
         "kicker": "",
         "title": "Elige 3. Paga 2.",
         "text": "Llena tu estuche con 3 joyas: la de menor precio es nuestro regalo. Acero inoxidable con baño de oro 18k.",
@@ -74,6 +76,7 @@
               "brazalete-puntos-luz",
               "anillo-baguette-brillante"
             ],
+            "image": "shopify://shop_images/Gemini_Generated_Image_l7f9c8l7f9c8l7f9.jpg",
             "n": "03",
             "label": "El conjunto Puntos de Luz puesto",
             "sub": "Collar, brazalete y anillo con circonitas: para brillar sin hacer ruido."
@@ -88,6 +91,7 @@
               "pulsera-corazones-encadenados",
               "pendientes-tres-corazones"
             ],
+            "image": "shopify://shop_images/Gemini_Generated_Image_70zcyy70zcyy70zc.jpg",
             "n": "04",
             "label": "El conjunto Corazones puesto",
             "sub": "Collar, pulsera y pendientes de corazones: el regalo que acierta."
@@ -99,7 +103,7 @@
         "s2"
       ],
       "settings": {
-        "bg": "#EFEEEB",
+        "bg": "#efeeeb",
         "title": "Estuches ya hechos",
         "text": "Tres joyas que combinan: la de menor precio es tu regalo."
       }
@@ -110,6 +114,7 @@
         "w0": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_14tsio14tsio14ts.jpg",
             "n": "05",
             "label": "POV: espejo antes de salir, con el collar",
             "caption": ""
@@ -118,6 +123,7 @@
         "w1": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_6i6qlt6i6qlt6i6q.jpg",
             "n": "06",
             "label": "Abriendo el estuche en el sofá",
             "caption": ""
@@ -126,6 +132,7 @@
         "w2": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/IMG_8521.jpg",
             "n": "07",
             "label": "Manos con la pulsera y el anillo, cena con amigas",
             "caption": ""
@@ -188,7 +195,9 @@
         "title": "Tu joya de siempre vs Maison Nácar",
         "label_bad": "La de siempre",
         "label_good": "Maison Nácar",
+        "img_bad": "shopify://shop_images/Gemini_Generated_Image_awyeabawyeabawye.jpg",
         "n_bad": "09",
+        "img_good": "shopify://shop_images/Gemini_Generated_Image_iy62kziy62kziy62.jpg",
         "n_good": "10",
         "note": "Comparativa con bisutería genérica de aleación. El material está indicado en cada pieza."
       }
@@ -250,9 +259,16 @@
         "title": "Preguntas",
         "text": "¿Otra duda? Escríbenos por WhatsApp."
       }
+    },
+    "advp": {
+      "type": "mn-adv-promo",
+      "settings": {
+        "collection": "calendarios-adviento"
+      }
     }
   },
   "order": [
+    "advp",
     "hero",
     "tabs",
     "sets",
