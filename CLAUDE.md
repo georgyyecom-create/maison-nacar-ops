@@ -105,3 +105,6 @@ Black Friday 27-nov · Cyber Monday 30-nov · último pedido para Navidad 14-dic
 - Shopify: `shopify` (oficial; **telemetría quitada**, no ejecutar `log_*`), `shopify-email-flows`. SEO: `ai-seo`, `schema`. Otros: `social`, `reverse-engineer-marketing`, `apify-ultimate-scraper`, `dropshipping-product-research`, `llm-council`, `find-skills`.
 - Descartadas por duplicadas: ads-creative, ads-landing, competitors, seo-audit, shopify-cart-abandonment. Evitar: mbfinotti, autonnel, gencraft-labs.
 - Las skills de fuera son guías genéricas: mandan siempre las reglas de este archivo (Ómnibus, nada de reseñas falsas, LSSI).
+
+## Criterios para elegir producto (16-nov-2026, del dueño)
+Resolver un problema real · explicable en 3 s · urgencia real · margen ≥ 20 € por pedido (o recompra frecuente) · recurrencia (consumible o recambio) · buena oferta (pack, regalo, suscripción) · país indiferente. Descartados por no pasar: parches de talón (margen ~3–6 €), protector de sofá (sin recompra), plantillas (sin recompra), bálsamo de talón con marca blanca sin pedido mínimo (margen ~3 €). Candidato vivo: fuente para gatos + filtros en suscripción.
