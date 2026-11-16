@@ -22,3 +22,15 @@
 - Rascador para gatos (Vittasa, ES).
 - Plantillas (Nubelas, ES).
 - Saco de boxeo con guantes de regalo (PunchFit, DE).
+
+## Ronda 2: búsquedas de dolor
+Búsquedas: «cansado de / stanco di / marre de / schluss mit / masz dość» + «envío gratis», 300 anuncios.
+
+| Producto | Dónde gana | En España | Precio | Nota |
+|---|---|---|---|---|
+| **RiparaPRO**: placa de acero para arreglar bisagras y puertas de mueble | IT (La Rosa d'Oro): 6 anuncios, 25 copias, 129–259 días | 3 anuncios, de otros productos | 10 uds 19,99 €; 20 uds 34,99 € | Dolor claro y se entiende con una foto estática. Ticket bajo: ~15 € de margen en el pack de 20 |
+| Saco de invierno para la silla del coche del bebé (ColorStories) | PL, 88 días | Búsqueda con ruido, sin confirmar | ¿? | Dolor real en invierno, por revisar |
+| Lápiz infinito WriteOn | IT, 55 días, «3x2» | ¿? | Bajo | Ticket bajo |
+| Pulverizador de baño «moho y cal en 60 s» | FR y ES, 40–73 días | Ya en ES | — | Química (detergentes/CLP): descartado |
+| Férula antirronquidos DolceRespiro | IT, 26–49 días | ¿? | — | Producto sanitario: descartado |
+| Repetidor wifi (Wifimaniak) | PL, 116–153 días | ¿? | — | En Amazon a 15–25 €: descartado |
