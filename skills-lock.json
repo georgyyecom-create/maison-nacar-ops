@@ -43,6 +43,20 @@
       "skillPath": "skills/ai-seo/SKILL.md",
       "computedHash": "5b5dbb143389784211c56e357e20bd44a12c3a0245dbf6dcfbb40348daaaf4ef"
     },
+    "amazon-product-research": {
+      "source": "nexscope-ai/Amazon-Skills",
+      "commit": "2bcb8cb019cfac6a1e420b11f86209df5ea47686",
+      "sourceType": "github",
+      "skillPath": "amazon-product-research/SKILL.md",
+      "computedHash": "e3a96e6e6688a15732c5fbdd5eb3a3b0e329acadf8563de7c89773a40ecdda54"
+    },
+    "amazon-trending-products": {
+      "source": "nexscope-ai/Amazon-Skills",
+      "commit": "2bcb8cb019cfac6a1e420b11f86209df5ea47686",
+      "sourceType": "github",
+      "skillPath": "amazon-trending-products/SKILL.md",
+      "computedHash": "0be99f0076cbee80f73b0ce71752e505441d067d2464b2451c7e376eb5c99bdb"
+    },
     "apify-ultimate-scraper": {
       "source": "apify/agent-skills",
       "sourceType": "github",
