@@ -134,7 +134,7 @@ Los practicantes dicen que hace falta **probar de 5 a 10 productos por cada gana
 - Hay que probar de 5 a 10 productos antes de que uno escale con beneficio — [Yakkyofy](https://yakkyofy.com/finding-winning-products-for-your-dropshipping-business/)
 - Hay que probar de 5 a 8 productos — [Dropbuild](https://www.dropbuild.com/blog/how-to-find-winning-dropshipping-products)
 - Hay que probar de 5 a 10, lo que supone 1.000–5.000 $ en tests — [Shmroz](https://shmroz.info/?page=winning-products-guide)
-- Más optimista: el primer ganador suele llegar en el intento 4 o 5, y conviene reservar 200–500 $ para 3–5 productos — AliShopping Tools, citado en la búsqueda de [HulkApps / agregados](https://www.hulkapps.com/blogs/ecommerce-hub/how-many-products-to-test-before-finding-a-winner-in-dropshipping)
+- Más optimista: el primer ganador suele llegar en el intento 4 o 5 (se atribuye a AliShopping Tools; apareció en el resumen de la búsqueda sin un enlace directo verificado. Tema relacionado: [HulkApps](https://www.hulkapps.com/blogs/ecommerce-hub/how-many-products-to-test-before-finding-a-winner-in-dropshipping)). Tratarlo como no verificado.
 - Todo son vendedores de herramientas o formación: tienen interés en que se pruebe mucho. No hay datos independientes.
 
 ### Cálculo (probabilidad de al menos un ganador, con los tests independientes: P = 1 − (1 − p)^n)
