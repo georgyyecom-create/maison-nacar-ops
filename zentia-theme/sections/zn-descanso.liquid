@@ -28,50 +28,31 @@
   </div>
 </header>
 
-<main class="zn-main" id="zn-main">
+<main class="zn-main">
   <section class="zn-hero zn-in">
+    <div class="zn-gal" aria-label="Fotos del producto">
+      {%- if product.media.size > 0 -%}
+        {%- for m in product.media -%}
+          {%- if m.media_type == 'image' -%}{{ m | image_url: width: 1200 | image_tag: loading: 'eager', widths: '400,600,900,1200', sizes: '(min-width: 900px) 540px, 88vw', class: 'zn-gal__img' }}{%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {% render 'zn-img', img: S.img_hero, label: 'FOTO 01 · Cojín entre las rodillas, persona dormida de lado', ratio: '4/5', cls: 'zn-gal__img' %}
+        {% render 'zn-img', img: S.img_pack, label: 'FOTO 02 · Los 2 cojines sobre la cama', ratio: '4/5', cls: 'zn-gal__img' %}
+        {% render 'zn-img', img: S.img_detail, label: 'FOTO 03 · Detalle de la espuma y la forma', ratio: '4/5', cls: 'zn-gal__img' %}
+      {%- endif -%}
+    </div>
     <div class="zn-hero__copy">
       <h1 class="zn-h1">{{ S.headline }}</h1>
       <p class="zn-lead">{{ S.subhead }}</p>
       <p class="zn-bill"><span class="zn-bill__big">2 por {% render 'zn-money', cents: sel.price %}</span><span class="zn-bill__small">{% render 'zn-money', cents: per2 %} cada uno · envío gratis</span></p>
     </div>
-
-    <figure class="zn-map" data-state="con">
-      <div class="zn-map__tabs" role="group" aria-label="Previsión de la noche">
-        <button type="button" class="zn-map__tab" data-set="sin" aria-pressed="false">Sin cojín</button>
-        <button type="button" class="zn-map__tab" data-set="con" aria-pressed="true">Con cojín</button>
-      </div>
-      <svg class="zn-map__svg" viewBox="0 0 360 210" role="img" aria-label="Vista desde los pies de la cama. Sin cojín, la rodilla de arriba cae y la cadera se inclina. Con cojín, las rodillas quedan separadas y la cadera recta.">
-        <g class="zn-iso" fill="none" stroke="#3E8796" stroke-width="1.2">
-          <path d="M-10 40 C60 20 120 60 190 40 S320 10 380 34"/>
-          <path d="M-10 70 C70 52 130 92 200 70 S320 44 380 66"/>
-          <path d="M-10 182 C80 160 150 196 230 176 S330 160 380 172"/>
-        </g>
-        <g class="zn-sun"><circle cx="300" cy="48" r="17" fill="#F4C430"/><g stroke="#F4C430" stroke-width="3" stroke-linecap="round"><path d="M300 20v-6M300 82v-6M272 48h-6M334 48h-6M281 29l-4-4M323 71l-4-4M281 67l-4 4M323 25l-4 4"/></g></g>
-        <g class="zn-rain"><path d="M268 64h44a12 12 0 0 0 1-24 16 16 0 0 0-30-3 13 13 0 0 0-15 27z" fill="#D9E6EA"/><g stroke="#5FA8D3" stroke-width="3" stroke-linecap="round"><path d="M276 74l-4 9M291 74l-4 9M306 74l-4 9"/></g></g>
-        <rect x="0" y="168" width="360" height="42" fill="#0A3F4B"/>
-        <g class="zn-hip"><rect x="58" y="62" width="56" height="106" rx="28" fill="#F3EDE3"/><circle cx="86" cy="94" r="6.5" fill="#D7263D"/></g>
-        <circle cx="236" cy="142" r="24" fill="#E6DCCB"/>
-        <g class="zn-pillow"><path d="M200 112c36-15 72-15 72 0 7 6 0 11 0 11-36 14-72 14-72 0-7-6 0-11 0-11z" fill="#FFFFFF" stroke="#0A3F4B" stroke-width="1.5"/><path d="M212 117h48" stroke="#9FC3CC" stroke-width="2" stroke-dasharray="3 4"/></g>
-        <g class="zn-knee"><circle cx="236" cy="86" r="24" fill="#F3EDE3"/><circle cx="236" cy="86" r="6.5" fill="#D7263D"/></g>
-        <line class="zn-line" x1="86" y1="94" x2="236" y2="86" stroke="#D7263D" stroke-width="3" stroke-dasharray="7 6"/>
-        <text x="86" y="194" text-anchor="middle" class="zn-map__lbl">CADERA</text>
-        <text x="236" y="194" text-anchor="middle" class="zn-map__lbl">RODILLAS</text>
-      </svg>
-      <figcaption class="zn-map__bar">
-        <span class="zn-map__cap" data-for="con"><b>Previsión:</b> {{ S.forecast_con }}</span>
-        <span class="zn-map__cap" data-for="sin"><b>Previsión:</b> {{ S.forecast_sin }}</span>
-      </figcaption>
-    </figure>
   </section>
 
-  <section class="zn-buy zn-in" id="zn-comprar" aria-labelledby="zn-buy-t">
+  <section class="zn-buy zn-in" id="zn-comprar" aria-label="Elegir y comprar">
     <div class="zn-live">
-      <p class="zn-stock"><span class="zn-dot" aria-hidden="true"></span><span><b>Quedan {{ S.stock_units }}</b> en el almacén de España <small>(actualizado {{ S.stock_date }})</small></span></p>
-      <p class="zn-count" data-deadline="{{ S.deadline_iso }}"><span class="zn-count__lbl">{{ S.deadline_label }}</span> <span class="zn-count__t">—</span></p>
+      <p class="zn-stock"><span class="zn-dot" aria-hidden="true"></span><span><b>Quedan {{ S.stock_units }}</b> en el almacén de España <small>({{ S.stock_date }})</small></span></p>
+      <p class="zn-count" data-deadline="{{ S.deadline_iso }}"><span>{{ S.deadline_label }}</span> <span class="zn-count__t">—</span></p>
     </div>
-
-    <h2 class="zn-h2" id="zn-buy-t">¿Para cuántos?</h2>
     {%- form 'product', product, id: 'zn-form', class: 'zn-form' -%}
       <input type="hidden" name="return_to" value="/checkout">
       <div class="zn-offers" role="radiogroup" aria-label="Cantidad">
@@ -101,7 +82,7 @@
             </span>
             <span class="zn-offer__note">{{ note }}</span>
             {%- if q > 1 -%}
-              <span class="zn-offer__deal"><span>{% render 'zn-money', cents: per %} por cojín · por separado {% render 'zn-money', cents: sep %}</span><b>Ahorras {% render 'zn-money', cents: save %}</b></span>
+              <span class="zn-offer__deal"><span>{% render 'zn-money', cents: per %}/cojín · por separado {% render 'zn-money', cents: sep %}</span><b>Ahorras {% render 'zn-money', cents: save %}</b></span>
             {%- endif -%}
           </label>
         {%- endfor -%}
@@ -114,74 +95,79 @@
     {%- endform -%}
   </section>
 
-  <section class="zn-band zn-incl">
+  <section class="zn-band">
     <div class="zn-in zn-narrow">
-      <h2 class="zn-h2">Qué recibes</h2>
-      <ul class="zn-incl__list">
-        {%- for b in section.blocks -%}
-          {%- if b.type == 'incl' -%}
-            <li {{ b.shopify_attributes }}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>{{ b.settings.title }}</strong>{{ b.settings.text }}</span></li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
+      <h2 class="zn-h2">{{ S.vs_title }}</h2>
+      <div class="zn-pair">
+        <figure>{% render 'zn-img', img: S.img_sin, label: 'FOTO 04 · Sin cojín: rodillas juntas, cadera torcida', ratio: '1/1', cls: 'zn-pair__img' %}<figcaption class="zn-tag zn-tag--rain">Sin cojín</figcaption></figure>
+        <figure>{% render 'zn-img', img: S.img_con, label: 'FOTO 05 · Con cojín: rodillas separadas, cadera recta', ratio: '1/1', cls: 'zn-pair__img' %}<figcaption class="zn-tag zn-tag--sun">Con cojín</figcaption></figure>
+      </div>
+      <p class="zn-forecast"><b>Previsión:</b> {{ S.forecast_con }}</p>
     </div>
   </section>
 
   <section class="zn-sec">
-    <div class="zn-in zn-narrow">
-      <h2 class="zn-h2">{{ S.signs_title }}</h2>
-      <ul class="zn-signs">
-        {%- for b in section.blocks -%}
-          {%- if b.type == 'sign' -%}<li {{ b.shopify_attributes }}>{{ b.settings.text }}</li>{%- endif -%}
-        {%- endfor -%}
-      </ul>
-      <p class="zn-why">{{ S.why }}</p>
+    <div class="zn-in zn-narrow zn-split">
+      {% render 'zn-img', img: S.img_problem, label: 'FOTO 06 · Almohada normal caída en el suelo al amanecer', ratio: '4/3', cls: 'zn-split__img' %}
+      <div>
+        <h2 class="zn-h2">{{ S.signs_title }}</h2>
+        <ul class="zn-signs">
+          {%- for b in section.blocks -%}
+            {%- if b.type == 'sign' -%}<li {{ b.shopify_attributes }}>{{ b.settings.text }}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
     </div>
   </section>
 
   <section class="zn-band zn-band--sea">
-    <div class="zn-in zn-narrow">
+    <div class="zn-in">
       <h2 class="zn-h2">Cómo se usa</h2>
       <ol class="zn-steps">
+        {%- assign n = 0 -%}
         {%- for b in section.blocks -%}
-          {%- if b.type == 'step' -%}<li {{ b.shopify_attributes }}>{{ b.settings.text }}</li>{%- endif -%}
+          {%- if b.type == 'step' -%}
+            {%- assign n = n | plus: 1 -%}
+            <li {{ b.shopify_attributes }}>
+              {%- capture lbl -%}FOTO 0{{ n | plus: 6 }} · {{ b.settings.text }}{%- endcapture -%}
+              {% render 'zn-img', img: b.settings.image, label: lbl, ratio: '1/1', cls: 'zn-steps__img' %}
+              <span>{{ b.settings.text }}</span>
+            </li>
+          {%- endif -%}
         {%- endfor -%}
       </ol>
     </div>
   </section>
 
   <section class="zn-sec">
-    <div class="zn-in zn-narrow">
-      <h2 class="zn-h2">Almohada normal frente a Zentia</h2>
-      <div class="zn-cmp-wrap">
-        <table class="zn-cmp">
-          <thead><tr><th scope="col"><span class="zn-sr">Qué miramos</span></th><th scope="col">Almohada normal</th><th scope="col" class="zn-cmp__us">Zentia</th></tr></thead>
-          <tbody>
-            {%- for b in section.blocks -%}
-              {%- if b.type == 'cmp' -%}
-                <tr {{ b.shopify_attributes }}><th scope="row">{{ b.settings.row }}</th><td>{{ b.settings.them }}</td><td class="zn-cmp__us">{{ b.settings.us }}</td></tr>
-              {%- endif -%}
-            {%- endfor -%}
-          </tbody>
-        </table>
+    <div class="zn-in zn-narrow zn-split zn-split--rev">
+      {% render 'zn-img', img: S.img_gift, label: 'FOTO 10 · Caja de regalo con tarjeta para los padres', ratio: '4/5', cls: 'zn-split__img' %}
+      <div>
+        <h2 class="zn-h2">{{ S.gift_title }}</h2>
+        <p class="zn-short">{{ S.gift_text }}</p>
+        <a class="zn-btn" href="#zn-comprar">{{ S.gift_cta }}</a>
       </div>
     </div>
   </section>
 
-  <section class="zn-band zn-guar">
+  <section class="zn-band">
+    <div class="zn-in zn-narrow zn-split">
+      {% render 'zn-img', img: S.img_cmp, label: 'FOTO 11 · Almohada normal aplastada junto al cojín Zentia', ratio: '4/3', cls: 'zn-split__img' %}
+      <div>
+        <h2 class="zn-h2">Almohada normal frente a Zentia</h2>
+        <ul class="zn-vs">
+          {%- for b in section.blocks -%}
+            {%- if b.type == 'cmp' -%}<li {{ b.shopify_attributes }}><s>{{ b.settings.them }}</s><span>{{ b.settings.us }}</span></li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="zn-guar">
     <div class="zn-in zn-narrow zn-guar__row">
       <svg class="zn-guar__moon" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="44" fill="#0E5E6F"/><path d="M58 22a28 28 0 1 0 18 40 23 23 0 0 1-18-40z" fill="#F4C430"/></svg>
-      <div>
-        <h2 class="zn-h2">Pruébalo {{ S.trial_nights }} noches</h2>
-        <p>{{ S.guarantee }}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="zn-sec">
-    <div class="zn-in zn-narrow">
-      <h2 class="zn-h2">Opiniones</h2>
-      <p class="zn-empty">{{ S.reviews_empty }}</p>
+      <div><h2 class="zn-h2">{{ S.trial_nights }} noches de prueba</h2><p class="zn-short">{{ S.guarantee }}</p></div>
     </div>
   </section>
 
@@ -193,7 +179,7 @@
           <details class="zn-faq" {{ b.shopify_attributes }}><summary>{{ b.settings.q }}</summary><p>{{ b.settings.a }}</p></details>
         {%- endif -%}
       {%- endfor -%}
-      <a class="zn-btn zn-btn--ghost" href="#zn-comprar">Elegir cuántos</a>
+      <p class="zn-empty">{{ S.reviews_empty }}</p>
     </div>
   </section>
 </main>
@@ -217,13 +203,6 @@
 
 <script>
 (function(){
-  var map=document.querySelector('.zn-map');
-  document.querySelectorAll('.zn-map__tab').forEach(function(t){
-    t.addEventListener('click',function(){
-      map.dataset.state=t.dataset.set;
-      document.querySelectorAll('.zn-map__tab').forEach(function(o){o.setAttribute('aria-pressed',o===t?'true':'false');});
-    });
-  });
   var cta=document.getElementById('zn-cta'),st=document.getElementById('zn-s-t'),sp=document.getElementById('zn-s-p');
   document.querySelectorAll('.zn-offer input').forEach(function(r){
     r.addEventListener('change',function(){
@@ -254,40 +233,48 @@
   "settings": [
     { "type": "text", "id": "ship_short", "label": "Cabecera: envío", "default": "Envío 2–5 días" },
     { "type": "text", "id": "headline", "label": "Titular", "default": "Duerme de lado sin que las rodillas choquen" },
-    { "type": "textarea", "id": "subhead", "label": "Subtítulo", "default": "Un cojín de espuma viscoelástica con forma de piernas. Va entre las rodillas y mantiene la cadera recta toda la noche." },
-    { "type": "text", "id": "forecast_con", "label": "Previsión con cojín", "default": "rodillas separadas y cadera recta hasta que suene el despertador." },
-    { "type": "text", "id": "forecast_sin", "label": "Previsión sin cojín", "default": "la pierna de arriba cae, las rodillas chocan y la cadera se tuerce." },
-    { "type": "text", "id": "stock_units", "label": "Unidades reales en stock (actualízalo a mano)", "default": "10" },
+    { "type": "text", "id": "subhead", "label": "Subtítulo", "default": "Cojín de espuma viscoelástica para entre las rodillas." },
+    { "type": "text", "id": "vs_title", "label": "Título sin/con", "default": "La misma noche, dos previsiones" },
+    { "type": "text", "id": "forecast_con", "label": "Previsión con cojín", "default": "rodillas separadas y cadera recta hasta el despertador." },
+    { "type": "text", "id": "signs_title", "label": "Título problema", "default": "¿Te suena?" },
+    { "type": "text", "id": "gift_title", "label": "Título regalo", "default": "El regalo que van a usar cada noche" },
+    { "type": "text", "id": "gift_text", "label": "Texto regalo", "default": "Con tarjeta para imprimir. Pide antes del 15-dic y llega antes de Nochebuena." },
+    { "type": "text", "id": "gift_cta", "label": "Botón regalo", "default": "Regalar Para 3" },
+    { "type": "text", "id": "guarantee", "label": "Garantía", "default": "Si no duermes más a gusto, te devolvemos el dinero." },
+    { "type": "text", "id": "reviews_empty", "label": "Opiniones (sin reseñas)", "default": "Aún no hay opiniones: es nuevo en la tienda. Las primeras saldrán aquí tal cual." },
+    { "type": "text", "id": "contact", "label": "Contacto", "default": "¿Dudas? Escríbenos y te contestamos en el día." },
+    { "type": "text", "id": "stock_units", "label": "Unidades reales en stock", "default": "10" },
     { "type": "text", "id": "stock_date", "label": "Fecha del dato de stock", "default": "17-nov" },
-    { "type": "text", "id": "deadline_label", "label": "Texto de la fecha límite", "default": "Para que llegue antes de Nochebuena, pide en" },
+    { "type": "text", "id": "deadline_label", "label": "Texto fecha límite", "default": "Llega antes de Nochebuena si pides en" },
     { "type": "text", "id": "deadline_iso", "label": "Fecha límite real (ISO)", "default": "2026-12-15T23:59:00+01:00" },
     { "type": "text", "id": "trial_nights", "label": "Noches de prueba", "default": "60" },
     { "type": "text", "id": "note_1", "label": "Texto Para 1", "default": "Para ti" },
-    { "type": "text", "id": "note_2", "label": "Texto Para 2", "default": "Uno para ti y otro para tu pareja" },
+    { "type": "text", "id": "note_2", "label": "Texto Para 2", "default": "Para ti y tu pareja" },
     { "type": "text", "id": "tag_2", "label": "Etiqueta Para 2", "default": "Pareja" },
-    { "type": "text", "id": "note_3", "label": "Texto Para 3", "default": "Para casa y uno de regalo para tus padres" },
+    { "type": "text", "id": "note_3", "label": "Texto Para 3", "default": "Y uno de regalo para tus padres" },
     { "type": "text", "id": "tag_3", "label": "Etiqueta Para 3", "default": "Regalo" },
     { "type": "text", "id": "pay_line", "label": "Línea de pago", "default": "Tarjeta, Apple Pay o Google Pay" },
-    { "type": "text", "id": "signs_title", "label": "Título ¿Te suena?", "default": "¿Te suena alguna?" },
-    { "type": "textarea", "id": "why", "label": "Por qué pasa", "default": "Al dormir de lado, la pierna de arriba cae sobre la de abajo. Las rodillas se aprietan y la cadera gira un poco durante horas. Una almohada normal es plana y se escapa; este cojín tiene la forma de las piernas y mantiene la misma altura toda la noche." },
-    { "type": "textarea", "id": "guarantee", "label": "Garantía", "default": "Úsalo dos meses. Si no duermes más a gusto, nos escribes, lo devuelves y te reembolsamos el dinero." },
-    { "type": "textarea", "id": "reviews_empty", "label": "Opiniones (sin reseñas)", "default": "Todavía no hay opiniones: el cojín acaba de llegar a la tienda. Las primeras que recibamos saldrán aquí tal cual." },
-    { "type": "text", "id": "contact", "label": "Contacto", "default": "¿Dudas? Escríbenos y te contestamos en el día." }
+    { "type": "image_picker", "id": "img_hero", "label": "Foto 01 · portada" },
+    { "type": "image_picker", "id": "img_pack", "label": "Foto 02 · pack de 2" },
+    { "type": "image_picker", "id": "img_detail", "label": "Foto 03 · detalle" },
+    { "type": "image_picker", "id": "img_sin", "label": "Foto 04 · sin cojín" },
+    { "type": "image_picker", "id": "img_con", "label": "Foto 05 · con cojín" },
+    { "type": "image_picker", "id": "img_problem", "label": "Foto 06 · el problema" },
+    { "type": "image_picker", "id": "img_gift", "label": "Foto 10 · regalo" },
+    { "type": "image_picker", "id": "img_cmp", "label": "Foto 11 · comparación" }
   ],
   "blocks": [
     { "type": "tick", "name": "Aviso de la barra", "settings": [ { "type": "text", "id": "text", "label": "Texto", "default": "Envío gratis desde España" } ] },
-    { "type": "incl", "name": "Qué recibes", "settings": [
-      { "type": "text", "id": "title", "label": "Título", "default": "El cojín" },
-      { "type": "text", "id": "text", "label": "Texto", "default": "Espuma viscoelástica" } ] },
-    { "type": "sign", "name": "¿Te suena?", "settings": [ { "type": "text", "id": "text", "label": "Texto", "default": "Te despiertas con las rodillas clavadas" } ] },
-    { "type": "step", "name": "Paso", "settings": [ { "type": "text", "id": "text", "label": "Texto", "default": "Paso" } ] },
-    { "type": "cmp", "name": "Fila comparación", "settings": [
-      { "type": "text", "id": "row", "label": "Qué", "default": "Forma" },
+    { "type": "sign", "name": "¿Te suena?", "settings": [ { "type": "text", "id": "text", "label": "Texto", "default": "Rodillas clavadas al despertar" } ] },
+    { "type": "step", "name": "Paso", "settings": [
+      { "type": "text", "id": "text", "label": "Texto", "default": "Paso" },
+      { "type": "image_picker", "id": "image", "label": "Imagen del paso" } ] },
+    { "type": "cmp", "name": "Comparación", "settings": [
       { "type": "text", "id": "them", "label": "Almohada normal", "default": "Plana" },
       { "type": "text", "id": "us", "label": "Zentia", "default": "Con forma de piernas" } ] },
     { "type": "faq", "name": "Pregunta", "settings": [
       { "type": "text", "id": "q", "label": "Pregunta", "default": "Pregunta" },
-      { "type": "textarea", "id": "a", "label": "Respuesta", "default": "Respuesta" } ] }
+      { "type": "text", "id": "a", "label": "Respuesta", "default": "Respuesta" } ] }
   ]
 }
 {% endschema %}

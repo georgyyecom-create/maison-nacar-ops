@@ -47,6 +47,7 @@
 - Campaña: Configuración del tema → Maison Nácar → «Campaña activa». Reseñas: interruptor «Mostrar reseñas y estrellas» (sección «Opiniones»). Enlace de anuncio: `/products/<collar>?pack=3`. Página `/pages/3x2` = «Tu estuche».
 - Huecos de foto numerados («Foto 01»…); los prompts están en `PROMPTS_FOTOS_TIENDA_V20.md`. En productos: `#portada` sale primero y `#puesto` va a «Así queda puesto».
 - Ojo: Shopify rechaza las secciones con `"default": ""` en un ajuste de texto (y, en cascada, las plantillas que las usan).
+- Ojo (17-nov): una sección con ajustes `"type": "header"` fue rechazada en silencio por `themeFilesUpsert` (userErrors vacío, el archivo no cambia). Comprobar siempre `updatedAt` del archivo tras subirlo.
 - Para subir cambios:
   1. Hacer un zip de `theme/`.
   2. `stagedUploadsCreate` (archivo; el campo del archivo va al final del curl).

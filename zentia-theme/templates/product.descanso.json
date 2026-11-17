@@ -19,7 +19,7 @@
         "t2": {
           "type": "tick",
           "settings": {
-            "text": "Pide antes del 15-dic y llega antes de Nochebuena"
+            "text": "Llega antes de Nochebuena si pides antes del 15-dic"
           }
         },
         "t3": {
@@ -31,83 +31,48 @@
         "t4": {
           "type": "tick",
           "settings": {
-            "text": "Para 2: 32,45 € por cojín"
-          }
-        },
-        "i1": {
-          "type": "incl",
-          "settings": {
-            "title": "El cojín de espuma viscoelástica",
-            "text": "Con forma de piernas, va entre las rodillas."
-          }
-        },
-        "i2": {
-          "type": "incl",
-          "settings": {
-            "title": "Plan de 7 noches para dormir de lado",
-            "text": "PDF corto: dónde va el cojín, qué almohada usar y qué esperar las primeras noches. Te llega por email."
-          }
-        },
-        "i3": {
-          "type": "incl",
-          "settings": {
-            "title": "Tarjeta regalo para imprimir",
-            "text": "Si es para tus padres, la imprimes y se la das con el paquete."
-          }
-        },
-        "i4": {
-          "type": "incl",
-          "settings": {
-            "title": "60 noches de prueba",
-            "text": "Si no te convence, te devolvemos el dinero."
+            "text": "2 por 64,90 €"
           }
         },
         "g0": {
           "type": "sign",
           "settings": {
-            "text": "Te despiertas con una rodilla clavada en la otra"
+            "text": "Rodillas clavadas al despertar"
           }
         },
         "g1": {
           "type": "sign",
           "settings": {
-            "text": "Pones una almohada entre las piernas y amanece en el suelo"
+            "text": "La almohada amanece en el suelo"
           }
         },
         "g2": {
           "type": "sign",
           "settings": {
-            "text": "Te levantas con la cadera cargada después de dormir de lado"
-          }
-        },
-        "g3": {
-          "type": "sign",
-          "settings": {
-            "text": "Das vueltas buscando la postura"
+            "text": "Cadera cargada por la mañana"
           }
         },
         "s0": {
           "type": "step",
           "settings": {
-            "text": "Túmbate de lado, como duermes siempre."
+            "text": "Túmbate de lado"
           }
         },
         "s1": {
           "type": "step",
           "settings": {
-            "text": "Pon el cojín entre las rodillas, con la parte ancha arriba."
+            "text": "Cojín entre las rodillas"
           }
         },
         "s2": {
           "type": "step",
           "settings": {
-            "text": "Las primeras noches se nota raro. Sigue el plan de 7 noches: hacia la cuarta ya no te acuerdas de que está."
+            "text": "Duerme toda la noche"
           }
         },
         "c0": {
           "type": "cmp",
           "settings": {
-            "row": "Forma",
             "them": "Plana",
             "us": "Con forma de piernas"
           }
@@ -115,67 +80,50 @@
         "c1": {
           "type": "cmp",
           "settings": {
-            "row": "Altura durante la noche",
             "them": "Se aplasta",
-            "us": "Espuma viscoelástica que recupera su forma"
+            "us": "Recupera su forma"
           }
         },
         "c2": {
           "type": "cmp",
           "settings": {
-            "row": "Al darte la vuelta",
-            "them": "Se escapa",
-            "us": "Pensado para quedarse entre las rodillas"
-          }
-        },
-        "c3": {
-          "type": "cmp",
-          "settings": {
-            "row": "Si no te convence",
-            "them": "Te la quedas",
-            "us": "60 noches para devolverlo"
+            "them": "Se escapa al girarte",
+            "us": "Hecho para quedarse ahí"
           }
         },
         "f0": {
           "type": "faq",
           "settings": {
-            "q": "¿Sirve si duermo boca arriba?",
-            "a": "Está pensado para dormir de lado. Boca arriba puedes ponerlo bajo las rodillas, pero no es su uso principal."
+            "q": "¿Cuándo llega?",
+            "a": "En 2–5 días laborables desde España. Para Nochebuena, pide antes del 15-dic."
           }
         },
         "f1": {
           "type": "faq",
           "settings": {
-            "q": "¿Es un producto sanitario?",
-            "a": "No. Es un cojín para dormir más cómodo. Si tienes dolor o una lesión, consulta a tu médico o fisioterapeuta."
+            "q": "¿Y si no me convence?",
+            "a": "Tienes 60 noches. Lo devuelves y te reembolsamos."
           }
         },
         "f2": {
           "type": "faq",
           "settings": {
-            "q": "¿Cuándo llega?",
-            "a": "Sale desde España y tarda de 2 a 5 días laborables a la península y Baleares. Para Nochebuena, pide antes del 15 de diciembre."
+            "q": "¿Sirve boca arriba?",
+            "a": "Está pensado para dormir de lado. Boca arriba, bajo las rodillas."
           }
         },
         "f3": {
           "type": "faq",
           "settings": {
-            "q": "¿Por qué quedan tan pocos?",
-            "a": "Es el stock real que hay ahora en el almacén de España. Cuando se repone, lo actualizamos aquí."
+            "q": "¿Es un producto sanitario?",
+            "a": "No. Es un cojín de comodidad. Si tienes dolor, consulta a tu médico."
           }
         },
         "f4": {
           "type": "faq",
           "settings": {
-            "q": "¿Y si no me convence?",
-            "a": "Tienes 60 noches. Nos escribes, lo devuelves y te reembolsamos el dinero."
-          }
-        },
-        "f5": {
-          "type": "faq",
-          "settings": {
-            "q": "¿Puedo enviarlo a otra dirección para regalar?",
-            "a": "Sí. Al pagar pones la dirección de quien lo va a recibir."
+            "q": "¿Por qué quedan tan pocos?",
+            "a": "Es el stock real del almacén. Al reponer, lo actualizamos aquí."
           }
         }
       },
@@ -185,27 +133,20 @@
         "t2",
         "t3",
         "t4",
-        "i1",
-        "i2",
-        "i3",
-        "i4",
         "g0",
         "g1",
         "g2",
-        "g3",
         "s0",
         "s1",
         "s2",
         "c0",
         "c1",
         "c2",
-        "c3",
         "f0",
         "f1",
         "f2",
         "f3",
-        "f4",
-        "f5"
+        "f4"
       ],
       "settings": {}
     }
