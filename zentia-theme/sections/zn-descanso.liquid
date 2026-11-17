@@ -272,7 +272,7 @@
 </div>
 
 {%- if S.wa_number != blank and S.wa_float -%}<a class="zn-wa" data-wa href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg></a>{%- endif -%}
-{% render 'zn-cart', product: product, cod_text: S.cod_text %}
+{% render 'zn-cart', product: product, cod_text: S.cod_text, guide_show: S.guide_show, guide_name: S.guide_name, guide_price: S.guide_price %}
 <script src="{{ 'zn.js' | asset_url }}" defer></script>
 
 {% schema %}
@@ -304,7 +304,7 @@
     { "type": "text", "id": "cta", "label": "Botón", "default": "Añadir al carrito" },
     { "type": "text", "id": "wa_number", "label": "WhatsApp (con prefijo, sin +)", "default": "34621390548" },
     { "type": "text", "id": "wa_text", "label": "Mensaje inicial de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" },
-    { "type": "checkbox", "id": "wa_float", "label": "Botón flotante de WhatsApp", "default": true },
+    { "type": "checkbox", "id": "wa_float", "label": "Botón flotante de WhatsApp", "default": true }, { "type": "checkbox", "id": "guide_show", "label": "Carrito: mostrar la guía PDF de regalo (solo si ya existe)", "default": true }, { "type": "text", "id": "guide_name", "label": "Carrito: nombre de la guía", "default": "Guía PDF para dormir mejor de lado" }, { "type": "text", "id": "guide_price", "label": "Carrito: precio de la guía vendida por separado (vacío = solo Gratis)" },
     { "type": "checkbox", "id": "show_cod", "label": "Mostrar «Pagas al recibir» (solo con contra reembolso activo)", "default": true },
     { "type": "text", "id": "cod_text", "label": "Texto de contra reembolso", "default": "Pagas al recibir o con tarjeta" }, { "type": "text", "id": "cod_title", "label": "Caja de contra reembolso · título", "default": "Pago contra reembolso" }, { "type": "text", "id": "cod_sub", "label": "Caja de contra reembolso · texto", "default": "Pagas en efectivo al repartidor cuando te llega. No necesitas tarjeta." },
     { "type": "text", "id": "assure1", "label": "Garantía corta", "default": "60 noches de prueba: si no te convence, te devolvemos el dinero" },

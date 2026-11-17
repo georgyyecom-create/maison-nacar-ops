@@ -171,7 +171,7 @@
   <a class="zn-btn zn-btn--buy zn-btn--sm" href="{{ go }}" tabindex="-1">{{ S.cta_sticky }}</a>
 </div>
 
-{%- if embed -%}{% render 'zn-cart', product: p, cod_text: S.cod_line %}{%- endif -%}
+{%- if embed -%}{% render 'zn-cart', product: p, cod_text: S.cod_line, guide_show: S.guide_show, guide_name: S.guide_name, guide_price: S.guide_price %}{%- endif -%}
 <script src="{{ 'zn.js' | asset_url }}" defer></script>
 
 {% schema %}
@@ -217,7 +217,7 @@
     { "type": "text", "id": "cta_link", "label": "Botón (modo enlace)", "default": "Ver el cojín y elegir pack" },
     { "type": "text", "id": "guar_line", "label": "Línea de garantía", "default": "60 noches de prueba. Si no te convence, te devolvemos el dinero." },
     { "type": "text", "id": "wa_number", "label": "WhatsApp (con prefijo, sin +)", "default": "34621390548" },
-    { "type": "text", "id": "wa_text", "label": "Mensaje de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" },
+    { "type": "text", "id": "wa_text", "label": "Mensaje de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" }, { "type": "checkbox", "id": "guide_show", "label": "Carrito: mostrar la guía PDF de regalo (solo si ya existe)", "default": true }, { "type": "text", "id": "guide_name", "label": "Carrito: nombre de la guía", "default": "Guía PDF para dormir mejor de lado" }, { "type": "text", "id": "guide_price", "label": "Carrito: precio de la guía vendida por separado (vacío = solo Gratis)" },
     { "type": "text", "id": "faq_title", "label": "Preguntas · título", "default": "Lo que más nos preguntan" },
     { "type": "textarea", "id": "disclaimer", "label": "Aviso final", "default": "Este artículo es publicidad de Zentia. No es un consejo médico. Si tienes dolor que no se va, consulta a tu médico." },
     { "type": "text", "id": "sticky_text", "label": "Barra fija · texto", "default": "2 cojines por 49,90 € + antifaz" },

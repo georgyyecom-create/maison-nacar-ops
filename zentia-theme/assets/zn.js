@@ -105,6 +105,7 @@
           '<p class="zn-ci__price">'+was+fmt(it.final_line_price)+'</p></li>';
       }).join('');
       empty.hidden=c.item_count>0;foot.hidden=!c.item_count;list.hidden=!c.item_count;
+      var gd=dr.querySelector('[data-cart-guide]');if(gd)gd.hidden=!(zn>0);
       /* envío gratis */
       if(zn>0){
         var left=FREE-zn,pct=Math.min(100,zn/FREE*100);

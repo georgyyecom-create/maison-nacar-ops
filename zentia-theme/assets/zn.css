@@ -380,3 +380,7 @@ html.zn-lock,html.zn-lock body{overflow:hidden}
 .zn-art__disc{margin-top:32px;padding-top:16px;border-top:1px solid var(--zn-line);font-size:13px;color:var(--zn-muted)}
 .zn-art__bridge .zn-checks{margin-top:16px}
 .zn-art__after{padding-top:14px;border-top:1px solid rgba(255,255,255,.2)}
+.zn-cart__guide{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--zn-line)}
+.zn-cart__gicon{display:grid;place-items:center;width:72px;height:72px;border-radius:12px;background:var(--zn-tint)}
+.zn-cart__gicon svg{width:30px;height:30px;fill:none;stroke:var(--zn-navy);stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.zn-cart__guide .zn-ci__price{color:var(--zn-ok)}
