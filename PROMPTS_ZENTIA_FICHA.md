@@ -81,6 +81,6 @@ Se sube en Personalizar → «Zentia · ficha» → «Foto del regalo 1».
 
 ## Comprobación antes de subir cada foto
 1. ¿El cojín es idéntico? Forma de corazón, puntitos, ribete azul, sin logotipos.
-2. ¿El texto está bien escrito? Gemini a veces se equivoca con las tildes: «Envío», «viscoelástica», «Imagen creada con IA».
+2. ¿El texto está bien escrito? Gemini a veces se equivoca con las tildes: «Envío», «viscoelástica».
 3. ¿Hay manos o piernas raras? Revisa dedos y rodillas.
 4. ¿Se lee algo que no sea verdad? Nada de estrellas, cifras de clientes, «médico» ni «ortopédico certificado».
