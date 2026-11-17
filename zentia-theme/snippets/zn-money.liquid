@@ -1,0 +1,6 @@
+{%- liquid
+  assign c = cents | round
+  assign e = c | divided_by: 100
+  assign r = c | modulo: 100 | prepend: '0' | slice: -2, 2
+  echo e | append: ',' | append: r | append: ' €'
+-%}
