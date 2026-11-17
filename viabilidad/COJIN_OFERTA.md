@@ -68,3 +68,17 @@ Descartados como regalo por llevar reclamos de salud: parches para dormir, «Wel
 Margen antes de anuncios. Supuestos: 6 € de envío contra reembolso, precios con IVA y comisión del 4 %.
 - **Para 2** (49,90 € con antifaz): coste 8,67 € → ~27 €.
 - **Para 3** (64,90 € con antifaz y altavoz): coste 15,35 € → ~33 €.
+
+## Costes reales en Dropi (17-nov, pedido de prueba en el panel)
+- Producto: 3,69 € + IVA 0,77 € = 4,46 €.
+- Envío: MRW 24/48 h 5,74 €, MRW 14 h 6,41 €, CTT Baleares 7,39 €. El contra reembolso suma +1 €.
+- Dropi no da garantía. Para reclamar un producto que falta piden un vídeo del desembalaje.
+- Ficha del proveedor: espuma viscoelástica de alta densidad, funda de punto con cremallera lavable, sin correas, unos 25 × 24 cm, blanco con costuras azules. No usar «hipoalergénico», «ciática» ni «postoperatorio».
+
+| Pack | Cobro | Coste Dropi (contra reembolso, MRW) | Queda antes de anuncios |
+|---|---|---|---|
+| 1 cojín | 29,90 + 4,95 € | 4,46 + 6,74 € | ~23,65 € |
+| 2 + antifaz | 49,90 € | 8,92 + 1,56 + 6,74 € | ~32,70 € |
+| 3 + antifaz + altavoz | 64,90 € | 13,38 + 1,56 + 3,62 + 6,74 € | ~39,60 € |
+
+Falta confirmar: el envío con 2 y 3 unidades (más peso), el coste de una devolución por contra reembolso rechazado, y el IVA de la venta.
