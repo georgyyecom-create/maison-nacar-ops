@@ -56,7 +56,7 @@ button.ghost{background:transparent;color:var(--accent)}
 
 <div class="wrap">
   <h1>Filtro de producto</h1>
-  <p class="sub">Rellena los 5 pasos con lo que ves en BigBuy, Dropi o Dropea, Amazon.es y la Biblioteca de Anuncios. Si un paso falla, el producto queda descartado.</p>
+  <p class="sub">Rellena los 6 pasos con lo que ves en BigBuy, Dropi o Dropea, Amazon.es y la Biblioteca de Anuncios. Si un paso falla, el producto queda descartado.</p>
 
   <div class="verdict" aria-live="polite">
     <div class="v-top"><span class="v-title" id="vName">—</span><span class="pill" id="vPill">—</span></div>
@@ -127,7 +127,19 @@ button.ghost{background:transparent;color:var(--accent)}
   </section>
 
   <section>
-    <h2><span class="n">5</span>¿Hay suministro?</h2>
+    <h2><span class="n">5</span>¿Qué ventana tenemos?</h2>
+    <p class="hint">Si fuera hay un ganador y en España no, nos llevamos su ángulo. Si en España ya hay uno, buscamos otro ángulo u ofrecemos más valor.</p>
+    <div class="grid">
+      <label>Ángulo del ganador de fuera<input type="text" id="angleAbroad" value="Se queda entre las rodillas toda la noche (Compade, NL)"></label>
+      <label>Ángulo del ganador en España<input type="text" id="angleES" value="2 por 39,99 €: una para cada uno (Miacassa)"></label>
+      <label>Nuestro ángulo<input type="text" id="angleUs" value="Regalo para tus padres, llega antes de Nochebuena"></label>
+      <label>¿Es distinto del de España?<select id="angleDiff"><option value="yes" selected>Sí, otro motivo de compra</option><option value="value">Mismo ángulo, pero más valor</option><option value="no">No, es lo mismo</option></select></label>
+    </div>
+    <div class="res"><span>Jugada</span><b id="tPlay">—</b></div>
+  </section>
+
+  <section>
+    <h2><span class="n">6</span>¿Hay suministro?</h2>
     <div class="grid">
       <label>Stock del proveedor (uds)<input type="number" id="stock" min="0" value="10" inputmode="numeric"></label>
       <label>¿Da factura?<select id="invoice"><option value="yes">Sí</option><option value="no" selected>No / no sé</option></select></label>
@@ -165,7 +177,15 @@ function evaluate(){
   const s1 = (trend==='none'||rev<50)?'bad':(trend==='down'||rev<500)?'warn':'ok';
   // 2 competencia
   const es=g('brandsES'), nw=g('brandsNew'), ab=$('abroad').value==='yes';
-  let s2; if(es>10) s2='bad'; else if(es>=1&&es<=5) s2='ok'; else if(es===0&&ab) s2='warn'; else if(es===0) s2='bad'; else s2='warn';
+  let s2; if(es>10) s2='bad'; else if(es>=1&&es<=5) s2='ok'; else if(es===0&&ab) s2='ok'; else if(es===0) s2='bad'; else s2='warn';
+  // ventana
+  const ad=$('angleDiff').value; let play, sW;
+  if(es===0&&ab){play='Importar: llevar el ángulo de fuera a España';sW='ok'}
+  else if(es>=1&&ad==='yes'){play='Reposicionar: otro ángulo para el mismo producto';sW='ok'}
+  else if(es>=1&&ad==='value'){play='Más valor: mismo ángulo con mejor oferta';sW='warn'}
+  else if(es>=1){play='Copia sin diferencia: no entrar';sW='bad'}
+  else {play='Sin ganador en ningún sitio: no hay ventana';sW='bad'}
+  $('tPlay').textContent=play;
   // 3 margen
   const M=margin(g('price'),g('cost'),g('ship'),Math.max(1,g('units')),$('pay').value);
   const need=priceForTarget(g('cost'),g('ship'),Math.max(1,g('units')),$('pay').value)/Math.max(1,g('units'));
@@ -178,17 +198,18 @@ function evaluate(){
   // 5 suministro
   const st=g('stock'), inv=$('invoice').value==='yes';
   const s5 = (st<20)?'bad':(st>=50&&inv)?'ok':'warn';
-  const S=[s1,s2,s3,s4,s5], names=['Demanda','Competencia','Margen','Diferencia','Suministro'];
+  const S=[s1,s2,s3,s4,sW,s5], names=['Demanda','Competencia','Margen','Diferencia','Ventana','Suministro'];
   const why=[];
   if(s1!=='ok') why.push(s1==='bad'?'sin demanda clara':'demanda floja o bajando');
   if(s2!=='ok') why.push(es>10?'España saturada':es===0&&!ab?'nadie lo anuncia en ningún sitio':es===0?'hueco en España, pero sin nadie que lo demuestre aquí':'competencia por confirmar');
   if(s3!=='ok') why.push('margen '+eur(M.m)+' (mínimo 20 €; precio necesario '+eur(need)+'/ud)');
   if(s4!=='ok') why.push('poco que te diferencie');
+  if(sW!=='ok') why.push(play.toLowerCase());
   if(s5!=='ok') why.push(st<20?'stock de '+st+' uds':'stock o factura sin asegurar');
   const fail=S.includes('bad'), warn=S.includes('warn');
   r.verdict = fail?'bad':warn?'warn':'ok';
   r.label = fail?'Descartado':warn?'Dudoso: revisa':'Pasa el filtro';
-  r.margin=M.m; r.why=why.join(' · ')||'Todo en verde. Siguiente: pedir muestra.';
+  r.margin=M.m; r.why=(sW==='ok'?play+'. ':'')+(why.join(' · ')||'Todo en verde. Siguiente: pedir muestra.');
   $('vName').textContent=r.name;
   const p=$('vPill'); p.className='pill '+r.verdict; p.textContent=r.label;
   $('vSteps').innerHTML=S.map((s,i)=>`<span class="chip ${s}">${i+1} ${names[i]}</span>`).join('');
@@ -204,6 +225,6 @@ function renderList(){
 }
 document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',evaluate));
 $('save').addEventListener('click',()=>{const r=evaluate();saved.unshift(r);try{localStorage.setItem('filtro-producto',JSON.stringify(saved.slice(0,50)))}catch(e){}renderList();$('save').textContent='Guardado';setTimeout(()=>$('save').textContent='Guardar este producto',1500)});
-$('reset').addEventListener('click',()=>{['name','supplier'].forEach(i=>$(i).value='');['reviews','brandsES','brandsNew','price','cost','ship','stock'].forEach(i=>$(i).value='');$('units').value='1';document.querySelectorAll('#diff input').forEach(c=>c.checked=false);document.querySelector('.ex').hidden=true;evaluate();window.scrollTo({top:0})});
+$('reset').addEventListener('click',()=>{['name','supplier','angleAbroad','angleES','angleUs'].forEach(i=>$(i).value='');['reviews','brandsES','brandsNew','price','cost','ship','stock'].forEach(i=>$(i).value='');$('units').value='1';document.querySelectorAll('#diff input').forEach(c=>c.checked=false);document.querySelector('.ex').hidden=true;evaluate();window.scrollTo({top:0})});
 evaluate();renderList();
 </script>
