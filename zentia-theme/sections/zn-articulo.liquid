@@ -1,0 +1,231 @@
+{%- liquid
+  assign S = section.settings
+  assign p = S.product
+  if p == blank
+    assign p = all_products['kit-dormir-de-lado']
+  endif
+  assign v1 = p.variants[0]
+  assign sel = p.variants[0]
+  if p.variants.size > 1
+    assign sel = p.variants[1]
+  endif
+  assign embed = false
+  if S.mode == 'embed'
+    assign embed = true
+  endif
+  assign go = p.url | append: '?ref=articulo'
+  if embed
+    assign go = '#comprar'
+  endif
+  assign reasons = section.blocks | where: 'type', 'reason'
+-%}
+
+<div class="zn-bar">
+  <p class="zn-bar__txt">{{ S.bar_text }}</p>
+  <div class="zn-clock" data-deadline="{{ S.deadline_iso }}" aria-label="Tiempo que queda">
+    <span><b data-u="d">--</b><i>días</i></span><span><b data-u="h">--</b><i>horas</i></span><span><b data-u="m">--</b><i>min</i></span><span><b data-u="s">--</b><i>seg</i></span>
+  </div>
+</div>
+
+<header class="zn-head">
+  <div class="zn-in zn-head__row">
+    {% render 'zn-logo', tagline: S.tagline %}
+    {%- if embed -%}
+      <a class="zn-head__cart" href="{{ routes.cart_url }}" data-cart-open aria-label="Abrir carrito"><span class="zn-head__count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l-1.2 12H6.2L5 7Z M9 7a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></a>
+    {%- endif -%}
+  </div>
+</header>
+
+<main class="zn-art">
+  <article class="zn-art__in">
+    <p class="zn-art__ad">Publicidad · {{ S.outlet }}</p>
+    <h1 class="zn-art__h1">{{ S.title }}</h1>
+    <p class="zn-art__dek">{{ S.dek }}</p>
+    <p class="zn-art__by">{{ S.byline }}</p>
+    <figure class="zn-art__hero">{% render 'zn-img', img: S.img_hero, label: 'ARTÍCULO 01 · Persona de 60 años de lado en la cama, de madrugada, recolocando una almohada doblada entre las rodillas', ratio: '16/10' %}</figure>
+
+    <div class="zn-art__lead zn-rte">{{ S.intro }}</div>
+
+    <aside class="zn-art__sum">
+      <b>{{ S.sum_title }}</b>
+      <p>{{ S.summary }}</p>
+    </aside>
+
+    <ol class="zn-art__list">
+      {%- for b in reasons -%}
+        <li class="zn-art__item" {{ b.shopify_attributes }}>
+          <p class="zn-art__n">Razón {{ forloop.index }}</p>
+          <h2 class="zn-art__h2">{{ b.settings.title }}</h2>
+          <figure>{% render 'zn-img', img: b.settings.image, label: b.settings.label, ratio: '16/10' %}</figure>
+          <div class="zn-rte">{{ b.settings.text }}</div>
+        </li>
+        {%- if forloop.index == 3 -%}
+          <li class="zn-art__nudge">
+            <p>{{ S.nudge_text }}</p>
+            <a class="zn-btn zn-btn--ghost zn-btn--sm" href="{{ go }}">{{ S.nudge_cta }}</a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ol>
+
+    <section class="zn-art__bridge">
+      <h2 class="zn-art__h2">{{ S.bridge_title }}</h2>
+      <ul class="zn-checks">
+        {%- assign items = S.bridge_items | newline_to_br | split: '<br />' -%}
+        {%- for it in items -%}{%- assign it2 = it | strip -%}{%- if it2 != blank -%}<li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10"/><path d="m6 10.4 2.6 2.6L14 7.6"/></svg>{{ it2 }}</li>{%- endif -%}{%- endfor -%}
+      </ul>
+      <p class="zn-art__after">{{ S.bridge_after }}</p>
+    </section>
+
+    <section class="zn-art__prod">
+      <figure>{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500,800,1200', sizes: '(min-width: 760px) 680px, 100vw' }}{%- else -%}{% render 'zn-img', img: S.img_prod, label: 'ARTÍCULO 07 · El cojín Zentia sobre fondo azul marino, con la funda y la cremallera a la vista', ratio: '1/1' %}{%- endif -%}</figure>
+      <h2 class="zn-art__h2">{{ S.prod_title }}</h2>
+      <div class="zn-rte">{{ S.prod_text }}</div>
+      <h3 class="zn-art__h3">{{ S.fix_title }}</h3>
+      <ol class="zn-art__fix">
+        {%- for b in reasons -%}<li><span>{{ forloop.index }}</span>{{ b.settings.fix }}</li>{%- endfor -%}
+      </ol>
+    </section>
+
+    {%- if embed -%}
+      <section class="zn-art__buy zn-offer" id="comprar">
+        <p class="zn-offer__head"><span>{{ S.offer_title }}</span></p>
+        <p class="zn-offer__sub">{{ S.offer_sub }}</p>
+        {%- form 'product', p, id: 'zn-form', class: 'zn-form' -%}
+          <input type="hidden" name="return_to" value="/checkout">
+          <div class="zn-packs" role="radiogroup" aria-label="Elige tu pack">
+            {%- for v in p.variants -%}
+              {%- liquid
+                assign q = forloop.index
+                assign per = v.price | divided_by: q
+                assign sep = v1.price | times: q
+                assign save = sep | minus: v.price
+              -%}
+              <label class="zn-pack{% if v.id == sel.id %} is-on{% endif %}" data-price="{% render 'zn-money', cents: v.price %}">
+                <input type="radio" name="id" value="{{ v.id }}" {% if v.id == sel.id %}checked{% endif %}>
+                {%- if q == 2 and S.badge2 != blank -%}<span class="zn-pack__badge">{{ S.badge2 }}</span>{%- endif -%}
+                <span class="zn-pack__top">
+                  <span class="zn-pack__radio" aria-hidden="true"></span>
+                  <span class="zn-pack__name">
+                    <b>{% if q == 1 %}1 cojín{% else %}{{ q }} cojines{% endif %}</b>
+                    <small>{% if q == 1 %}+ {{ S.ship_fee }} de envío{% else %}Ahorras {% render 'zn-money', cents: save %} · envío gratis{% endif %}</small>
+                  </span>
+                  <span class="zn-pack__price">
+                    <b>{% render 'zn-money', cents: v.price %}</b>
+                    {%- if q > 1 -%}<s>{% render 'zn-money', cents: sep %}</s><small>{% render 'zn-money', cents: per %} por cojín</small>{%- endif -%}
+                  </span>
+                </span>
+                {%- if q >= 2 -%}
+                  <span class="zn-gift">
+                    <span class="zn-gift__img">{% render 'zn-img', img: S.gift1_img, label: 'Antifaz', ratio: '1/1' %}</span>
+                    <span class="zn-gift__name">+ {{ S.gift1_name }}</span><em>Regalo</em>
+                  </span>
+                {%- endif -%}
+              </label>
+            {%- endfor -%}
+          </div>
+          <p class="zn-fine">{{ S.fine_print }}</p>
+          <div class="zn-cod"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg><p><b>{{ S.cod_title }}</b><span>{{ S.cod_sub }}</span></p></div>
+          <button type="submit" class="zn-btn zn-btn--buy" data-buy>
+            <span data-buy-price>{% render 'zn-money', cents: sel.price %}</span><span class="zn-btn__sep" aria-hidden="true"></span><span>{{ S.cta_embed }}</span>
+          </button>
+        {%- endform -%}
+        <p class="zn-art__guar">{{ S.guar_line }}</p>
+      </section>
+    {%- else -%}
+      <section class="zn-art__buy zn-art__buy--link">
+        <p class="zn-offer__head"><span>{{ S.offer_title }}</span></p>
+        <p class="zn-art__deal">{{ S.deal_line }}</p>
+        <div class="zn-cod"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg><p><b>{{ S.cod_title }}</b><span>{{ S.cod_sub }}</span></p></div>
+        <a class="zn-btn zn-btn--buy zn-art__go" href="{{ go }}" data-buy>{{ S.cta_link }}</a>
+        <p class="zn-art__guar">{{ S.guar_line }}</p>
+      </section>
+    {%- endif -%}
+
+    {%- if S.wa_number != blank -%}<a class="zn-wa-line" href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg><span>¿Dudas? <b>Escríbenos por WhatsApp</b></span></a>{%- endif -%}
+
+    <section class="zn-art__faq">
+      <h2 class="zn-art__h2">{{ S.faq_title }}</h2>
+      <div class="zn-acc">
+        {%- for b in section.blocks -%}{%- if b.type == 'faq' -%}
+          <details {{ b.shopify_attributes }}><summary>{{ b.settings.q }}</summary><div class="zn-acc__body zn-rte">{{ b.settings.a }}</div></details>
+        {%- endif -%}{%- endfor -%}
+      </div>
+    </section>
+
+    <p class="zn-art__disc">{{ S.disclaimer }}</p>
+  </article>
+</main>
+
+<footer class="zn-foot">
+  <div class="zn-in">
+    {% render 'zn-logo', tagline: S.tagline %}
+    <nav class="zn-foot__nav" aria-label="Políticas">
+      {%- for pol in shop.policies -%}<a href="{{ pol.url }}">{{ pol.title }}</a>{%- endfor -%}
+    </nav>
+  </div>
+</footer>
+
+<div class="zn-sticky" data-sticky aria-hidden="true">
+  <div class="zn-sticky__txt"><b>{{ S.sticky_text }}</b><span>{{ S.cod_title }}</span></div>
+  <a class="zn-btn zn-btn--buy zn-btn--sm" href="{{ go }}" tabindex="-1">{{ S.cta_sticky }}</a>
+</div>
+
+{%- if embed -%}{% render 'zn-cart', product: p, cod_text: S.cod_line %}{%- endif -%}
+<script src="{{ 'zn.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Zentia · artículo",
+  "tag": "div",
+  "class": "zn-root",
+  "settings": [
+    { "type": "select", "id": "mode", "label": "Cómo vende", "options": [ { "value": "embed", "label": "Compra dentro del artículo (tipo Serenium)" }, { "value": "link", "label": "Botón hacia la ficha (tipo CuroSleep)" } ], "default": "embed" },
+    { "type": "product", "id": "product", "label": "Producto" },
+    { "type": "text", "id": "bar_text", "label": "Barra superior", "default": "Llega antes de Nochebuena · quedan" },
+    { "type": "text", "id": "deadline_iso", "label": "Fecha límite real (ISO)", "default": "2026-12-15T23:59:00+01:00" },
+    { "type": "text", "id": "tagline", "label": "Lema bajo la marca", "default": "Descanso y postura" },
+    { "type": "text", "id": "outlet", "label": "Nombre de la guía", "default": "Guía Zentia para dormir de lado" },
+    { "type": "text", "id": "title", "label": "Título", "default": "5 razones por las que te levantas con la cadera cargada si duermes de lado" },
+    { "type": "text", "id": "dek", "label": "Subtítulo", "default": "Y lo que puedes hacer esta misma noche sin cambiar de colchón ni de postura." },
+    { "type": "text", "id": "byline", "label": "Firma", "default": "Por el equipo de Zentia · 3 minutos de lectura" },
+    { "type": "image_picker", "id": "img_hero", "label": "Foto principal" },
+    { "type": "richtext", "id": "intro", "label": "Entrada", "default": "<p>Si te despiertas a las cuatro de la mañana recolocando la almohada entre las rodillas, este artículo es para ti.</p><p>Hay cinco cosas que pasan cada noche cuando duermes de lado, y casi ninguna tiene que ver con el colchón.</p>" },
+    { "type": "text", "id": "sum_title", "label": "Resumen · título", "default": "En resumen" },
+    { "type": "textarea", "id": "summary", "label": "Resumen", "default": "Al dormir de lado, la pierna de arriba cae, las rodillas se tocan y la cadera gira. Un cojín con forma entre las rodillas mantiene las piernas paralelas toda la noche. Al final te enseñamos el nuestro y lo que cuesta." },
+    { "type": "text", "id": "nudge_text", "label": "Aviso a mitad de artículo", "default": "¿Te reconoces en las tres primeras? Hay una forma sencilla de evitarlas." },
+    { "type": "text", "id": "nudge_cta", "label": "Botón a mitad de artículo", "default": "Ver la solución" },
+    { "type": "text", "id": "bridge_title", "label": "Puente · título", "default": "Lo que tiene que hacer un cojín para que funcione" },
+    { "type": "textarea", "id": "bridge_items", "label": "Puente · puntos (uno por línea)", "default": "Separar las rodillas para que no se toquen\nMantener la pierna de arriba a la altura de la cadera\nQuedarse en su sitio toda la noche" },
+    { "type": "text", "id": "bridge_after", "label": "Puente · cierre", "default": "Una almohada normal doblada no cumple ninguna de las tres. Por eso elegimos este cojín para Zentia." },
+    { "type": "image_picker", "id": "img_prod", "label": "Foto del producto (si no tiene fotos)" },
+    { "type": "text", "id": "prod_title", "label": "Producto · título", "default": "El cojín de rodillas Zentia" },
+    { "type": "richtext", "id": "prod_text", "label": "Producto · texto", "default": "<p>Espuma viscoelástica de alta densidad con forma para rodillas y muslos, de unos 25 × 24 cm. Funda de punto con cremallera que va a la lavadora.</p>" },
+    { "type": "text", "id": "fix_title", "label": "Producto · subtítulo de la lista", "default": "Así responde a las 5 razones" },
+    { "type": "text", "id": "offer_title", "label": "Oferta · título", "default": "Elige tu pack" },
+    { "type": "text", "id": "offer_sub", "label": "Oferta · texto (modo compra)", "default": "El pack de 2 sale a 24,95 € el cojín, con envío gratis y un antifaz de regalo." },
+    { "type": "text", "id": "deal_line", "label": "Oferta · texto (modo enlace)", "default": "2 cojines por 49,90 € con envío gratis y un antifaz de regalo. O 1 por 29,90 €." },
+    { "type": "text", "id": "badge2", "label": "Etiqueta del pack de 2", "default": "Recomendado" },
+    { "type": "text", "id": "ship_fee", "label": "Envío del pack de 1", "default": "4,95 €" },
+    { "type": "text", "id": "gift1_name", "label": "Regalo del pack de 2", "default": "Antifaz para dormir" },
+    { "type": "image_picker", "id": "gift1_img", "label": "Foto del regalo" },
+    { "type": "text", "id": "fine_print", "label": "Nota bajo los packs", "default": "Precio tachado: lo que costarían los mismos cojines comprados de uno en uno." },
+    { "type": "text", "id": "cod_title", "label": "Contra reembolso · título", "default": "Pago contra reembolso" },
+    { "type": "text", "id": "cod_sub", "label": "Contra reembolso · texto", "default": "Pagas en efectivo al repartidor cuando te llega. No necesitas tarjeta." },
+    { "type": "text", "id": "cod_line", "label": "Línea de pago del carrito", "default": "Pagas al recibir o con tarjeta" },
+    { "type": "text", "id": "cta_embed", "label": "Botón (modo compra)", "default": "Añadir al carrito" },
+    { "type": "text", "id": "cta_link", "label": "Botón (modo enlace)", "default": "Ver el cojín y elegir pack" },
+    { "type": "text", "id": "guar_line", "label": "Línea de garantía", "default": "60 noches de prueba. Si no te convence, te devolvemos el dinero." },
+    { "type": "text", "id": "wa_number", "label": "WhatsApp (con prefijo, sin +)", "default": "34621390548" },
+    { "type": "text", "id": "wa_text", "label": "Mensaje de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" },
+    { "type": "text", "id": "faq_title", "label": "Preguntas · título", "default": "Lo que más nos preguntan" },
+    { "type": "textarea", "id": "disclaimer", "label": "Aviso final", "default": "Este artículo es publicidad de Zentia. No es un consejo médico. Si tienes dolor que no se va, consulta a tu médico." },
+    { "type": "text", "id": "sticky_text", "label": "Barra fija · texto", "default": "2 cojines por 49,90 € + antifaz" },
+    { "type": "text", "id": "cta_sticky", "label": "Barra fija · botón", "default": "Ver oferta" }
+  ],
+  "blocks": [
+    { "type": "reason", "name": "Razón", "settings": [ { "type": "text", "id": "title", "label": "Título", "default": "Razón" }, { "type": "image_picker", "id": "image", "label": "Foto" }, { "type": "text", "id": "label", "label": "Texto del hueco de foto", "default": "FOTO" }, { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Texto.</p>" }, { "type": "text", "id": "fix", "label": "Cómo lo resuelve el cojín", "default": "Cómo lo resuelve" } ] },
+    { "type": "faq", "name": "Pregunta", "settings": [ { "type": "text", "id": "q", "label": "Pregunta", "default": "Pregunta" }, { "type": "richtext", "id": "a", "label": "Respuesta", "default": "<p>Respuesta.</p>" } ] }
+  ]
+}
+{% endschema %}

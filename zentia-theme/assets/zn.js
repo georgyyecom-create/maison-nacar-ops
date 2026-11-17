@@ -67,8 +67,16 @@
   }
 
   var st=document.querySelector('[data-sticky]'),buy=document.querySelector('[data-buy]');
-  if(st&&buy&&'IntersectionObserver' in window){
-    new IntersectionObserver(function(es){es.forEach(function(e){var on=!e.isIntersecting&&e.boundingClientRect.top<0;st.classList.toggle('is-on',on);st.setAttribute('aria-hidden',on?'false':'true');st.querySelector('a').tabIndex=on?0:-1;});}).observe(buy);
+  if(st&&buy){
+    var early=!!document.querySelector('.zn-art'),ticking=false;
+    var upd=function(){
+      ticking=false;
+      var r=buy.getBoundingClientRect(),vis=r.top<innerHeight&&r.bottom>0;
+      var on=!vis&&(r.top<0||(early&&scrollY>480));
+      if(st.classList.contains('is-on')!==on){st.classList.toggle('is-on',on);st.setAttribute('aria-hidden',on?'false':'true');st.querySelector('a').tabIndex=on?0:-1;}
+    };
+    var req=function(){if(!ticking){ticking=true;requestAnimationFrame(upd);}};
+    addEventListener('scroll',req,{passive:true});addEventListener('resize',req);upd();
   }
 
   /* ===== Carrito lateral Zentia ===== */

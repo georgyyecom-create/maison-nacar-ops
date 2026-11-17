@@ -1,0 +1,101 @@
+{
+  "layout": "zentia",
+  "sections": {
+    "main": {
+      "type": "zn-articulo",
+      "blocks": {
+        "r1": {
+          "type": "reason",
+          "settings": {
+            "title": "La pierna de arriba cae y arrastra la cadera",
+            "label": "ARTÍCULO 02 · Vista desde arriba: persona dormida de lado, la pierna de arriba caída hacia delante y la cadera girada (línea marcada)",
+            "text": "<p>Cuando duermes de lado, la pierna de arriba no tiene dónde apoyarse. Cae hacia delante y hacia abajo, y la cadera gira con ella.</p><p>Así pasas seis u ocho horas cada noche, y por la mañana lo notas al levantarte.</p>",
+            "fix": "Mantiene la pierna de arriba a la altura de la cadera"
+          }
+        },
+        "r2": {
+          "type": "reason",
+          "settings": {
+            "title": "Las rodillas chocan y te despiertas a darte la vuelta",
+            "label": "ARTÍCULO 03 · Primer plano de dos rodillas juntas bajo la sábana",
+            "text": "<p>Hueso contra hueso. Con eso basta para que te despiertes a mitad de noche buscando postura, aunque por la mañana no te acuerdes.</p>",
+            "fix": "Pone espuma entre las rodillas para que no se toquen"
+          }
+        },
+        "r3": {
+          "type": "reason",
+          "settings": {
+            "title": "La almohada doblada no aguanta la noche",
+            "label": "ARTÍCULO 04 · Almohada normal doblada, caída al borde de la cama",
+            "text": "<p>Es lo primero que prueba casi todo el mundo. Se aplasta, se mueve, y a mitad de noche está en el suelo o hecha una bola bajo la sábana.</p>",
+            "fix": "Tiene forma para rodillas y muslos y se queda en su sitio sin correas"
+          }
+        },
+        "r4": {
+          "type": "reason",
+          "settings": {
+            "title": "Cambiar de colchón no lo arregla",
+            "label": "ARTÍCULO 05 · Colchón nuevo con etiqueta de precio en una tienda",
+            "text": "<p>Un colchón nuevo cuesta cientos de euros, y la pierna de arriba sigue cayendo igual. Lo que hay que corregir pasa entre tus piernas, encima del colchón.</p>",
+            "fix": "Funciona con el colchón que ya tienes"
+          }
+        },
+        "r5": {
+          "type": "reason",
+          "settings": {
+            "title": "Llevas media vida durmiendo de lado",
+            "label": "ARTÍCULO 06 · Pareja mayor dormida de lado, cada uno hacia su lado",
+            "text": "<p>Nadie cambia de postura a los 50 o a los 70, y tampoco hace falta. Puedes seguir durmiendo de lado y cambiar solo la posición de las piernas.</p>",
+            "fix": "Sigues durmiendo de lado, como siempre"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Cómo pago?",
+            "a": "<p>Contra reembolso: pagas en efectivo al repartidor cuando te llega. También puedes pagar con tarjeta al hacer el pedido.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Cuándo llega?",
+            "a": "<p>Sale de nuestro almacén en España por MRW y llega en 2–4 días laborables. Si lo pides antes del 15 de diciembre, llega antes de Nochebuena.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Y si no me convence?",
+            "a": "<p>Tienes 60 noches para probarlo. Si no te convence, escríbenos y te devolvemos el dinero.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Es un producto sanitario?",
+            "a": "<p>No. Es un cojín para dormir más cómodo de lado. Si tienes dolor que no se va, consulta a tu médico.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "mode": "link",
+        "product": "kit-dormir-de-lado"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

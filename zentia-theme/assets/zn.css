@@ -329,3 +329,54 @@ html.zn-lock,html.zn-lock body{overflow:hidden}
 .zn-wa{width:50px}
 .zn-wa{height:50px}
 .zn-cart__sum small{font-size:12.5px;color:var(--zn-muted)}
+
+/* ===== v4.4 · caja de contra reembolso ===== */
+.zn-cod{display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px 14px;border-radius:12px;background:#EAF6EF;border:1.5px solid #BFE3CE}
+.zn-cod svg{flex:0 0 30px;width:30px;height:30px;fill:none;stroke:var(--zn-ok);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.zn-cod p{display:grid;gap:2px;font-size:14px;line-height:1.35;color:var(--zn-text)}
+.zn-cod b{font-size:16.5px;color:var(--zn-ink)}
+
+/* ===== v4.4 · artículo (listicle) ===== */
+.zn-art{padding:24px 16px 56px}
+.zn-art__in{max-width:680px;margin:0 auto}
+.zn-art__ad{display:inline-block;margin-bottom:12px;padding:4px 10px;border-radius:var(--zn-pill);background:var(--zn-soft);color:var(--zn-muted);font:600 12px/1.2 var(--zn-font);letter-spacing:.04em}
+.zn-art__h1{font:700 clamp(27px,7vw,40px)/1.12 var(--zn-font);letter-spacing:-.015em}
+.zn-art__dek{margin-top:12px;font-size:18px;line-height:1.45;color:var(--zn-text)}
+.zn-art__by{margin-top:14px;padding-bottom:16px;border-bottom:1px solid var(--zn-line);font-size:13.5px;color:var(--zn-muted)}
+.zn-art__hero{margin:18px 0 0}
+.zn-art figure{margin:0}
+.zn-art figure img,.zn-art figure .zn-slot{width:100%;border-radius:var(--zn-r-img);object-fit:cover}
+.zn-art__lead{margin-top:20px;font-size:18.5px;line-height:1.6;color:var(--zn-ink)}
+.zn-art .zn-rte{font-size:17.5px;line-height:1.65}
+.zn-art__sum{margin-top:22px;padding:16px 18px;border-left:4px solid var(--zn-navy);border-radius:0 12px 12px 0;background:var(--zn-soft)}
+.zn-art__sum b{display:block;margin-bottom:4px;font:700 13px/1.2 var(--zn-font);letter-spacing:.08em;text-transform:uppercase;color:var(--zn-navy)}
+.zn-art__sum p{font-size:16.5px;line-height:1.55}
+.zn-art__list{list-style:none;margin:8px 0 0;padding:0}
+.zn-art__item{padding-top:36px}
+.zn-art__item figure{margin:14px 0}
+.zn-art__n{font:700 13px/1 var(--zn-font);letter-spacing:.1em;text-transform:uppercase;color:var(--zn-navy-2)}
+.zn-art__h2{margin-top:8px;font:700 clamp(23px,5.8vw,30px)/1.2 var(--zn-font);letter-spacing:-.01em}
+.zn-art__h3{margin-top:22px;font:700 19px/1.3 var(--zn-font)}
+.zn-art__nudge{display:grid;gap:12px;justify-items:start;margin-top:32px;padding:18px;border:1.5px dashed #B3BED3;border-radius:var(--zn-r);background:var(--zn-tint)}
+.zn-art__nudge p{font-size:17px;font-weight:600;color:var(--zn-ink)}
+.zn-art__nudge .zn-btn{margin-top:0;background:#fff}
+.zn-art__bridge{margin-top:44px;padding:22px 18px;border-radius:var(--zn-r-img);background:var(--zn-navy);color:#E6EBF5}
+.zn-art__bridge .zn-art__h2{margin-top:0;color:#fff}
+.zn-art__bridge .zn-checks li{color:#fff;font-size:17px}
+.zn-art__bridge .zn-checks circle{fill:#fff}
+.zn-art__bridge .zn-checks path{stroke:var(--zn-navy)}
+.zn-art__after{margin-top:16px;font-size:16.5px}
+.zn-art__prod{margin-top:40px}
+.zn-art__prod figure{margin-bottom:18px}
+.zn-art__fix{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+.zn-art__fix li{display:flex;gap:12px;align-items:flex-start;font-size:16.5px;color:var(--zn-ink)}
+.zn-art__fix span{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:50%;background:var(--zn-tint);color:var(--zn-navy);font:700 14px/1 var(--zn-font)}
+.zn-art__buy{margin-top:40px;padding:20px 16px;border:1.5px solid var(--zn-navy);border-radius:var(--zn-r-img);box-shadow:0 18px 40px -28px rgba(22,36,74,.6);scroll-margin-top:16px}
+.zn-art__deal{margin-top:12px;text-align:center;font-size:18px;font-weight:600;color:var(--zn-ink)}
+.zn-art__go{width:100%;margin-top:14px;min-height:58px;font-size:17px}
+.zn-art__guar{margin-top:12px;text-align:center;font-size:14px;color:var(--zn-muted)}
+.zn-art .zn-wa-line{margin-top:16px}
+.zn-art__faq{margin-top:44px}
+.zn-art__disc{margin-top:32px;padding-top:16px;border-top:1px solid var(--zn-line);font-size:13px;color:var(--zn-muted)}
+.zn-art__bridge .zn-checks{margin-top:16px}
+.zn-art__after{padding-top:14px;border-top:1px solid rgba(255,255,255,.2)}
