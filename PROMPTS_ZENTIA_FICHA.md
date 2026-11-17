@@ -9,7 +9,8 @@
   - por dentro, espuma blanca con una capa azul claro.
 - **No pongas logotipo ni la palabra Zentia en el cojín** (el real no lo lleva), ni cajas de marca que no vamos a enviar.
 - Formato: **cuadrado 1:1**, la mayor resolución que dé Gemini.
-- Con personas fotorrealistas, pide en el mismo prompt la nota «Imagen creada con IA» en una esquina, en letra pequeña gris (Ley de IA, art. 50). No se presentan como clientes.
+- Sin marca de «Imagen creada con IA» (decisión del dueño, 17-nov). Las personas no se presentan como clientes.
+- **Formato:** empieza siempre el prompt con «Imagen CUADRADA 1:1». Si Gemini la saca apaisada, mándamela y la recorto.
 
 **Colores de la marca** (ya están en la ficha): azul marino #16244A, azul medio #24376B, azul muy claro #E8EEF8 y blanco. El ribete azul del cojín encaja con ellos.
 
@@ -38,7 +39,10 @@
 > Sin porcentajes, sin precios, sin laureles ni premios, sin estrellas de valoración, sin cifras de clientes, sin logotipos en los cojines.
 
 ## 02 · En uso (persona real durmiendo)
-> Fotografía realista de estilo editorial. Mujer española de unos 60 años, pelo corto canoso, pijama de algodón azul claro, durmiendo de lado y relajada en una cama de matrimonio con sábanas blancas y una manta azul marino a los pies. Tiene entre las rodillas el cojín de la foto de referencia, idéntico, con las piernas paralelas y la cadera recta. Luz de mañana suave que entra por una ventana con cortina de lino, dormitorio sencillo y luminoso. Plano de tres cuartos desde los pies de la cama, el cojín bien visible y enfocado, cara en calma y algo desenfocada. Objetivo de 35 mm, f/2.8, colores naturales. En la esquina inferior derecha, en letra pequeña gris: «Imagen creada con IA». Sin más texto.
+> Imagen CUADRADA 1:1. Fotografía documental realista, como hecha con una cámara réflex por un fotógrafo de catálogo, nada de aspecto de ilustración ni de render.
+> Mujer española de unos 60 años, pelo corto canoso algo despeinado, pijama de algodón azul claro con arrugas naturales, durmiendo de lado sobre su costado izquierdo en una cama de matrimonio. **Piernas dobladas en posición fetal suave, una rodilla encima de la otra. El cojín de la foto de referencia, idéntico, está APRETADO ENTRE LAS DOS RODILLAS: la rodilla de arriba descansa encima del cojín y lo hunde un poco, la de abajo queda debajo. Los muslos quedan separados por el cojín y paralelos.** El cojín se ve entero y nítido, con el ribete azul hacia la cámara.
+> Encuadre lateral a la altura del colchón, desde la cadera hasta los pies, con el torso entrando por el borde y la cara fuera de plano o muy desenfocada. Sábanas blancas de lino con arrugas reales, una manta azul marino de punto grueso a los pies, luz de mañana lateral que entra por una ventana con cortina de lino, sombras suaves y reales.
+> Textura de piel real (sin piel de plástico), pequeños pliegues en la tela, ligero grano fotográfico, 50 mm, f/2.8, colores naturales y apagados. Sin texto, sin marcas de agua, sin logotipos.
 
 ## 03 · Sin cojín / Con cojín
 > Imagen dividida en dos mitades verticales, misma cama, misma persona y mismo encuadre cenital (vista desde arriba). Persona adulta durmiendo de lado, solo de cintura a pies, pantalón de pijama gris.

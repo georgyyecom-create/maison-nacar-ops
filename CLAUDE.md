@@ -62,7 +62,7 @@
 - **Antes de cada tarea, mirar qué skills instaladas sirven y ejecutarlas de verdad (herramienta Skill), no solo inspirarse en ellas.** Decir en la respuesta cuáles se usaron. No afirmar que se usó una skill si no se ejecutó.
 - **Sin reseñas falsas.** Las estrellas «4,9 (368)» del metacampo `aom.rating` hay que quitarlas: está pendiente.
 - Las joyas de las imágenes IA tienen que ser **idénticas a las reales**. Fotos de redes y anuncios: **siempre el conjunto completo** (adjuntar `referencias/*-conjunto.jpg`), también en los macros. Corazones: corazones pequeños (~6 mm) y collar suelto sobre las clavículas, no gargantilla. Personas de IA: nunca presentarlas como clientas reales; usar el formato «POV».
-- Ley de IA (art. 50, desde el 2-ago-2026): en escenas fotorrealistas generadas, valorar la etiqueta «Imagen creada con IA».
+- Ley de IA (art. 50, desde el 2-ago-2026): en escenas fotorrealistas generadas, valorar la etiqueta «Imagen creada con IA». Zentia (17-nov): el dueño decide NO ponerla; no añadirla a los prompts.
 - Imágenes: el dueño usa la **app Gemini Pro** (gratis). Yo escribo los prompts con el texto incluido, porque Gemini rotula bien.
 
 ## Calendario
