@@ -44,13 +44,19 @@
 > Encuadre lateral a la altura del colchón, desde la cadera hasta los pies, con el torso entrando por el borde y la cara fuera de plano o muy desenfocada. Sábanas blancas de lino con arrugas reales, una manta azul marino de punto grueso a los pies, luz de mañana lateral que entra por una ventana con cortina de lino, sombras suaves y reales.
 > Textura de piel real (sin piel de plástico), pequeños pliegues en la tela, ligero grano fotográfico, 50 mm, f/2.8, colores naturales y apagados. Sin texto, sin marcas de agua, sin logotipos.
 
-## 03 · Sin cojín / Con cojín
-> Imagen CUADRADA 1:1. Fotografía documental realista, misma luz y estilo que una foto de catálogo, nada de render. Imagen dividida en dos mitades verticales con una línea blanca fina en el medio. Las dos mitades muestran la misma cama con sábanas blancas de lino arrugadas y la misma persona con pijama azul claro, vista desde arriba (cenital), solo de cintura a pies, durmiendo de lado.
-> **Mitad izquierda:** sin cojín. La rodilla de arriba cae sobre la de abajo y la pierna de arriba se va hacia delante y hacia abajo. Una línea discontinua roja fina, dibujada encima, marca la cadera inclinada. Arriba, una etiqueta pequeña blanca con texto gris oscuro: «Sin cojín».
-> **Mitad derecha:** el cojín de la foto de referencia, idéntico, APRETADO ENTRE LAS DOS RODILLAS, con la rodilla de arriba apoyada encima. Se ven las dos espinillas y los dos pies completos. Las piernas quedan paralelas, y una línea continua azul marino marca la cadera recta. Arriba, una etiqueta pequeña azul marino con texto blanco: «Con Zentia».
-> Textura de piel y tela reales, ligero grano fotográfico, colores naturales. Sin más texto, sin logotipos.
+## 03 · Anatomía 3D: sin cojín / con cojín
+**Adjunta** la foto del cojín con el ribete azul y escribe: «Usa el cojín de esta foto como referencia exacta».
+> Imagen CUADRADA 1:1. Visualización anatómica 3D de alta gama, estilo render médico de documental o de anuncio premium de descanso, sobre fondo azul marino muy oscuro (#0E1730) con un brillo suave.
+> La imagen tiene dos franjas horizontales iguales, una encima de otra, separadas por una línea fina gris azulada. En cada franja, una persona adulta tumbada de lado sobre un colchón blanco, vista de perfil desde el lateral, con el cuerpo **semitransparente como un holograma azul claro**, que deja ver dentro el esqueleto en 3D: columna, pelvis, fémures, rodillas y tibias, en blanco hueso con iluminación realista.
+> **Franja de arriba:** sin cojín. La pierna de arriba cae hacia delante y hacia abajo, la rodilla de arriba se apoya sobre la de abajo, la pelvis gira y la columna lumbar se tuerce. Un brillo rojo anaranjado suave, como un mapa de calor, sale de la cadera y de las rodillas, donde chocan los huesos.
+> **Franja de abajo:** la misma persona y la misma postura de lado, pero con el cojín de la referencia, idéntico, opaco, blanco y con el ribete azul, colocado ENTRE LAS DOS RODILLAS. Las dos piernas quedan paralelas, la pelvis y la columna rectas y alineadas, y no hay ningún brillo rojo. Solo un brillo azul claro y tranquilo en la cadera.
+> Abajo a la izquierda de cada franja, una etiqueta discreta en mayúsculas finas y espaciadas, en blanco: «SIN COJÍN» arriba y «CON COJÍN ENTRE LAS RODILLAS» abajo.
+> Iluminación cinematográfica, mucho detalle, aspecto caro y serio. Sin más texto, sin logotipos, sin flechas ni líneas dibujadas.
 
-**Comprueba:** en la mitad derecha, dos espinillas y dos pies completos, con el cojín tocando las dos rodillas por dentro. Si no, dale a regenerar.
+**Comprueba:**
+- Abajo, el cojín está entre las rodillas y se ven las dos tibias completas.
+- Arriba, la rodilla de arriba cae claramente sobre la otra.
+- Los textos se leen bien, con la tilde de «COJÍN».
 
 ## 04 · Medidas y detalles
 > Fotografía de producto sobre fondo blanco roto liso (#F3F6FB), con el cojín de la foto de referencia, idéntico, de perfil para que se vea bien la forma de corazón. Sombra suave. Añade líneas de cota finas en azul marino con estos textos: «25 cm» en la altura y «24 cm» en el ancho.
