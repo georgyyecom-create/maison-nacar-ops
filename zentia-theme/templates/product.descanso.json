@@ -4,18 +4,48 @@
     "main": {
       "type": "zn-descanso",
       "blocks": {
+        "t0": {
+          "type": "tick",
+          "settings": {
+            "text": "Envío gratis desde España"
+          }
+        },
+        "t1": {
+          "type": "tick",
+          "settings": {
+            "text": "60 noches de prueba"
+          }
+        },
+        "t2": {
+          "type": "tick",
+          "settings": {
+            "text": "Pide antes del 15-dic y llega antes de Nochebuena"
+          }
+        },
+        "t3": {
+          "type": "tick",
+          "settings": {
+            "text": "Quedan 10 en el almacén de España"
+          }
+        },
+        "t4": {
+          "type": "tick",
+          "settings": {
+            "text": "Para 2: 32,45 € por cojín"
+          }
+        },
         "i1": {
           "type": "incl",
           "settings": {
             "title": "El cojín de espuma viscoelástica",
-            "text": "Con forma de piernas para que no se escape de su sitio."
+            "text": "Con forma de piernas, va entre las rodillas."
           }
         },
         "i2": {
           "type": "incl",
           "settings": {
             "title": "Plan de 7 noches para dormir de lado",
-            "text": "Un PDF corto: dónde va el cojín, qué almohada usar y qué esperar las primeras noches. Te llega por email al comprar."
+            "text": "PDF corto: dónde va el cojín, qué almohada usar y qué esperar las primeras noches. Te llega por email."
           }
         },
         "i3": {
@@ -32,71 +62,106 @@
             "text": "Si no te convence, te devolvemos el dinero."
           }
         },
-        "s1": {
+        "g0": {
+          "type": "sign",
+          "settings": {
+            "text": "Te despiertas con una rodilla clavada en la otra"
+          }
+        },
+        "g1": {
+          "type": "sign",
+          "settings": {
+            "text": "Pones una almohada entre las piernas y amanece en el suelo"
+          }
+        },
+        "g2": {
+          "type": "sign",
+          "settings": {
+            "text": "Te levantas con la cadera cargada después de dormir de lado"
+          }
+        },
+        "g3": {
+          "type": "sign",
+          "settings": {
+            "text": "Das vueltas buscando la postura"
+          }
+        },
+        "s0": {
           "type": "step",
           "settings": {
             "text": "Túmbate de lado, como duermes siempre."
           }
         },
-        "s2": {
+        "s1": {
           "type": "step",
           "settings": {
             "text": "Pon el cojín entre las rodillas, con la parte ancha arriba."
           }
         },
-        "s3": {
+        "s2": {
           "type": "step",
           "settings": {
             "text": "Las primeras noches se nota raro. Sigue el plan de 7 noches: hacia la cuarta ya no te acuerdas de que está."
           }
         },
-        "p1": {
-          "type": "spec",
+        "c0": {
+          "type": "cmp",
           "settings": {
-            "label": "Medidas",
-            "value": "Por confirmar con la muestra"
+            "row": "Forma",
+            "them": "Plana",
+            "us": "Con forma de piernas"
           }
         },
-        "p2": {
-          "type": "spec",
+        "c1": {
+          "type": "cmp",
           "settings": {
-            "label": "Relleno",
-            "value": "Espuma viscoelástica"
+            "row": "Altura durante la noche",
+            "them": "Se aplasta",
+            "us": "Espuma viscoelástica que recupera su forma"
           }
         },
-        "p3": {
-          "type": "spec",
+        "c2": {
+          "type": "cmp",
           "settings": {
-            "label": "Funda",
-            "value": "Por confirmar con la muestra"
+            "row": "Al darte la vuelta",
+            "them": "Se escapa",
+            "us": "Pensado para quedarse entre las rodillas"
           }
         },
-        "p4": {
-          "type": "spec",
+        "c3": {
+          "type": "cmp",
           "settings": {
-            "label": "Envío",
-            "value": "Desde España, 2–5 días laborables"
+            "row": "Si no te convence",
+            "them": "Te la quedas",
+            "us": "60 noches para devolverlo"
           }
         },
-        "f1": {
+        "f0": {
           "type": "faq",
           "settings": {
             "q": "¿Sirve si duermo boca arriba?",
             "a": "Está pensado para dormir de lado. Boca arriba puedes ponerlo bajo las rodillas, pero no es su uso principal."
           }
         },
-        "f2": {
+        "f1": {
           "type": "faq",
           "settings": {
             "q": "¿Es un producto sanitario?",
             "a": "No. Es un cojín para dormir más cómodo. Si tienes dolor o una lesión, consulta a tu médico o fisioterapeuta."
           }
         },
-        "f3": {
+        "f2": {
           "type": "faq",
           "settings": {
             "q": "¿Cuándo llega?",
-            "a": "Sale desde España y tarda de 2 a 5 días laborables en llegar a la península y Baleares."
+            "a": "Sale desde España y tarda de 2 a 5 días laborables a la península y Baleares. Para Nochebuena, pide antes del 15 de diciembre."
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Por qué quedan tan pocos?",
+            "a": "Es el stock real que hay ahora en el almacén de España. Cuando se repone, lo actualizamos aquí."
           }
         },
         "f4": {
@@ -115,17 +180,27 @@
         }
       },
       "block_order": [
+        "t0",
+        "t1",
+        "t2",
+        "t3",
+        "t4",
         "i1",
         "i2",
         "i3",
         "i4",
+        "g0",
+        "g1",
+        "g2",
+        "g3",
+        "s0",
         "s1",
         "s2",
-        "s3",
-        "p1",
-        "p2",
-        "p3",
-        "p4",
+        "c0",
+        "c1",
+        "c2",
+        "c3",
+        "f0",
         "f1",
         "f2",
         "f3",
