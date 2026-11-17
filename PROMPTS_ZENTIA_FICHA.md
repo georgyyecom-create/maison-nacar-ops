@@ -45,10 +45,12 @@
 > Textura de piel real (sin piel de plástico), pequeños pliegues en la tela, ligero grano fotográfico, 50 mm, f/2.8, colores naturales y apagados. Sin texto, sin marcas de agua, sin logotipos.
 
 ## 03 · Sin cojín / Con cojín
-> Imagen dividida en dos mitades verticales, misma cama, misma persona y mismo encuadre cenital (vista desde arriba). Persona adulta durmiendo de lado, solo de cintura a pies, pantalón de pijama gris.
-> **Izquierda:** sin cojín, la rodilla de arriba cae sobre la de abajo y la pierna se va hacia delante. Una línea discontinua roja fina marca la cadera inclinada. Etiqueta arriba: «Sin cojín».
-> **Derecha:** con el cojín de la foto de referencia, idéntico, entre las rodillas. Las piernas quedan paralelas y una línea continua azul marino marca la cadera recta. Etiqueta arriba: «Con Zentia».
-> Fondo de sábana blanca, luz suave y uniforme, estilo limpio de infografía fotográfica. Letra sans serif azul marino. Sin más texto.
+> Imagen CUADRADA 1:1. Fotografía documental realista, misma luz y estilo que una foto de catálogo, nada de render. Imagen dividida en dos mitades verticales con una línea blanca fina en el medio. Las dos mitades muestran la misma cama con sábanas blancas de lino arrugadas y la misma persona con pijama azul claro, vista desde arriba (cenital), solo de cintura a pies, durmiendo de lado.
+> **Mitad izquierda:** sin cojín. La rodilla de arriba cae sobre la de abajo y la pierna de arriba se va hacia delante y hacia abajo. Una línea discontinua roja fina, dibujada encima, marca la cadera inclinada. Arriba, una etiqueta pequeña blanca con texto gris oscuro: «Sin cojín».
+> **Mitad derecha:** el cojín de la foto de referencia, idéntico, APRETADO ENTRE LAS DOS RODILLAS, con la rodilla de arriba apoyada encima. Se ven las dos espinillas y los dos pies completos. Las piernas quedan paralelas, y una línea continua azul marino marca la cadera recta. Arriba, una etiqueta pequeña azul marino con texto blanco: «Con Zentia».
+> Textura de piel y tela reales, ligero grano fotográfico, colores naturales. Sin más texto, sin logotipos.
+
+**Comprueba:** en la mitad derecha, dos espinillas y dos pies completos, con el cojín tocando las dos rodillas por dentro. Si no, dale a regenerar.
 
 ## 04 · Medidas y detalles
 > Fotografía de producto sobre fondo blanco roto liso (#F3F6FB), con el cojín de la foto de referencia, idéntico, de perfil para que se vea bien la forma de corazón. Sombra suave. Añade líneas de cota finas en azul marino con estos textos: «25 cm» en la altura y «24 cm» en el ancho.
