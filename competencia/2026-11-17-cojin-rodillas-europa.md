@@ -150,3 +150,26 @@ FusionDry, LolaCare («Duerme como en una nube»), Saipage1/MERKADA («49,99 €
 - Subir la garantía a algo comparable (60 noches como mínimo; valorar 100 si el margen lo aguanta).
 - Gancho de envío gratis en el pack de 2.
 - No copiar: «comprobado científicamente», «alivio del dolor».
+
+### Serenium · embudo (ficha + listicle)
+**Listicle** `/pages/5-reasons-why-v1-spain`:
+- Título: «5 razones por las que tu dolor de cervicales sigue volviendo (y la nueva solución…)». Firma «Sofía Martínez · Verificado» en «La voz del bienestar».
+- Orden: resumen → 5 causas (nervio, curva, inflamación nocturna, zona equivocada, las soluciones solo tapan) → «una solución debe hacer 4 cosas» → producto → «Así resuelve las 5 causas» (razón #1…#5) → −50 % con «Riesgo de agotamiento: ALTO» → 55.500 clientes y 100 noches → ficha incrustada con botón → comentarios tipo Facebook («hace 39 min»).
+
+**Ficha** `/products/almohada`:
+- 54,95 € tachado a 108,95 € (−50 %); cuenta atrás «Black Friday»; envío gratis; PayPal o tarjeta (sin contra reembolso).
+- Bloques: 5 beneficios en lista → dolor («¿Te despiertas cansado…?») → «Diseñada para todas las posiciones» → «Por qué el dolor no desaparece» (causa → cómo ayuda, 6 síntomas) → FAQ con objeciones reales («¿Y si no me funciona?», «¿Cómo sé que no es una estafa?»).
+
+**Lo que es falso o arriesgado (lo que se ve):**
+- Reseñas incoherentes: 15.500 en la ficha y 12.750 en el listicle. Un comentario dice «2 h fa» (italiano: plantilla traducida).
+- Reclamos médicos: hernia discal, nervio, apnea del sueño, «desaparecer para siempre».
+- −50 % sobre un precio de comparación que no consta como cobrado. Autora «verificada» sin identificar.
+
+**Lo que copiamos (mejorado) para Zentia:**
+1. La estructura del listicle: «5 razones por las que te levantas con la cadera cargada», con causas mecánicas (pierna de arriba, rodillas que chocan, almohada que se cae, cojín plano, postura que se tuerce) y sin hablar de nervios ni de curas.
+2. El puente «una solución tiene que hacer 3–4 cosas» → producto → cada razón resuelta.
+3. La ficha incrustada al final del listicle, para comprar sin cambiar de página.
+4. El bloque de FAQ con las objeciones de verdad: «¿y si se cae?», «¿es una estafa?» (respuesta: pagas al recibir y 60 noches).
+5. La sección «Para cada postura / para cada persona», con un texto distinto para cada perfil.
+
+**Ventaja nuestra:** contra reembolso (ellos no lo tienen) y un plazo real (ellos: «una semana»; Dropi: 24–72 h).
