@@ -1,0 +1,209 @@
+<title>Filtro de producto</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap">
+<style>
+/* Herramienta de una columna: 5 pasos en orden (es una secuencia real), veredicto fijo arriba. */
+:root{
+  --bg:#F3F4F1; --card:#FFFFFF; --ink:#15171C; --muted:#5D636B; --line:#DCDFD8;
+  --accent:#1E4D3A; --ok:#1F7A4D; --okbg:#E3F1E8; --warn:#9A6400; --warnbg:#FBF0D9; --bad:#C2363B; --badbg:#FBE5E5;
+  --font:"Geist",system-ui,-apple-system,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#111315; --card:#1A1D20; --ink:#ECEEEA; --muted:#A2A8AE; --line:#2C3035;
+  --accent:#6FBF98; --ok:#6FCF97; --okbg:#173326; --warn:#F2C35B; --warnbg:#3A2E12; --bad:#FF7B7F; --badbg:#3B1A1C;}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#111315; --card:#1A1D20; --ink:#ECEEEA; --muted:#A2A8AE; --line:#2C3035;
+  --accent:#6FBF98; --ok:#6FCF97; --okbg:#173326; --warn:#F2C35B; --warnbg:#3A2E12; --bad:#FF7B7F; --badbg:#3B1A1C;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--font)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 60px;display:grid;gap:14px}
+h1{font:700 26px/1.15 var(--font);letter-spacing:-.02em;margin:0;text-wrap:balance}
+.sub{margin:0;color:var(--muted)}
+.verdict{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:10px;box-shadow:0 8px 20px -16px rgba(0,0,0,.5)}
+.v-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.v-title{font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;padding:6px 12px;border-radius:999px}
+.pill.ok{background:var(--okbg);color:var(--ok)} .pill.warn{background:var(--warnbg);color:var(--warn)} .pill.bad{background:var(--badbg);color:var(--bad)}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:13px;font-weight:500;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.chip.ok{border-color:transparent;background:var(--okbg);color:var(--ok)} .chip.bad{border-color:transparent;background:var(--badbg);color:var(--bad)} .chip.warn{border-color:transparent;background:var(--warnbg);color:var(--warn)}
+.v-reason{margin:0;font-size:14px;color:var(--muted)}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px}
+section h2{margin:0;font:600 18px/1.25 var(--font);display:flex;gap:10px;align-items:center}
+.n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--card);font:600 14px/26px var(--font);text-align:center}
+.hint{margin:-6px 0 0;font-size:14px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+label{display:grid;gap:4px;font-size:14px;font-weight:500}
+input[type=number],input[type=text],select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px;width:100%}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.checks label{display:flex;align-items:center;gap:8px;font-weight:400;border:1px solid var(--line);border-radius:999px;padding:8px 12px;min-height:40px;cursor:pointer}
+.checks input{accent-color:var(--accent);width:18px;height:18px;margin:0}
+.res{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:10px;font-size:14px}
+.res b{font-family:var(--mono);font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+td{padding:6px 0;border-bottom:1px solid var(--line)} td:last-child{text-align:right;font-family:var(--mono)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 15px var(--font);border-radius:999px;padding:11px 18px;min-height:44px;border:1px solid var(--accent);background:var(--accent);color:var(--card);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+.list{display:grid;gap:8px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14px}
+.item small{color:var(--muted);display:block}
+.empty{color:var(--muted);font-size:14px;margin:0}
+.ex{font-size:13px;color:var(--warn);font-weight:500}
+@media (prefers-reduced-motion:no-preference){.chip,.pill{transition:background .2s}}
+</style>
+
+<div class="wrap">
+  <h1>Filtro de producto</h1>
+  <p class="sub">Rellena los 5 pasos con lo que ves en BigBuy, Dropi o Dropea, Amazon.es y la Biblioteca de Anuncios. Si un paso falla, el producto queda descartado.</p>
+
+  <div class="verdict" aria-live="polite">
+    <div class="v-top"><span class="v-title" id="vName">—</span><span class="pill" id="vPill">—</span></div>
+    <div class="steps" id="vSteps"></div>
+    <p class="v-reason" id="vReason"></p>
+  </div>
+
+  <section>
+    <h2><span class="n">0</span>Producto</h2>
+    <div class="grid">
+      <label>Nombre<input type="text" id="name" value="Cojín de rodillas (ELORIA)"></label>
+      <label>Proveedor<input type="text" id="supplier" value="AliExpress ELORIA"></label>
+    </div>
+    <p class="ex">Ejemplo cargado: el cojín frente a Miacassa (2 por 39,99 €). Cámbialo por tu producto.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">1</span>¿Hay demanda en España?</h2>
+    <p class="hint">Google Trends (España, 12 meses) y el producto más vendido parecido en Amazon.es.</p>
+    <div class="grid">
+      <label>Tendencia en Google<select id="trend"><option value="up">Sube</option><option value="flat" selected>Estable</option><option value="down">Baja</option><option value="none">Sin búsquedas</option></select></label>
+      <label>Reseñas del top en Amazon.es<input type="number" id="reviews" min="0" value="2400" inputmode="numeric"></label>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>¿Competencia que gana sin saturar?</h2>
+    <p class="hint">Marcas en España con anuncios activos más de 3 semanas. Fuera: FR, DE, IT, NL.</p>
+    <div class="grid">
+      <label>Marcas en España (más de 3 semanas)<input type="number" id="brandsES" min="0" value="0" inputmode="numeric"></label>
+      <label>Marcas en España (nuevas, menos de 3 semanas)<input type="number" id="brandsNew" min="0" value="3" inputmode="numeric"></label>
+      <label>¿Alguien gasta fuerte fuera?<select id="abroad"><option value="yes" selected>Sí</option><option value="no">No</option></select></label>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>¿Gana dinero al precio de la competencia?</h2>
+    <p class="hint">El precio lo pone la competencia en España, no tu coste. Todo con IVA.</p>
+    <div class="grid">
+      <label>Precio de venta por unidad (€)<input type="number" id="price" step="0.01" value="19.99" inputmode="decimal"></label>
+      <label>Coste del producto (€)<input type="number" id="cost" step="0.01" value="15.40" inputmode="decimal"></label>
+      <label>Envío que pagas tú (€)<input type="number" id="ship" step="0.01" value="0" inputmode="decimal"></label>
+      <label>Unidades por pedido (media)<input type="number" id="units" step="0.1" min="1" value="1.6" inputmode="decimal"></label>
+      <label>Cobro<select id="pay"><option value="card" selected>Tarjeta</option><option value="cod">Contra reembolso</option></select></label>
+    </div>
+    <table>
+      <tr><td>Venta sin IVA</td><td id="tNet">—</td></tr>
+      <tr><td>Coste y envío sin IVA</td><td id="tCost">—</td></tr>
+      <tr><td>Comisión de cobro</td><td id="tFee">—</td></tr>
+      <tr><td>Devoluciones y rechazos</td><td id="tRisk">—</td></tr>
+    </table>
+    <div class="res"><span>Margen por pedido (antes de anuncios)</span><b id="tMargin">—</b></div>
+    <div class="res"><span>Precio por unidad para llegar a 20 € de margen</span><b id="tNeed">—</b></div>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>¿Puedes ser diferente?</h2>
+    <p class="hint">Marca lo que tendrías y la competencia en España no tiene.</p>
+    <div class="checks" id="diff">
+      <label><input type="checkbox" value="pack">Pack</label>
+      <label><input type="checkbox" value="gift">Regalo incluido</label>
+      <label><input type="checkbox" value="angle" checked>Ángulo nuevo</label>
+      <label><input type="checkbox" value="fast">Envío 24–48 h</label>
+      <label><input type="checkbox" value="cod">Contra reembolso</label>
+      <label><input type="checkbox" value="guar">Garantía larga</label>
+      <label><input type="checkbox" value="real">Fotos o vídeo reales</label>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>¿Hay suministro?</h2>
+    <div class="grid">
+      <label>Stock del proveedor (uds)<input type="number" id="stock" min="0" value="10" inputmode="numeric"></label>
+      <label>¿Da factura?<select id="invoice"><option value="yes">Sí</option><option value="no" selected>No / no sé</option></select></label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Productos evaluados</h2>
+    <div class="btns"><button type="button" id="save">Guardar este producto</button><button type="button" class="ghost" id="reset">Empezar otro</button></div>
+    <div class="list" id="list"><p class="empty">Aún no has guardado ninguno. Se guardan solo en este móvil.</p></div>
+  </section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const eur=n=>(isFinite(n)?n:0).toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+const IVA=1.21, TARGET=20, RETURNS=0.05, COD_REJECT=0.15;
+
+function margin(price,cost,ship,units,pay){
+  const sale=price*units, net=sale/IVA, costNet=(cost*units+ship)/IVA;
+  const fee = pay==='cod' ? Math.max(2,sale*0.04) : sale*0.019+0.25;
+  const risk = net*RETURNS + (pay==='cod' ? COD_REJECT*(ship>0?ship:5)*2/IVA : 0);
+  return {net,costNet,fee,risk,m:net-costNet-fee-risk};
+}
+function priceForTarget(cost,ship,units,pay){
+  let lo=0,hi=500;
+  for(let i=0;i<60;i++){const mid=(lo+hi)/2; margin(mid,cost,ship,units,pay).m>=TARGET?hi=mid:lo=mid}
+  return hi;
+}
+function evaluate(){
+  const g=id=>parseFloat($(id).value)||0;
+  const r={name:$('name').value||'Producto'};
+  // 1 demanda
+  const trend=$('trend').value, rev=g('reviews');
+  const s1 = (trend==='none'||rev<50)?'bad':(trend==='down'||rev<500)?'warn':'ok';
+  // 2 competencia
+  const es=g('brandsES'), nw=g('brandsNew'), ab=$('abroad').value==='yes';
+  let s2; if(es>10) s2='bad'; else if(es>=1&&es<=5) s2='ok'; else if(es===0&&ab) s2='warn'; else if(es===0) s2='bad'; else s2='warn';
+  // 3 margen
+  const M=margin(g('price'),g('cost'),g('ship'),Math.max(1,g('units')),$('pay').value);
+  const need=priceForTarget(g('cost'),g('ship'),Math.max(1,g('units')),$('pay').value)/Math.max(1,g('units'));
+  const s3 = M.m>=TARGET?'ok':M.m>=TARGET*0.75?'warn':'bad';
+  $('tNet').textContent=eur(M.net); $('tCost').textContent='− '+eur(M.costNet); $('tFee').textContent='− '+eur(M.fee); $('tRisk').textContent='− '+eur(M.risk);
+  $('tMargin').textContent=eur(M.m); $('tNeed').textContent=eur(need);
+  // 4 diferencia
+  const d=[...document.querySelectorAll('#diff input:checked')].length;
+  const s4 = d>=2?'ok':d===1?'warn':'bad';
+  // 5 suministro
+  const st=g('stock'), inv=$('invoice').value==='yes';
+  const s5 = (st<20)?'bad':(st>=50&&inv)?'ok':'warn';
+  const S=[s1,s2,s3,s4,s5], names=['Demanda','Competencia','Margen','Diferencia','Suministro'];
+  const why=[];
+  if(s1!=='ok') why.push(s1==='bad'?'sin demanda clara':'demanda floja o bajando');
+  if(s2!=='ok') why.push(es>10?'España saturada':es===0&&!ab?'nadie lo anuncia en ningún sitio':es===0?'hueco en España, pero sin nadie que lo demuestre aquí':'competencia por confirmar');
+  if(s3!=='ok') why.push('margen '+eur(M.m)+' (mínimo 20 €; precio necesario '+eur(need)+'/ud)');
+  if(s4!=='ok') why.push('poco que te diferencie');
+  if(s5!=='ok') why.push(st<20?'stock de '+st+' uds':'stock o factura sin asegurar');
+  const fail=S.includes('bad'), warn=S.includes('warn');
+  r.verdict = fail?'bad':warn?'warn':'ok';
+  r.label = fail?'Descartado':warn?'Dudoso: revisa':'Pasa el filtro';
+  r.margin=M.m; r.why=why.join(' · ')||'Todo en verde. Siguiente: pedir muestra.';
+  $('vName').textContent=r.name;
+  const p=$('vPill'); p.className='pill '+r.verdict; p.textContent=r.label;
+  $('vSteps').innerHTML=S.map((s,i)=>`<span class="chip ${s}">${i+1} ${names[i]}</span>`).join('');
+  $('vReason').textContent=r.why;
+  return r;
+}
+let saved=[];
+try{saved=JSON.parse(localStorage.getItem('filtro-producto')||'[]')}catch(e){saved=[]}
+function renderList(){
+  const L=$('list');
+  if(!saved.length){L.innerHTML='<p class="empty">Aún no has guardado ninguno. Se guardan solo en este móvil.</p>';return}
+  L.innerHTML=saved.map(s=>`<div class="item"><span>${s.name.replace(/</g,'&lt;')}<small>${s.why.replace(/</g,'&lt;')}</small></span><span class="pill ${s.verdict}">${s.label}</span></div>`).join('');
+}
+document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',evaluate));
+$('save').addEventListener('click',()=>{const r=evaluate();saved.unshift(r);try{localStorage.setItem('filtro-producto',JSON.stringify(saved.slice(0,50)))}catch(e){}renderList();$('save').textContent='Guardado';setTimeout(()=>$('save').textContent='Guardar este producto',1500)});
+$('reset').addEventListener('click',()=>{['name','supplier'].forEach(i=>$(i).value='');['reviews','brandsES','brandsNew','price','cost','ship','stock'].forEach(i=>$(i).value='');$('units').value='1';document.querySelectorAll('#diff input').forEach(c=>c.checked=false);document.querySelector('.ex').hidden=true;evaluate();window.scrollTo({top:0})});
+evaluate();renderList();
+</script>
