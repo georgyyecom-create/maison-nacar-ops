@@ -90,3 +90,23 @@ Términos: «almohada rodillas», «cojín piernas dormir», «dormir de lado ca
 | Vitanube, Menobalence | Almohada y dolor de cadera | Indirectos |
 
 (deducción) Hay competencia en España, pero toda es nueva y sin historial. El precio de referencia del pack de 2 está ya entre 40 y 65 €.
+
+## España · almohada cervical y kit (17-nov, noche)
+**Búsquedas:** «almohada cervical» (~483 resultados) y «almohada contra reembolso» (~150).
+**Ojo con las fechas:** el MCP enseña copias recientes de los anuncios, así que no sirven para saber cuánto llevan activos. Para la fecha real hace falta Apify, y queda ~1 $ de saldo.
+
+**Más de 20 anunciantes de almohada cervical:**
+FusionDry, LolaCare («Duerme como en una nube»), Saipage1/MERKADA («49,99 €. Precio real», «Pagas cuando llega», «¿Cabe una toalla bajo tu cuello?»), Alinea («Si duermes de lado, lee esto»), Confortia, Cloudelle («−20 % · la 2.ª al 50 %»), Glowan («CloudSleep®», «pagas al recibirla»), Bellverity, Ergocalma, Glow Belts, Home & Marker, Relaxtotal.es, AlmaraHome, Wondergoods, Infinite Love («2 por 39,99 €», «Stock limitado»), Felva Store y Jiyuniq (contra reembolso, 24–48 h), Miacassa (39,99 €), Dorzzen («Pack pareja 2 por 64,99 €», «Almohada + cojín de piernas de regalo»), «Comunidad Española de Salud y Bienestar» («Pruébala 90 días») y advertoriales con nombre de persona («Mari Carmen Recomienda», «Carmen Muñoz»).
+
+**Patrones:**
+1. Contra reembolso y «pagas al recibir» casi en todos.
+2. Envío en 24–72 h.
+3. Precio entre 39,99 y 49,99 € la unidad, con packs de 2 por 39,99–64,99 €.
+4. «Nube» como nombre o promesa: LolaCare, CloudSleep, Cloudelle.
+5. Advertoriales firmados por personas o doctores inventados.
+
+**Lectura:**
+- La almohada cervical sola está **saturada** (más de 10 marcas): descartada.
+- El cojín de rodillas solo tiene unos 3–4 anunciantes.
+- El kit cervical + rodillas ya lo usa Dorzzen como regalo.
+- La nube como idea de marca está muy vista en esta categoría.
