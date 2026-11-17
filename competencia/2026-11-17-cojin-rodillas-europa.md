@@ -129,3 +129,24 @@ FusionDry, LolaCare («Duerme como en una nube»), Saipage1/MERKADA («49,99 €
 - 5 marcas de cojín, todas nuevas (creadas entre el 15 y el 17 de noviembre, ola de Black Friday). Ninguna tiene recorrido: no hay ganador probado en España.
 - Precios: 29,95 € una; 2 por 39,99 €.
 - Ángulos: cadera, «pagas al recibir» y pareja («una para cada uno»). Nadie usa el regalo para los padres.
+
+## España · Serenium Salud Cervical (17-nov, noche)
+**Página:** 717304781464513, orden por impresiones. Unos 75 anuncios activos, moneda USD (dropshipper). Vende la almohada cervical «OrthoSleep™», no el cojín de rodillas.
+
+| Qué se ve | Detalle |
+|---|---|
+| Antigüedad | Primeros anuncios hacia el 24-sep (~8 semanas). Nuevas tandas el ~19-oct, ~28-oct y ~6-nov |
+| Ganchos | «¡Alivio del dolor cervical, comprobado científicamente!» (muchas variantes), «La verdadera razón por la que tu dolor de cuello siempre vuelve» |
+| Oferta | «Pruébala 100 noches», «¡Obtén envío gratis hoy!», «Nuestra mejor oferta del año» |
+
+**Lectura (deducción):**
+- Es el primer **ganador probado en España** de la categoría descanso: lleva 2 meses y sigue sacando creativos cada 1–2 semanas.
+- Funciona con dos piezas: el ángulo educativo («la verdadera razón») y una prueba larga (100 noches).
+- El «comprobado científicamente» es un reclamo de salud que no podemos usar.
+- Confirma que el público español mayor compra descanso por Meta. El producto de rodillas sigue sin ganador.
+
+**Para Zentia:**
+- Importar el ángulo educativo: «La verdadera razón por la que te levantas con la cadera cargada: la pierna de arriba».
+- Subir la garantía a algo comparable (60 noches como mínimo; valorar 100 si el margen lo aguanta).
+- Gancho de envío gratis en el pack de 2.
+- No copiar: «comprobado científicamente», «alivio del dolor».
