@@ -31,16 +31,16 @@ Para seguir en una sesión nueva. Leer junto a `CLAUDE.md`.
   - Variantes: Para 1 `58394651361620`, Para 2 `58394651394388`, Para 3 `58394651427156`.
 - **Tema v20.19 (Adviento)**, id `208968352084`, sin publicar. Archivos subidos:
   - `layout/zentia.liquid`
-  - `sections/zn-descanso.liquid` (versión anterior: precios redondeados «40 €»)
+  - `sections/zn-descanso.liquid` (con `zn-money`: 39,90 €)
   - `templates/product.descanso.json`
   - `assets/zn.css` (incluye el banner de cookies compacto)
   - `snippets/zn-money.liquid` (ya subido)
-- **Pendiente 1:** subir `zentia-theme/sections/zn-descanso.liquid` del repo, que usa `zn-money` (39,90 €). Usar `stagedUploadsCreate` → curl → `themeFilesUpsert` con body URL.
+- Sección con precios correctos (39,90 €) subida el 17-nov.
 - **Vista previa:** https://maisonnacar.com/products/kit-dormir-de-lado?preview_theme_id=208968352084
 - Código fuente de la ficha: carpeta `zentia-theme/`.
 
 ## Siguiente trabajo
-1. Subir la sección con los precios corregidos y hacer captura del móvil, con el píxel bloqueado.
+1. (Hecho) Precios corregidos y captura del móvil con el píxel bloqueado.
 2. `/impeccable init` para crear `PRODUCT.md` de Zentia. Después rediseñar la ficha con las skills impeccable, ui-taste, emil-design-eng, web-design-guidelines, ui-ux-pro-max, shopify-liquid-themes, copywriting y copy-editing.
 3. Cuando llegue la muestra: fotos y vídeo reales, medidas, funda y plazo real.
 4. Antes de vender:
