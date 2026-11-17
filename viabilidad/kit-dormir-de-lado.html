@@ -1,0 +1,183 @@
+<title>Kit Dormir de Lado</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: columna de móvil centrada (como la verá quien venga de un anuncio), barra de compra fija abajo */
+:root{
+  --bg:#EEF0F4; --page:#FFFFFF; --ink:#1B2236; --muted:#5B6378; --line:#DDE1EA;
+  --night:#26305A; --moon:#E9C46A; --soft:#F3F5FA; --pend:#9A6B00; --pend-bg:#FFF4D6;
+  --display:"Sora",system-ui,sans-serif; --body:"Figtree",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark; --bg:#0E1220; --page:#161B2C; --ink:#EEF0F6; --muted:#A3AABD; --line:#2A3148;
+  --night:#9FB0F5; --moon:#E9C46A; --soft:#1D2338; --pend:#F2C66B; --pend-bg:#3A2F14;}}
+:root[data-theme="dark"]{color-scheme:dark; --bg:#0E1220; --page:#161B2C; --ink:#EEF0F6; --muted:#A3AABD; --line:#2A3148;
+  --night:#9FB0F5; --moon:#E9C46A; --soft:#1D2338; --pend:#F2C66B; --pend-bg:#3A2F14;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);margin:0}
+.wrap{max-width:440px;margin:0 auto;background:var(--page);min-height:100vh;padding-bottom:96px}
+.in{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.note{max-width:440px;margin:0 auto;padding-block:10px;font-size:13px;color:var(--muted);text-align:center}
+.top{background:var(--night);color:var(--page);font-size:13px;font-weight:600;text-align:center;padding-block:8px}
+:root[data-theme="dark"] .top,:root:not([data-theme="light"]) .top{color:#fff}
+header.bar{display:flex;justify-content:space-between;align-items:center;padding-block:12px;border-bottom:1px solid var(--line)}
+.logo{font:700 20px var(--display);letter-spacing:.02em}
+.logo small{font:500 11px var(--body);color:var(--muted);margin-left:6px}
+.pend{display:inline-block;background:var(--pend-bg);color:var(--pend);font-size:11px;font-weight:600;padding:1px 7px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+.gal{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-block:12px}
+.slot{flex:0 0 86%;aspect-ratio:4/5;scroll-snap-align:start;border-radius:14px;background:var(--soft);border:1px dashed var(--line);display:flex;flex-direction:column;justify-content:flex-end;padding:14px;position:relative;overflow:hidden}
+.slot svg{position:absolute;inset:0;width:100%;height:100%}
+.slot b{font:600 13px var(--display);position:relative}
+.slot span{font-size:13px;color:var(--muted);position:relative}
+h1{font:700 26px/1.15 var(--display);margin:6px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 10px}
+.facts{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;font-weight:600;margin-bottom:16px}
+.facts span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--moon);margin-right:6px;vertical-align:middle}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:10px}
+legend{font:600 15px var(--display);margin-bottom:10px}
+.opt{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
+.opt input{accent-color:var(--night);width:18px;height:18px;margin:0;grid-row:span 2}
+.opt:has(input:checked){border-color:var(--night);background:var(--soft)}
+.opt:has(input:focus-visible){outline:2px solid var(--night);outline-offset:2px}
+.opt .n{font-weight:600}
+.opt .p{font:700 17px var(--display);text-align:right;font-variant-numeric:tabular-nums}
+.opt .d{font-size:13px;color:var(--muted)}
+.opt .u{font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--night);margin-left:6px}
+.cta{display:block;width:100%;border:0;border-radius:12px;background:var(--night);color:#fff;font:600 17px var(--display);padding:16px;margin-top:14px;cursor:pointer}
+:root[data-theme="dark"] .cta,:root:not([data-theme="light"]) .cta{color:#10142A}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .cta{color:#fff}}
+:root[data-theme="light"] .cta{color:#fff}
+.cta:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
+.pay{font-size:13px;color:var(--muted);text-align:center;margin:8px 0 0}
+.box{background:var(--soft);border-radius:14px;padding:16px;margin-top:18px}
+.box h2,section h2{font:600 19px/1.25 var(--display);margin:0 0 10px;text-wrap:balance}
+.inc{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.inc li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:15px}
+.inc li::before{content:"✓";color:var(--night);font-weight:700}
+.inc em{font-style:normal;color:var(--muted);display:block;font-size:13px}
+section{padding-block:26px;border-top:1px solid var(--line)}
+section p{margin:0 0 10px}
+ol.steps{margin:0;padding:0;list-style:none;display:grid;gap:12px;counter-reset:s}
+ol.steps li{display:grid;grid-template-columns:30px 1fr;gap:10px;counter-increment:s}
+ol.steps li::before{content:counter(s);font:700 15px var(--display);width:28px;height:28px;border-radius:50%;background:var(--soft);display:grid;place-items:center}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:8px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;font-weight:600}
+.guar{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center}
+.moon{width:64px;height:64px;border-radius:50%;background:var(--night);color:#fff;display:grid;place-items:center;font:700 20px/1 var(--display);text-align:center}
+.moon small{display:block;font:500 10px var(--body)}
+details{border-bottom:1px solid var(--line);padding-block:12px}
+summary{font-weight:600;cursor:pointer}
+details p{margin:8px 0 0;color:var(--muted)}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:16px;color:var(--muted);font-size:14px}
+.sticky{position:fixed;left:0;right:0;bottom:0;background:var(--page);border-top:1px solid var(--line);padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));padding-top:10px}
+.sticky .in{max-width:440px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.sticky .cta{margin:0;flex:1;padding:13px;font-size:15px}
+.sticky .lbl{font-size:13px;line-height:1.3}
+.sticky .lbl b{display:block;font:700 16px var(--display)}
+@media (prefers-reduced-motion:no-preference){.gal{scroll-behavior:smooth}}
+</style>
+
+<p class="note">Vista previa de la ficha · nombre de marca provisional · lo marcado en amarillo falta confirmarlo con el proveedor</p>
+<div class="wrap">
+  <div class="top in">Envío gratis desde España · llega en 48–72 h <span class="pend">confirmar</span></div>
+  <header class="bar in"><span class="logo">ZENTIA<small>descanso</small></span><span aria-hidden="true">☰</span></header>
+
+  <div class="gal in" aria-label="Fotos del producto">
+    <div class="slot">
+      <svg viewBox="0 0 400 500" aria-hidden="true"><rect width="400" height="500" fill="none"/><path d="M40 330 q90 -40 170 -10 t150 0" stroke="var(--line)" stroke-width="40" fill="none" stroke-linecap="round"/><ellipse cx="215" cy="318" rx="46" ry="30" fill="var(--page)" stroke="var(--night)" stroke-width="3"/><circle cx="330" cy="150" r="34" fill="var(--moon)" opacity=".8"/></svg>
+      <b>Foto 01 · tu vídeo con la muestra</b><span>Piernas de lado en la cama, con el cojín entre las rodillas. Tus manos lo colocan.</span>
+    </div>
+    <div class="slot"><b>Foto 02 · el pack de 2</b><span>Los dos cojines sobre la cama, uno a cada lado.</span></div>
+    <div class="slot"><b>Foto 03 · la funda</b><span>Quitando la funda con la cremallera.</span></div>
+    <div class="slot"><b>Foto 04 · medidas</b><span>El cojín junto a un móvil para que se vea el tamaño.</span></div>
+  </div>
+
+  <div class="in">
+    <h1>Duerme de lado sin que las rodillas choquen</h1>
+    <p class="sub">Cojín de espuma viscoelástica que se queda entre las piernas toda la noche. Caderas a la misma altura y rodillas separadas.</p>
+    <div class="facts"><span>60 noches de prueba</span><span>Envío gratis</span><span>Plan de 7 noches incluido</span></div>
+
+    <fieldset>
+      <legend>¿Para cuántos?</legend>
+      <label class="opt"><input type="radio" name="t" id="t1" value="1" data-p="39,90"><span class="n">Para 1</span><span class="p">39,90 €</span><span class="d">Un cojín</span><span class="u">39,90 € / cojín</span></label>
+      <label class="opt"><input type="radio" name="t" id="t2" value="2" data-p="64,90" checked><span class="n">Para 2<span class="tag">Pareja</span></span><span class="p">64,90 €</span><span class="d">Uno para ti y otro para tu pareja</span><span class="u">32,45 € / cojín</span></label>
+      <label class="opt"><input type="radio" name="t" id="t3" value="3" data-p="84,90"><span class="n">Para 3<span class="tag">Regalo</span></span><span class="p">84,90 €</span><span class="d">Para ti y para tus padres</span><span class="u">28,30 € / cojín</span></label>
+    </fieldset>
+    <button class="cta" id="buy" type="button">Añadir Para 2 · 64,90 €</button>
+    <p class="pay">Tarjeta, Apple Pay o Google Pay · Pide antes del <b>[fecha]</b> y llega antes de Nochebuena <span class="pend">fecha real</span></p>
+
+    <div class="box">
+      <h2>Qué recibes</h2>
+      <ul class="inc">
+        <li><span>El cojín de espuma viscoelástica<em>Con funda que se quita y se lava a máquina <span class="pend">confirmar</span></em></span></li>
+        <li><span>Plan de 7 noches para dormir de lado (PDF)<em>Altura de la almohada, dónde va el cojín y qué hacer las primeras noches. Te llega por email al comprar.</em></span></li>
+        <li><span>Tarjeta regalo para imprimir<em>Si es para tus padres, la imprimes y la metes con el paquete.</em></span></li>
+        <li><span>60 noches para probarlo<em>Si no duermes más a gusto, te devolvemos el dinero.</em></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="in">
+    <h2>¿Te despiertas con una rodilla clavada en la otra?</h2>
+    <p>Al dormir de lado, la pierna de arriba cae sobre la de abajo. La cadera se tuerce un poco y las rodillas se aprietan toda la noche. Mucha gente acaba poniendo una almohada normal entre las piernas, y a las dos horas está en el suelo.</p>
+    <p>Este cojín tiene la forma de tus piernas y una cinta para que no se escape. Se queda en su sitio aunque te des la vuelta.<span class="pend">¿trae cinta?</span></p>
+  </section>
+
+  <section class="in">
+    <h2>Cómo se usa</h2>
+    <ol class="steps">
+      <li><span>Túmbate de lado, como duermes siempre.</span></li>
+      <li><span>Pon el cojín entre las rodillas, con la parte ancha hacia arriba.</span></li>
+      <li><span>Las primeras 3 noches pueden ser raras. Sigue el plan de 7 noches: a partir de la cuarta casi nadie lo nota.</span></li>
+    </ol>
+  </section>
+
+  <section class="in">
+    <h2>Medidas y material</h2>
+    <table>
+      <tr><td>Medidas</td><td>[__ × __ × __ cm] <span class="pend">medir</span></td></tr>
+      <tr><td>Relleno</td><td>Espuma viscoelástica</td></tr>
+      <tr><td>Funda</td><td>[material] <span class="pend">confirmar</span></td></tr>
+      <tr><td>Lavado</td><td>Funda a 30 °C</td></tr>
+      <tr><td>Envío</td><td>Desde España, 48–72 h</td></tr>
+    </table>
+  </section>
+
+  <section class="in">
+    <div class="guar">
+      <div class="moon">60<small>noches</small></div>
+      <div><h2>Pruébalo 60 noches</h2><p>Si en dos meses no duermes más a gusto, nos escribes y te devolvemos el dinero. Sin preguntas raras.</p></div>
+    </div>
+  </section>
+
+  <section class="in">
+    <h2>Opiniones</h2>
+    <div class="empty">Todavía no hay opiniones: este producto es nuevo en la tienda. Las primeras que lleguen saldrán aquí tal cual.</div>
+  </section>
+
+  <section class="in">
+    <h2>Preguntas</h2>
+    <details><summary>¿Sirve si duermo boca arriba?</summary><p>Está pensado para dormir de lado. Boca arriba puedes ponerlo bajo las rodillas, pero no es su uso principal.</p></details>
+    <details><summary>¿Es un producto sanitario?</summary><p>No. Es un cojín para dormir más cómodo. Si tienes dolor o una lesión, consulta a tu médico o fisio.</p></details>
+    <details><summary>¿Cuándo llega?</summary><p>Sale desde España y llega en 48–72 h laborables a la península. Baleares, 3–5 días.</p></details>
+    <details><summary>¿Y si no me convence?</summary><p>Tienes 60 noches. Nos escribes, lo devuelves y te devolvemos el dinero.</p></details>
+    <details><summary>¿Puedo enviarlo a otra dirección para regalar?</summary><p>Sí. Pones la dirección de tus padres al pagar y te mandamos la tarjeta regalo por email para que la imprimas.</p></details>
+  </section>
+</div>
+
+<div class="sticky"><div class="in">
+  <div class="lbl" id="slbl">Para 2<b id="sprice">64,90 €</b></div>
+  <button class="cta" type="button" id="sbuy">Añadir al carrito</button>
+</div></div>
+
+<script>
+const radios=document.querySelectorAll('input[name="t"]'),buy=document.getElementById('buy');
+function upd(){const r=document.querySelector('input[name="t"]:checked');const n='Para '+r.value;
+buy.textContent='Añadir '+n+' · '+r.dataset.p+' €';document.getElementById('slbl').firstChild.nodeValue=n;
+document.getElementById('sprice').textContent=r.dataset.p+' €';}
+radios.forEach(r=>r.addEventListener('change',upd));upd();
+document.getElementById('sbuy').addEventListener('click',()=>buy.scrollIntoView({block:'center'}));
+</script>
