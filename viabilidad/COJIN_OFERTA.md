@@ -53,3 +53,18 @@ No vendemos «una almohada ortopédica», que se compara con la de 12 €. Vende
 - **Precios:** sin tachados inventados (Ómnibus). El ahorro se ve en el precio por cojín de cada opción.
 - **Prueba social:** sin reseñas falsas; las primeras reseñas tienen que ser reales.
 - **Urgencia:** solo la de Navidad, con la fecha real de corte.
+
+## Regalos del catálogo Dropi (17-nov, listado_productos_stock.xlsx)
+| SKU | Producto | Precio | Stock | Uso |
+|---|---|---|---|---|
+| COJINERGONOMICO | Almohada ortopédica piernas | 3,69 € | 4.595 | Producto |
+| ANTIFAZ | Antifaz para dormir | 1,29 € | 424 | Regalo del Para 2 |
+| ALTAVOZ-25080 | Altavoz con sonidos relajantes | 2,99 € | 360 | Regalo extra del Para 3 |
+| ANTIFAZBLUETOOTH | Antifaz con altavoces | 3,29 € | 209 | Alternativa para el Para 3 |
+| ALMOHAGRIS-25180 | Almohada cervical mariposa (tipo OrthoSleep) | 8,25 € | 2.466 | Posible kit cervical + rodillas (más adelante) |
+
+Descartados como regalo por llevar reclamos de salud: parches para dormir, «Well Sleep para apneas», dispositivo de hipnoterapia, melatonina.
+
+Margen antes de anuncios. Supuestos: 6 € de envío contra reembolso, precios con IVA y comisión del 4 %.
+- **Para 2** (49,90 € con antifaz): coste 8,67 € → ~27 €.
+- **Para 3** (64,90 € con antifaz y altavoz): coste 15,35 € → ~33 €.
