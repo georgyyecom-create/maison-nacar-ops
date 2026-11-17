@@ -173,3 +173,35 @@ FusionDry, LolaCare («Duerme como en una nube»), Saipage1/MERKADA («49,99 €
 5. La sección «Para cada postura / para cada persona», con un texto distinto para cada perfil.
 
 **Ventaja nuestra:** contra reembolso (ellos no lo tienen) y un plazo real (ellos: «una semana»; Dropi: 24–72 h).
+
+## CuroSleep (DE/AT/CH) · listicle y ficha del masajeador lumbar (17-nov)
+**Producto:** «Triple Fusion», masajeador lumbar de 3 funciones (tracción, masaje por puntos y calor; 60×25×12 cm, con cable). 119,95 € tachado a 180 €. La ficha se creó el 12-feb-2026, así que lleva unos 9 meses vendiendo (deducción: ganador).
+
+**Listicle** `/pages/massager-lp1`, «Gesundheitsjournal», «🇩🇪 Im Trend in Deutschland». Es una carta en primera persona: «Con 57 años había aceptado que mi espalda estaba rota», firmada por «Thomas Hartmann», jefe de proyecto de Düsseldorf, con «3.791 valoraciones».
+1. **Identificación:** «Si lees esto a las 3 de la mañana porque el dolor te ha vuelto a despertar…» (4 frases de la vida diaria).
+2. **El momento bajo:** se pierde el partido de su hijo, 11 minutos en la banda.
+3. **El desfile de fracasos**, con cifras: fisio con 12 sesiones, 3 infiltraciones, quiropráctico a 80 €, pastillas, TENS. Total: 12.000 € gastados.
+4. **La revelación por un experto cercano:** su cuñado fisioterapeuta, en una barbacoa.
+5. **El mecanismo «que nadie te contó»:** discos «deshidratados».
+6. **Por qué falló todo lo anterior**, una por una (el TENS solo llega a 5–8 mm de profundidad…).
+7. **El producto** como lo único que ataca ese mecanismo.
+
+**Ficha:**
+- Cuenta atrás de Black Friday, «−60 % + envío gratis», «75 % reclamado», «solo quedan pocas unidades».
+- 4,7/5, 100 noches de prueba, envío de 5–8 días laborables desde un «centro internacional».
+- Bloques: el mecanismo explicado («tus discos son como esponjas»), «91 % según investigadores suecos» y las 3 terapias por separado.
+
+**Lo que es falso o arriesgado (lo que se ve):**
+- Reclamos médicos graves: cura la estenosis y rehidrata los discos.
+- Una estadística sin fuente.
+- Un autor inventado y una reseña fechada en enero de 2025, cuando la ficha es de 2026.
+- Un tachado inventado y escasez sin cifras.
+
+**Lo que nos llevamos para el listicle de Zentia (versión honrada):**
+- Abrir con identificación: «Si te despiertas a las 4 dándole vueltas a la almohada entre las rodillas…».
+- Un desfile de cosas probadas, con cifras reales y sin pasarse: almohada doblada, cojín plano, toalla. Cada una con su porqué: se cae, se aplasta, se mueve.
+- Un mecanismo simple y cierto: la pierna de arriba cae, la cadera rota y las rodillas se tocan.
+- Rebatir las alternativas una por una.
+- **Sin persona inventada:** narrador en formato POV o la marca hablando, con la etiqueta «Publicidad».
+
+**Producto relacionado en Dropi:** «Soporte masajeador lumbar / espalda» (3,50 €, 235 uds) y «Almohadilla ortopédica vibratoria con calefacción» (15,99 €). (deducción) Hay margen, pero ese mercado se vende con promesas médicas. Venderlo honradamente sería más difícil.
