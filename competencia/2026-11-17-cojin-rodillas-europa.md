@@ -77,3 +77,16 @@
 8. Carrusel: almohada normal / cojín plano / Zentia.
 9. «Quedan 10. Llegan antes de Nochebuena si pides antes del 15-dic.»
 10. Historia de senderista: «20 km el sábado, rodillas que no se tocan por la noche.»
+
+## España, segunda búsqueda (17-nov, tarde)
+Términos: «almohada rodillas», «cojín piernas dormir», «dormir de lado cadera». Los anuncios que salen se crearon todos entre el 16 y el 17 de noviembre (la ola de Black Friday), así que todavía no se puede saber si alguno funciona.
+
+| Marca | Qué se ve | Lectura |
+|---|---|---|
+| **Miacassa** | «2 por 39,99 €: una para cada uno», «Si duermes de lado, mira tu cadera» | Competidor directo, con un pack de 2 mucho más barato que el nuestro (64,90 €) |
+| **Dorzzen** | Almohada cervical. «Pack Pareja: dos por 64,99 €». «Almohada + cojín de piernas de regalo» | Regala nuestro producto como gancho |
+| **Somos Tu Descanso** | «29,95 € cada una · Pagas al recibir» | Contra reembolso, que es lo que prefiere el público mayor de España |
+| «Carmen García» | Advertorial «Un año sin poder dormir de lado» (moneda USD) | Advertorial de dropshipper |
+| Vitanube, Menobalence | Almohada y dolor de cadera | Indirectos |
+
+(deducción) Hay competencia en España, pero toda es nueva y sin historial. El precio de referencia del pack de 2 está ya entre 40 y 65 €.
