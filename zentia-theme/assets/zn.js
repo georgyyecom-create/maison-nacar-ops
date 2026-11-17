@@ -23,7 +23,13 @@
       form.querySelectorAll('.zn-pack').forEach(function(l){l.classList.toggle('is-on',l.contains(e.target));});
       setPrice(e.target.closest('.zn-pack').dataset.price);
     });
-    form.addEventListener('submit',function(){form.querySelector('[data-buy]').classList.add('is-busy');});
+    form.addEventListener('submit',function(e){
+      if(!window.ZNCart||!window.fetch)return;
+      e.preventDefault();
+      var btn=form.querySelector('[data-buy]'),id=form.querySelector('input[name=id]:checked').value;
+      btn.classList.add('is-busy');
+      ZNCart.add(id).then(function(){btn.classList.remove('is-busy');ZNCart.open(btn);}).catch(function(){btn.classList.remove('is-busy');form.submit();});
+    });
   }
   document.querySelectorAll('[data-pick]').forEach(function(a){a.addEventListener('click',function(){
     var r=form&&form.querySelectorAll('input[name=id]')[+a.dataset.pick-1];if(r){r.checked=true;r.dispatchEvent(new Event('change',{bubbles:true}));}
@@ -64,4 +70,96 @@
   if(st&&buy&&'IntersectionObserver' in window){
     new IntersectionObserver(function(es){es.forEach(function(e){var on=!e.isIntersecting&&e.boundingClientRect.top<0;st.classList.toggle('is-on',on);st.setAttribute('aria-hidden',on?'false':'true');st.querySelector('a').tabIndex=on?0:-1;});}).observe(buy);
   }
+
+  /* ===== Carrito lateral Zentia ===== */
+  var dr=document.querySelector('[data-cart]');
+  if(dr){
+    var panel=dr.querySelector('[data-cart-panel]'),list=dr.querySelector('[data-cart-items]'),foot=dr.querySelector('[data-cart-foot]'),
+        empty=dr.querySelector('[data-cart-empty]'),ship=dr.querySelector('[data-cart-ship]'),up=dr.querySelector('[data-cart-up]'),
+        sub=dr.querySelector('[data-cart-sub]'),go=dr.querySelector('[data-cart-go]'),
+        PID=+dr.dataset.pid,V1=+dr.dataset.v1,V2=+dr.dataset.v2,FREE=+dr.dataset.free,P1=+dr.dataset.p1,P2=+dr.dataset.p2,last=null;
+    var fmt=function(c){return (c/100).toFixed(2).replace('.',',')+' €';};
+    var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+    var api=function(url,body){return fetch(url,{method:body?'POST':'GET',headers:{'Content-Type':'application/json','Accept':'application/json'},body:body?JSON.stringify(body):undefined}).then(function(r){if(!r.ok)throw r;return r.json();});};
+    var counts=function(n){document.querySelectorAll('[data-cart-count]').forEach(function(e){e.textContent=n;e.hidden=!n;});};
+    var render=function(c){
+      counts(c.item_count);
+      var zn=0;
+      list.innerHTML=c.items.map(function(it){
+        if(it.product_id===PID)zn+=it.final_line_price;
+        var img=it.image?'<img src="'+esc(it.image)+'&width=160" alt="" width="72" height="72" loading="lazy">':'<span class="zn-ci__ph" aria-hidden="true">Z</span>';
+        var gift=/antifaz/i.test(it.variant_title||'')?'<span class="zn-ci__gift">Regalo incluido</span>':'';
+        var was=it.original_line_price>it.final_line_price?'<s>'+fmt(it.original_line_price)+'</s>':'';
+        return '<li class="zn-ci" data-key="'+esc(it.key)+'">'+img+
+          '<div class="zn-ci__main"><b>'+esc(it.product_title)+'</b>'+(it.variant_title?'<span>'+esc(it.variant_title)+'</span>':'')+gift+
+          '<div class="zn-ci__row"><div class="zn-qty" role="group" aria-label="Cantidad"><button type="button" data-q="-1" aria-label="Quitar uno">−</button><output>'+it.quantity+'</output><button type="button" data-q="1" aria-label="Añadir uno">+</button></div>'+
+          '<button type="button" class="zn-ci__rm" data-rm>Quitar</button></div></div>'+
+          '<p class="zn-ci__price">'+was+fmt(it.final_line_price)+'</p></li>';
+      }).join('');
+      empty.hidden=c.item_count>0;foot.hidden=!c.item_count;list.hidden=!c.item_count;
+      /* envío gratis */
+      if(zn>0){
+        var left=FREE-zn,pct=Math.min(100,zn/FREE*100);
+        ship.hidden=false;
+        ship.querySelector('span').innerHTML=left>0?'Te faltan <b>'+fmt(left)+'</b> para el envío gratis':'<b>Tienes envío gratis</b>';
+        ship.querySelector('i').style.transform='scaleX('+(pct/100)+')';
+        ship.classList.toggle('is-done',left<=0);
+      }else ship.hidden=true;
+      /* subir al pack de 2 */
+      var single=c.items.filter(function(it){return it.variant_id===V1;});
+      var packs=c.items.filter(function(it){return it.product_id===PID&&it.variant_id!==V1;});
+      if(single.length&&single[0].quantity===1&&!packs.length&&V2){
+        up.hidden=false;up.dataset.key=single[0].key;
+        up.querySelector('[data-up-diff]').textContent=fmt(P2-P1);
+      }else up.hidden=true;
+      sub.textContent=fmt(c.total_price);
+      go.querySelector('[data-go-price]').textContent=fmt(c.total_price);
+    };
+    var busy=function(on){panel.classList.toggle('is-busy',on);};
+    var load=function(){return api('/cart.js').then(render);};
+    window.ZNCart={
+      add:function(id){return api('/cart/add.js',{items:[{id:+id,quantity:1}]}).then(load);},
+      open:function(from){
+        last=from||document.activeElement;dr.hidden=false;
+        requestAnimationFrame(function(){requestAnimationFrame(function(){dr.classList.add('is-open');});});
+        document.documentElement.classList.add('zn-lock');
+        setTimeout(function(){panel.focus();},60);
+      },
+      close:function(){
+        dr.classList.remove('is-open');document.documentElement.classList.remove('zn-lock');
+        setTimeout(function(){if(!dr.classList.contains('is-open'))dr.hidden=true;},rm?0:320);
+        if(last&&last.focus)last.focus();
+      }
+    };
+    document.querySelectorAll('[data-cart-open]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();busy(true);ZNCart.open(b);load().finally(function(){busy(false);});});});
+    dr.addEventListener('click',function(e){
+      var t=e.target;
+      if(t.closest('[data-cart-close]')){ZNCart.close();return;}
+      var li=t.closest('.zn-ci');
+      if(li&&t.closest('[data-q]')){
+        var q=+li.querySelector('output').textContent+(+t.closest('[data-q]').dataset.q);
+        busy(true);api('/cart/change.js',{id:li.dataset.key,quantity:Math.max(0,q)}).then(render).finally(function(){busy(false);});
+      }
+      if(li&&t.closest('[data-rm]')){busy(true);api('/cart/change.js',{id:li.dataset.key,quantity:0}).then(render).finally(function(){busy(false);});}
+      if(t.closest('[data-up-go]')){
+        busy(true);
+        api('/cart/change.js',{id:up.dataset.key,quantity:0}).then(function(){return api('/cart/add.js',{items:[{id:V2,quantity:1}]});}).then(load).finally(function(){busy(false);});
+      }
+    });
+    document.addEventListener('keydown',function(e){
+      if(dr.hidden)return;
+      if(e.key==='Escape'){ZNCart.close();return;}
+      if(e.key==='Tab'){
+        var f=[].slice.call(panel.querySelectorAll('a[href],button:not([disabled])')).filter(function(x){return x.offsetParent;});
+        if(!f.length)return;
+        if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus();}
+        else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}
+      }
+    });
+  }
+
+  /* WhatsApp: sube cuando aparece la barra fija */
+  var wa=document.querySelector('[data-wa]'),stk=document.querySelector('[data-sticky]');
+  if(wa&&stk&&'MutationObserver' in window){new MutationObserver(function(){wa.classList.toggle('is-up',stk.classList.contains('is-on'));}).observe(stk,{attributes:true,attributeFilter:['class']});}
 })();
+

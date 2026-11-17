@@ -24,7 +24,7 @@
 <header class="zn-head">
   <div class="zn-in zn-head__row">
     {% render 'zn-logo', tagline: S.tagline %}
-    <a class="zn-head__cart" href="{{ routes.cart_url }}" aria-label="Carrito">
+    <a class="zn-head__cart" href="{{ routes.cart_url }}" data-cart-open aria-label="Abrir carrito"><span class="zn-head__count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l-1.2 12H6.2L5 7Z M9 7a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
     </a>
   </div>
@@ -128,6 +128,7 @@
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg>{{ S.assure2 }}</li>
         </ul>
 
+        {%- if S.wa_number != blank -%}<a class="zn-wa-line" href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg><span>¿Dudas? <b>Escríbenos por WhatsApp</b></span></a>{%- endif -%}
         <p class="zn-eta" data-eta data-min="{{ S.eta_min }}" data-max="{{ S.eta_max }}"><span class="zn-eta__dot" aria-hidden="true"></span><span>Pide hoy y llega entre el <b data-eta-a>—</b> y el <b data-eta-b>—</b></span></p>
       </div>
 
@@ -270,6 +271,8 @@
   <a class="zn-btn zn-btn--buy zn-btn--sm" href="#zn-form" tabindex="-1">{{ S.cta_sticky }}</a>
 </div>
 
+{%- if S.wa_number != blank and S.wa_float -%}<a class="zn-wa" data-wa href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg></a>{%- endif -%}
+{% render 'zn-cart', product: product, cod_text: S.cod_text %}
 <script src="{{ 'zn.js' | asset_url }}" defer></script>
 
 {% schema %}
@@ -298,7 +301,10 @@
     { "type": "image_picker", "id": "gift2_img", "label": "Foto del regalo 2" },
     { "type": "text", "id": "fine_print", "label": "Nota bajo los packs", "default": "Precio tachado: lo que costarían los mismos cojines comprados de uno en uno." },
     { "type": "text", "id": "stock_text", "label": "Aviso de stock (vacío = oculto, solo si es verdad)" },
-    { "type": "text", "id": "cta", "label": "Botón", "default": "Comprar ahora" },
+    { "type": "text", "id": "cta", "label": "Botón", "default": "Añadir al carrito" },
+    { "type": "text", "id": "wa_number", "label": "WhatsApp (con prefijo, sin +)", "default": "34621390548" },
+    { "type": "text", "id": "wa_text", "label": "Mensaje inicial de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" },
+    { "type": "checkbox", "id": "wa_float", "label": "Botón flotante de WhatsApp", "default": true },
     { "type": "checkbox", "id": "show_cod", "label": "Mostrar «Pagas al recibir» (solo con contra reembolso activo)", "default": true },
     { "type": "text", "id": "cod_text", "label": "Texto de contra reembolso", "default": "Pagas al recibir o con tarjeta" },
     { "type": "text", "id": "assure1", "label": "Garantía corta", "default": "60 noches de prueba: si no te convence, te devolvemos el dinero" },

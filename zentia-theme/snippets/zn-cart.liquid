@@ -1,0 +1,35 @@
+{%- doc -%}
+  Carrito lateral de Zentia. Lo rellena assets/zn.js con /cart.js.
+  @param {object} product - Producto Zentia
+  @param {string} [cod_text] - Línea de pago bajo el botón
+{%- enddoc -%}
+{%- liquid
+  assign v1 = product.variants[0]
+  assign v2 = product.variants[1]
+-%}
+<div class="zn-cart" data-cart hidden data-pid="{{ product.id }}" data-v1="{{ v1.id }}" data-v2="{{ v2.id }}" data-p1="{{ v1.price }}" data-p2="{{ v2.price }}" data-free="4000">
+  <div class="zn-cart__shade" data-cart-close aria-hidden="true"></div>
+  <aside class="zn-cart__panel" data-cart-panel role="dialog" aria-modal="true" aria-labelledby="zn-cart-t" tabindex="-1">
+    <header class="zn-cart__head">
+      <h2 id="zn-cart-t">Tu pedido</h2>
+      <button type="button" class="zn-cart__x" data-cart-close aria-label="Cerrar carrito"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="zn-cart__ship" data-cart-ship hidden><span></span><div class="zn-cart__bar"><i></i></div></div>
+    <div class="zn-cart__body">
+      <ul class="zn-cart__items" data-cart-items></ul>
+      <div class="zn-cart__up" data-cart-up hidden>
+        <p><b>Pásate al pack de 2 por <span data-up-diff></span> más</b><span>Envío gratis y antifaz de regalo. Uno para ti y otro para regalar.</span></p>
+        <button type="button" class="zn-btn zn-btn--ghost zn-btn--sm" data-up-go>Cambiar al pack de 2</button>
+      </div>
+      <div class="zn-cart__empty" data-cart-empty hidden>
+        <p>Tu carrito está vacío.</p>
+        <button type="button" class="zn-btn zn-btn--ghost zn-btn--sm" data-cart-close>Seguir mirando</button>
+      </div>
+    </div>
+    <footer class="zn-cart__foot" data-cart-foot hidden>
+      <p class="zn-cart__sum"><span>Subtotal <small>· envío gratis desde 40 €</small></span><b data-cart-sub>—</b></p>
+      <a class="zn-btn zn-btn--buy zn-cart__go" href="/checkout" data-cart-go>Finalizar pedido · <span data-go-price>—</span></a>
+      <p class="zn-cart__note">{{ cod_text | default: 'Pagas al recibir o con tarjeta' }} · 60 noches de prueba</p>
+    </footer>
+  </aside>
+</div>
