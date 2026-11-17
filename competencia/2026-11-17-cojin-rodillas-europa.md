@@ -110,3 +110,22 @@ FusionDry, LolaCare («Duerme como en una nube»), Saipage1/MERKADA («49,99 €
 - El cojín de rodillas solo tiene unos 3–4 anunciantes.
 - El kit cervical + rodillas ya lo usa Dorzzen como regalo.
 - La nube como idea de marca está muy vista en esta categoría.
+
+## España · solo cojín de rodillas (17-nov, noche)
+**Búsquedas:** «cojín rodillas», «cojín entre las piernas», «almohada ortopédica piernas», «almohada rodillas», «cojín piernas dormir», «dormir de lado cadera». La fecha es la de creación del anuncio que da el MCP.
+
+| Marca | Anuncio | Creado | Lectura |
+|---|---|---|---|
+| Cellumove WorldWide | «Brinda a tus rodillas el soporte que se merecen» | ~28-sep | El más antiguo (~7 semanas): **posible ganador**. Hay que ver su web |
+| Somos Tu Descanso | «29,95 € cada una · Pagas al recibir» | 17-nov | Contra reembolso a 29,95 € |
+| Calmavita | «Alinea la cadera mientras duermes» | 16-nov | Ángulo de cadera |
+| Miacassa | «2 por 39,99 €: una para cada uno», «Si duermes de lado, mira tu cadera» | 16-nov | Tienda genérica de Dropi; su ficha vende la cervical |
+| Vitanube | «La oportunidad que estabas esperando» | ~15-nov | Almohada ortopédica de piernas |
+| Dorzzen | «Almohada + cojín de piernas de regalo» | 17-nov | Usa el cojín como regalo |
+| «Carmen García» | Advertorial «Un año sin poder dormir de lado» | 16-nov | Prelanding |
+| Covexia (indirecto, cojín de asiento) | Listicle «5 razones por las que las parejas no deberían comprar el cojín Covexia» | ~7-nov (otros, ago) | Formato listicle que dura meses |
+
+**Lectura:**
+- 5–6 marcas, casi todas nuevas en la ola de Black Friday. La única con recorrido es Cellumove.
+- Precios: 29,95 € una; 2 por 39,99 €.
+- Ángulos: cadera, «pagas al recibir» y pareja («una para cada uno»). Nadie usa el regalo para los padres.
