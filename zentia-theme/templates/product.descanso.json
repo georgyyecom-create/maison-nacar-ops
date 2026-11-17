@@ -4,147 +4,29 @@
     "main": {
       "type": "zn-descanso",
       "blocks": {
-        "g0": {
-          "type": "sign",
-          "settings": {
-            "text": "Rodillas clavadas al despertar"
-          }
-        },
-        "g1": {
-          "type": "sign",
-          "settings": {
-            "text": "La almohada amanece en el suelo"
-          }
-        },
-        "g2": {
-          "type": "sign",
-          "settings": {
-            "text": "Cadera cargada por la mañana"
-          }
-        },
-        "s0": {
-          "type": "step",
-          "settings": {
-            "text": "Túmbate de lado"
-          }
-        },
-        "s1": {
-          "type": "step",
-          "settings": {
-            "text": "Cojín entre las rodillas"
-          }
-        },
-        "s2": {
-          "type": "step",
-          "settings": {
-            "text": "Duerme toda la noche"
-          }
-        },
-        "c0": {
-          "type": "cmp",
-          "settings": {
-            "them": "Plana",
-            "us": "Con forma de piernas"
-          }
-        },
-        "c1": {
-          "type": "cmp",
-          "settings": {
-            "them": "Se aplasta",
-            "us": "Recupera su forma"
-          }
-        },
-        "c2": {
-          "type": "cmp",
-          "settings": {
-            "them": "Se escapa al girarte",
-            "us": "Hecho para quedarse ahí"
-          }
-        },
-        "f0": {
-          "type": "faq",
-          "settings": {
-            "q": "¿Cuándo llega?",
-            "a": "En 2–5 días laborables. Envío gratis en los packs; con 1 cojín, 4,95 €."
-          }
-        },
-        "f1": {
-          "type": "faq",
-          "settings": {
-            "q": "¿Y si no me convence?",
-            "a": "Tienes 60 noches. Lo devuelves y te reembolsamos."
-          }
-        },
-        "f2": {
-          "type": "faq",
-          "settings": {
-            "q": "¿Sirve boca arriba?",
-            "a": "Está pensado para dormir de lado. Boca arriba, bajo las rodillas."
-          }
-        },
-        "f3": {
-          "type": "faq",
-          "settings": {
-            "q": "¿Es un producto sanitario?",
-            "a": "No. Es un cojín de comodidad. Si tienes dolor, consulta a tu médico."
-          }
-        },
-        "f4": {
-          "type": "faq",
-          "settings": {
-            "q": "¿Por qué quedan tan pocos?",
-            "a": "Es el stock real del almacén de España. Cuando se repone, lo avisamos aquí."
-          }
-        },
-        "t0": {
-          "type": "tick",
-          "settings": {
-            "text": "Envío gratis en packs de 2 y 3"
-          }
-        },
-        "t1": {
-          "type": "tick",
-          "settings": {
-            "text": "Pedidos para Nochebuena hasta el 15-dic"
-          }
-        },
-        "t2": {
-          "type": "tick",
-          "settings": {
-            "text": "Quedan pocas unidades"
-          }
-        },
-        "t3": {
-          "type": "tick",
-          "settings": {
-            "text": "60 noches de prueba"
-          }
-        }
+        "c1": { "type": "check", "settings": { "text": "Para quien duerme de lado" } },
+        "c2": { "type": "check", "settings": { "text": "Mantiene las rodillas separadas toda la noche" } },
+        "c3": { "type": "check", "settings": { "text": "Piernas paralelas y cadera recta" } },
+        "c4": { "type": "check", "settings": { "text": "60 noches de prueba en tu cama" } },
+        "i1": { "type": "info", "settings": { "q": "Medidas y material", "a": "<p>Pendiente de completar con la muestra.</p>" } },
+        "i2": { "type": "info", "settings": { "q": "Envío y pago", "a": "<p>Sale de nuestro almacén en España y llega en 2–4 días laborables. Pagas al recibir o con tarjeta. Envío gratis desde 2 cojines. Con 1 cojín, 4,95 €.</p>" } },
+        "i3": { "type": "info", "settings": { "q": "60 noches de prueba", "a": "<p>Úsalo hasta 60 noches. Si no te convence, escríbenos y te devolvemos el dinero del cojín.</p>" } },
+        "s1": { "type": "step", "settings": { "label": "FOTO 11 · Persona tumbándose de lado en la cama", "title": "Túmbate de lado", "text": "Como duermes siempre." } },
+        "s2": { "type": "step", "settings": { "label": "FOTO 12 · Manos colocando el cojín entre las rodillas", "title": "Ponlo entre las rodillas", "text": "A la altura que te resulte cómoda." } },
+        "s3": { "type": "step", "settings": { "label": "FOTO 13 · Persona dormida, piernas paralelas", "title": "Duerme", "text": "Las piernas se quedan separadas toda la noche." } },
+        "r1": { "type": "row", "settings": { "text": "Forma pensada para las piernas", "other": false } },
+        "r2": { "type": "row", "settings": { "text": "Mantiene la separación entre las rodillas", "other": false } },
+        "r3": { "type": "row", "settings": { "text": "Pequeño: no ocupa la cama", "other": false } },
+        "r4": { "type": "row", "settings": { "text": "60 noches de prueba", "other": false } },
+        "f1": { "type": "faq", "settings": { "q": "¿Y si se me cae por la noche?", "a": "<p>Tiene forma para las piernas, así que se queda en su sitio mejor que una almohada normal. Si no te convence, tienes 60 noches para devolverlo.</p>" } },
+        "f2": { "type": "faq", "settings": { "q": "¿Cómo pago?", "a": "<p>Al recibirlo, en efectivo al repartidor, o con tarjeta al hacer el pedido.</p>" } },
+        "f3": { "type": "faq", "settings": { "q": "¿Cuándo llega?", "a": "<p>En 2–4 días laborables desde nuestro almacén en España. Si pides antes del 15 de diciembre, llega antes de Nochebuena.</p>" } },
+        "f4": { "type": "faq", "settings": { "q": "¿Para qué sirve el pack de 2?", "a": "<p>Uno para cada uno, o uno para casa y otro para regalar. Sale a 24,95 € el cojín, el envío es gratis y lleva un antifaz de regalo.</p>" } },
+        "f5": { "type": "faq", "settings": { "q": "¿Es un producto sanitario?", "a": "<p>No. Es un cojín para dormir más cómodo de lado. Si tienes dolor persistente, consulta a tu médico.</p>" } }
       },
-      "block_order": [
-        "t0",
-        "t1",
-        "t2",
-        "t3",
-        "g0",
-        "g1",
-        "g2",
-        "s0",
-        "s1",
-        "s2",
-        "c0",
-        "c1",
-        "c2",
-        "f0",
-        "f1",
-        "f2",
-        "f3",
-        "f4"
-      ],
+      "block_order": ["c1","c2","c3","c4","i1","i2","i3","s1","s2","s3","r1","r2","r3","r4","f1","f2","f3","f4","f5"],
       "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
