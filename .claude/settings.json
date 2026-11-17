@@ -3,5 +3,28 @@
     "OPT_OUT_INSTRUMENTATION": "true",
     "DISABLE_TELEMETRY": "1",
     "DO_NOT_TRACK": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Edit",
+      "Write",
+      "Read",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "Skill",
+      "Artifact",
+      "SendUserFile",
+      "mcp__Shopify",
+      "mcp__META_ADS__ads_library_search",
+      "mcp__META_ADS__ads_get_ad_entities",
+      "mcp__META_ADS__ads_get_dataset_stats",
+      "mcp__META_ADS__ads_get_dataset_quality",
+      "mcp__META_ADS__ads_get_creatives",
+      "mcp__META_ADS__ads_get_ad_account_custom_audiences",
+      "mcp__META_ADS__ads_insights_performance_trend"
+    ]
   }
 }

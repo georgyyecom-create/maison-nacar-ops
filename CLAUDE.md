@@ -103,6 +103,8 @@ Black Friday 27-nov · Cyber Monday 30-nov · último pedido para Navidad 14-dic
 - Anuncios: `ads` (base y referencias), `ads-meta` (auditoría), `ads-budget`, `ads-math` (CPA/ROAS), `ad-creative`, `video`. Propias: `diagnostico-anuncios`, `creativos-maison-nacar`, `competencia`.
 - Web y oferta: `cro`, `popups`, `ab-testing`, `offers`, `pricing`, `copywriting`, `ecommerce-checkout-optimization`, `product-description-generator`. Propia: `cro-ficha`.
 - Shopify: `shopify` (oficial; **telemetría quitada**, no ejecutar `log_*`), `shopify-email-flows`. SEO: `ai-seo`, `schema`. Otros: `social`, `reverse-engineer-marketing`, `apify-ultimate-scraper`, `dropshipping-product-research`, `llm-council`, `find-skills`.
+- Diseño de tiendas (17-nov, revisadas antes de instalar): `emil-design-eng` (Emil Kowalski), `web-design-guidelines` (Vercel, reglas copiadas en local: no descargar), `ui-ux-pro-max` (buscador local de estilos/paletas/fuentes: `python3 -I .claude/skills/ui-ux-pro-max/scripts/search.py "<consulta>" --domain style|color|typography|ux`), `storefront-best-practices` (Medusa), `ecommerce-landing-page` (Nexscope). Shopify oficial: `shopify-liquid-themes`, `liquid-theme-standards`, `liquid-theme-a11y`.
+- Permisos: `.claude/settings.json` permite sin preguntar Bash, edición, web, skills, Shopify y lecturas de Meta. Las escrituras de Meta (crear/activar/cambiar anuncios) siguen pidiendo permiso.
 - Descartadas por duplicadas: ads-creative, ads-landing, competitors, seo-audit, shopify-cart-abandonment. Evitar: mbfinotti, autonnel, gencraft-labs.
 - Las skills de fuera son guías genéricas: mandan siempre las reglas de este archivo (Ómnibus, nada de reseñas falsas, LSSI).
 
