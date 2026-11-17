@@ -44,42 +44,42 @@
 > Encuadre lateral a la altura del colchón, desde la cadera hasta los pies, con el torso entrando por el borde y la cara fuera de plano o muy desenfocada. Sábanas blancas de lino con arrugas reales, una manta azul marino de punto grueso a los pies, luz de mañana lateral que entra por una ventana con cortina de lino, sombras suaves y reales.
 > Textura de piel real (sin piel de plástico), pequeños pliegues en la tela, ligero grano fotográfico, 50 mm, f/2.8, colores naturales y apagados. Sin texto, sin marcas de agua, sin logotipos.
 
-## 03 · Anatomía 3D: sin cojín / con cojín
-**Adjunta** la foto del cojín con el ribete azul y escribe: «Usa el cojín de esta foto como referencia exacta».
-> Imagen CUADRADA 1:1. Visualización anatómica 3D de alta gama, estilo render médico de documental o de anuncio premium de descanso, sobre fondo azul marino muy oscuro (#0E1730) con un brillo suave.
-> La imagen tiene dos franjas horizontales iguales, una encima de otra, separadas por una línea fina gris azulada. En cada franja, una persona adulta tumbada de lado sobre un colchón blanco, vista de perfil desde el lateral, con el cuerpo **semitransparente como un holograma azul claro**, que deja ver dentro el esqueleto en 3D: columna, pelvis, fémures, rodillas y tibias, en blanco hueso con iluminación realista.
-> **Franja de arriba:** sin cojín. La pierna de arriba cae hacia delante y hacia abajo, la rodilla de arriba se apoya sobre la de abajo, la pelvis gira y la columna lumbar se tuerce. Un brillo rojo anaranjado suave, como un mapa de calor, sale de la cadera y de las rodillas, donde chocan los huesos.
-> **Franja de abajo:** la misma persona y la misma postura de lado, pero con el cojín de la referencia, idéntico, opaco, blanco y con el ribete azul, colocado ENTRE LAS DOS RODILLAS. Las dos piernas quedan paralelas, la pelvis y la columna rectas y alineadas, y no hay ningún brillo rojo. Solo un brillo azul claro y tranquilo en la cadera.
-> Abajo a la izquierda de cada franja, una etiqueta discreta en mayúsculas finas y espaciadas, en blanco: «SIN COJÍN» arriba y «CON COJÍN ENTRE LAS RODILLAS» abajo.
-> Iluminación cinematográfica, mucho detalle, aspecto caro y serio. Sin más texto, sin logotipos, sin flechas ni líneas dibujadas.
+## Estilo común de la galería (03 a 08)
+Pega esta línea al final de cada prompt:
+> Estilo de la serie: imagen CUADRADA 1:1 de galería de tienda online premium, como las de las mejores marcas de almohadas. Fondo azul muy claro con degradado suave (de #F1F5FC a #DCE6F5). Título arriba en letra sans serif gruesa azul marino (#16244A); textos secundarios en gris azulado, cortos y bien alineados; iconos de línea azul marino y números dentro de círculos azul marino. Fotos con aspecto real (piel y tela con textura, luz natural suave), nada de render de plástico. Sin logotipos en el cojín, sin estrellas ni cifras de clientes.
 
-**Comprueba:**
-- Abajo, el cojín está entre las rodillas y se ven las dos tibias completas.
-- Arriba, la rodilla de arriba cae claramente sobre la otra.
-- Los textos se leen bien, con la tilde de «COJÍN».
+## 03 · El problema (foto + círculo con anatomía)
+**Adjunta** la foto del cojín. 
+> Arriba, título en dos líneas: «Sin cojín, la pierna de arriba tira de la cadera». Debajo, la foto realista de una mujer de unos 60 años con pijama azul claro durmiendo de lado en una cama blanca, sin cojín: la rodilla de arriba cae sobre la de abajo y la pierna de arriba se va hacia delante. La cara se ve tranquila pero algo incómoda. Sobre la foto, abajo a la izquierda, un **círculo grande con borde blanco** que amplía la zona de la cadera y las rodillas en **vista anatómica 3D**: músculos y huesos (pelvis, fémur, rodillas), con un **brillo rojo anaranjado** en la cadera y en las rodillas, donde chocan. Una línea fina blanca une el círculo con la cadera de la mujer.
 
-## 04 · Medidas y detalles
-> Fotografía de producto sobre fondo blanco roto liso (#F3F6FB), con el cojín de la foto de referencia, idéntico, de perfil para que se vea bien la forma de corazón. Sombra suave. Añade líneas de cota finas en azul marino con estos textos: «25 cm» en la altura y «24 cm» en el ancho.
-> Cuatro indicadores con línea fina y punto que señalan partes del cojín, en letra sans serif azul marino:
-> - «Funda de punto transpirable» (señala la tela);
-> - «Cremallera: funda lavable» (señala el ribete azul);
-> - «Núcleo de espuma viscoelástica» (señala el interior);
-> - «Hueco curvo para rodillas y muslos» (señala la curva).
+## 04 · La solución (misma escena con el cojín)
+**Adjunta** la foto del cojín y la imagen 03 que hayas elegido. Escribe: «Misma persona, misma cama y mismo encuadre que la foto 2».
+> Arriba, título en dos líneas: «Con Zentia, piernas paralelas y cadera recta». La misma mujer, durmiendo de lado y relajada, con el cojín de la referencia, idéntico, ENTRE LAS DOS RODILLAS, de modo que se ven las dos espinillas y los dos pies completos. Abajo a la izquierda, el mismo círculo con borde blanco y la vista anatómica 3D de la cadera y las rodillas, ahora alineadas y con el cojín entre ellas, **sin brillo rojo**: solo un brillo azul claro y tranquilo. Una línea fina blanca une el círculo con la cadera.
+
+## 05 · Calidad y medidas
+**Adjunta** la foto del cojín y la foto del interior (la del cojín con la funda abierta y la espuma azul).
+> Arriba, título: «Calidad que se nota». En el centro, el cojín de la referencia, idéntico, grande y de perfil, con un corte en una mitad que deja ver por dentro la espuma viscoelástica blanca con su capa azul claro. Líneas de cota finas azul marino: «25 cm» de alto y «24 cm» de ancho. Abajo, una fila de 4 círculos pequeños con foto en primer plano y un texto corto debajo de cada uno: «Cremallera» · «Funda lavable» · «Espuma viscoelástica» · «Tela transpirable».
+
+## 06 · Las partes del cojín
+**Adjunta** la foto del cojín.
+> Arriba, título: «Pensado para dormir de lado». En el centro, el cojín de la referencia, idéntico, en tres cuartos, con 3 indicadores numerados (número en un círculo azul marino + línea fina + texto corto en dos líneas):
+> 1. «Hueco curvo · se adapta a rodillas y muslos»;
+> 2. «Funda de punto · transpirable y suave»;
+> 3. «Cremallera oculta · funda lavable en lavadora».
+
+## 07 · Funda con cremallera
+**Adjunta** la foto del cojín.
+> Primer plano real de dos manos de mujer abriendo la cremallera del cojín de la referencia, idéntico, con la textura de puntitos muy nítida y el ribete azul. Sobre la mitad de abajo, en un recuadro blanco semitransparente con esquinas redondeadas, el título «Funda con cremallera» y debajo, más pequeño: «Se quita en segundos y va a la lavadora».
+
+## 08 · Comparativa
+**Adjunta** la foto del cojín.
+> Arriba, título: «Zentia frente a una almohada normal». Debajo, a la izquierda, el cojín de la referencia, y a la derecha, una almohada rectangular normal doblada y aplastada. Debajo, una tabla limpia de 4 filas, con la columna de la izquierda en azul marino y texto blanco, y dos columnas: «Zentia» y «Almohada normal». Las filas son:
+> - «Forma para las rodillas»: ✓ verde · ✗ rojo
+> - «Se queda en su sitio toda la noche»: ✓ · ✗
+> - «Piernas paralelas»: ✓ · ✗
+> - «Funda lavable con cremallera»: ✓ · ✗
 >
-> Aspecto de ficha técnica premium, limpia y ordenada, sin más texto.
-
-## 05 · Pack de 2 + antifaz de regalo
-> Fotografía realista de estilo bodegón sobre una cama hecha con sábanas blancas y una manta azul marino doblada. Dos cojines idénticos al de la foto de referencia, uno junto al otro, en ligero ángulo, y delante un antifaz para dormir negro acolchado. Luz de mañana suave y lateral, sombras delicadas, objetivo de 50 mm, f/4.
-> Arriba, en letra sans serif azul marino: «Pack de 2 · uno para cada lado de la cama». Abajo, en una cinta azul marino con letra blanca: «+ antifaz de regalo».
-> Sin más texto ni logotipos.
->
-> *(Cuando me mandes la foto del antifaz de Dropi, ajusto el color y la forma para que coincidan.)*
-
-## 06 · Detalle de la funda y la espuma
-> Primer plano macro realista del cojín de la foto de referencia, con la funda medio abierta por la cremallera. Se ven la textura de puntitos de la funda blanca, el ribete azul, y debajo la espuma blanca con su capa superior azul claro. Una mano de mujer de unos 55 años aprieta un poco la espuma y se ve cómo se hunde de forma suave. Luz de estudio suave, fondo azul muy claro (#E8EEF8) desenfocado, objetivo macro de 100 mm, f/5.6, nitidez alta en la tela.
-> En la esquina superior izquierda, en letra sans serif azul marino pequeña: «Funda con cremallera, lavable en lavadora». Sin más texto.
-
----
+> Iconos en círculos: el ✓ verde y el ✗ rojo.
 
 ## Miniatura del regalo (antifaz)
 Se sube en Personalizar → «Zentia · ficha» → «Foto del regalo 1».
