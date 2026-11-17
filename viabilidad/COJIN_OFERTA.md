@@ -82,3 +82,8 @@ Margen antes de anuncios. Supuestos: 6 € de envío contra reembolso, precios c
 | 3 + antifaz + altavoz | 64,90 € | 13,38 + 1,56 + 3,62 + 6,74 € | ~39,60 € |
 
 Falta confirmar: el envío con 2 y 3 unidades (más peso), el coste de una devolución por contra reembolso rechazado, y el IVA de la venta.
+
+## Pedido de prueba en Dropi #3689379 (17-nov)
+- 1 cojín + 1 antifaz salen en **un solo envío** (MRW 24/48 h, contra reembolso 6,74 €, 0,21 kg).
+- Con el «Pack recomendado» de Dropi, el cojín baja un 27 %: 2,69 € sin IVA. El antifaz sigue a 1,29 €.
+- Pack de 2 + antifaz: (2 × 2,69 + 1,29) × 1,21 = 8,07 € + 6,74 € de envío = 14,81 € → **~35 € antes de anuncios** (con 49,90 €).
