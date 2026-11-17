@@ -6,6 +6,7 @@
     assign sel = product.variants[1]
   endif
   assign per2 = sel.price | divided_by: 2
+  assign sep2 = v1.price | times: 2
 -%}
 <div class="zn-ticker" role="region" aria-label="Avisos">
   <div class="zn-ticker__track">
@@ -13,7 +14,7 @@
       <ul class="zn-ticker__list" {% if i == 2 %}aria-hidden="true"{% endif %}>
         {%- for b in section.blocks -%}
           {%- if b.type == 'tick' -%}
-            <li {{ b.shopify_attributes }}><svg viewBox="0 0 24 16" aria-hidden="true"><path d="M7 15h11a5 5 0 0 0 .6-10A6.5 6.5 0 0 0 6.2 4.6 5.3 5.3 0 0 0 7 15z" fill="currentColor"/></svg>{{ b.settings.text }}</li>
+            <li {{ b.shopify_attributes }}>{{ b.settings.text }}</li>
           {%- endif -%}
         {%- endfor -%}
       </ul>
@@ -44,13 +45,13 @@
     <div class="zn-hero__copy">
       <h1 class="zn-h1">{{ S.headline }}</h1>
       <p class="zn-lead">{{ S.subhead }}</p>
-      <p class="zn-bill"><span class="zn-bill__big">2 por {% render 'zn-money', cents: sel.price %}</span><span class="zn-bill__small">{% render 'zn-money', cents: per2 %} cada uno · envío gratis</span></p>
+      <p class="zn-bill"><s>{% render 'zn-money', cents: sep2 %}</s><span class="zn-bill__big">2 por {% render 'zn-money', cents: sel.price %}</span><span class="zn-bill__small">Envío gratis y guía de regalo</span></p>
     </div>
   </section>
 
   <section class="zn-buy zn-in" id="zn-comprar" aria-label="Elegir y comprar">
     <div class="zn-live">
-      <p class="zn-stock"><span class="zn-dot" aria-hidden="true"></span><span><b>Quedan {{ S.stock_units }}</b> en el almacén de España <small>({{ S.stock_date }})</small></span></p>
+      <p class="zn-stock"><span class="zn-dot" aria-hidden="true"></span><span>{{ S.stock_text }}</span></p>
       <p class="zn-count" data-deadline="{{ S.deadline_iso }}"><span>{{ S.deadline_label }}</span> <span class="zn-count__t">—</span></p>
     </div>
     {%- form 'product', product, id: 'zn-form', class: 'zn-form' -%}
@@ -74,16 +75,27 @@
                 assign tag = S.tag_3
             endcase
           -%}
-          <label class="zn-offer" for="zn-v{{ v.id }}">
+          <label class="zn-offer{% if q == 2 %} zn-offer--best{% endif %}" for="zn-v{{ v.id }}">
             <input type="radio" name="id" id="zn-v{{ v.id }}" value="{{ v.id }}" data-title="{{ v.title | escape }}" data-price="{% render 'zn-money', cents: v.price %}" {% if v.id == sel.id %}checked{% endif %}>
+            {%- if tag != blank -%}<span class="zn-offer__tag">{{ tag }}</span>{%- endif -%}
             <span class="zn-offer__top">
-              <span class="zn-offer__name">{{ v.title }}{% if tag != blank %}<span class="zn-offer__tag">{{ tag }}</span>{% endif %}</span>
-              <span class="zn-offer__price">{% render 'zn-money', cents: v.price %}</span>
+              <span class="zn-offer__name">{{ v.title }} <small>{{ note }}</small></span>
+              <span class="zn-offer__prices">
+                {%- if q > 1 -%}<s>{% render 'zn-money', cents: sep %}</s>{%- endif -%}
+                <b>{% render 'zn-money', cents: v.price %}</b>
+              </span>
             </span>
-            <span class="zn-offer__note">{{ note }}</span>
-            {%- if q > 1 -%}
-              <span class="zn-offer__deal"><span>{% render 'zn-money', cents: per %}/cojín · por separado {% render 'zn-money', cents: sep %}</span><b>Ahorras {% render 'zn-money', cents: save %}</b></span>
-            {%- endif -%}
+            <span class="zn-offer__perks">
+              {%- if q == 1 -%}
+                <span class="zn-perk zn-perk--off">+ {{ S.ship_fee }} de envío</span>
+              {%- else -%}
+                <span class="zn-perk">Envío gratis</span>
+                <span class="zn-perk">Regalo: {{ S.gift_name }}</span>
+                {%- if q > 2 -%}<span class="zn-perk">Tarjeta regalo</span>{%- endif -%}
+                <span class="zn-perk zn-perk--save">Ahorras {% render 'zn-money', cents: save %}</span>
+              {%- endif -%}
+            </span>
+            {%- if q > 1 -%}<span class="zn-offer__fine">{% render 'zn-money', cents: per %} por cojín · tachado: precio de {{ q }} sueltos</span>{%- endif -%}
           </label>
         {%- endfor -%}
       </div>
@@ -102,7 +114,7 @@
         <figure>{% render 'zn-img', img: S.img_sin, label: 'FOTO 04 · Sin cojín: rodillas juntas, cadera torcida', ratio: '1/1', cls: 'zn-pair__img' %}<figcaption class="zn-tag zn-tag--rain">Sin cojín</figcaption></figure>
         <figure>{% render 'zn-img', img: S.img_con, label: 'FOTO 05 · Con cojín: rodillas separadas, cadera recta', ratio: '1/1', cls: 'zn-pair__img' %}<figcaption class="zn-tag zn-tag--sun">Con cojín</figcaption></figure>
       </div>
-      <p class="zn-forecast"><b>Previsión:</b> {{ S.forecast_con }}</p>
+      <p class="zn-note">{{ S.forecast_con }}</p>
     </div>
   </section>
 
@@ -234,8 +246,8 @@
     { "type": "text", "id": "ship_short", "label": "Cabecera: envío", "default": "Envío 2–5 días" },
     { "type": "text", "id": "headline", "label": "Titular", "default": "Duerme de lado sin que las rodillas choquen" },
     { "type": "text", "id": "subhead", "label": "Subtítulo", "default": "Cojín de espuma viscoelástica para entre las rodillas." },
-    { "type": "text", "id": "vs_title", "label": "Título sin/con", "default": "La misma noche, dos previsiones" },
-    { "type": "text", "id": "forecast_con", "label": "Previsión con cojín", "default": "rodillas separadas y cadera recta hasta el despertador." },
+    { "type": "text", "id": "vs_title", "label": "Título sin/con", "default": "La diferencia, en una noche" },
+    { "type": "text", "id": "forecast_con", "label": "Previsión con cojín", "default": "Con el cojín, rodillas separadas y cadera recta hasta que suene el despertador." },
     { "type": "text", "id": "signs_title", "label": "Título problema", "default": "¿Te suena?" },
     { "type": "text", "id": "gift_title", "label": "Título regalo", "default": "El regalo que van a usar cada noche" },
     { "type": "text", "id": "gift_text", "label": "Texto regalo", "default": "Con tarjeta para imprimir. Pide antes del 15-dic y llega antes de Nochebuena." },
@@ -243,16 +255,17 @@
     { "type": "text", "id": "guarantee", "label": "Garantía", "default": "Si no duermes más a gusto, te devolvemos el dinero." },
     { "type": "text", "id": "reviews_empty", "label": "Opiniones (sin reseñas)", "default": "Aún no hay opiniones: es nuevo en la tienda. Las primeras saldrán aquí tal cual." },
     { "type": "text", "id": "contact", "label": "Contacto", "default": "¿Dudas? Escríbenos y te contestamos en el día." },
-    { "type": "text", "id": "stock_units", "label": "Unidades reales en stock", "default": "10" },
-    { "type": "text", "id": "stock_date", "label": "Fecha del dato de stock", "default": "17-nov" },
-    { "type": "text", "id": "deadline_label", "label": "Texto fecha límite", "default": "Llega antes de Nochebuena si pides en" },
+    { "type": "text", "id": "stock_text", "label": "Aviso de stock (solo si es verdad)", "default": "Quedan pocas unidades en el almacén de España" },
+    { "type": "text", "id": "ship_fee", "label": "Coste de envío de Para 1", "default": "4,95 €" },
+    { "type": "text", "id": "gift_name", "label": "Regalo de los packs", "default": "guía de 7 noches (PDF)" },
+    { "type": "text", "id": "deadline_label", "label": "Texto fecha límite", "default": "Pedidos para Nochebuena:" },
     { "type": "text", "id": "deadline_iso", "label": "Fecha límite real (ISO)", "default": "2026-12-15T23:59:00+01:00" },
     { "type": "text", "id": "trial_nights", "label": "Noches de prueba", "default": "60" },
-    { "type": "text", "id": "note_1", "label": "Texto Para 1", "default": "Para ti" },
-    { "type": "text", "id": "note_2", "label": "Texto Para 2", "default": "Para ti y tu pareja" },
-    { "type": "text", "id": "tag_2", "label": "Etiqueta Para 2", "default": "Pareja" },
-    { "type": "text", "id": "note_3", "label": "Texto Para 3", "default": "Y uno de regalo para tus padres" },
-    { "type": "text", "id": "tag_3", "label": "Etiqueta Para 3", "default": "Regalo" },
+    { "type": "text", "id": "note_1", "label": "Texto Para 1", "default": "solo para ti" },
+    { "type": "text", "id": "note_2", "label": "Texto Para 2", "default": "para ti y tu pareja" },
+    { "type": "text", "id": "tag_2", "label": "Etiqueta Para 2", "default": "Recomendado" },
+    { "type": "text", "id": "note_3", "label": "Texto Para 3", "default": "y uno para tus padres" },
+    { "type": "text", "id": "tag_3", "label": "Etiqueta Para 3", "default": "Para regalar" },
     { "type": "text", "id": "pay_line", "label": "Línea de pago", "default": "Tarjeta, Apple Pay o Google Pay" },
     { "type": "image_picker", "id": "img_hero", "label": "Foto 01 · portada" },
     { "type": "image_picker", "id": "img_pack", "label": "Foto 02 · pack de 2" },

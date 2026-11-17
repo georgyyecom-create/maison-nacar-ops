@@ -4,36 +4,6 @@
     "main": {
       "type": "zn-descanso",
       "blocks": {
-        "t0": {
-          "type": "tick",
-          "settings": {
-            "text": "Envío gratis desde España"
-          }
-        },
-        "t1": {
-          "type": "tick",
-          "settings": {
-            "text": "60 noches de prueba"
-          }
-        },
-        "t2": {
-          "type": "tick",
-          "settings": {
-            "text": "Llega antes de Nochebuena si pides antes del 15-dic"
-          }
-        },
-        "t3": {
-          "type": "tick",
-          "settings": {
-            "text": "Quedan 10 en el almacén de España"
-          }
-        },
-        "t4": {
-          "type": "tick",
-          "settings": {
-            "text": "2 por 64,90 €"
-          }
-        },
         "g0": {
           "type": "sign",
           "settings": {
@@ -95,7 +65,7 @@
           "type": "faq",
           "settings": {
             "q": "¿Cuándo llega?",
-            "a": "En 2–5 días laborables desde España. Para Nochebuena, pide antes del 15-dic."
+            "a": "En 2–5 días laborables. Envío gratis en los packs; con 1 cojín, 4,95 €."
           }
         },
         "f1": {
@@ -123,7 +93,31 @@
           "type": "faq",
           "settings": {
             "q": "¿Por qué quedan tan pocos?",
-            "a": "Es el stock real del almacén. Al reponer, lo actualizamos aquí."
+            "a": "Es el stock real del almacén de España. Cuando se repone, lo avisamos aquí."
+          }
+        },
+        "t0": {
+          "type": "tick",
+          "settings": {
+            "text": "Envío gratis en packs de 2 y 3"
+          }
+        },
+        "t1": {
+          "type": "tick",
+          "settings": {
+            "text": "Pedidos para Nochebuena hasta el 15-dic"
+          }
+        },
+        "t2": {
+          "type": "tick",
+          "settings": {
+            "text": "Quedan pocas unidades"
+          }
+        },
+        "t3": {
+          "type": "tick",
+          "settings": {
+            "text": "60 noches de prueba"
           }
         }
       },
@@ -132,7 +126,6 @@
         "t1",
         "t2",
         "t3",
-        "t4",
         "g0",
         "g1",
         "g2",

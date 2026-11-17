@@ -24,7 +24,7 @@ Success: sell the first 10 units (real supplier stock) at a CPA of 27 € or les
 
 ## Positioning
 - The honest Spanish version of a category that elsewhere in Europe runs on fake doctors, «-60%» and sciatica claims.
-- Real stock count, real Christmas delivery deadline, price anchor = the real single-unit price.
+- Real low-stock notice (only while true), real Christmas delivery deadline, price anchor = the real single-unit price.
 - Ships from Spain in 2–5 working days.
 
 ## Capabilities and Constraints

@@ -103,7 +103,7 @@ Black Friday 27-nov · Cyber Monday 30-nov · último pedido para Navidad 14-dic
 ## Skills: una por función (17-nov, sin solapes)
 | Función | Skill que manda | Complementos (solo para lo suyo) |
 |---|---|---|
-| Diseño de páginas (dirección, maquetación, crítica, auditoría) | `impeccable` (motor en `~/.impeccable`; `sh .claude/skills/impeccable/scripts/impeccable context --target <archivo>`; marca en `PRODUCT.md`) | `ui-ux-pro-max` solo como buscador de paletas y fuentes; `emil-design-eng` solo para microinteracciones y animación |
+| Diseño de páginas (dirección, maquetación, pulido, revisión anti «hecho con IA») | `ui-taste` (elegida por el dueño el 17-nov; investigar, contrato de dirección, construir y verificar con capturas) | `ui-ux-pro-max` solo como buscador de paletas y fuentes; `emil-design-eng` solo para microinteracciones y animación |
 | Código de tema Shopify | `shopify-liquid-themes` | `liquid-theme-standards` (CSS/JS), `liquid-theme-a11y` (accesibilidad Shopify), `shopify` (API Admin; telemetría quitada) |
 | Conversión de la ficha | `cro` | `cro-ficha` (reglas propias de la tienda), `popups`, `ecommerce-checkout-optimization` (solo el checkout), `ab-testing` |
 | Oferta y precio | `offers` | `pricing`, `marketing-psychology:price-framing`, `marketing-psychology:dark-pattern-check` (legalidad de urgencia, stock y tachados) |
@@ -113,9 +113,18 @@ Black Friday 27-nov · Cyber Monday 30-nov · último pedido para Navidad 14-dic
 | Buscar producto | `dropshipping-product-research` | — |
 | Otros | `llm-council` (decisiones), `social`, `shopify-email-flows`, `ai-seo`, `schema`, `find-skills` | — |
 
-- Quitadas por solapes (17-nov): ui-taste (copia de impeccable), web-design-guidelines (lo cubre la auditoría de impeccable), ecommerce-landing-page y storefront-best-practices (lo cubre cro), product-description-generator (lo cubre copywriting), amazon-product-research y amazon-trending-products (lo cubre dropshipping-product-research). El plugin `frontend-design` no se usa: manda impeccable.
+- Quitadas por solapes (17-nov): impeccable (el dueño prefiere ui-taste, que es su adaptación; su motor en `~/.impeccable` se puede borrar), web-design-guidelines (lo cubre la auditoría de impeccable), ecommerce-landing-page y storefront-best-practices (lo cubre cro), product-description-generator (lo cubre copywriting), amazon-product-research y amazon-trending-products (lo cubre dropshipping-product-research). El plugin `frontend-design` no se usa: manda impeccable.
 - Permisos: `.claude/settings.json` deja usar sin preguntar Bash, la edición, la web, las skills, Shopify y las lecturas de Meta. Las escrituras de Meta (crear, activar o cambiar anuncios) siguen pidiendo permiso.
 - Las skills de fuera son guías genéricas: mandan siempre las reglas de este archivo (Ómnibus, nada de reseñas falsas, LSSI).
 
 ## Criterios para elegir producto (16-nov-2026, del dueño)
 Resolver un problema real · explicable en 3 s · urgencia real · margen ≥ 20 € por pedido (o recompra frecuente) · recurrencia (consumible o recambio) · buena oferta (pack, regalo, suscripción) · país indiferente. Descartados por no pasar: parches de talón (margen ~3–6 €), protector de sofá (sin recompra), plantillas (sin recompra), bálsamo de talón con marca blanca sin pedido mínimo (margen ~3 €). Candidato vivo: fuente para gatos + filtros en suscripción.
+
+## Zentia (17-nov-2026, marca de descanso en el Shopify de Maison Nácar)
+- Traspaso y estado: `TRASPASO_ZENTIA.md`. Producto `kit-dormir-de-lado` (UNLISTED; plantilla `product.descanso`, layout `zentia`, sección `zn-descanso`) en el tema v20.19 (208968352084).
+- Diseño v3 (ui-taste): Geist, fondo piedra fría #F4F5F2, tinta #16181D, un solo acento bosque #1E4D3A, rojo #E5484D solo para el aviso de stock. Botones en píldora, tarjetas 16, imágenes 20. 11 huecos de imagen (prompts en `PROMPTS_ZENTIA.md`).
+- Logo: la palabra «zentia» con letras de nube (generada con `marca/zentia/` y el script en el scratchpad: Nunito 900 + círculos en el contorno). Archivos: `marca/zentia/zentia-logo.svg`, `-blanco.svg`, `zentia-icono-redes.svg/png` (Z en verde), `zentia-post-logo.svg/png`.
+- Oferta: Para 1 a 39,90 € + 4,95 € de envío; Para 2 a 64,90 € y Para 3 a 84,90 € con envío gratis y la guía PDF de regalo (Para 3, también tarjeta regalo). Tachado = precio de N sueltos (comparación de pack, rotulada «precio de N sueltos»).
+- Envío: perfil de envío propio «Zentia» (gid://shopify/DeliveryProfile/149790490964): 4,95 € si el pedido de esos productos es < 50 €, gratis a partir de 50 €. No toca a Maison Nácar.
+- Urgencia: «Quedan pocas unidades» (solo mientras sea verdad; el proveedor tenía 10) y cuenta atrás real a los pedidos de Nochebuena (15-dic). Nada de contadores falsos.
+- Pendiente: entregar la guía PDF a los packs (correo tras la compra o descarga), la política de 60 noches y las fotos.
