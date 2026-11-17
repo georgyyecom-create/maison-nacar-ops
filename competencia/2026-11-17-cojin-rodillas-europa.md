@@ -116,7 +116,7 @@ FusionDry, LolaCare («Duerme como en una nube»), Saipage1/MERKADA («49,99 €
 
 | Marca | Anuncio | Creado | Lectura |
 |---|---|---|---|
-| Cellumove WorldWide | «Brinda a tus rodillas el soporte que se merecen» | ~28-sep | El más antiguo (~7 semanas): **posible ganador**. Hay que ver su web |
+| Cellumove WorldWide | «Brinda a tus rodillas el soporte que se merecen» | ~28-sep | Comprobado en su web (UK): vende ropa de compresión, no cojines. **No es competencia** |
 | Somos Tu Descanso | «29,95 € cada una · Pagas al recibir» | 17-nov | Contra reembolso a 29,95 € |
 | Calmavita | «Alinea la cadera mientras duermes» | 16-nov | Ángulo de cadera |
 | Miacassa | «2 por 39,99 €: una para cada uno», «Si duermes de lado, mira tu cadera» | 16-nov | Tienda genérica de Dropi; su ficha vende la cervical |
@@ -126,6 +126,6 @@ FusionDry, LolaCare («Duerme como en una nube»), Saipage1/MERKADA («49,99 €
 | Covexia (indirecto, cojín de asiento) | Listicle «5 razones por las que las parejas no deberían comprar el cojín Covexia» | ~7-nov (otros, ago) | Formato listicle que dura meses |
 
 **Lectura:**
-- 5–6 marcas, casi todas nuevas en la ola de Black Friday. La única con recorrido es Cellumove.
+- 5 marcas de cojín, todas nuevas (creadas entre el 15 y el 17 de noviembre, ola de Black Friday). Ninguna tiene recorrido: no hay ganador probado en España.
 - Precios: 29,95 € una; 2 por 39,99 €.
 - Ángulos: cadera, «pagas al recibir» y pareja («una para cada uno»). Nadie usa el regalo para los padres.
