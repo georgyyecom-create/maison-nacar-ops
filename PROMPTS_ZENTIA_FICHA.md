@@ -23,6 +23,12 @@
 > Abajo, una fila de 4 sellos redondos iguales, blancos con texto azul marino: «60 noches de prueba» · «Pago contra reembolso» · «Envío desde España» · «Espuma viscoelástica».
 > Sin más texto, sin logotipos, sin estrellas ni cifras de clientes.
 
+## 01-BF · Portada de Black Friday (solo hasta el 30-nov a las 23:59; después vuelve la 01)
+> Imagen cuadrada de producto con estilo de tienda premium, dividida en dos zonas: los dos tercios de arriba con fondo blanco azulado muy claro (#E8EEF8) y el tercio de abajo con una franja azul marino (#16244A). En el centro, apoyados en la línea donde cambia el color, dos cojines idénticos al de la foto de referencia, uno un poco detrás del otro, con luz de estudio suave y sombra realista. Delante, a la derecha, un antifaz para dormir negro acolchado y una tarjeta azul marino pequeña que dice «60 noches de prueba».
+> Arriba, centrado, en letra sans serif azul marino muy gruesa: «BLACK FRIDAY». Debajo, una cinta azul marino con letra blanca: «PACK DE 2 + ANTIFAZ DE REGALO».
+> En la franja azul de abajo, 4 sellos redondos blancos con texto azul marino: «Pago contra reembolso» · «Envío desde España» · «60 noches de prueba» · «Espuma viscoelástica».
+> Sin porcentajes de descuento, sin precios tachados, sin laureles ni premios, sin estrellas ni cifras de clientes, sin logotipos.
+
 ## 02 · En uso (persona real durmiendo)
 > Fotografía realista de estilo editorial. Mujer española de unos 60 años, pelo corto canoso, pijama de algodón azul claro, durmiendo de lado y relajada en una cama de matrimonio con sábanas blancas y una manta azul marino a los pies. Tiene entre las rodillas el cojín de la foto de referencia, idéntico, con las piernas paralelas y la cadera recta. Luz de mañana suave que entra por una ventana con cortina de lino, dormitorio sencillo y luminoso. Plano de tres cuartos desde los pies de la cama, el cojín bien visible y enfocado, cara en calma y algo desenfocada. Objetivo de 35 mm, f/2.8, colores naturales. En la esquina inferior derecha, en letra pequeña gris: «Imagen creada con IA». Sin más texto.
 
