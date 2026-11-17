@@ -205,3 +205,17 @@ FusionDry, LolaCare («Duerme como en una nube»), Saipage1/MERKADA («49,99 €
 - **Sin persona inventada:** narrador en formato POV o la marca hablando, con la etiqueta «Publicidad».
 
 **Producto relacionado en Dropi:** «Soporte masajeador lumbar / espalda» (3,50 €, 235 uds) y «Almohadilla ortopédica vibratoria con calefacción» (15,99 €). (deducción) Hay margen, pero ese mercado se vende con promesas médicas. Venderlo honradamente sería más difícil.
+
+## Datos de una herramienta espía, extensión del navegador (17-nov, capturas del dueño)
+Las cifras de ventas de estas herramientas son **estimaciones**: salen de las visitas multiplicadas por una tasa de compra supuesta.
+
+| Tienda | Ventas estimadas | Anuncios activos / total | Visitas al mes | Países | Otros datos |
+|---|---|---|---|---|---|
+| CuroSleep | ~12 k$/día | 235 / 1.200 | 223 k (+7 %) | DE 95 % | Creada en feb-2025, origen HK. Apps: Kaching Bundles (packs por cantidad) y GemPages. 41 productos |
+| Serenium | ~3 k$/día | 290 / 977 | 58 k (−1 %) | MX 46 %, ES 41 %, AU 10 % | Vende **aparte** «La guía completa» a 18,95 $ y la funda a 18,9 $. Así pueden presentar como gratis, en el pack, cosas que sí tienen precio |
+
+**Lectura (deducción):**
+1. En España se vende descanso por Meta: unas 24 k visitas al mes de Serenium vienen de ES.
+2. Los dos tienen cientos de anuncios activos. Se gana probando muchos creativos, no 3.
+3. Los packs por cantidad (Kaching Bundles) son lo normal en el sector.
+4. Regalos con valor real: venden la guía y la funda por separado, así que el «gratis» del pack es verdad. Es el modelo para nuestra guía PDF: ponerla a la venta a 14,90 € y luego regalarla.
