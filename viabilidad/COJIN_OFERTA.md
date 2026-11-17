@@ -87,3 +87,30 @@ Falta confirmar: el envío con 2 y 3 unidades (más peso), el coste de una devol
 - 1 cojín + 1 antifaz salen en **un solo envío** (MRW 24/48 h, contra reembolso 6,74 €, 0,21 kg).
 - Con el «Pack recomendado» de Dropi, el cojín baja un 27 %: 2,69 € sin IVA. El antifaz sigue a 1,29 €.
 - Pack de 2 + antifaz: (2 × 2,69 + 1,29) × 1,21 = 8,07 € + 6,74 € de envío = 14,81 € → **~35 € antes de anuncios** (con 49,90 €).
+
+## Viabilidad actualizada (17-nov, noche, skill ads-math)
+**Supuestos:**
+- Mezcla de pedidos: 70 % pack de 2 y 30 % de 1 cojín. El 70 % paga contra reembolso.
+- Rechazo del contra reembolso: entre el 15 y el 25 %. Cada rechazo cuesta 12 € (envío de ida y de vuelta).
+- Reembolsos por las 60 noches: 5 %.
+
+**Margen antes de anuncios:**
+| | Sin IVA de venta | Con IVA de venta |
+|---|---|---|
+| Pack de 2 | 35,1 € | 29,0 € |
+| 1 cojín | 24,9 € | 20,5 € |
+
+**CPA máximo para no perder (por pedido hecho):**
+| | Rechazo 15 % | Rechazo 25 % |
+|---|---|---|
+| Sin IVA | ~25 € (ROAS de equilibrio 1,8) | ~22 € (ROAS 2,1) |
+| Con IVA | ~20 € (ROAS 2,3) | ~17,5 € (ROAS 2,6) |
+
+**CPA esperado = CPC / tasa de compra:**
+| CPC | Compra al 1 % | Compra al 2 % | Compra al 3 % |
+|---|---|---|---|
+| 0,50 € | 50 € | 25 € | 16,7 € |
+| 0,65 € | 65 € | 32,5 € | 21,7 € |
+| 0,80 € | 80 € | 40 € | 26,7 € |
+
+**Conclusión:** hace falta una tasa de compra de **2,5–3 % o más** con un CPC de unos 0,6 €.
