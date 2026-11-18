@@ -98,3 +98,33 @@ Hipótesis: el mejor «thumb-stop» (parada en el scroll) de los 5, por ser una 
 
 ### Revisión de políticas de Meta (18-nov)
 Norma de **atributos personales**: un anuncio no puede afirmar o insinuar que quien lo ve tiene una dolencia («tu cadera», «te despiertas con la cadera cargada»). Cambios: imagen del anuncio 4 → «Así queda la cadera a las 4 de la mañana»; textos de los anuncios 1 y 4 sin dolencia en 2.ª persona. «Si duermes de lado» se puede (es una postura, no una dolencia).
+
+## Anuncio 5 · Vídeo POV en la cama (→ artículo A)
+Origen: Mellow Sleep (141 días, 3 páginas), MedCline (43 días) y el vídeo de Chillow (91 días). Formato: 2 clips de Veo de 8 s (app Gemini), montados en CapCut con textos encima. 9:16 (Meta lo recorta a 4:5 en el feed: texto en el centro).
+Hipótesis: mejor coste por visita que los estáticos en Stories de Instagram.
+Regla: persona de IA = escena «POV», nunca presentada como clienta ni con «yo lo uso».
+
+**Clip 1 · El problema** (Veo, sin adjuntos):
+> Vídeo vertical 9:16, 8 segundos, estilo grabado con un móvil, de noche. Dormitorio español normal, luz cálida y tenue de una lámpara de mesita. Una mujer de unos 60 años, pelo corto canoso, pijama de algodón azul claro, está tumbada de lado en una cama de matrimonio con una almohada blanca normal doblada entre las rodillas. Se mueve un poco en sueños, la almohada doblada se escurre de entre sus piernas y cae al suelo. Ella abre los ojos, resopla cansada, mira el despertador de la mesita que marca las 4:07 y se incorpora para recogerla. Cámara fija a los pies de la cama, ligeramente en alto. Sonido ambiente de habitación silenciosa, el roce de las sábanas y un suspiro. Sin música, sin texto, sin diálogo.
+
+**Clip 2 · La solución** (Veo, **adjuntar la foto del cojín con el ribete azul** y escribir antes «Usa el cojín de esta foto como referencia exacta»):
+> Vídeo vertical 9:16, 8 segundos, estilo grabado con un móvil, de noche, misma habitación y luz cálida de lámpara de mesita. Una mujer de unos 60 años, pelo corto canoso, pijama azul claro, coloca con las manos el cojín de la referencia, idéntico, blanco con ribete azul y forma de corazón, entre sus rodillas, se tumba de lado, ajusta las piernas y se queda tranquila con los ojos cerrados. Las piernas quedan paralelas con el cojín entre las rodillas. Cámara fija a los pies de la cama, ligeramente en alto, el cojín siempre visible. Sonido ambiente suave, roce de sábanas, respiración tranquila. Sin música, sin texto, sin diálogo, sin logotipos.
+
+**Textos encima (CapCut, letra blanca con borde negro, en el centro):**
+- 0–3 s: «4:07. Otra vez la almohada en el suelo.»
+- 3–8 s: «Si duermes de lado, la pierna de arriba cae y arrastra la cadera.»
+- 8–12 s: «Un cojín con forma, entre las rodillas.»
+- 12–16 s: «Y la pierna de arriba se queda en su sitio toda la noche.»
+- Último segundo: «Zentia · Descanso y postura»
+
+**Texto principal:**
+> Las 4:07 y otra vez la almohada en el suelo.
+>
+> Cuando se duerme de lado, la pierna de arriba cae hacia delante y arrastra la cadera. La almohada doblada no aguanta: se aplasta y se escapa.
+>
+> En el artículo explicamos por qué pasa y qué hacer esta misma noche.
+
+**Titular:** «La almohada doblada no aguanta la noche» (39)
+**Descripción:** «Lectura de 3 minutos» (20)
+**Botón:** Más información
+**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a5_video_pov
