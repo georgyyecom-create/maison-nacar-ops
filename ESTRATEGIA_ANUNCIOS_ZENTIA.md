@@ -91,7 +91,7 @@ Solo si son del proveedor o tenemos permiso por escrito. Sin la cara ni el usuar
 - 1 campaña de Ventas (evento Compra del píxel de Maison Nácar 1097392456530786; nunca el de Zentia EE. UU.).
 - **1 conjunto** con presupuesto propio (ABO). Público Advantage+ con sugerencia de 40–65+, todos los sexos. España sin Canarias, Ceuta ni Melilla. Solo móvil.
 - Ubicaciones: feed de Instagram y Facebook, Stories de Instagram y Explorar. Sin Reels, sin Stories de Facebook, sin Audience Network, sin Threads.
-- **6 anuncios** desde el día 1: 4 al artículo A (pizarra, «no es tu colchón», «3 errores», radiografía), 1 a la ficha (oferta BF en azul marino) y 1 vídeo POV al artículo B. Mejoras de Advantage+ creative apagadas. UTM en cada enlace.
+- **6 anuncios** desde el día 1: **5 al artículo A** (pizarra, colchón 899 €, «3 errores», radiografía y vídeo POV) y **1 a la ficha** (oferta BF en azul marino). El artículo B queda de reserva: si el A tiene visitas pero muy pocos carritos, los anuncios del artículo pasan al B y se comparan. Mejoras de Advantage+ creative apagadas. UTM en cada enlace.
 - Atribución estándar (7 días tras el clic, 1 día tras la visualización).
 
 **Presupuesto (tope duro 500 €):**

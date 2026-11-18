@@ -49,7 +49,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 
 ## 7. Creativos (después de los pasos 0–4)
 - [ ] Rehacer la foto 08 (comparativa) de la ficha.
-- [ ] 6 anuncios: pizarra, «No es tu colchón», «3 errores», radiografía (→ artículo A), oferta BF (→ ficha), vídeo POV (→ artículo B).
+- [ ] 6 anuncios: pizarra, colchón 899 €, «3 errores», radiografía y vídeo POV (→ artículo A); oferta BF (→ ficha). Artículo B de reserva.
 - [ ] Textos y titulares de cada anuncio; UTM en cada enlace.
 
 ## 8. Campaña (plan en `ESTRATEGIA_ANUNCIOS_ZENTIA.md`)
