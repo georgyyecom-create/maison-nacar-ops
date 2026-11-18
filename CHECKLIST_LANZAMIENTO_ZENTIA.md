@@ -7,13 +7,16 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
   - **Si sale restringido por salud y bienestar → NO usamos zentia.com.** La restricción va con el dominio (no con el píxel ni con la cuenta) y en la UE puede bloquear la optimización por Compra. Se compra un dominio nuevo (zentia.es o similar, ~10–15 €) y seguimos con el resto.
   - **Si no sale nada → seguimos con zentia.com** (paso 1).
 
-## 1. Dominio zentia.com → tienda nueva
-- [ ] En la tienda vieja (tiras): Configuración → Dominios → zentia.com.
-  - Si lo compraste en Shopify: «Transferir dominio» → «Transferir a otra tienda Shopify» → enlace al correo → aceptar desde esta tienda (hasta 24 h).
-  - Si es de otro proveedor: quitarlo de la tienda vieja y conectarlo aquí (DNS).
-- [ ] Aquí: zentia.com como **dominio principal**. maisonnacar.com se queda como secundario (redirige) o se quita.
-- [ ] En el portfolio Zentia Strips de Meta: Seguridad de la marca → Dominios → **quitar zentia.com**.
-- [ ] En el portfolio Maison Nácar: **verificar zentia.com** (Shopify lo hace solo con la app de Facebook e Instagram; si no, registro TXT en DNS).
+## 1. Dominio zentia.com → tienda nueva (el dominio está en **Namecheap**)
+- [ ] Tienda vieja (tiras): Configuración → Dominios → zentia.com → **Quitar dominio** (y www.zentia.com si sale aparte). El dominio no se pierde: sigue en Namecheap.
+- [ ] Namecheap → Domain List → zentia.com → Advanced DNS. Comprobar (son iguales para cualquier tienda Shopify, normalmente ya están):
+  - Registro A · Host `@` · `23.227.38.65`
+  - CNAME · Host `www` · `shops.myshopify.com`
+  - Sin otros registros A/CNAME de `@` o `www` que choquen.
+- [ ] Esta tienda: Configuración → Dominios → **Conectar dominio existente** → zentia.com. Si Shopify pide verificar la propiedad (porque estuvo en otra tienda), añadir en Namecheap el registro TXT que indique y pulsar «Verificar».
+- [ ] Poner zentia.com como **dominio principal** (redirige maisonnacar.com y el .myshopify). SSL automático (de minutos a 48 h).
+- [ ] Meta, portfolio Zentia Strips: Seguridad de la marca → Dominios → **quitar zentia.com**.
+- [ ] Meta, portfolio Maison Nácar: Seguridad de la marca → Dominios → Añadir zentia.com → **registro TXT de DNS** → pegarlo en Namecheap (Advanced DNS → Add new record → TXT, Host `@`) → Verificar. Dejar el TXT puesto para siempre.
 
 ## 2. Tienda vieja de las tiras (después del paso 1)
 - [ ] Exportar clientes y pedidos (CSV).
