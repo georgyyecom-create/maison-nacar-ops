@@ -126,3 +126,29 @@ Solo si son del proveedor o tenemos permiso por escrito. Sin la cara ni el usuar
 - Contra reembolso activo.
 - Dropify con el pack enlazado.
 - Confirmación de pedidos por WhatsApp para bajar los rechazos.
+
+## Contra reembolso: menos rechazos (18-nov)
+Objetivo: pasar del 15–25 % de rechazos a menos del 10 %. Cada rechazo cuesta ~12 €.
+1. **Pago en el checkout de Shopify, nunca con un formulario de un clic** (apps tipo Releasit). Con el checkout la persona escribe su dirección completa y ve el total. Filtra a los curiosos.
+2. **Teléfono obligatorio en el checkout** (Configuración → Checkout → Información de contacto).
+3. **Confirmación por WhatsApp antes de mandar el pedido a Dropi**, dentro de las 3 horas siguientes (plantilla abajo). Si no contesta en 24 h, llamada. Si no confirma en 48 h, se cancela sin enviar. Es un mensaje de servicio sobre su pedido, no publicidad (LSSI).
+4. **Aviso el día antes de la entrega**: «Mañana te llega, ten preparados 49,90 € para el repartidor».
+5. **Lista negra**: quien rechace un pedido no vuelve a tener contra reembolso (etiqueta «rechazo» en Shopify).
+6. **Más adelante**, si los rechazos pasan del 15 %: regalo pequeño solo pagando con tarjeta (por ejemplo, envío urgente) en vez de penalizar el contra reembolso.
+7. **Medirlo**: rechazos ÷ pedidos enviados, cada semana. El CPA se calcula sobre pedidos **entregados**.
+
+**Plantilla de confirmación por WhatsApp:**
+> Hola, [nombre]. Soy [tu nombre], de Zentia 😊 Te escribo para confirmar tu pedido:
+> • [2 cojines de rodillas + antifaz de regalo]
+> • Total: [49,90 €], que pagas al repartidor en efectivo
+> • Dirección: [calle, número, CP, ciudad]
+> Llega en 2–4 días laborables por MRW. ¿Está todo bien? Responde «Sí» y lo enviamos hoy.
+
+## Creativos: segunda oportunidad (18-nov)
+**El problema:** sin compras en el píxel, Meta elige a los «ganadores» por clics (los más baratos), no por ventas. Los demás se quedan con 1–3 € y nunca se sabe si vendían.
+**Cómo lo hacemos:**
+1. **Días 1–2:** un solo conjunto «Principal» con los 6 anuncios, a 40 €/día.
+2. **Juzgar a los favoritos por carritos, no por clics.** Regla 2: 25 € gastados sin carrito → fuera, aunque tenga el mejor CTR. Al apagarlo, Meta reparte el gasto entre los demás.
+3. **Día 3 (~80 €):** los anuncios con **menos de 8 €** de gasto se duplican en un segundo conjunto, «Segunda oportunidad», a **10 €/día** con 2–3 anuncios. El Principal baja a 30 €/día (el total sigue en 40 €). En el Principal se pausan los originales de esos anuncios.
+4. **Segunda oportunidad: 3 días como máximo** con las mismas reglas (15 € y CTR < 0,8 % → fuera; 25 € sin carrito → fuera). Si alguno logra un carrito y una compra a ≤ 25 €, se duplica en el Principal y se apaga el conjunto.
+5. Nunca más de 2 conjuntos a la vez. Con 40 €/día, más conjuntos se quedan todos sin datos.
