@@ -30,3 +30,24 @@ Hipótesis: CTR de enlace ≥ 1,5 % y el mejor coste por visita de los 4 anuncio
 **Descripción** (≤ 30): «Lectura de 3 minutos» (20)
 **Botón:** Más información
 **Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a1_pizarra
+
+## Anuncio 2 · «Antes de gastarte 899 € en un colchón» (→ artículo A)
+Origen: Chillow FR («Ce n'est pas votre matelas», 79–91 días) y Cellsius FR («Votre matelas n'est pas le problème», 106 días). Enlaza con la razón 4 y la foto A05.
+Hipótesis: mejor CTR que el anuncio 1 entre quienes ya se han planteado cambiar de colchón (gancho de dinero frente a gancho de mecanismo).
+
+**Prompt de Gemini** (sin adjuntos):
+> Imagen VERTICAL 4:5. Foto hecha con un móvil dentro de una tienda de colchones española normal: en primer plano, la esquina de un colchón blanco de exposición con una etiqueta de cartón blanca atada con cordel, escrita a mano con rotulador negro «899 €», en horizontal y bien legible. Detrás, colchones desenfocados, suelo de baldosa gris y luz fluorescente. Encuadre algo torcido, grano de móvil, colores naturales.
+> Arriba, sobre la foto, texto como el de una historia de Instagram: un recuadro blanco con esquinas redondeadas y letra negra sans serif gruesa, en dos líneas: «Antes de gastarte 899 € en un colchón…». Debajo, otro recuadro blanco más pequeño: «mira lo que hace tu pierna de arriba cuando duermes de lado».
+> Sin logotipos ni marcas, sin personas, sin cojín, sin más texto que el indicado. Revisa las tildes: «colchón», «más».
+
+**Texto principal:**
+> Antes de cambiar de colchón, mira lo que hace tu pierna de arriba cuando duermes de lado.
+>
+> Cae hacia delante, la cadera gira con ella y pasas así seis u ocho horas. Con un colchón nuevo, tus piernas siguen haciendo lo mismo encima.
+>
+> Te lo contamos en 3 minutos, con lo que puedes hacer esta misma noche.
+
+**Titular:** «Antes de cambiar de colchón, lee esto» (37)
+**Descripción:** «Lectura de 3 minutos» (20)
+**Botón:** Más información
+**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a2_colchon
