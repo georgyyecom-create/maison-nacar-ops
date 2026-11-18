@@ -51,3 +51,28 @@ Hipótesis: mejor CTR que el anuncio 1 entre quienes ya se han planteado cambiar
 **Descripción:** «Lectura de 3 minutos» (20)
 **Botón:** Más información
 **Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a2_colchon
+
+## Anuncio 3 · «3 errores si duermes de lado» (→ artículo A)
+Origen: Chillow FR «Les 3 erreurs quand on dort sur le côté» (91 días, vídeo, y 52 días en estático). Enlaza con las razones 1, 3 y 4.
+Hipótesis: el formato de lista de errores da el CTR más alto de los 4 anuncios del artículo (es curiosidad: «¿cuál hago yo?»).
+
+**Prompt de Gemini** (sin adjuntos):
+> Imagen VERTICAL 4:5 de estilo anuncio sencillo de Instagram. Fondo blanco. Arriba, título en letra sans serif negra muy gruesa, en dos líneas: 3 errores si duermes de lado. Debajo, tres fotos realistas hechas con móvil, apiladas una encima de otra, cada una ocupando todo el ancho, con esquinas redondeadas y una pequeña separación blanca entre ellas. En la esquina de arriba a la izquierda de cada foto, un círculo rojo con una X blanca y al lado, en un recuadro blanco con letra negra, el texto de cada error:
+> Foto 1: una mujer de unos 60 años dormida de lado en una cama blanca, de cintura para abajo, sin nada entre las piernas: la pierna de arriba cae hacia delante y la rodilla de arriba apoyada sobre la de abajo. Texto: 1. Nada entre las rodillas.
+> Foto 2: una almohada blanca normal doblada por la mitad, aplastada y caída en el suelo junto a una cama deshecha, luz de mañana. Texto: 2. La almohada doblada.
+> Foto 3: la esquina de un colchón nuevo en una tienda, con una etiqueta de cartón escrita a mano 899 €. Texto: 3. Cambiar de colchón.
+> Sin comillas en ningún texto. Sin logotipos ni marcas, sin cojín ergonómico, sin más texto que el indicado. Revisa que la mujer tenga dos piernas completas y bien colocadas, y las tildes.
+
+**Texto principal:**
+> Si duermes de lado, seguro que haces alguno de estos tres.
+>
+> 1. Dormir sin nada entre las rodillas: la pierna de arriba cae y arrastra la cadera.
+> 2. Doblar una almohada normal: a las dos horas está aplastada o en el suelo.
+> 3. Cambiar de colchón: tus piernas siguen haciendo lo mismo encima.
+>
+> En el artículo te contamos qué hacer en su lugar, en 3 minutos.
+
+**Titular:** «3 errores si duermes de lado» (28)
+**Descripción:** «Lectura de 3 minutos» (20)
+**Botón:** Más información
+**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a3_errores
