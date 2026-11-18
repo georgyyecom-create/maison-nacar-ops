@@ -91,7 +91,8 @@
       ],
       "settings": {
         "mode": "embed",
-        "product": "kit-dormir-de-lado"
+        "product": "kit-dormir-de-lado",
+        "img_hero": "shopify://shop_images/zentia-a01-portada.jpg"
       }
     }
   },
