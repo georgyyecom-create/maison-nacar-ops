@@ -9,7 +9,7 @@
           "settings": {
             "title": "La pierna de arriba cae y arrastra la cadera",
             "label": "ARTÍCULO 02 · Vista desde arriba: persona dormida de lado, la pierna de arriba caída hacia delante y la cadera girada (línea marcada)",
-            "text": "<p>Cuando duermes de lado, la pierna de arriba no tiene dónde apoyarse. Cae hacia delante y hacia abajo, y la cadera gira con ella.</p><p>Así pasas seis u ocho horas cada noche, y por la mañana lo notas al levantarte.</p>",
+            "text": "<p>Cuando duermes de lado, la pierna de arriba no tiene dónde apoyarse. Cae hacia delante y hacia abajo, y la cadera gira con ella.</p><p>Es la primera pieza de la cadena: la cadera girada tira de la parte baja de la espalda y pasas seis u ocho horas así, retorcida como una toalla escurrida. Por eso te despiertas de madrugada y por eso te cuesta arrancar por la mañana.</p>",
             "fix": "Mantiene la pierna de arriba a la altura de la cadera",
             "image": "shopify://shop_images/zentia-a02-radiografia.jpg"
           }
@@ -30,16 +30,16 @@
             "title": "La almohada doblada no aguanta la noche",
             "label": "ARTÍCULO 04 · Almohada normal doblada, caída al borde de la cama",
             "text": "<p>Es lo primero que prueba casi todo el mundo. Se aplasta, se mueve, y a mitad de noche está en el suelo o hecha una bola bajo la sábana.</p>",
-            "fix": "Tiene forma para rodillas y muslos y se queda en su sitio sin correas",
+            "fix": "Tiene forma para rodillas y muslos, así que se sujeta mucho mejor que una almohada doblada",
             "image": "shopify://shop_images/zentia-a04-almohada-suelo.jpg"
           }
         },
         "r4": {
           "type": "reason",
           "settings": {
-            "title": "Cambiar de colchón no lo arregla",
+            "title": "No es tu colchón",
             "label": "ARTÍCULO 05 · Colchón nuevo con etiqueta de precio en una tienda",
-            "text": "<p>Un colchón nuevo cuesta cientos de euros, y la pierna de arriba sigue cayendo igual. Lo que hay que corregir pasa entre tus piernas, encima del colchón.</p>",
+            "text": "<p>Un colchón nuevo cuesta cientos de euros y la pierna de arriba sigue cayendo igual. Lo que hay que corregir pasa entre tus piernas, encima del colchón.</p>",
             "fix": "Funciona con el colchón que ya tienes",
             "image": "shopify://shop_images/zentia-a05-colchon.jpg"
           }
@@ -97,7 +97,17 @@
       "settings": {
         "mode": "embed",
         "product": "kit-dormir-de-lado",
-        "img_hero": "shopify://shop_images/zentia-a01-portada.jpg"
+        "img_hero": "shopify://shop_images/zentia-a01-portada.jpg",
+        "title": "5 razones por las que te despiertas de madrugada con la cadera cargada si duermes de lado",
+        "dek": "No es tu colchón ni tu edad. Todo empieza con la pierna de arriba.",
+        "intro": "<p>Si te despiertas a las tres o las cuatro de la mañana recolocando la almohada entre las rodillas, y por la mañana te levantas despacio, con una mano en la cama, este artículo es para ti.</p><p>Primero, lo importante: no es culpa tuya. Tampoco es el colchón ni la edad. Es una cadena que empieza cada noche con algo muy pequeño, y se puede cortar.</p>",
+        "summary": "Al dormir de lado, la pierna de arriba cae hacia delante. La cadera gira con ella, las rodillas chocan y la espalda pasa toda la noche torcida. Si la pierna de arriba se queda en su sitio, la cadena no empieza. Al final te enseñamos el cojín que usamos para eso y lo que cuesta.",
+        "nudge_text": "¿Te reconoces? La cadena empieza en la pierna de arriba, y ahí se corta.",
+        "bridge_title": "Por qué la almohada doblada (y muchos cojines baratos) no funcionan",
+        "bridge_items": "Forma de corazón que encaja entre rodillas y muslos, no un rectángulo\nEspuma firme que recupera su forma y no se aplasta en una semana\nQue no se escape de entre las rodillas cuando te das la vuelta\nFunda transpirable que se quita y va a la lavadora",
+        "bridge_after": "La almohada doblada falla en las cuatro. Por eso elegimos este cojín para Zentia.",
+        "offer_sub": "Uno para ti y otro para tu pareja (o para regalar): 24,95 € cada uno, envío gratis y un antifaz de regalo.",
+        "deal_line": "Uno para ti y otro para tu pareja: 2 cojines por 49,90 €, envío gratis y antifaz de regalo. O 1 por 29,90 €."
       }
     }
   },

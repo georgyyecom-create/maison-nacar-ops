@@ -93,7 +93,7 @@
         "r3": {
           "type": "row",
           "settings": {
-            "text": "Se queda en su sitio sin correas",
+            "text": "Se sujeta entre las rodillas al darte la vuelta",
             "other": false
           }
         },
@@ -108,7 +108,7 @@
           "type": "faq",
           "settings": {
             "q": "¿Y si se me cae por la noche?",
-            "a": "<p>Tiene una forma contorneada que se ajusta a rodillas y muslos, así que se queda en su sitio sin correas. Si aun así no te convence, tienes 60 noches para devolverlo.</p>"
+            "a": "<p>Tiene una forma contorneada que abraza rodillas y muslos, así que se sujeta mucho mejor que una almohada doblada. Si aun así no te convence, tienes 60 noches para devolverlo.</p>"
           }
         },
         "f2": {
@@ -129,7 +129,7 @@
           "type": "faq",
           "settings": {
             "q": "¿Para qué sirve el pack de 2?",
-            "a": "<p>Uno para cada uno, o uno para casa y otro para regalar. Sale a 24,95 € el cojín, el envío es gratis y lleva un antifaz de regalo.</p>"
+            "a": "<p>Uno para ti y otro para tu pareja, o uno para casa y otro para regalar. Sale a 24,95 € el cojín, el envío es gratis y lleva un antifaz de regalo.</p>"
           }
         },
         "f5": {
