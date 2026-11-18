@@ -3,10 +3,10 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 
 ## 0–1. Dominio: zentiadescanso.com (Namecheap) → esta tienda
 - [x] El dominio viejo era zentiastrips.com, que no encaja y está marcado en Meta. **Comprado zentiadescanso.com** (18-nov).
-- [ ] Namecheap → zentiadescanso.com → Manage → Advanced DNS: borrar los registros de aparcamiento y añadir **A `@` 23.227.38.65** y **CNAME `www` shops.myshopify.com**.
+- [x] Namecheap → zentiadescanso.com → Manage → Advanced DNS: borrar los registros de aparcamiento y añadir **A `@` 23.227.38.65** y **CNAME `www` shops.myshopify.com**.
 - [x] Shopify (esta tienda) → Configuración → Dominios → Conectar dominio existente → zentiadescanso.com → Verificar.
-- [ ] Ponerlo como **dominio principal**; SSL automático.
-- [ ] Meta (portfolio Maison Nácar) → Seguridad de la marca → Dominios → añadir zentiadescanso.com → TXT en Namecheap → Verificar.
+- [x] Ponerlo como **dominio principal**; SSL automático.
+- [x] Meta (portfolio Maison Nácar) → Seguridad de la marca → Dominios → añadir zentiadescanso.com → TXT en Namecheap → Verificar.
 - [ ] Prueba definitiva: el conjunto en borrador deja elegir **Compra**.
 
 ## 2. Tienda vieja de las tiras (cobra 32 €/mes → cerrarla ANTES del próximo cobro)
@@ -23,7 +23,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 - [ ] Menú, pie, contacto, políticas (envío, devoluciones con 60 noches, privacidad, aviso legal), con titular y datos reales.
 - [ ] Pago: **contra reembolso** activo y **teléfono obligatorio** en el checkout.
 - [ ] Correo de confirmación con la guía PDF (fragmento en `marca/zentia/guia/CORREO_CONFIRMACION.md`).
-- [ ] Publicar el tema v20.19 y hacer una compra de prueba.
+- [x] Tema «Zentia v2.1 (carrito regalo)» publicado y compra de prueba hecha (18-nov).
 
 ## 4. Meta (portfolio Maison Nácar, que pasa a ser Zentia)
 - [x] zentiadescanso.com verificado en el portfolio (18-nov).
@@ -33,14 +33,14 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 - [ ] Píxel **1097392456530786**: renombrarlo a «Zentia ES». Ya está conectado a esta tienda; se queda.
 - [ ] Página de Facebook nueva «Zentia España» e Instagram nuevo (@zentia.es o parecido) dentro del portfolio. **No usar @zentiastrips.**
 - [ ] App de Facebook e Instagram en Shopify: comprobar que apunta a este portfolio, este píxel y compartir datos «Máximo».
-- [ ] Catálogo: solo el cojín (las joyas fuera).
+- [x] Catálogo: solo el cojín (las joyas fuera).
 - [x] Compra de prueba → «Comprar» recibido por servidor (#1002, calidad 8,0/10, 18-nov).
 - [ ] **Prueba definitiva del dominio:** píxel sin aviso peor que «Core setup» y conjunto en borrador que deje elegir **Compra** como objetivo. Si no deja → dominio limpio nuevo (~10–15 €) como principal y repetir.
 
 ## 5. Dropi y pedidos
 - [ ] KYC de Dropi.
 - [x] (18-nov) Dropify no deja vincular: el producto importado (15991248650580, SKU COJINERGONOMICO) pasa a ser el cojín (handle kit-dormir-de-lado, fotos y plantilla). El viejo (15985751621972) en borrador. Pack de 2 = 2 uds + antifaz con descuentos automáticos «Pack de 2 cojines: 49,90 €» (4,95 € menos por cojín, mín. 2) y «Black Friday: antifaz de regalo con 2 cojines» (BXGY, hasta el 30-nov 23:59). 3x2 de joyería desactivado. Tema «Zentia v2 (pack por cantidad)» 209386701140: falta probar en el móvil y publicarlo.
-- [ ] (viejo) Dropify: «1 cojín» = COJINERGONOMICO ×1; variante «2 cojines + antifaz» = PACKREC2026644 ×2 + ANTIFAZ ×1. La guía PDF, ignorada.
+- [x] (viejo) Dropify: «1 cojín» = COJINERGONOMICO ×1; variante «2 cojines + antifaz» = PACKREC2026644 ×2 + ANTIFAZ ×1. La guía PDF, ignorada.
 - [ ] Cancelar los pedidos de prueba #3689379 y #3689400.
 
 ## 6. WhatsApp
@@ -52,7 +52,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 - [ ] Rehacer la foto 08 (comparativa) de la ficha.
 - [x] Imágenes de los anuncios 1, 2, 3, 4 (v1) y 6 en `marca/zentia/ads/`. Faltan: radiografía con «Así queda la cadera», 9:16 de los 4:5 y el vídeo (anuncio 5).
 - [ ] 6 anuncios: pizarra, colchón 899 €, «3 errores», radiografía y vídeo POV (→ artículo A); oferta BF (→ ficha). Artículo B de reserva.
-- [ ] Textos y titulares de cada anuncio; UTM en cada enlace.
+- [x] Textos y titulares de cada anuncio; UTM en cada enlace.
 
 ## 8. Campaña (plan en `ESTRATEGIA_ANUNCIOS_ZENTIA.md`)
 - [ ] 1 campaña de Ventas, 1 conjunto, 40 €/día, 6 anuncios, ubicaciones y edades según el plan.
