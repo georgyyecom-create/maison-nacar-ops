@@ -2,7 +2,8 @@
 Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacerlo.
 
 ## 0. Comprobar ANTES de mover el dominio (5 min, lo más importante)
-- [ ] En el Administrador de eventos del portfolio **Zentia Strips** → píxel de las tiras → Configuración: ¿pone «Restringido», «Salud y bienestar» o «Categoría del origen de datos»? Haz una captura.
+- [x] (18-nov) Restricción al nivel más bajo (Core setup): **deja pujar a Compra → seguimos con zentia.com**. Perdemos: parámetros personalizados, la ruta de las URL en el píxel (no hay públicos ni conversiones por URL) y, quizá, el valor de la compra en Meta. No los necesitamos: el CPA se mira en Shopify y las UTM llegan a Shopify. zentia.es está ocupado.
+- [x] En el Administrador de eventos del portfolio **Zentia Strips** → píxel de las tiras → Configuración: ¿pone «Restringido», «Salud y bienestar» o «Categoría del origen de datos»? Haz una captura.
   - **Si sale restringido por salud y bienestar → NO usamos zentia.com.** La restricción va con el dominio (no con el píxel ni con la cuenta) y en la UE puede bloquear la optimización por Compra. Se compra un dominio nuevo (zentia.es o similar, ~10–15 €) y seguimos con el resto.
   - **Si no sale nada → seguimos con zentia.com** (paso 1).
 

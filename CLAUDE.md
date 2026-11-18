@@ -133,5 +133,5 @@ Resolver un problema real · explicable en 3 s · urgencia real · margen ≥ 20
 
 ## Lanzamiento Zentia España (18-nov)
 - Checklist maestro: `CHECKLIST_LANZAMIENTO_ZENTIA.md` (recordárselo al dueño y marcar lo hecho). Plan de anuncios y reglas: `ESTRATEGIA_ANUNCIOS_ZENTIA.md`.
-- Decisión del dueño: zentia.com pasa a esta tienda (la de las tiras se pausa). Antes, comprobar si Meta tiene el dominio restringido por «salud y bienestar» (la restricción va con el dominio): si lo está, dominio nuevo.
+- Decisión del dueño: zentia.com pasa a esta tienda (la de las tiras se pausa). zentia.com tiene la restricción de «salud y bienestar» más baja (Core setup): deja optimizar por Compra, así que se usa. Sin públicos ni conversiones por URL; el CPA se mide en Shopify.
 - Meta: cuenta 963612299940558 y píxel 1097392456530786 (portfolio Maison Nácar) pasan a Zentia ES; no usar la cuenta Zentia Strips (38382984761301065, USD) ni @zentiastrips.
