@@ -71,15 +71,15 @@ Pega esta línea al final de cada prompt:
 **Adjunta** la foto del cojín.
 > Primer plano real de dos manos de mujer abriendo la cremallera del cojín de la referencia, idéntico, con la textura de puntitos muy nítida y el ribete azul. Sobre la mitad de abajo, en un recuadro blanco semitransparente con esquinas redondeadas, el título «Funda con cremallera» y debajo, más pequeño: «Se quita en segundos y va a la lavadora».
 
-## 08 · Comparativa
-**Adjunta** la foto del cojín.
-> Arriba, título: «Zentia frente a una almohada normal». Debajo, a la izquierda, el cojín de la referencia, y a la derecha, una almohada rectangular normal doblada y aplastada. Debajo, una tabla limpia de 4 filas, con la columna de la izquierda en azul marino y texto blanco, y dos columnas: «Zentia» y «Almohada normal». Las filas son:
-> - «Forma para las rodillas»: ✓ verde · ✗ rojo
-> - «Se queda en su sitio toda la noche»: ✓ · ✗
+## 08 · Comparativa (v2, 18-nov: cojín al derecho y sin «toda la noche»)
+**Adjunta** la foto del cojín (la del ribete azul). Escribe antes: «Usa el cojín de esta foto como referencia exacta».
+> Imagen CUADRADA 1:1 de galería de tienda online premium. Fondo azul muy claro con degradado suave (de #F1F5FC a #DCE6F5). Arriba, título en letra sans serif gruesa azul marino (#16244A): «Zentia frente a una almohada normal». Debajo, dos fotos realistas lado a lado sobre el mismo fondo: a la izquierda, el cojín de la referencia, idéntico, DE PIE Y AL DERECHO, con la parte ancha y redondeada arriba y la punta estrecha abajo, como un corazón normal, el hueco curvo mirando a la cámara y el ribete azul visible; a la derecha, una almohada rectangular blanca normal, doblada por la mitad y aplastada, con arrugas. Debajo, una tabla limpia de 4 filas con esquinas redondeadas: la columna de la izquierda en azul marino con texto blanco y dos columnas de resultados con cabecera «Zentia» y «Almohada normal». Filas:
+> - «Forma para rodillas y muslos»: círculo verde con ✓ · círculo rojo con ✗
+> - «Se sujeta entre las rodillas»: ✓ · ✗
 > - «Piernas paralelas»: ✓ · ✗
 > - «Funda lavable con cremallera»: ✓ · ✗
 >
-> Iconos en círculos: el ✓ verde y el ✗ rojo.
+> Textos cortos, bien alineados y sin faltas. Fotos con aspecto real, luz suave de estudio y sombras realistas, nada de render de plástico. Sin logotipos en el cojín, sin estrellas, sin precios ni cifras de clientes, sin más texto.
 
 ## Miniatura del regalo (antifaz)
 Se sube en Personalizar → «Zentia · ficha» → «Foto del regalo 1».

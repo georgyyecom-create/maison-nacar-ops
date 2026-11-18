@@ -366,6 +366,8 @@ html.zn-lock,html.zn-lock body{overflow:hidden}
 .zn-art__bridge .zn-checks circle{fill:#fff}
 .zn-art__bridge .zn-checks path{stroke:var(--zn-navy)}
 .zn-art__after{margin-top:16px;font-size:16.5px}
+.zn-art__sol{margin-top:44px}
+.zn-art__sol figure{margin:14px 0 12px}
 .zn-art__prod{margin-top:40px}
 .zn-art__prod figure{margin-bottom:18px}
 .zn-art__fix{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}

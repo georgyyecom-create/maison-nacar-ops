@@ -68,6 +68,12 @@
       {%- endfor -%}
     </ol>
 
+    <section class="zn-art__sol">
+      <h2 class="zn-art__h2">{{ S.sol_title }}</h2>
+      <figure>{% render 'zn-img', img: S.img_after, label: 'ARTÍCULO 08 · La misma persona dormida de lado con el cojín entre las rodillas, piernas paralelas, luz de mañana', ratio: '16/10' %}</figure>
+      <div class="zn-rte">{{ S.sol_text }}</div>
+    </section>
+
     <section class="zn-art__bridge">
       <h2 class="zn-art__h2">{{ S.bridge_title }}</h2>
       <ul class="zn-checks">
@@ -190,6 +196,9 @@
     { "type": "text", "id": "dek", "label": "Subtítulo", "default": "Y lo que puedes hacer esta misma noche sin cambiar de colchón ni de postura." },
     { "type": "text", "id": "byline", "label": "Firma", "default": "Por el equipo de Zentia · 3 minutos de lectura" },
     { "type": "image_picker", "id": "img_hero", "label": "Foto principal" },
+    { "type": "text", "id": "sol_title", "label": "Solución · título", "default": "Cuando la pierna de arriba se queda en su sitio" },
+    { "type": "image_picker", "id": "img_after", "label": "Solución · foto (con el cojín)" },
+    { "type": "richtext", "id": "sol_text", "label": "Solución · texto", "default": "<p>Si la rodilla de arriba se queda a la altura de la de abajo, la cadera no gira y la espalda no se tuerce. La cadena no empieza. No hace falta cambiar de colchón ni de postura: basta con algo entre las rodillas que no se escape.</p>" },
     { "type": "richtext", "id": "intro", "label": "Entrada", "default": "<p>Si te despiertas a las cuatro de la mañana recolocando la almohada entre las rodillas, este artículo es para ti.</p><p>Hay cinco cosas que pasan cada noche cuando duermes de lado, y casi ninguna tiene que ver con el colchón.</p>" },
     { "type": "text", "id": "sum_title", "label": "Resumen · título", "default": "En resumen" },
     { "type": "textarea", "id": "summary", "label": "Resumen", "default": "Al dormir de lado, la pierna de arriba cae, las rodillas se tocan y la cadera gira. Un cojín con forma entre las rodillas mantiene las piernas paralelas toda la noche. Al final te enseñamos el nuestro y lo que cuesta." },
