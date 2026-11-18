@@ -12,6 +12,8 @@
     assign rating_count = S.rating_count
   endif
   assign review_blocks = section.blocks | where: 'type', 'review'
+  assign gift_mask = all_products['antifaz-para-dormir']
+  assign gift_guide = all_products['guia-dormir-de-lado']
 -%}
 
 <div class="zn-bar">
@@ -94,8 +96,14 @@
                 </span>
                 {%- if q >= 2 -%}
                   <span class="zn-gift">
-                    <span class="zn-gift__img">{% render 'zn-img', img: S.gift1_img, label: 'Antifaz', ratio: '1/1' %}</span>
-                    <span class="zn-gift__name">+ {{ S.gift1_name }}</span><em>Regalo</em>
+                    <span class="zn-gift__img">{%- if gift_mask.featured_image -%}{{ gift_mask.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% render 'zn-img', img: S.gift1_img, label: 'Antifaz', ratio: '1/1' %}{%- endif -%}</span>
+                    <span class="zn-gift__name">+ {{ S.gift1_name }}</span><span class="zn-gift__end">{%- if gift_mask.price > 0 -%}<s>{% render 'zn-money', cents: gift_mask.price %}</s>{%- endif -%}<em>Regalo</em></span>
+                  </span>
+                {%- endif -%}
+                {%- if S.guide_show and gift_guide.price > 0 -%}
+                  <span class="zn-gift">
+                    <span class="zn-gift__img">{%- if gift_guide.featured_image -%}{{ gift_guide.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+                    <span class="zn-gift__name">+ {{ S.guide_name }}</span><span class="zn-gift__end"><s>{% render 'zn-money', cents: gift_guide.price %}</s><em>Regalo</em></span>
                   </span>
                 {%- endif -%}
                 {%- if q >= 3 -%}
@@ -304,7 +312,7 @@
     { "type": "text", "id": "cta", "label": "Botón", "default": "Añadir al carrito" },
     { "type": "text", "id": "wa_number", "label": "WhatsApp (con prefijo, sin +)", "default": "34621390548" },
     { "type": "text", "id": "wa_text", "label": "Mensaje inicial de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" },
-    { "type": "checkbox", "id": "wa_float", "label": "Botón flotante de WhatsApp", "default": true }, { "type": "checkbox", "id": "guide_show", "label": "Carrito: mostrar la guía PDF de regalo (solo si ya existe)", "default": true }, { "type": "text", "id": "guide_name", "label": "Carrito: nombre de la guía", "default": "Guía PDF para dormir mejor de lado" }, { "type": "text", "id": "guide_price", "label": "Carrito: precio de la guía vendida por separado (vacío = solo Gratis)" },
+    { "type": "checkbox", "id": "wa_float", "label": "Botón flotante de WhatsApp", "default": true }, { "type": "checkbox", "id": "guide_show", "label": "Carrito: mostrar la guía PDF de regalo (solo si ya existe)", "default": true }, { "type": "text", "id": "guide_name", "label": "Carrito: nombre de la guía", "default": "Guía PDF «Dormir de lado, bien»" }, { "type": "text", "id": "guide_price", "label": "Carrito: precio de la guía vendida por separado (vacío = solo Gratis)" },
     { "type": "checkbox", "id": "show_cod", "label": "Mostrar «Pagas al recibir» (solo con contra reembolso activo)", "default": true },
     { "type": "text", "id": "cod_text", "label": "Texto de contra reembolso", "default": "Pagas al recibir o con tarjeta" }, { "type": "text", "id": "cod_title", "label": "Caja de contra reembolso · título", "default": "Pago contra reembolso" }, { "type": "text", "id": "cod_sub", "label": "Caja de contra reembolso · texto", "default": "Pagas en efectivo al repartidor cuando te llega. No necesitas tarjeta." },
     { "type": "text", "id": "assure1", "label": "Garantía corta", "default": "60 noches de prueba: si no te convence, te devolvemos el dinero" },

@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Dormir de lado, bien · Guía Zentia</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#16244A;--navy2:#24376B;--soft:#F1F5FC;--tint:#E3EAF6;--line:#D6DEEC;--ink:#1B2236;--text:#3A4257;--muted:#6B7388;--ok:#1F8A5B;--amber:#F5B800}
+body{font-family:Figtree,system-ui,sans-serif;color:var(--text);font-size:13.5pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;padding:22mm 20mm 24mm;page-break-after:always;background:#fff}
+.page:last-child{page-break-after:auto}
+.foot{position:absolute;left:20mm;right:20mm;bottom:11mm;display:flex;justify-content:space-between;font-size:9.5pt;color:var(--muted);border-top:1px solid var(--line);padding-top:3mm}
+.brand{font-family:'Source Serif 4',serif;font-weight:600;letter-spacing:.22em;color:var(--navy)}
+.kick{font-size:10.5pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--navy2);margin-bottom:3mm}
+h1{font-size:30pt;line-height:1.1;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+h2{font-size:23pt;line-height:1.15;font-weight:800;color:var(--navy);margin-bottom:5mm}
+h3{font-size:14.5pt;font-weight:700;color:var(--ink);margin:6mm 0 2mm}
+p+p{margin-top:3mm}
+.lead{font-size:15pt;line-height:1.5;color:var(--ink)}
+.box{background:var(--soft);border-radius:5mm;padding:6mm 7mm;margin-top:6mm}
+.box.navy{background:var(--navy);color:#E6EBF5}.box.navy b{color:#fff}
+.note{border-left:1.5mm solid var(--navy);background:var(--soft);padding:4mm 6mm;border-radius:0 4mm 4mm 0;margin-top:6mm;font-size:12.5pt}
+ol.steps{list-style:none;counter-reset:s;margin-top:4mm}
+ol.steps li{counter-increment:s;position:relative;padding-left:14mm;margin-top:5mm}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:-.5mm;width:9mm;height:9mm;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:12pt;display:grid;place-items:center}
+ol.steps li b{color:var(--ink)}
+ul.check{list-style:none;margin-top:3mm}
+ul.check li{position:relative;padding-left:9mm;margin-top:2.5mm}
+ul.check li::before{content:'';position:absolute;left:0;top:1.6mm;width:5.5mm;height:5.5mm;border-radius:50%;background:var(--navy) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5.5 10.4 3 3L14.5 7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/80% no-repeat}
+ul.no li::before{background:#C9D1E1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.5 6.5l7 7M13.5 6.5l-7 7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center/80% no-repeat}
+img.ph{width:100%;border-radius:5mm;display:block;object-fit:cover}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:7mm;margin-top:6mm}
+.card{background:var(--soft);border-radius:4mm;padding:5mm 6mm}
+.card b{display:block;color:var(--navy);font-size:13pt;margin-bottom:1mm}
+table{width:100%;border-collapse:collapse;margin-top:5mm;font-size:12pt}
+th,td{border:1px solid var(--line);padding:3.2mm 3mm;text-align:left;vertical-align:top}
+th{background:var(--navy);color:#fff;font-weight:700}
+td.n{width:17mm;font-weight:800;color:var(--navy);text-align:center;font-size:15pt}
+td.c{width:16mm}
+.tick{display:inline-block;width:6mm;height:6mm;border:1.6px solid var(--navy2);border-radius:1.5mm}
+/* portada */
+.cover{background:linear-gradient(170deg,#0F1A38 0%,#16244A 55%,#24376B 100%);color:#fff;padding:24mm 20mm}
+.cover .brand{color:#fff;font-size:20pt}
+.cover .tag{font-family:'Source Serif 4',serif;font-style:italic;color:#B9C6E2;font-size:11pt;margin-top:1mm;letter-spacing:.02em}
+.cover h1{color:#fff;font-size:44pt;margin-top:46mm}
+.cover .sub{font-size:17pt;color:#D2DBEE;margin-top:6mm;max-width:150mm;line-height:1.4}
+.cover .pill{display:inline-block;margin-top:10mm;padding:3mm 6mm;border-radius:20mm;background:var(--amber);color:var(--navy);font-weight:800;font-size:12pt;letter-spacing:.06em;text-transform:uppercase}
+.cover .moon{position:absolute;right:-30mm;top:40mm;width:150mm;height:150mm;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.16),rgba(255,255,255,0) 60%);border:1px solid rgba(255,255,255,.12)}
+.cover .bottom{position:absolute;left:20mm;right:20mm;bottom:22mm;display:flex;gap:6mm}
+.cover .bottom div{flex:1;border-top:1px solid rgba(255,255,255,.25);padding-top:4mm;font-size:11pt;color:#C8D3EA}
+.cover .bottom b{display:block;color:#fff;font-size:20pt}
+.toc{list-style:none;margin-top:8mm}
+.toc li{display:flex;justify-content:space-between;padding:4mm 0;border-bottom:1px solid var(--line);font-size:14pt;color:var(--ink)}
+.toc span{color:var(--muted)}
+.big{font-size:40pt;font-weight:800;color:var(--navy);line-height:1}
+.diary td{height:12mm}
+</style></head><body>
+
+<!-- 1 PORTADA -->
+<section class="page cover">
+  <div class="moon"></div>
+  <div class="brand">ZENTIA</div>
+  <div class="tag">Descanso y postura</div>
+  <h1>Dormir de lado,<br>bien.</h1>
+  <p class="sub">Guía práctica para colocar el cuerpo, la almohada y el cojín de rodillas, y un plan sencillo de 7 noches.</p>
+  <span class="pill">Guía Zentia · 7 noches</span>
+  <div class="bottom">
+    <div><b>7</b>noches de plan</div>
+    <div><b>5</b>ajustes de postura</div>
+    <div><b>1</b>diario de sueño</div>
+  </div>
+</section>
+
+<!-- 2 BIENVENIDA + ÍNDICE -->
+<section class="page">
+  <p class="kick">Bienvenida</p>
+  <h2>Antes de empezar</h2>
+  <p class="lead">Dormir de lado es la postura más habitual entre los adultos. Bien colocada, es una postura cómoda. Mal colocada, hace que la pierna de arriba caiga, que las rodillas choquen y que la cadera y el cuello pasen la noche torcidos.</p>
+  <p>Esta guía no cambia tu forma de dormir: te ayuda a ajustar lo que ya haces. Cada capítulo se lee en dos minutos y termina con algo que puedes probar esa misma noche.</p>
+  <ol class="toc">
+    <li>1. Qué pasa cuando duermes de lado <span>3</span></li>
+    <li>2. Cómo colocar el cojín de rodillas <span>4</span></li>
+    <li>3. La almohada de la cabeza <span>5</span></li>
+    <li>4. Brazos y hombros <span>6</span></li>
+    <li>5. Tu dormitorio <span>7</span></li>
+    <li>6. La última hora del día <span>8</span></li>
+    <li>7. Plan de 7 noches <span>9</span></li>
+    <li>8. Diario de sueño <span>10</span></li>
+    <li>9. Cuidados y cuándo consultar <span>11</span></li>
+  </ol>
+  <div class="note">Esta guía da consejos generales de descanso. No sustituye la opinión de un profesional sanitario.</div>
+  <div class="foot"><span class="brand">ZENTIA</span><span>2</span></div>
+</section>
+
+<!-- 3 QUÉ PASA -->
+<section class="page">
+  <p class="kick">Capítulo 1</p>
+  <h2>Qué pasa cuando duermes de lado</h2>
+  <p class="lead">El cuerpo de lado tiene tres puntos que se tuercen con facilidad: el cuello, el hombro de abajo y la cadera.</p>
+  <h3>La pierna de arriba</h3>
+  <p>No tiene dónde apoyarse. Cae hacia delante y hacia abajo, la rodilla de arriba se apoya sobre la de abajo y la pelvis gira con ella. Así pasas seis u ocho horas.</p>
+  <h3>Las rodillas</h3>
+  <p>Hueso contra hueso. Es una de las razones por las que te despiertas a mitad de noche buscando postura, aunque por la mañana no lo recuerdes.</p>
+  <h3>El cuello</h3>
+  <p>Si la almohada es demasiado baja, la cabeza cae hacia el colchón. Si es demasiado alta, se dobla hacia arriba. En los dos casos el cuello deja de estar en línea con la espalda.</p>
+  <div class="box navy"><b>La idea de toda la guía:</b> de la cabeza a las rodillas, el cuerpo de lado debería formar una línea lo más recta posible, como si estuvieras de pie, pero tumbado.</div>
+  <div class="foot"><span class="brand">ZENTIA</span><span>3</span></div>
+</section>
+
+<!-- 4 COJÍN -->
+<section class="page">
+  <p class="kick">Capítulo 2</p>
+  <h2>Cómo colocar el cojín de rodillas</h2>
+  <img class="ph" src="data:image/jpeg;base64,{{p02}}" style="height:78mm" alt="">
+  <ol class="steps">
+    <li><b>Túmbate de lado</b> con las rodillas un poco dobladas, como te pones siempre.</li>
+    <li><b>Pon el cojín entre las rodillas</b>, con el hueco curvo hacia abajo, abrazando la pierna de abajo.</li>
+    <li><b>Apoya la rodilla de arriba encima.</b> Las dos piernas deben quedar más o menos paralelas, a la altura de la cadera.</li>
+    <li><b>Ajusta la altura:</b> si notas la cadera de arriba muy levantada, baja el cojín hacia los muslos. Si la pierna sigue cayendo, súbelo hacia la rodilla.</li>
+  </ol>
+  <div class="note">Las primeras noches puede resultar raro. Dale al menos 3 o 4 noches antes de juzgarlo: el cuerpo tarda en acostumbrarse a una postura nueva.</div>
+  <div class="foot"><span class="brand">ZENTIA</span><span>4</span></div>
+</section>
+
+<!-- 5 ALMOHADA -->
+<section class="page">
+  <p class="kick">Capítulo 3</p>
+  <h2>La almohada de la cabeza</h2>
+  <p class="lead">Al dormir de lado, la almohada tiene que rellenar el hueco entre tu oreja y el colchón. Ese hueco es más o menos la anchura de tu hombro.</p>
+  <h3>Prueba del espejo (1 minuto)</h3>
+  <ol class="steps">
+    <li>Túmbate de lado en tu cama, con tu almohada de siempre.</li>
+    <li>Pide a alguien que te haga una foto desde los pies de la cama, o mírate en un espejo.</li>
+    <li>Mira la línea de la nariz, la barbilla y el centro del pecho: debería ser casi horizontal.</li>
+  </ol>
+  <div class="two">
+    <div class="card"><b>Si la cabeza cae</b>la almohada es baja. Prueba a doblarla, a añadir una toalla doblada debajo o a usar una más gruesa.</div>
+    <div class="card"><b>Si la cabeza sube</b>la almohada es alta. Prueba una más fina o quita relleno si se puede.</div>
+  </div>
+  <div class="box"><b style="color:var(--navy)">Truco:</b> la almohada tiene que llegar hasta el hombro, sin que el hombro quede encima. Apoya solo la cabeza y el cuello.</div>
+  <div class="foot"><span class="brand">ZENTIA</span><span>5</span></div>
+</section>
+
+<!-- 6 BRAZOS -->
+<section class="page">
+  <p class="kick">Capítulo 4</p>
+  <h2>Brazos y hombros</h2>
+  <p class="lead">El hombro de abajo soporta parte del peso del cuerpo. Dónde dejas los brazos cambia mucho cómo te levantas.</p>
+  <h3>Lo que suele funcionar</h3>
+  <ul class="check">
+    <li>El brazo de abajo delante del cuerpo, con el codo un poco doblado.</li>
+    <li>Gira un poco el hombro de abajo hacia delante para no quedarte aplastado encima de él.</li>
+    <li>Si el brazo de arriba cae hacia delante, abraza una almohada pequeña o un cojín: así el hombro de arriba no rueda.</li>
+  </ul>
+  <h3>Lo que conviene evitar</h3>
+  <ul class="check no">
+    <li>Meter el brazo de abajo debajo de la almohada o de la cabeza toda la noche.</li>
+    <li>Dormir con los brazos estirados por encima de la cabeza.</li>
+    <li>Quedarte siempre del mismo lado: cambiar de lado de vez en cuando reparte la presión.</li>
+  </ul>
+  <div class="foot"><span class="brand">ZENTIA</span><span>6</span></div>
+</section>
+
+<!-- 7 DORMITORIO -->
+<section class="page">
+  <p class="kick">Capítulo 5</p>
+  <h2>Tu dormitorio</h2>
+  <p class="lead">Tres cosas del dormitorio influyen más de lo que parece: la temperatura, la luz y el ruido.</p>
+  <div class="two">
+    <div class="card"><b>Fresco</b>Una habitación algo fresca, en torno a 18 °C, ayuda a coger el sueño. Mejor una manta más que la calefacción alta.</div>
+    <div class="card"><b>Oscuro</b>Persianas bajadas y nada de luces de aparatos. Si entra luz por la mañana, el antifaz es la solución más sencilla.</div>
+    <div class="card"><b>Silencioso</b>Si hay ruido de la calle o alguien ronca, unos tapones o un ruido de fondo constante (un ventilador) ayudan.</div>
+    <div class="card"><b>Solo para dormir</b>Si puedes, deja fuera la tele y el trabajo. La cama, para dormir y descansar.</div>
+  </div>
+  <h3>¿Y el colchón?</h3>
+  <p>Un colchón muy blando deja que la cadera se hunda, y uno muy duro aprieta el hombro. Pero antes de gastar en uno nuevo, prueba los ajustes de esta guía: muchas veces el problema está en la almohada y en las piernas.</p>
+  <div class="foot"><span class="brand">ZENTIA</span><span>7</span></div>
+</section>
+
+<!-- 8 ÚLTIMA HORA -->
+<section class="page">
+  <p class="kick">Capítulo 6</p>
+  <h2>La última hora del día</h2>
+  <p class="lead">Lo que haces antes de acostarte prepara al cuerpo para dormir. No hace falta hacerlo todo: elige dos o tres.</p>
+  <ul class="check">
+    <li><b>Misma hora</b> para acostarte y levantarte, también el fin de semana. Es el hábito que más ayuda.</li>
+    <li><b>Luz baja</b> en casa la última hora. Pantallas, mejor fuera o con el brillo al mínimo.</li>
+    <li><b>Café y té, por la mañana.</b> La cafeína dura muchas horas en el cuerpo: evítala por la tarde.</li>
+    <li><b>Cena ligera</b> y al menos dos horas antes de acostarte.</li>
+    <li><b>Poco alcohol.</b> Ayuda a dormirse, pero empeora el sueño de la segunda mitad de la noche.</li>
+    <li><b>Un ritual corto</b>: ducha templada, leer en papel, preparar la ropa del día siguiente.</li>
+  </ul>
+  <div class="box navy"><b>Si no te duermes en unos 20 minutos,</b> levántate, haz algo tranquilo con poca luz y vuelve a la cama cuando tengas sueño. Dar vueltas en la cama enseña al cuerpo a estar despierto en ella.</div>
+  <div class="foot"><span class="brand">ZENTIA</span><span>8</span></div>
+</section>
+
+<!-- 9 PLAN 7 NOCHES -->
+<section class="page">
+  <p class="kick">Capítulo 7</p>
+  <h2>Plan de 7 noches</h2>
+  <p>Un cambio pequeño cada noche. Marca la casilla cuando lo hayas hecho y anota cómo te levantas en el diario de la página siguiente.</p>
+  <table>
+    <tr><th>Noche</th><th>Qué haces</th><th>Hecho</th></tr>
+    <tr><td class="n">1</td><td><b>Solo el cojín.</b> Duerme como siempre, pero con el cojín entre las rodillas.</td><td class="c"><span class="tick"></span></td></tr>
+    <tr><td class="n">2</td><td><b>Ajusta la altura</b> del cojín: más cerca de las rodillas o de los muslos (capítulo 2).</td><td class="c"><span class="tick"></span></td></tr>
+    <tr><td class="n">3</td><td><b>Prueba del espejo</b> con tu almohada y corrige la altura (capítulo 3).</td><td class="c"><span class="tick"></span></td></tr>
+    <tr><td class="n">4</td><td><b>Brazos:</b> el de abajo delante, el de arriba abrazando un cojín (capítulo 4).</td><td class="c"><span class="tick"></span></td></tr>
+    <tr><td class="n">5</td><td><b>Dormitorio:</b> más fresco y más oscuro. Prueba el antifaz (capítulo 5).</td><td class="c"><span class="tick"></span></td></tr>
+    <tr><td class="n">6</td><td><b>Última hora:</b> sin pantallas y luz baja (capítulo 6).</td><td class="c"><span class="tick"></span></td></tr>
+    <tr><td class="n">7</td><td><b>Todo junto.</b> Repasa la semana y quédate con lo que te ha funcionado.</td><td class="c"><span class="tick"></span></td></tr>
+  </table>
+  <div class="foot"><span class="brand">ZENTIA</span><span>9</span></div>
+</section>
+
+<!-- 10 DIARIO -->
+<section class="page">
+  <p class="kick">Capítulo 8</p>
+  <h2>Diario de sueño</h2>
+  <p>Rellénalo por la mañana, en un minuto. Puntúa de 1 (mal) a 5 (muy bien). Al final de la semana verás qué ha cambiado.</p>
+  <table class="diary">
+    <tr><th>Noche</th><th>Hora de acostarme</th><th>Veces que me desperté</th><th>Cómo me levanté (1-5)</th><th>Notas</th></tr>
+    <tr><td class="n">1</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="n">2</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="n">3</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="n">4</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="n">5</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="n">6</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="n">7</td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <div class="box"><b style="color:var(--navy)">Consejo:</b> imprime esta página o déjala en la mesita con un bolígrafo.</div>
+  <div class="foot"><span class="brand">ZENTIA</span><span>10</span></div>
+</section>
+
+<!-- 11 CUIDADOS -->
+<section class="page">
+  <p class="kick">Capítulo 9</p>
+  <h2>Cuidados y cuándo consultar</h2>
+  <div class="two" style="margin-top:0">
+    <div><img class="ph" src="data:image/jpeg;base64,{{p07}}" style="height:66mm" alt=""></div>
+    <div>
+      <h3 style="margin-top:0">Cuidar el cojín</h3>
+      <ul class="check">
+        <li>Quita la funda con la cremallera y lávala en lavadora, en ciclo suave.</li>
+        <li>Déjala secar al aire antes de volver a ponerla.</li>
+        <li>El núcleo de espuma no se mete en la lavadora: límpialo con un paño húmedo.</li>
+        <li>Al sacarlo de la caja, déjalo unas horas al aire para que recupere su forma.</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Cuándo consultar a un profesional</h3>
+  <p>Consulta a tu médico si tienes dolor que no mejora o que te despierta todas las noches, si te dicen que roncas con pausas en la respiración, si te levantas cansado aunque duermas muchas horas, o si llevas meses durmiendo mal. Un cojín ayuda a colocar el cuerpo, pero no trata problemas de salud.</p>
+  <div class="box navy"><b>¿Dudas?</b> Escríbenos por WhatsApp al +34 621 39 05 48. Tienes 60 noches para probar tu cojín: si no te convence, te devolvemos el dinero.</div>
+  <div class="foot"><span class="brand">ZENTIA</span><span>© Zentia · Guía de uso personal</span></div>
+</section>
+</body></html>

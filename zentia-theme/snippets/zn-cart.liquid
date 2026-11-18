@@ -7,6 +7,8 @@
   @param {string} [guide_price] - Precio de la guía vendida por separado
 {%- enddoc -%}
 {%- liquid
+  assign gift_mask = all_products['antifaz-para-dormir']
+  assign gift_guide = all_products['guia-dormir-de-lado']
   assign v1 = product.variants[0]
   assign v2 = product.variants[1]
 -%}
@@ -20,11 +22,18 @@
     <div class="zn-cart__ship" data-cart-ship hidden><span></span><div class="zn-cart__bar"><i></i></div></div>
     <div class="zn-cart__body">
       <ul class="zn-cart__items" data-cart-items></ul>
+      {%- if gift_mask.price > 0 -%}
+      <div class="zn-cart__guide" data-cart-mask hidden>
+        <span class="zn-cart__gicon" aria-hidden="true">{%- if gift_mask.featured_image -%}{{ gift_mask.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+        <div class="zn-ci__main"><b>Antifaz para dormir</b><span class="zn-ci__gift">Regalo del pack de 2</span></div>
+        <p class="zn-ci__price"><s><span data-mask-total data-unit="{{ gift_mask.price }}">{% render 'zn-money', cents: gift_mask.price %}</span></s>Gratis</p>
+      </div>
+      {%- endif -%}
       {%- if guide_show -%}
       <div class="zn-cart__guide" data-cart-guide hidden>
-        <span class="zn-cart__gicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h5"/></svg></span>
+        <span class="zn-cart__gicon" aria-hidden="true">{%- if gift_guide.featured_image -%}{{ gift_guide.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h5"/></svg>{%- endif -%}</span>
         <div class="zn-ci__main"><b>{{ guide_name }}</b><span class="zn-ci__gift">Regalo con tu pedido</span></div>
-        <p class="zn-ci__price">{%- if guide_price != blank -%}<s>{{ guide_price }}</s>{%- endif -%}Gratis</p>
+        <p class="zn-ci__price">{%- if gift_guide.price > 0 -%}<s>{% render 'zn-money', cents: gift_guide.price %}</s>{%- elsif guide_price != blank -%}<s>{{ guide_price }}</s>{%- endif -%}Gratis</p>
       </div>
       {%- endif -%}
       <div class="zn-cart__up" data-cart-up hidden>

@@ -106,6 +106,9 @@
       }).join('');
       empty.hidden=c.item_count>0;foot.hidden=!c.item_count;list.hidden=!c.item_count;
       var gd=dr.querySelector('[data-cart-guide]');if(gd)gd.hidden=!(zn>0);
+      var mk=dr.querySelector('[data-cart-mask]'),packs2=0;
+      c.items.forEach(function(it){if(it.product_id===PID&&it.variant_id!==V1)packs2+=it.quantity;});
+      if(mk){mk.hidden=!packs2;var mt=mk.querySelector('[data-mask-total]');if(mt&&packs2)mt.textContent=fmt(+mt.dataset.unit*packs2);}
       /* envío gratis */
       if(zn>0){
         var left=FREE-zn,pct=Math.min(100,zn/FREE*100);
