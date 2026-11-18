@@ -1,6 +1,10 @@
-{%- comment -%} Hueco de imagen: img (image), label (texto del hueco), ratio (ej. 4/5), cls {%- endcomment -%}
+{%- comment -%} Hueco de imagen: img (image), label (texto del hueco), ratio (ej. 4/5), cls, priority (true = primera pantalla, carga inmediata) {%- endcomment -%}
 {%- if img != blank -%}
+  {%- if priority -%}
+  {{ img | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '400,600,900,1200', sizes: '(min-width: 900px) 540px, 92vw', class: cls, alt: img.alt | default: label }}
+  {%- else -%}
   {{ img | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '400,600,900,1200', sizes: '(min-width: 900px) 540px, 92vw', class: cls, alt: img.alt | default: label }}
+  {%- endif -%}
 {%- else -%}
   <div class="zn-slot {{ cls }}" style="aspect-ratio: {{ ratio | default: '4/5' }}" role="img" aria-label="{{ label | escape }}"><span>{{ label }}</span></div>
 {%- endif -%}
