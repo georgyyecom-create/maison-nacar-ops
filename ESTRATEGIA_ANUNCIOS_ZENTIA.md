@@ -74,3 +74,55 @@ Tope duro: 500 €; quedan 100 € de reserva.
 
 ## Vídeos de TikTok
 Solo si son del proveedor o tenemos permiso por escrito. Sin la cara ni el usuario del creador, sin marcas de agua y sin la música original. Mejor aún: grabar 10 s con la muestra.
+
+## Plan de lanzamiento v3 · reglas fijas (18-nov · skills ads-meta, ads-math, ads-budget; investigación web)
+**Datos de partida:**
+- Pack de 2: ~35 € antes de anuncios. Pagamos 12 € por cada contra reembolso rechazado (15–25 %).
+- **CPA de equilibrio: 25 €.** Lo bueno: ≤ 20 €. La alarma: > 35 €.
+- La verdad la dicen los pedidos de Shopify **confirmados por WhatsApp**, no Meta: el banner de cookies se come datos.
+
+**Fuentes y lo que dicen:**
+- En BF el CPM sube un +30–90 %, pero la conversión sube más. El coste por compra bajó un 20 % de mediana en BF 2025 (Lebesgue, Biddy; datos de EE. UU.).
+- España: CPM base de ~5 €, +30–40 % la última semana de noviembre (Adlibrary, previsión).
+- Para salir de aprendizaje hacen falta unas 50 compras a la semana, lo que pide unos 180 €/día. **No es posible y no hace falta**: se juzga por el CPA real.
+- Después de Andromeda, con poco presupuesto se recomienda **consolidar** en un solo conjunto con varios creativos, en vez de repartir.
+
+**Estructura:**
+- 1 campaña de Ventas (evento Compra del píxel de Maison Nácar 1097392456530786; nunca el de Zentia EE. UU.).
+- **1 conjunto** con presupuesto propio (ABO). Público Advantage+ con sugerencia de 40–65+, todos los sexos. España sin Canarias, Ceuta ni Melilla. Solo móvil.
+- Ubicaciones: feed de Instagram y Facebook, Stories de Instagram y Explorar. Sin Reels, sin Stories de Facebook, sin Audience Network, sin Threads.
+- **6 anuncios** desde el día 1: 4 al artículo A (pizarra, «no es tu colchón», «3 errores», radiografía), 1 a la ficha (oferta BF en azul marino) y 1 vídeo POV al artículo B. Mejoras de Advantage+ creative apagadas. UTM en cada enlace.
+- Atribución estándar (7 días tras el clic, 1 día tras la visualización).
+
+**Presupuesto (tope duro 500 €):**
+| Días | €/día | Acumulado |
+|---|---|---|
+| 20–23 nov | 40 € | 160 € |
+| 24–26 nov | 40 € (o 60 € si pasa el control 2) | 280–340 € |
+| 27–30 nov (BF y CM) | 40–70 € según el CPA | ≤ 500 € |
+
+**Reglas de anuncio (cada mañana, sin excepciones):**
+1. 15 € gastados y CTR de enlace < 0,8 % → apagar.
+2. 25 € gastados (1 CPA) y 0 carritos → apagar.
+3. 50 € gastados (2 CPA) y 0 compras → apagar.
+4. Un anuncio con compras y CPA ≤ 25 € no se toca.
+5. Si se apagan 3 anuncios, se suben 2 nuevos del mismo ángulo ganador (no ángulos nuevos).
+
+**Controles de la campaña:**
+| Control | Cuándo | Condición | Acción |
+|---|---|---|---|
+| 1 | ~80 € (día 2) | CPC > 1,20 € y CTR < 0,8 % en todo | Cambiar creativos, no la página |
+| 2 | ~120 € (23-nov) | 0 carritos | **PARAR.** El fallo está en la página o en la oferta |
+| 2 | ~120 € | Carritos y 0 compras | Probar la compra y el contra reembolso; 40 € más como máximo |
+| 3 | ~200 € (25-nov) | CPA real ≤ 25 € | Subir a 60 €/día |
+| 3 | ~200 € | CPA 25–35 € | Mantener 40 €/día hasta el BF |
+| 3 | ~200 € | CPA > 35 € o ≤ 2 compras | **PARAR.** Pérdida máxima de ~200 € |
+| BF | 27–30 nov | CPA ≤ 20 € | +20 % al día (hasta 70 €/día) |
+| Final | 1-dic | — | Termina la oferta BF; se decide diciembre con los datos |
+
+**Antes de lanzar:**
+- Publicar la v20.19.
+- Compra de prueba (verla en Shopify y en el Administrador de eventos).
+- Contra reembolso activo.
+- Dropify con el pack enlazado.
+- Confirmación de pedidos por WhatsApp para bajar los rechazos.
