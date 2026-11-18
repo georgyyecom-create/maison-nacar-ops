@@ -175,7 +175,8 @@
         "badge2": "Black Friday",
         "fine_print": "Precio tachado: lo que costarían los mismos cojines comprados de uno en uno. Oferta del pack de 2 hasta el 30 de noviembre a las 23:59.",
         "img_problem": "shopify://shop_images/zentia-f07-problema-anatomia.jpg",
-        "img_sin": "shopify://shop_images/zentia-f08-sin-cojin.jpg"
+        "img_sin": "shopify://shop_images/zentia-f08-sin-cojin.jpg",
+        "img_con": "shopify://shop_images/zentia-f09-con-cojin.jpg"
       }
     }
   },
