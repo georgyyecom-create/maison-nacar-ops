@@ -27,14 +27,14 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 
 ## 4. Meta (portfolio Maison Nácar, que pasa a ser Zentia)
 - [x] zentiadescanso.com verificado en el portfolio (18-nov).
-- [ ] **Permisos de tráfico del píxel: añadir zentiadescanso.com a la lista de autorizados** (solo estaba maisonnacar.com → bloqueaba los eventos). Luego, Probar eventos: PageView, ViewContent y AddToCart.
-- [ ] Pedido de prueba #1002 (contra reembolso, 18-nov): comprobar el Purchase y **cancelarlo** sin reembolso ANTES de vincular Dropify (si no, Dropi lo envía).
+- [x] **Permisos de tráfico del píxel: añadir zentiadescanso.com a la lista de autorizados** (solo estaba maisonnacar.com → bloqueaba los eventos). Luego, Probar eventos: PageView, ViewContent y AddToCart.
+- [x] Purchase del #1002 comprobado. - [ ] **Cancelarlo** (lo hace el dueño: el MCP bloquea cancelar pedidos) sin reembolso ANTES de vincular Dropify (si no, Dropi lo envía).
 - [ ] Cuenta publicitaria **963612299940558**: renombrarla a «Zentia ES». Ya tiene EUR, Madrid, pago y 270 € sin incidencias. **No usar la de Zentia Strips** (USD, ligada al dominio de las tiras).
 - [ ] Píxel **1097392456530786**: renombrarlo a «Zentia ES». Ya está conectado a esta tienda; se queda.
 - [ ] Página de Facebook nueva «Zentia España» e Instagram nuevo (@zentia.es o parecido) dentro del portfolio. **No usar @zentiastrips.**
 - [ ] App de Facebook e Instagram en Shopify: comprobar que apunta a este portfolio, este píxel y compartir datos «Máximo».
 - [ ] Catálogo: solo el cojín (las joyas fuera).
-- [ ] Compra de prueba → que aparezca «Compra» en el Administrador de eventos.
+- [x] Compra de prueba → «Comprar» recibido por servidor (#1002, calidad 8,0/10, 18-nov).
 - [ ] **Prueba definitiva del dominio:** píxel sin aviso peor que «Core setup» y conjunto en borrador que deje elegir **Compra** como objetivo. Si no deja → dominio limpio nuevo (~10–15 €) como principal y repetir.
 
 ## 5. Dropi y pedidos
@@ -49,6 +49,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 
 ## 7. Creativos (después de los pasos 0–4)
 - [ ] Rehacer la foto 08 (comparativa) de la ficha.
+- [x] Imágenes de los anuncios 1, 2, 3, 4 (v1) y 6 en `marca/zentia/ads/`. Faltan: radiografía con «Así queda la cadera», 9:16 de los 4:5 y el vídeo (anuncio 5).
 - [ ] 6 anuncios: pizarra, colchón 899 €, «3 errores», radiografía y vídeo POV (→ artículo A); oferta BF (→ ficha). Artículo B de reserva.
 - [ ] Textos y titulares de cada anuncio; UTM en cada enlace.
 
