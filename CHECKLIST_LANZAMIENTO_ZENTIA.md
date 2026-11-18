@@ -18,11 +18,12 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 - [ ] Meta, portfolio Zentia Strips: Seguridad de la marca → Dominios → **quitar zentia.com**.
 - [ ] Meta, portfolio Maison Nácar: Seguridad de la marca → Dominios → Añadir zentia.com → **registro TXT de DNS** → pegarlo en Namecheap (Advanced DNS → Add new record → TXT, Host `@`) → Verificar. Dejar el TXT puesto para siempre.
 
-## 2. Tienda vieja de las tiras (después del paso 1)
-- [ ] Exportar clientes y pedidos (CSV).
-- [ ] Desinstalar las apps de pago (para que no cobren).
-- [ ] Desconectar el píxel y el catálogo de Meta de la app de Facebook.
-- [ ] Pasar al plan «Pausar y crear» o cerrarla. **Solo después de que el dominio esté transferido.**
+## 2. Tienda vieja de las tiras (cobra 32 €/mes → cerrarla ANTES del próximo cobro)
+- [ ] Ver la fecha del próximo cobro: Configuración → Facturación.
+- [ ] Después del paso 1 (dominio quitado): exportar clientes y pedidos (CSV).
+- [ ] Desinstalar las apps de pago y desconectar el píxel y el catálogo de Meta.
+- [ ] **Desactivar la tienda** (Configuración → Plan → Desactivar). Nada de «Pausar y crear», que también cobra.
+- [ ] Maison Nácar: mirar cuándo termina la promoción de 1 €/mes (luego, plan Basic ~30 €/mes).
 
 ## 3. Esta tienda pasa a ser Zentia (lo hago yo, me dices «adelante»)
 - [ ] Nombre de la tienda «Zentia», correo remitente, favicon y logo en el checkout.
