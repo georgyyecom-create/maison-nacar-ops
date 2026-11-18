@@ -20,7 +20,7 @@ Hipótesis: CTR de enlace ≥ 1,5 % y el mejor coste por visita de los 4 anuncio
 > Restos borrados de otras palabras en la pizarra, algún reflejo de luz del techo, luz de interior normal, grano de móvil. Sin logotipos, sin cojín, sin personas reales, sin más texto que el indicado. Revisa que las tildes estén bien: «cadera», «rodillas», «despiertas», «colchón».
 
 **Texto principal** (lo que se ve sin «Ver más»: 1.ª frase):
-> Si duermes de lado y te despiertas de madrugada con la cadera cargada, mira la pizarra.
+> Si duermes de lado, mira la pizarra.
 >
 > La pierna de arriba cae, la cadera gira y la espalda pasa siete horas torcida. A las cuatro te despiertas a recolocar la almohada y por la mañana te cuesta arrancar.
 >
@@ -85,13 +85,16 @@ Hipótesis: el mejor «thumb-stop» (parada en el scroll) de los 5, por ser una 
 > Usa esta foto tal cual, sin cambiar la radiografía ni las marcas rojas, y conviértela en una imagen VERTICAL 4:5: amplía el fondo de la consulta por arriba y por abajo de forma natural, con la misma pared, la misma luz y el mismo grano de móvil. Arriba, sobre la pared, un recuadro blanco con esquinas redondeadas y letra negra sans serif gruesa, en dos líneas: Así está tu cadera a las 4 de la mañana. Debajo, otro recuadro blanco más pequeño: si duermes de lado sin nada entre las rodillas. Sin comillas, sin logotipos, sin más texto.
 
 **Texto principal:**
-> Así está tu cadera a las 4 de la mañana si duermes de lado.
+> Así queda la cadera a las 4 de la mañana cuando se duerme de lado sin nada entre las rodillas.
 >
-> La pierna de arriba cae por delante, la rodilla se apoya sobre la otra y la pelvis gira. Pasas así toda la noche y por la mañana te levantas cargado.
+> La pierna de arriba cae por delante, la rodilla se apoya sobre la otra y la pelvis gira. Y así toda la noche.
 >
 > En el artículo te explicamos las 5 razones y lo que puedes hacer esta misma noche.
 
-**Titular:** «Tu cadera cuando duermes de lado» (32)
+**Titular:** «La cadera al dormir de lado» (26)
 **Descripción:** «Lectura de 3 minutos» (20)
 **Botón:** Más información
 **Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a4_radiografia
+
+### Revisión de políticas de Meta (18-nov)
+Norma de **atributos personales**: un anuncio no puede afirmar o insinuar que quien lo ve tiene una dolencia («tu cadera», «te despiertas con la cadera cargada»). Cambios: imagen del anuncio 4 → «Así queda la cadera a las 4 de la mañana»; textos de los anuncios 1 y 4 sin dolencia en 2.ª persona. «Si duermes de lado» se puede (es una postura, no una dolencia).
