@@ -26,6 +26,9 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 - [ ] Publicar el tema v20.19 y hacer una compra de prueba.
 
 ## 4. Meta (portfolio Maison Nácar, que pasa a ser Zentia)
+- [x] zentiadescanso.com verificado en el portfolio (18-nov).
+- [ ] **Permisos de tráfico del píxel: añadir zentiadescanso.com a la lista de autorizados** (solo estaba maisonnacar.com → bloqueaba los eventos). Luego, Probar eventos: PageView, ViewContent y AddToCart.
+- [ ] Pedido de prueba #1002 (contra reembolso, 18-nov): comprobar el Purchase y **cancelarlo** sin reembolso ANTES de vincular Dropify (si no, Dropi lo envía).
 - [ ] Cuenta publicitaria **963612299940558**: renombrarla a «Zentia ES». Ya tiene EUR, Madrid, pago y 270 € sin incidencias. **No usar la de Zentia Strips** (USD, ligada al dominio de las tiras).
 - [ ] Píxel **1097392456530786**: renombrarlo a «Zentia ES». Ya está conectado a esta tienda; se queda.
 - [ ] Página de Facebook nueva «Zentia España» e Instagram nuevo (@zentia.es o parecido) dentro del portfolio. **No usar @zentiastrips.**
@@ -36,7 +39,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 
 ## 5. Dropi y pedidos
 - [ ] KYC de Dropi.
-- [ ] Dropify: variante «2 cojines + antifaz» = PACKREC2026644 ×2 + ANTIFAZ ×1. La guía PDF, ignorada.
+- [ ] Dropify (después de cancelar el #1002): «1 cojín» = COJINERGONOMICO ×1; variante «2 cojines + antifaz» = PACKREC2026644 ×2 + ANTIFAZ ×1. La guía PDF, ignorada.
 - [ ] Cancelar los pedidos de prueba #3689379 y #3689400.
 
 ## 6. WhatsApp
