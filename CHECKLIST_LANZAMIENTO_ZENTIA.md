@@ -39,7 +39,8 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 
 ## 5. Dropi y pedidos
 - [ ] KYC de Dropi.
-- [ ] Dropify (después de cancelar el #1002): «1 cojín» = COJINERGONOMICO ×1; variante «2 cojines + antifaz» = PACKREC2026644 ×2 + ANTIFAZ ×1. La guía PDF, ignorada.
+- [x] (18-nov) Dropify no deja vincular: el producto importado (15991248650580, SKU COJINERGONOMICO) pasa a ser el cojín (handle kit-dormir-de-lado, fotos y plantilla). El viejo (15985751621972) en borrador. Pack de 2 = 2 uds + antifaz con descuentos automáticos «Pack de 2 cojines: 49,90 €» (4,95 € menos por cojín, mín. 2) y «Black Friday: antifaz de regalo con 2 cojines» (BXGY, hasta el 30-nov 23:59). 3x2 de joyería desactivado. Tema «Zentia v2 (pack por cantidad)» 209386701140: falta probar en el móvil y publicarlo.
+- [ ] (viejo) Dropify: «1 cojín» = COJINERGONOMICO ×1; variante «2 cojines + antifaz» = PACKREC2026644 ×2 + ANTIFAZ ×1. La guía PDF, ignorada.
 - [ ] Cancelar los pedidos de prueba #3689379 y #3689400.
 
 ## 6. WhatsApp
