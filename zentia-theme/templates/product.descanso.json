@@ -63,7 +63,8 @@
           "settings": {
             "label": "FOTO 12 · Manos colocando el cojín entre las rodillas",
             "title": "Ponlo entre las rodillas",
-            "text": "A la altura que te resulte cómoda."
+            "text": "A la altura que te resulte cómoda.",
+            "image": "shopify://shop_images/zentia-f12-paso2.jpg"
           }
         },
         "s3": {
