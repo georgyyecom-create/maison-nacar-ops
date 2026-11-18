@@ -133,5 +133,5 @@ Resolver un problema real · explicable en 3 s · urgencia real · margen ≥ 20
 
 ## Lanzamiento Zentia España (18-nov)
 - Checklist maestro: `CHECKLIST_LANZAMIENTO_ZENTIA.md` (recordárselo al dueño y marcar lo hecho). Plan de anuncios y reglas: `ESTRATEGIA_ANUNCIOS_ZENTIA.md`.
-- Decisión del dueño: zentia.com pasa a esta tienda (la de las tiras se pausa). zentia.com tiene la restricción de «salud y bienestar» más baja (Core setup): deja optimizar por Compra, así que se usa. Sin públicos ni conversiones por URL; el CPA se mide en Shopify.
+- Dominio: **zentiadescanso.com** (comprado en Namecheap el 18-nov). El viejo era zentiastrips.com (no zentia.com, que está ocupado): se queda en Namecheap y no se usa (nombre de tiras y marcado como salud y bienestar en Meta). La tienda de las tiras (pknpca-cw) se cierra; factura 624664933 (32 €, 17-nov) en revisión de reembolso.
 - Meta: cuenta 963612299940558 y píxel 1097392456530786 (portfolio Maison Nácar) pasan a Zentia ES; no usar la cuenta Zentia Strips (38382984761301065, USD) ni @zentiastrips.
