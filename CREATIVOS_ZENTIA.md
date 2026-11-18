@@ -76,3 +76,22 @@ Hipótesis: el formato de lista de errores da el CTR más alto de los 4 anuncios
 **Descripción:** «Lectura de 3 minutos» (20)
 **Botón:** Más información
 **Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a3_errores
+
+## Anuncio 4 · Radiografía (→ artículo A)
+Origen: ángulo propio (nadie en la competencia usa radiografías → diferencia). Reutiliza la foto A02 del artículo, así el anuncio y la página se ven iguales.
+Hipótesis: el mejor «thumb-stop» (parada en el scroll) de los 5, por ser una imagen que no se parece a ningún anuncio del sector.
+
+**Gemini: adjuntar `marca/zentia/fotos/zentia-a02-radiografia.jpg`** y escribir:
+> Usa esta foto tal cual, sin cambiar la radiografía ni las marcas rojas, y conviértela en una imagen VERTICAL 4:5: amplía el fondo de la consulta por arriba y por abajo de forma natural, con la misma pared, la misma luz y el mismo grano de móvil. Arriba, sobre la pared, un recuadro blanco con esquinas redondeadas y letra negra sans serif gruesa, en dos líneas: Así está tu cadera a las 4 de la mañana. Debajo, otro recuadro blanco más pequeño: si duermes de lado sin nada entre las rodillas. Sin comillas, sin logotipos, sin más texto.
+
+**Texto principal:**
+> Así está tu cadera a las 4 de la mañana si duermes de lado.
+>
+> La pierna de arriba cae por delante, la rodilla se apoya sobre la otra y la pelvis gira. Pasas así toda la noche y por la mañana te levantas cargado.
+>
+> En el artículo te explicamos las 5 razones y lo que puedes hacer esta misma noche.
+
+**Titular:** «Tu cadera cuando duermes de lado» (32)
+**Descripción:** «Lectura de 3 minutos» (20)
+**Botón:** Más información
+**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a4_radiografia
