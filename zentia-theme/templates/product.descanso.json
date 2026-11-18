@@ -173,7 +173,8 @@
         "offer_title": "Oferta Black Friday",
         "offer_sub": "El pack de 2 con antifaz de regalo termina en",
         "badge2": "Black Friday",
-        "fine_print": "Precio tachado: lo que costarían los mismos cojines comprados de uno en uno. Oferta del pack de 2 hasta el 30 de noviembre a las 23:59."
+        "fine_print": "Precio tachado: lo que costarían los mismos cojines comprados de uno en uno. Oferta del pack de 2 hasta el 30 de noviembre a las 23:59.",
+        "img_problem": "shopify://shop_images/zentia-f07-problema-anatomia.jpg"
       }
     }
   },
