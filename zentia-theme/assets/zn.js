@@ -95,7 +95,8 @@
     var render=function(c){
       counts(c.item_count);
       var zn=0;
-      list.innerHTML=c.items.map(function(it){
+      var its=c.items.slice().sort(function(a,b){return (GP&&a.product_id===GP?1:0)-(GP&&b.product_id===GP?1:0);});
+      list.innerHTML=its.map(function(it){
         if(it.product_id===PID||it.product_id===GP)zn+=it.final_line_price;
         var img=it.image?'<img src="'+esc(it.image)+'&width=160" alt="" width="72" height="72" loading="lazy">':'<span class="zn-ci__ph" aria-hidden="true">Z</span>';
         var isg=GP&&it.product_id===GP,gift=isg?'<span class="zn-ci__gift">Regalo del pack de 2</span>':'';
@@ -104,7 +105,7 @@
           '<div class="zn-ci__main"><b>'+esc(it.product_title)+'</b>'+(it.variant_title?'<span>'+esc(it.variant_title)+'</span>':'')+gift+
           (isg?'</div>':'<div class="zn-ci__row"><div class="zn-qty" role="group" aria-label="Cantidad"><button type="button" data-q="-1" aria-label="Quitar uno">−</button><output>'+it.quantity+'</output><button type="button" data-q="1" aria-label="Añadir uno">+</button></div>'+
           '<button type="button" class="zn-ci__rm" data-rm>Quitar</button></div></div>')+
-          '<p class="zn-ci__price">'+was+fmt(it.final_line_price)+'</p></li>';
+          (isg?'<p class="zn-ci__price zn-ci__price--free"><s>'+fmt(it.original_line_price)+'</s>'+(it.final_line_price?fmt(it.final_line_price):'Gratis')+'</p></li>':'<p class="zn-ci__price">'+was+fmt(it.final_line_price)+'</p></li>');
       }).join('');
       empty.hidden=c.item_count>0;foot.hidden=!c.item_count;list.hidden=!c.item_count;
       var gd=dr.querySelector('[data-cart-guide]');if(gd)gd.hidden=!(zn>0);

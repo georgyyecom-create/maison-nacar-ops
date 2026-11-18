@@ -415,3 +415,4 @@ html.zn-lock,html.zn-lock body{overflow:hidden}
 .zn-home__wa a{color:#fff;text-decoration:underline}
 @media (min-width:900px){.zn-home__hero{grid-template-columns:1fr 1fr;align-items:center;padding-top:48px}}
 .zn-home__final .zn-btn--buy{background:#fff;color:var(--zn-navy);border-color:#fff}
+.zn-ci__price--free{color:var(--zn-ok)}
