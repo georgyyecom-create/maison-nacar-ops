@@ -40,7 +40,8 @@
             "title": "Cambiar de colchón no lo arregla",
             "label": "ARTÍCULO 05 · Colchón nuevo con etiqueta de precio en una tienda",
             "text": "<p>Un colchón nuevo cuesta cientos de euros, y la pierna de arriba sigue cayendo igual. Lo que hay que corregir pasa entre tus piernas, encima del colchón.</p>",
-            "fix": "Funciona con el colchón que ya tienes"
+            "fix": "Funciona con el colchón que ya tienes",
+            "image": "shopify://shop_images/zentia-a05-colchon.jpg"
           }
         },
         "r5": {
