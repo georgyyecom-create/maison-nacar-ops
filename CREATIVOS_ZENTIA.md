@@ -128,3 +128,22 @@ Regla: persona de IA = escena «POV», nunca presentada como clienta ni con «yo
 **Descripción:** «Lectura de 3 minutos» (20)
 **Botón:** Más información
 **Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a5_video_pov
+
+## Anuncio 6 · Oferta Black Friday en azul marino (→ ficha)
+Origen: Cellsius DE/FR (oferta azul marino con la caja de cojines, 106–127 días) y Sleepsake («Both sides of the bed», pack de 2). Sin la cuenta atrás falsa de Cellsius: fecha real del 30-nov.
+Hipótesis: mejor coste por compra de los 6 (va a quien ya quiere comprar), aunque con menos CTR que los del artículo.
+
+**Prompt de Gemini** (adjuntar 2 fotos: la del cojín con el ribete azul y la del antifaz; escribir antes «Usa el cojín de la foto 1 y el antifaz de la foto 2 como referencia exacta»):
+> Imagen VERTICAL 4:5 de anuncio de tienda online premium, fondo azul marino profundo (#16244A) con un degradado suave hacia arriba y un brillo tenue detrás del producto. Arriba, en letra pequeña blanca en mayúsculas espaciadas: BLACK FRIDAY. Debajo, en letra sans serif blanca muy gruesa, en dos líneas: Uno para ti / y otro para tu pareja. En el centro, dos cojines idénticos a los de la foto 1, uno un poco detrás del otro y ligeramente girados, con la textura de puntitos y el ribete azul, y delante a la derecha el antifaz de la foto 2, más pequeño. Luz de estudio suave, sombras realistas. A la izquierda del producto, una etiqueta blanca redondeada con texto azul marino: 2 cojines · 49,90 €, y debajo, más pequeño: + antifaz de regalo. Abajo, una fila de 3 pastillas blancas con texto azul marino: Pagas al recibir · Envío gratis desde España · 60 noches de prueba. Debajo de todo, en blanco pequeño: Hasta el 30 de noviembre. Sin comillas en ningún texto, sin porcentajes, sin precios tachados, sin relojes ni cuentas atrás, sin estrellas ni cifras de clientes, sin logotipos en los cojines.
+
+**Texto principal:**
+> Black Friday en Zentia: 2 cojines de rodillas por 49,90 € y un antifaz de regalo.
+>
+> Uno para ti y otro para tu pareja, o para regalar en Navidad. Envío gratis desde España en 2–4 días y pagas al recibir.
+>
+> El antifaz de regalo es hasta el 30 de noviembre.
+
+**Titular:** «2 cojines + antifaz por 49,90 €» (31)
+**Descripción:** «Pagas al recibir» (16)
+**Botón:** Comprar
+**Enlace:** https://zentiadescanso.com/products/kit-dormir-de-lado?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a6_oferta_bf
