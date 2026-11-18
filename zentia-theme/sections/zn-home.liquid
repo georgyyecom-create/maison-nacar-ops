@@ -1,0 +1,111 @@
+{%- liquid
+  assign S = section.settings
+  assign p = S.product
+  if p == blank
+    assign p = all_products['kit-dormir-de-lado']
+  endif
+  assign hero = S.img_hero
+  if hero == blank
+    assign hero = p.featured_image
+  endif
+-%}
+
+<div class="zn-bar">
+  <p class="zn-bar__txt">{{ S.bar_text }}</p>
+  <div class="zn-clock" data-deadline="{{ S.deadline_iso }}" aria-label="Tiempo que queda">
+    <span><b data-u="d">--</b><i>días</i></span><span><b data-u="h">--</b><i>horas</i></span><span><b data-u="m">--</b><i>min</i></span><span><b data-u="s">--</b><i>seg</i></span>
+  </div>
+</div>
+
+<header class="zn-head">
+  <div class="zn-in zn-head__row">
+    {% render 'zn-logo', tagline: S.tagline %}
+    <a class="zn-btn zn-btn--ghost zn-btn--sm" href="{{ p.url }}">{{ S.head_cta }}</a>
+  </div>
+</header>
+
+<main class="zn-home">
+  <section class="zn-home__hero zn-in">
+    <div class="zn-home__copy">
+      <p class="zn-home__eyebrow">{{ S.eyebrow }}</p>
+      <h1 class="zn-home__h1">{{ S.title }}</h1>
+      <p class="zn-home__sub">{{ S.sub }}</p>
+      <a class="zn-btn zn-btn--buy zn-home__cta" href="{{ p.url }}">{{ S.cta }}</a>
+      <p class="zn-home__price">{{ S.price_line }}</p>
+    </div>
+    <figure class="zn-home__img">
+      {%- if hero != blank -%}{{ hero | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500,800,1200', sizes: '(min-width: 900px) 520px, 100vw', alt: p.title }}{%- endif -%}
+    </figure>
+  </section>
+
+  <section class="zn-home__trust zn-in" aria-label="Garantías">
+    <ul>
+      <li><b>{{ S.t1_title }}</b><span>{{ S.t1_text }}</span></li>
+      <li><b>{{ S.t2_title }}</b><span>{{ S.t2_text }}</span></li>
+      <li><b>{{ S.t3_title }}</b><span>{{ S.t3_text }}</span></li>
+      <li><b>{{ S.t4_title }}</b><span>{{ S.t4_text }}</span></li>
+    </ul>
+  </section>
+
+  <section class="zn-home__why zn-in">
+    <h2 class="zn-home__h2">{{ S.why_title }}</h2>
+    <div class="zn-rte">{{ S.why_text }}</div>
+    {%- if S.img_why != blank -%}<figure class="zn-home__why-img">{{ S.img_why | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500,800,1200', sizes: '(min-width: 900px) 680px, 100vw' }}</figure>{%- endif -%}
+    <a class="zn-home__link" href="{{ S.article_url | default: '/pages/zentia-5-razones-b' }}">{{ S.article_cta }} →</a>
+  </section>
+
+  <section class="zn-home__final zn-in">
+    <h2 class="zn-home__h2">{{ S.final_title }}</h2>
+    <p>{{ S.final_text }}</p>
+    <a class="zn-btn zn-btn--buy zn-home__cta" href="{{ p.url }}">{{ S.cta }}</a>
+    {%- if S.wa_number != blank -%}<p class="zn-home__wa"><a href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener">¿Dudas? Escríbenos por WhatsApp</a></p>{%- endif -%}
+  </section>
+</main>
+
+<footer class="zn-foot">
+  <div class="zn-in">
+    {% render 'zn-logo', tagline: S.tagline %}
+    <nav class="zn-foot__nav" aria-label="Políticas">
+      {%- for pol in shop.policies -%}<a href="{{ pol.url }}">{{ pol.title }}</a>{%- endfor -%}
+    </nav>
+  </div>
+</footer>
+
+<script src="{{ 'zn.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Zentia · portada",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Producto" },
+    { "type": "text", "id": "bar_text", "label": "Barra superior", "default": "Black Friday · Pack de 2 + antifaz de regalo · termina en" },
+    { "type": "text", "id": "deadline_iso", "label": "Fecha límite real (ISO)", "default": "2026-11-30T23:59:00+01:00" },
+    { "type": "text", "id": "tagline", "label": "Lema", "default": "Descanso y postura" },
+    { "type": "text", "id": "head_cta", "label": "Botón de la cabecera", "default": "Comprar" },
+    { "type": "image_picker", "id": "img_hero", "label": "Foto principal (si no, la del producto)" },
+    { "type": "text", "id": "eyebrow", "label": "Antetítulo", "default": "Para quien duerme de lado" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Duerme de lado sin que choquen las rodillas" },
+    { "type": "text", "id": "sub", "label": "Subtítulo", "default": "Un cojín de espuma viscoelástica entre las rodillas mantiene la pierna de arriba en su sitio y la cadera recta toda la noche." },
+    { "type": "text", "id": "cta", "label": "Botón", "default": "Ver el cojín" },
+    { "type": "text", "id": "price_line", "label": "Línea de precio", "default": "1 cojín 29,90 € · 2 cojines + antifaz 49,90 € con envío gratis" },
+    { "type": "text", "id": "t1_title", "label": "Garantía 1 · título", "default": "Pagas al recibir" },
+    { "type": "text", "id": "t1_text", "label": "Garantía 1 · texto", "default": "Contra reembolso, en efectivo al repartidor" },
+    { "type": "text", "id": "t2_title", "label": "Garantía 2 · título", "default": "Desde España" },
+    { "type": "text", "id": "t2_text", "label": "Garantía 2 · texto", "default": "Llega en 2–4 días laborables por MRW" },
+    { "type": "text", "id": "t3_title", "label": "Garantía 3 · título", "default": "60 noches de prueba" },
+    { "type": "text", "id": "t3_text", "label": "Garantía 3 · texto", "default": "Si no te convence, te devolvemos el dinero" },
+    { "type": "text", "id": "t4_title", "label": "Garantía 4 · título", "default": "Funda lavable" },
+    { "type": "text", "id": "t4_text", "label": "Garantía 4 · texto", "default": "Con cremallera, va a la lavadora" },
+    { "type": "text", "id": "why_title", "label": "Por qué · título", "default": "Todo empieza con la pierna de arriba" },
+    { "type": "richtext", "id": "why_text", "label": "Por qué · texto", "default": "<p>Cuando duermes de lado, la pierna de arriba cae hacia delante, la cadera gira y las rodillas chocan. Pasas así seis u ocho horas, y por la mañana lo notas. No es tu colchón ni tu edad.</p>" },
+    { "type": "image_picker", "id": "img_why", "label": "Por qué · foto" },
+    { "type": "text", "id": "article_cta", "label": "Enlace al artículo · texto", "default": "Lee las 5 razones por las que te despiertas con la cadera cargada" },
+    { "type": "url", "id": "article_url", "label": "Enlace al artículo" },
+    { "type": "text", "id": "final_title", "label": "Cierre · título", "default": "Uno para ti y otro para tu pareja" },
+    { "type": "text", "id": "final_text", "label": "Cierre · texto", "default": "2 cojines por 49,90 €, con envío gratis y un antifaz de regalo hasta el 30 de noviembre." },
+    { "type": "text", "id": "wa_number", "label": "WhatsApp (con prefijo, sin +)", "default": "34621390548" },
+    { "type": "text", "id": "wa_text", "label": "Mensaje de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" }
+  ],
+  "presets": [{ "name": "Zentia · portada" }]
+}
+{% endschema %}

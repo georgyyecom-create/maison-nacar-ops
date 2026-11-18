@@ -1,0 +1,13 @@
+{
+  "layout": "zentia",
+  "sections": {
+    "main": {
+      "type": "zn-home",
+      "settings": {
+        "product": "kit-dormir-de-lado",
+        "img_why": "shopify://shop_images/zentia-f09-con-cojin.jpg"
+      }
+    }
+  },
+  "order": ["main"]
+}

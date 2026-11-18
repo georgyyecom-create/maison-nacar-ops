@@ -4,7 +4,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 ## 0–1. Dominio: zentiadescanso.com (Namecheap) → esta tienda
 - [x] El dominio viejo era zentiastrips.com, que no encaja y está marcado en Meta. **Comprado zentiadescanso.com** (18-nov).
 - [ ] Namecheap → zentiadescanso.com → Manage → Advanced DNS: borrar los registros de aparcamiento y añadir **A `@` 23.227.38.65** y **CNAME `www` shops.myshopify.com**.
-- [ ] Shopify (esta tienda) → Configuración → Dominios → Conectar dominio existente → zentiadescanso.com → Verificar.
+- [x] Shopify (esta tienda) → Configuración → Dominios → Conectar dominio existente → zentiadescanso.com → Verificar.
 - [ ] Ponerlo como **dominio principal**; SSL automático.
 - [ ] Meta (portfolio Maison Nácar) → Seguridad de la marca → Dominios → añadir zentiadescanso.com → TXT en Namecheap → Verificar.
 - [ ] Prueba definitiva: el conjunto en borrador deja elegir **Compra**.
@@ -18,8 +18,8 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 
 ## 3. Esta tienda pasa a ser Zentia (lo hago yo, me dices «adelante»)
 - [ ] Nombre de la tienda «Zentia», correo remitente, favicon y logo en el checkout.
-- [ ] **Página de inicio de Zentia** (ahora la portada es de joyería) o redirección a la ficha.
-- [ ] Ocultar en la tienda online las joyas, los calendarios y sus colecciones (no se borran).
+- [x] **Página de inicio de Zentia**: tema «Zentia v1 (portada)» (209378771284) con la sección zn-home. Falta que el dueño lo publique.
+- [ ] Ocultar en la tienda online las joyas, los calendarios y la «almohada-relajante» de Dropify (el MCP bloquea despublicar: lo hace el dueño en Productos → seleccionar → Más acciones → Excluir de canales). El cojín ya está ACTIVO.
 - [ ] Menú, pie, contacto, políticas (envío, devoluciones con 60 noches, privacidad, aviso legal), con titular y datos reales.
 - [ ] Pago: **contra reembolso** activo y **teléfono obligatorio** en el checkout.
 - [ ] Correo de confirmación con la guía PDF (fragmento en `marca/zentia/guia/CORREO_CONFIRMACION.md`).

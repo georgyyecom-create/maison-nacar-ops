@@ -391,3 +391,27 @@ html.zn-lock,html.zn-lock body{overflow:hidden}
 .zn-gift__img img{width:100%;height:100%;object-fit:cover}
 .zn-cart__gicon img{width:100%;height:100%;object-fit:cover;border-radius:12px}
 .zn-ci__price s{display:block}
+/* Portada Zentia */
+.zn-home{padding-bottom:48px}
+.zn-home__hero{display:grid;gap:22px;padding-top:26px;padding-bottom:26px}
+.zn-home__eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--zn-navy-2)}
+.zn-home__h1{font-size:clamp(30px,7.4vw,46px);line-height:1.08;letter-spacing:-.02em;color:var(--zn-navy);margin:8px 0 12px}
+.zn-home__sub{font-size:18px;line-height:1.5;color:#3B4660;max-width:46ch}
+.zn-home__cta{margin-top:20px;width:100%;max-width:420px;text-align:center}
+.zn-home__price{margin-top:10px;font-size:15px;color:#3B4660}
+.zn-home__img img{width:100%;height:auto;border-radius:var(--zn-r-img,20px);display:block}
+.zn-home__trust ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.zn-home__trust li{background:var(--zn-soft,#F3F6FB);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px}
+.zn-home__trust b{color:var(--zn-navy);font-size:16px}
+.zn-home__trust span{font-size:14px;color:#3B4660;line-height:1.4}
+.zn-home__why,.zn-home__final{margin-top:40px}
+.zn-home__h2{font-size:clamp(24px,5.6vw,32px);line-height:1.15;color:var(--zn-navy);margin-bottom:12px}
+.zn-home__why-img{margin:18px 0 0}
+.zn-home__why-img img{width:100%;height:auto;border-radius:var(--zn-r-img,20px);display:block}
+.zn-home__link{display:inline-block;margin-top:16px;font-weight:600;color:var(--zn-navy);text-decoration:underline;text-underline-offset:3px}
+.zn-home__final{background:var(--zn-navy);color:#E6EBF5;border-radius:var(--zn-r-img,20px);padding:26px 20px}
+.zn-home__final .zn-home__h2{color:#fff}
+.zn-home__wa{margin-top:14px}
+.zn-home__wa a{color:#fff;text-decoration:underline}
+@media (min-width:900px){.zn-home__hero{grid-template-columns:1fr 1fr;align-items:center;padding-top:48px}}
+.zn-home__final .zn-btn--buy{background:#fff;color:var(--zn-navy);border-color:#fff}
