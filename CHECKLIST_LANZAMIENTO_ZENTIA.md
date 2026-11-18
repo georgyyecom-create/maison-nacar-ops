@@ -19,7 +19,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 ## 3. Esta tienda pasa a ser Zentia (lo hago yo, me dices «adelante»)
 - [ ] Nombre de la tienda «Zentia», correo remitente, favicon y logo en el checkout.
 - [x] **Página de inicio de Zentia**: tema «Zentia v1 (portada)» (209378771284) con la sección zn-home. Falta que el dueño lo publique.
-- [ ] Ocultar en la tienda online las joyas, los calendarios y la «almohada-relajante» de Dropify (el MCP bloquea despublicar: lo hace el dueño en Productos → seleccionar → Más acciones → Excluir de canales). El cojín ya está ACTIVO.
+- [x] (18-nov) El dueño ha borrado las joyas y los calendarios: la tienda tiene 4 productos (cojín, antifaz, guía y la copia de Dropify). Antes: ocultar en la tienda online las joyas, los calendarios y la «almohada-relajante» de Dropify (el MCP bloquea despublicar: lo hace el dueño en Productos → seleccionar → Más acciones → Excluir de canales). El cojín ya está ACTIVO.
 - [ ] Menú, pie, contacto, políticas (envío, devoluciones con 60 noches, privacidad, aviso legal), con titular y datos reales.
 - [ ] Pago: **contra reembolso** activo y **teléfono obligatorio** en el checkout.
 - [ ] Correo de confirmación con la guía PDF (fragmento en `marca/zentia/guia/CORREO_CONFIRMACION.md`).
@@ -28,7 +28,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 ## 4. Meta (portfolio Maison Nácar, que pasa a ser Zentia)
 - [x] zentiadescanso.com verificado en el portfolio (18-nov).
 - [x] **Permisos de tráfico del píxel: añadir zentiadescanso.com a la lista de autorizados** (solo estaba maisonnacar.com → bloqueaba los eventos). Luego, Probar eventos: PageView, ViewContent y AddToCart.
-- [x] Purchase del #1002 comprobado. - [ ] **Cancelarlo** (lo hace el dueño: el MCP bloquea cancelar pedidos) sin reembolso ANTES de vincular Dropify (si no, Dropi lo envía).
+- [x] Purchase del #1002 comprobado. - [x] **Cancelado** (18-nov) (lo hace el dueño: el MCP bloquea cancelar pedidos) sin reembolso ANTES de vincular Dropify (si no, Dropi lo envía).
 - [ ] Cuenta publicitaria **963612299940558**: renombrarla a «Zentia ES». Ya tiene EUR, Madrid, pago y 270 € sin incidencias. **No usar la de Zentia Strips** (USD, ligada al dominio de las tiras).
 - [ ] Píxel **1097392456530786**: renombrarlo a «Zentia ES». Ya está conectado a esta tienda; se queda.
 - [ ] Página de Facebook nueva «Zentia España» e Instagram nuevo (@zentia.es o parecido) dentro del portfolio. **No usar @zentiastrips.**
