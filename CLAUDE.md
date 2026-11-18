@@ -130,3 +130,8 @@ Resolver un problema real · explicable en 3 s · urgencia real · margen ≥ 20
 - Pendiente: entregar la guía PDF a los packs (correo tras la compra o descarga), la política de 60 noches y las fotos.
 - 17-nov (noche): ficha v4 azul marino («Cojín de Rodillas Ergonómico Zentia»): solo 2 opciones (1 cojín 29,90 € + 4,95 € de envío · 2 cojines + antifaz 49,90 €, envío gratis ≥ 40 €). Carrito lateral propio (`snippets/zn-cart.liquid`, `assets/zn.js`), WhatsApp 34621390548, caja «Pago contra reembolso». Artículos: `/pages/zentia-5-razones` (compra dentro, plantilla `page.zn-articulo`) y `/pages/zentia-5-razones-b` (botón a la ficha, `page.zn-articulo-enlace`). Dropi: cojín 4,46 € con IVA, MRW 5,74 € (igual con 1, 2 o 3 uds), contra reembolso +1 €, sin garantía.
 - Subir archivos al tema: `themeFilesUpsert` por URL rechaza en silencio `sections/zn-descanso.liquid`. Las secciones se suben con `theme_bash` + `theme_commit` (sin «;» en el script) y los assets y plantillas por URL. Ojo: la copia de `theme_bash` puede estar desfasada (no commitear archivos que se hayan subido por URL).
+
+## Lanzamiento Zentia España (18-nov)
+- Checklist maestro: `CHECKLIST_LANZAMIENTO_ZENTIA.md` (recordárselo al dueño y marcar lo hecho). Plan de anuncios y reglas: `ESTRATEGIA_ANUNCIOS_ZENTIA.md`.
+- Decisión del dueño: zentia.com pasa a esta tienda (la de las tiras se pausa). Antes, comprobar si Meta tiene el dominio restringido por «salud y bienestar» (la restricción va con el dominio): si lo está, dominio nuevo.
+- Meta: cuenta 963612299940558 y píxel 1097392456530786 (portfolio Maison Nácar) pasan a Zentia ES; no usar la cuenta Zentia Strips (38382984761301065, USD) ni @zentiastrips.
