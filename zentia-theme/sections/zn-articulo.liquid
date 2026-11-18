@@ -99,41 +99,11 @@
         <p class="zn-offer__sub">{{ S.offer_sub }}</p>
         {%- form 'product', p, id: 'zn-form', class: 'zn-form' -%}
           <input type="hidden" name="return_to" value="/checkout">
-          <div class="zn-packs" role="radiogroup" aria-label="Elige tu pack">
-            {%- for v in p.variants -%}
-              {%- liquid
-                assign q = forloop.index
-                assign per = v.price | divided_by: q
-                assign sep = v1.price | times: q
-                assign save = sep | minus: v.price
-              -%}
-              <label class="zn-pack{% if v.id == sel.id %} is-on{% endif %}" data-price="{% render 'zn-money', cents: v.price %}">
-                <input type="radio" name="id" value="{{ v.id }}" {% if v.id == sel.id %}checked{% endif %}>
-                {%- if q == 2 and S.badge2 != blank -%}<span class="zn-pack__badge">{{ S.badge2 }}</span>{%- endif -%}
-                <span class="zn-pack__top">
-                  <span class="zn-pack__radio" aria-hidden="true"></span>
-                  <span class="zn-pack__name">
-                    <b>{% if q == 1 %}1 cojín{% else %}{{ q }} cojines{% endif %}</b>
-                    <small>{% if q == 1 %}+ {{ S.ship_fee }} de envío{% else %}Ahorras {% render 'zn-money', cents: save %} · envío gratis{% endif %}</small>
-                  </span>
-                  <span class="zn-pack__price">
-                    <b>{% render 'zn-money', cents: v.price %}</b>
-                    {%- if q > 1 -%}<s>{% render 'zn-money', cents: sep %}</s><small>{% render 'zn-money', cents: per %} por cojín</small>{%- endif -%}
-                  </span>
-                </span>
-                {%- if q >= 2 -%}
-                  <span class="zn-gift">
-                    <span class="zn-gift__img">{% render 'zn-img', img: S.gift1_img, label: 'Antifaz', ratio: '1/1' %}</span>
-                    <span class="zn-gift__name">+ {{ S.gift1_name }}</span><em>Regalo</em>
-                  </span>
-                {%- endif -%}
-              </label>
-            {%- endfor -%}
-          </div>
+          {% render 'zn-packs', product: p, s: S %}
           <p class="zn-fine">{{ S.fine_print }}</p>
           <div class="zn-cod"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg><p><b>{{ S.cod_title }}</b><span>{{ S.cod_sub }}</span></p></div>
           <button type="submit" class="zn-btn zn-btn--buy" data-buy>
-            <span data-buy-price>{% render 'zn-money', cents: sel.price %}</span><span class="zn-btn__sep" aria-hidden="true"></span><span>{{ S.cta_embed }}</span>
+            <span data-buy-price>{% render 'zn-money', cents: 4990 %}</span><span class="zn-btn__sep" aria-hidden="true"></span><span>{{ S.cta_embed }}</span>
           </button>
         {%- endform -%}
         <p class="zn-art__guar">{{ S.guar_line }}</p>

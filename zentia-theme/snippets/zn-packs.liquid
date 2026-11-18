@@ -1,0 +1,67 @@
+{%- doc -%}
+  Packs de Zentia por cantidad: 1 cojín o 2 cojines (+ antifaz de regalo).
+  El pack de 2 se cobra con un descuento automático (4,95 € menos por cojín) y el antifaz con otro (BXGY).
+  @param {object} product - Cojín Zentia
+  @param {object} s - Ajustes de la sección (badge2, ship_fee, gift1_name, gift1_img, guide_show, guide_name)
+{%- enddoc -%}
+{%- liquid
+  assign v1 = product.selected_or_first_available_variant
+  assign gift_mask = all_products['antifaz-para-dormir']
+  assign gift_guide = all_products['guia-dormir-de-lado']
+  assign p2 = 4990
+  assign sep2 = v1.price | times: 2
+  assign save2 = sep2 | minus: p2
+  assign per2 = p2 | divided_by: 2
+  assign gift_id = ''
+  if gift_mask and gift_mask.price > 0
+    assign gift_id = gift_mask.variants.first.id
+  endif
+-%}
+<input type="hidden" name="id" value="{{ v1.id }}">
+<input type="hidden" name="quantity" value="2" data-qty-input>
+<div class="zn-packs" role="radiogroup" aria-label="Elige tu pack" data-v1="{{ v1.id }}" data-gift="{{ gift_id }}">
+  <label class="zn-pack" data-qty="1" data-price="{% render 'zn-money', cents: v1.price %}">
+    <input type="radio" name="pack" value="1">
+    <span class="zn-pack__top">
+      <span class="zn-pack__radio" aria-hidden="true"></span>
+      <span class="zn-pack__name">
+        <b>1 cojín</b>
+        <small>+ {{ s.ship_fee | default: '4,95 €' }} de envío</small>
+      </span>
+      <span class="zn-pack__price"><b>{% render 'zn-money', cents: v1.price %}</b></span>
+    </span>
+    {%- if s.guide_show and gift_guide.price > 0 -%}
+      <span class="zn-gift">
+        <span class="zn-gift__img">{%- if gift_guide.featured_image -%}{{ gift_guide.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+        <span class="zn-gift__name">+ {{ s.guide_name }}</span><span class="zn-gift__end"><s>{% render 'zn-money', cents: gift_guide.price %}</s><em>Regalo</em></span>
+      </span>
+    {%- endif -%}
+  </label>
+  <label class="zn-pack is-on" data-qty="2" data-price="{% render 'zn-money', cents: p2 %}">
+    <input type="radio" name="pack" value="2" checked>
+    {%- if s.badge2 != blank -%}<span class="zn-pack__badge">{{ s.badge2 }}</span>{%- endif -%}
+    <span class="zn-pack__top">
+      <span class="zn-pack__radio" aria-hidden="true"></span>
+      <span class="zn-pack__name">
+        <b>2 cojines</b>
+        <small>Ahorras {% render 'zn-money', cents: save2 %} · envío gratis</small>
+      </span>
+      <span class="zn-pack__price">
+        <b>{% render 'zn-money', cents: p2 %}</b>
+        <s>{% render 'zn-money', cents: sep2 %}</s><small>{% render 'zn-money', cents: per2 %} por cojín</small>
+      </span>
+    </span>
+    {%- if gift_id != '' -%}
+      <span class="zn-gift">
+        <span class="zn-gift__img">{%- if gift_mask.featured_image -%}{{ gift_mask.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% render 'zn-img', img: s.gift1_img, label: 'Antifaz', ratio: '1/1' %}{%- endif -%}</span>
+        <span class="zn-gift__name">+ {{ s.gift1_name | default: 'Antifaz para dormir' }}</span><span class="zn-gift__end"><s>{% render 'zn-money', cents: gift_mask.price %}</s><em>Regalo</em></span>
+      </span>
+    {%- endif -%}
+    {%- if s.guide_show and gift_guide.price > 0 -%}
+      <span class="zn-gift">
+        <span class="zn-gift__img">{%- if gift_guide.featured_image -%}{{ gift_guide.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+        <span class="zn-gift__name">+ {{ s.guide_name }}</span><span class="zn-gift__end"><s>{% render 'zn-money', cents: gift_guide.price %}</s><em>Regalo</em></span>
+      </span>
+    {%- endif -%}
+  </label>
+</div>
