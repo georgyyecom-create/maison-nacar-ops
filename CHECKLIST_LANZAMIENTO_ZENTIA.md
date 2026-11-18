@@ -37,6 +37,7 @@ Actualizado: 18-nov-2026. Marca [x] lo hecho. Orden = orden en que hay que hacer
 - [ ] App de Facebook e Instagram en Shopify: comprobar que apunta a este portfolio, este píxel y compartir datos «Máximo».
 - [ ] Catálogo: solo el cojín (las joyas fuera).
 - [ ] Compra de prueba → que aparezca «Compra» en el Administrador de eventos.
+- [ ] **Prueba definitiva del dominio:** píxel sin aviso peor que «Core setup» y conjunto en borrador que deje elegir **Compra** como objetivo. Si no deja → dominio limpio nuevo (~10–15 €) como principal y repetir.
 
 ## 5. Dropi y pedidos
 - [ ] KYC de Dropi.
