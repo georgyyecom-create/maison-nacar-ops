@@ -52,6 +52,13 @@
     tick();iv=setInterval(tick,1000);
   });
 
+  /* Franja de confianza: un mensaje cada 3,5 s */
+  var tk=document.querySelector('[data-tick]');
+  if(tk){
+    var ti=[].slice.call(tk.querySelectorAll('.zn-tick__it')),tn=0;
+    if(ti.length>1&&!rm){setInterval(function(){ti[tn].classList.remove('is-on');tn=(tn+1)%ti.length;ti[tn].classList.add('is-on');},3500);}
+  }
+
   /* Pago exprés: añade el pack elegido (con el regalo) y va directo al pago, donde salen Apple Pay y Google Pay */
   var ex=document.querySelector('[data-express]');
   if(ex&&form){
@@ -142,6 +149,10 @@
         up.querySelector('[data-up-diff]').textContent=fmt(P2-P1);
       }else up.hidden=true;
       sub.textContent=fmt(c.total_price);
+      var orig=c.items.reduce(function(a,it){return a+it.original_line_price;},0),sv=orig-c.total_price;
+      var svb=dr.querySelector('[data-cart-save]'),was=dr.querySelector('[data-cart-was]');
+      if(svb){svb.hidden=!(sv>0);if(sv>0)svb.querySelector('[data-save-amt]').textContent=fmt(sv);}
+      if(was){was.hidden=!(sv>0);was.textContent=sv>0?fmt(orig):'';}
       go.querySelector('[data-go-price]').textContent=fmt(c.total_price);
     };
     var busy=function(on){panel.classList.toggle('is-busy',on);};

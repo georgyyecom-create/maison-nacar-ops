@@ -20,12 +20,7 @@
   assign reasons = section.blocks | where: 'type', 'reason'
 -%}
 
-<div class="zn-bar">
-  <p class="zn-bar__txt">{{ S.bar_text }}</p>
-  <div class="zn-clock" data-deadline="{{ S.deadline_iso }}" aria-label="Tiempo que queda">
-    <span><b data-u="d">--</b><i>días</i></span><span><b data-u="h">--</b><i>horas</i></span><span><b data-u="m">--</b><i>min</i></span><span><b data-u="s">--</b><i>seg</i></span>
-  </div>
-</div>
+{% render 'zn-bar', text: S.bar_text, deadline: S.deadline_iso %}
 
 <header class="zn-head">
   <div class="zn-in zn-head__row">
@@ -120,12 +115,7 @@
           <button type="submit" class="zn-btn zn-btn--buy" data-buy>
             <span data-buy-price>{% render 'zn-money', cents: 4990 %}</span><span class="zn-btn__sep" aria-hidden="true"></span><span>{{ S.cta_embed }}</span>
           </button>
-          {%- if S.express_show -%}
-            <button type="button" class="zn-btn zn-btn--express" data-express hidden>
-              <span data-express-apple hidden>Pagar con <svg class="zn-apple" viewBox="0 0 17 20" aria-hidden="true"><path d="M14.1 10.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-3.9ZM11.7 3.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>Pay</span>
-              <span data-express-google hidden>Pagar con Google Pay</span>
-            </button>
-          {%- endif -%}
+          {%- if S.express_show -%}{% render 'zn-express' %}{%- endif -%}
           <div class="zn-pay">
             <p>Pago 100 % seguro · o en efectivo al recibir</p>
             <div class="zn-pay__icons">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag: class: 'zn-pay__i' }}{%- endfor -%}</div>
@@ -153,23 +143,23 @@
 
     {%- assign revs = section.blocks | where: 'type', 'review' -%}
     {%- if revs.size > 0 -%}
-      <section class="zn-revs" aria-labelledby="zn-revs-t">
-        <h2 class="zn-art__h2" id="zn-revs-t">{{ S.reviews_title }}</h2>
+      <section class="zn-arevs" aria-labelledby="zn-arevs-t">
+        <h2 class="zn-art__h2" id="zn-arevs-t">{{ S.reviews_title }}</h2>
         {%- if revs.size >= 3 -%}
           {%- assign tot = 0 -%}{%- for r in revs -%}{%- assign tot = tot | plus: r.settings.stars -%}{%- endfor -%}
           {%- assign avg10 = tot | times: 10 | divided_by: revs.size -%}
-          <p class="zn-revs__avg"><span class="zn-revs__stars" style="--r:{{ avg10 | divided_by: 10.0 }}" aria-hidden="true"></span><b>{{ avg10 | divided_by: 10 }},{{ avg10 | modulo: 10 }}</b> de 5 · {{ revs.size }} opiniones</p>
+          <p class="zn-arevs__avg"><span class="zn-arevs__stars" style="--r:{{ avg10 | divided_by: 10.0 }}" aria-hidden="true"></span><b>{{ avg10 | divided_by: 10 }},{{ avg10 | modulo: 10 }}</b> de 5 · {{ revs.size }} opiniones</p>
         {%- endif -%}
-        <ul class="zn-revs__list">
+        <ul class="zn-arevs__list">
           {%- for r in revs -%}
-            <li class="zn-rev" {{ r.shopify_attributes }}>
-              <div class="zn-rev__body">
-                <p class="zn-rev__stars" aria-label="{{ r.settings.stars }} de 5 estrellas">{%- for i in (1..5) -%}<span{% if i > r.settings.stars %} class="is-off"{% endif %}>★</span>{%- endfor -%}</p>
-                <p class="zn-rev__txt">{{ r.settings.text }}</p>
-                <p class="zn-rev__who"><b>{{ r.settings.name }}</b>{% if r.settings.place != blank %} · {{ r.settings.place }}{% endif %}{% if r.settings.verified %} <span class="zn-rev__ok">Compra verificada</span>{% endif %}</p>
+            <li class="zn-arev" {{ r.shopify_attributes }}>
+              <div class="zn-arev__body">
+                <p class="zn-arev__stars" aria-label="{{ r.settings.stars }} de 5 estrellas">{%- for i in (1..5) -%}<span{% if i > r.settings.stars %} class="is-off"{% endif %}>★</span>{%- endfor -%}</p>
+                <p class="zn-arev__txt">{{ r.settings.text }}</p>
+                <p class="zn-arev__who"><b>{{ r.settings.name }}</b>{% if r.settings.place != blank %} · {{ r.settings.place }}{% endif %}{% if r.settings.verified %} <span class="zn-arev__ok">Compra verificada</span>{% endif %}</p>
               </div>
               {%- if r.settings.photo -%}
-                <a class="zn-rev__ph" href="{{ r.settings.photo | image_url: width: 1200 }}" target="_blank" rel="noopener" aria-label="Ver la foto de {{ r.settings.name }}">{{ r.settings.photo | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,200', sizes: '80px', alt: '' }}</a>
+                <a class="zn-arev__ph" href="{{ r.settings.photo | image_url: width: 1200 }}" target="_blank" rel="noopener" aria-label="Ver la foto de {{ r.settings.name }}">{{ r.settings.photo | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,200', sizes: '80px', alt: '' }}</a>
               {%- endif -%}
             </li>
           {%- endfor -%}

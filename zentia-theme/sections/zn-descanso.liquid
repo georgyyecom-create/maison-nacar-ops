@@ -16,12 +16,7 @@
   assign gift_guide = all_products['guia-dormir-de-lado']
 -%}
 
-<div class="zn-bar">
-  <p class="zn-bar__txt">{{ S.bar_text }}</p>
-  <div class="zn-clock" data-deadline="{{ S.deadline_iso }}" aria-label="Tiempo que queda">
-    <span><b data-u="d">--</b><i>días</i></span><span><b data-u="h">--</b><i>horas</i></span><span><b data-u="m">--</b><i>min</i></span><span><b data-u="s">--</b><i>seg</i></span>
-  </div>
-</div>
+{% render 'zn-bar', text: S.bar_text, deadline: S.deadline_iso %}
 
 <header class="zn-head">
   <div class="zn-in zn-head__row">
@@ -31,7 +26,7 @@
     </a>
   </div>
 </header>
-<p class="zn-sub">{{ S.sub_text }}</p>
+{% render 'zn-ticker', text: S.sub_text %}
 
 <main class="zn-main">
   <section class="zn-pdp zn-in">
@@ -68,7 +63,8 @@
 
       <div class="zn-offer">
         <p class="zn-offer__head"><span>{{ S.offer_title }}</span></p>
-        <p class="zn-offer__sub">{{ S.offer_sub }} <b data-short-clock>—</b></p>
+        {%- assign mi = S.deadline_iso | date: '%m' | plus: 0 | minus: 1 -%}{%- assign mn = 'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre' | split: ',' -%}
+        <p class="zn-offer__sub">Pack de 2 con antifaz de regalo hasta el <b>{{ S.deadline_iso | date: '%-d' }} de {{ mn[mi] }}</b>.</p>
 
         {%- form 'product', product, id: 'zn-form', class: 'zn-form' -%}
           <input type="hidden" name="return_to" value="/checkout">
@@ -82,11 +78,12 @@
           <button type="submit" class="zn-btn zn-btn--buy" data-buy>
             <span data-buy-price>{% render 'zn-money', cents: 4990 %}</span><span class="zn-btn__sep" aria-hidden="true"></span><span>{{ S.cta }}</span>
           </button>
+          {% render 'zn-express' %}
         {%- endform -%}
 
         <div class="zn-pay">
-          {%- if S.show_cod -%}<span class="zn-pay__cod">{{ S.cod_text }}</span>{%- endif -%}
-          <span class="zn-pay__icons">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'zn-pay__icon' }}{%- endfor -%}</span>
+          <p>Pago 100 % seguro · o en efectivo al recibir</p>
+          <div class="zn-pay__icons">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'zn-pay__i' }}{%- endfor -%}</div>
         </div>
 
         <ul class="zn-assure">

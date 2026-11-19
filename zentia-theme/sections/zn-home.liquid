@@ -10,12 +10,7 @@
   endif
 -%}
 
-<div class="zn-bar">
-  <p class="zn-bar__txt">{{ S.bar_text }}</p>
-  <div class="zn-clock" data-deadline="{{ S.deadline_iso }}" aria-label="Tiempo que queda">
-    <span><b data-u="d">--</b><i>días</i></span><span><b data-u="h">--</b><i>horas</i></span><span><b data-u="m">--</b><i>min</i></span><span><b data-u="s">--</b><i>seg</i></span>
-  </div>
-</div>
+{% render 'zn-bar', text: S.bar_text, deadline: S.deadline_iso %}
 
 <header class="zn-head">
   <div class="zn-in zn-head__row">

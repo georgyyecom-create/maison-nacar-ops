@@ -44,9 +44,11 @@
       </div>
     </div>
     <footer class="zn-cart__foot" data-cart-foot hidden>
-      <p class="zn-cart__sum"><span>Subtotal <small>· envío gratis desde 40 €</small></span><b data-cart-sub>—</b></p>
+      <p class="zn-cart__save" data-cart-save hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10.5 10.5 3H17v6.5L9.5 17z"/><circle cx="13.5" cy="6.5" r="1.3"/></svg><span>Ahorras <b data-save-amt></b> con el Black Friday</span></p>
+      <p class="zn-cart__sum"><span>Subtotal <small>· envío gratis desde 40 €</small></span><span class="zn-cart__tot"><s data-cart-was hidden></s><b data-cart-sub>—</b></span></p>
       <a class="zn-btn zn-btn--buy zn-cart__go" href="/checkout" data-cart-go>Finalizar pedido · <span data-go-price>—</span></a>
       <p class="zn-cart__note">{{ cod_text | default: 'Pagas al recibir o con tarjeta' }} · 60 noches de prueba</p>
+      <div class="zn-cart__pay">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag: class: 'zn-pay__i' }}{%- endfor -%}</div>
     </footer>
   </aside>
 </div>

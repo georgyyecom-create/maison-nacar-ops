@@ -1,0 +1,21 @@
+{%- doc -%}
+  Barra superior de oferta con cuenta atrás real en una sola línea.
+  @param {string} text - Texto de la oferta (se le quita «Black Friday ·» y «· termina en»)
+  @param {string} deadline - Fecha límite real en ISO
+{%- enddoc -%}
+{%- liquid
+  assign msg = text | remove: 'Black Friday · ' | remove: 'Black Friday: ' | remove: ' · termina en' | remove: ' termina en' | strip
+  assign is_bf = false
+  if text contains 'Black Friday'
+    assign is_bf = true
+  endif
+-%}
+<div class="zn-bar" role="region" aria-label="Oferta">
+  <p class="zn-bar__txt">{%- if is_bf -%}<span class="zn-bar__tag">Black Friday</span>{%- endif -%}<span class="zn-bar__msg">{{ msg }}</span></p>
+  <div class="zn-bar__time">
+    <span class="zn-bar__lbl">Termina en</span>
+    <div class="zn-clock" data-deadline="{{ deadline }}" aria-label="Tiempo que queda">
+      <span><b data-u="d">--</b><i>d</i></span><span><b data-u="h">--</b><i>h</i></span><span><b data-u="m">--</b><i>min</i></span><span><b data-u="s">--</b><i>s</i></span>
+    </div>
+  </div>
+</div>
