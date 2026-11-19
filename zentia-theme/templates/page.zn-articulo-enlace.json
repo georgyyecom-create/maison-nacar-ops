@@ -108,7 +108,10 @@
         "bridge_after": "La almohada doblada falla en las cuatro. Por eso elegimos este cojín para Zentia.",
         "offer_sub": "Uno para ti y otro para tu pareja (o para regalar): 24,95 € cada uno, envío gratis y un antifaz de regalo.",
         "deal_line": "Uno para ti y otro para tu pareja: 2 cojines por 49,90 €, envío gratis y antifaz de regalo. O 1 por 29,90 €.",
-        "img_after": "shopify://shop_images/zentia-f09-con-cojin.jpg"
+        "img_after": "shopify://shop_images/zentia-f09-con-cojin.jpg",
+        "bar_text": "Black Friday · 2 cojines + antifaz de regalo · termina en",
+        "deadline_iso": "2026-11-30T23:59:00+01:00",
+        "guide_name": "Guía PDF «Dormir de lado, bien»"
       }
     }
   },
