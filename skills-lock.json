@@ -93,6 +93,13 @@
       "skillPath": "skills/find-skills/SKILL.md",
       "computedHash": "7bc223e2aafbdbf6e50ea243ba6ef67fe432bb069ab439fea0390795dac0bf7f"
     },
+    "last30days": {
+      "source": "mvanhorn/last30days-skill",
+      "commit": "262391603f3c2807606bffa0170547273fc273e5",
+      "sourceType": "github",
+      "skillPath": "skills/last30days/SKILL.md",
+      "computedHash": "67fd032aef64b84b23c1f519a1cd0a0073f56fee87c36448150a2e7169a2c7f1"
+    },
     "offers": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
