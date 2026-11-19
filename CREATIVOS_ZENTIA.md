@@ -1,6 +1,6 @@
 # Creativos Zentia · Black Friday 2026 (skill ad-creative)
 Formato: imagen 4:5 (1080×1350) para el feed. Para Stories se rehace en 9:16 cuando el 4:5 esté aprobado.
-Enlace base del artículo A: https://zentiadescanso.com/pages/zentia-5-razones
+Enlace base del artículo A: https://zentiadescanso.com/pages/dormir-de-lado
 UTM: ?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=<id>
 
 ## Anuncio 1 · Pizarra «Lo que le pasa a tu cuerpo» (→ artículo A)
@@ -29,7 +29,7 @@ Hipótesis: CTR de enlace ≥ 1,5 % y el mejor coste por visita de los 4 anuncio
 **Titular** (≤ 40): «Por qué te despiertas a las 4 de lado» (37)
 **Descripción** (≤ 30): «Lectura de 3 minutos» (20)
 **Botón:** Más información
-**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a1_pizarra
+**Enlace:** https://zentiadescanso.com/pages/dormir-de-lado?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a1_pizarra
 
 ## Anuncio 2 · «Antes de gastarte 899 € en un colchón» (→ artículo A)
 Origen: Chillow FR («Ce n'est pas votre matelas», 79–91 días) y Cellsius FR («Votre matelas n'est pas le problème», 106 días). Enlaza con la razón 4 y la foto A05.
@@ -50,7 +50,7 @@ Hipótesis: mejor CTR que el anuncio 1 entre quienes ya se han planteado cambiar
 **Titular:** «Antes de cambiar de colchón, lee esto» (37)
 **Descripción:** «Lectura de 3 minutos» (20)
 **Botón:** Más información
-**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a2_colchon
+**Enlace:** https://zentiadescanso.com/pages/dormir-de-lado?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a2_colchon
 
 ## Anuncio 3 · «3 errores si duermes de lado» (→ artículo A)
 Origen: Chillow FR «Les 3 erreurs quand on dort sur le côté» (91 días, vídeo, y 52 días en estático). Enlaza con las razones 1, 3 y 4.
@@ -75,7 +75,7 @@ Hipótesis: el formato de lista de errores da el CTR más alto de los 4 anuncios
 **Titular:** «3 errores si duermes de lado» (28)
 **Descripción:** «Lectura de 3 minutos» (20)
 **Botón:** Más información
-**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a3_errores
+**Enlace:** https://zentiadescanso.com/pages/dormir-de-lado?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a3_errores
 
 ## Anuncio 4 · Radiografía (→ artículo A)
 Origen: ángulo propio (nadie en la competencia usa radiografías → diferencia). Reutiliza la foto A02 del artículo, así el anuncio y la página se ven iguales.
@@ -94,7 +94,7 @@ Hipótesis: el mejor «thumb-stop» (parada en el scroll) de los 5, por ser una 
 **Titular:** «La cadera al dormir de lado» (26)
 **Descripción:** «Lectura de 3 minutos» (20)
 **Botón:** Más información
-**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a4_radiografia
+**Enlace:** https://zentiadescanso.com/pages/dormir-de-lado?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a4_radiografia
 
 ### Revisión de políticas de Meta (18-nov)
 Norma de **atributos personales**: un anuncio no puede afirmar o insinuar que quien lo ve tiene una dolencia («tu cadera», «te despiertas con la cadera cargada»). Cambios: imagen del anuncio 4 → «Así queda la cadera a las 4 de la mañana»; textos de los anuncios 1 y 4 sin dolencia en 2.ª persona. «Si duermes de lado» se puede (es una postura, no una dolencia).
@@ -127,7 +127,7 @@ Regla: persona de IA = escena «POV», nunca presentada como clienta ni con «yo
 **Titular:** «La almohada doblada no aguanta la noche» (39)
 **Descripción:** «Lectura de 3 minutos» (20)
 **Botón:** Más información
-**Enlace:** https://zentiadescanso.com/pages/zentia-5-razones?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a5_video_pov
+**Enlace:** https://zentiadescanso.com/pages/dormir-de-lado?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a5_video_pov
 
 ## Anuncio 6 · Oferta Black Friday en azul marino (→ ficha)
 Origen: Cellsius DE/FR (oferta azul marino con la caja de cojines, 106–127 días) y Sleepsake («Both sides of the bed», pack de 2). Sin la cuenta atrás falsa de Cellsius: fecha real del 30-nov.

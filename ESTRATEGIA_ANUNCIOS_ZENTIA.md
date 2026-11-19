@@ -3,7 +3,7 @@
 **Oferta, igual en todos:** Black Friday · pack de 2 cojines por 49,90 € + antifaz de regalo (+ guía PDF) · pago contra reembolso · envío desde España · hasta el 30-nov a las 23:59.
 
 ## Páginas
-- **Artículo A** (`/pages/zentia-5-razones`, compra dentro) para los ángulos de problema (1 y 2). El artículo B (botón a la ficha) se queda guardado y no se prueba ahora: con unos 150 € no hay datos para comparar las dos páginas además de los ángulos.
+- **Artículo A** (`/pages/dormir-de-lado`, compra dentro) para los ángulos de problema (1 y 2). El artículo B (botón a la ficha) se queda guardado y no se prueba ahora: con unos 150 € no hay datos para comparar las dos páginas además de los ángulos.
 - **Ficha** (`/products/kit-dormir-de-lado`) para los ángulos de compra directa (3 y 4).
 
 ## Los 4 ángulos
