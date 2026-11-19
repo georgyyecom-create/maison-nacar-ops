@@ -147,3 +147,33 @@ Hipótesis: mejor coste por compra de los 6 (va a quien ya quiere comprar), aunq
 **Descripción:** «Pagas al recibir» (16)
 **Botón:** Comprar
 **Enlace:** https://zentiadescanso.com/products/kit-dormir-de-lado?utm_source=meta&utm_medium=paid&utm_campaign=zentia_bf&utm_content=a6_oferta_bf
+
+## Anuncio 5 (alternativa): vídeo de anatomía 3D adaptado (19-nov · skills video y ad-creative)
+**Derechos:** la animación es de otro creador de TikTok. Solo se lanza con su permiso por escrito o licencia; si no, se hace igual con animación de stock (Envato/Adobe Stock) o con clips propios de Veo. Sin permiso, el riesgo es una denuncia de propiedad intelectual y la restricción de la única cuenta publicitaria.
+
+**Corte base (22 s, 1080×1920, sin audio, subtítulos ingleses difuminados):** tramos del original 0–3,5 s · 16–24,5 s · 45–50 s · 51–56 s. Archivo en el scratchpad de la sesión (`vid/corte-base.mp4`).
+
+| Tiempo | Imagen | Voz en off (español) |
+|---|---|---|
+| 0–3,5 | Mujer tumbada de lado con la cadera en 3D | «Mucha gente que duerme de lado se despierta con la cadera cargada. Mira por qué.» |
+| 3,5–12 | Pelvis con punto rojo y mujer de pie con flechas | «Al tumbarte de lado, el peso cae sobre la parte de fuera de la cadera. Y la pierna de arriba se va hacia delante y gira la cadera toda la noche.» |
+| 12–17 | Tendón con flechas de presión | «Horas de presión sobre el mismo punto.» |
+| 17–22 | Mano en la cadera, en la cama | «Por eso muchas personas duermen con un cojín entre las rodillas: las piernas quedan alineadas.» |
+| 22–27 | Tarjeta final `a6-oferta-bf-9x16.jpg` (o vídeo del cojín) | «Black Friday en Zentia: dos cojines y un antifaz de regalo por 49,90 €. Pagas al recibir. Hasta el 30 de noviembre.» |
+
+Nada de «síndrome», «cura», «alivia el dolor» ni «tu cadera» en el texto del anuncio (política de atributos personales de Meta).
+
+**CapCut, paso a paso:**
+1. Importar `corte-base.mp4` y añadir al final la imagen `a6-oferta-bf-9x16.jpg` (5 s).
+2. Texto → pegar cada frase de la voz → «Texto a voz» → voz en español de España (femenina, natural) → ajustar cada clip a su tramo (velocidad 1,0–1,15×).
+3. Subtítulos → «Subtítulos automáticos» en español → estilo blanco con borde negro, una o dos palabras por línea, **colocados sobre la banda difuminada** (tapa del todo los ingleses).
+4. Música suave al 10–15 % (de la biblioteca comercial de CapCut, no tendencias de TikTok).
+5. Exportar 1080×1920, 30 fps.
+
+**Copy del anuncio:**
+- Texto principal: «Dormir de lado sin nada entre las rodillas hace que la pierna de arriba caiga y gire la cadera toda la noche. Un cojín entre las rodillas la mantiene en su sitio. Black Friday: 2 cojines + antifaz de regalo por 49,90 €. Pagas al recibir.»
+- Titular: «2 cojines + antifaz · 49,90 €» · Descripción: «Contra reembolso · hasta el 30-nov»
+- Enlace: `https://zentiadescanso.com/pages/dormir-de-lado?utm_source=meta&utm_medium=paid&utm_campaign=bf_zentia&utm_content=a5_video_explica`
+
+**Mensaje para pedir permiso al creador (DM de TikTok):**
+> Hi! I run a small sleep brand in Spain. I love your 3D hip video. Would you allow us to use it with a Spanish voice-over in a paid ad on Instagram/Facebook, credited to you? Happy to pay a licence fee. Thanks!
