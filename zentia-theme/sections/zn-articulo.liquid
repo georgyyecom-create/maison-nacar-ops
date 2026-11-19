@@ -51,6 +51,15 @@
       <p>{{ S.summary }}</p>
     </aside>
 
+    {%- if S.early_show -%}
+      <a class="zn-art__early" href="{{ go }}">
+        <span class="zn-art__early-tag">{{ S.early_tag }}</span>
+        <b>{{ S.early_text }}</b>
+        <span class="zn-art__early-sub">{{ S.early_sub }}</span>
+        <span class="zn-art__early-go">{{ S.early_cta }} <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12m0 0-5-5m5 5 5-5"/></svg></span>
+      </a>
+    {%- endif -%}
+
     <ol class="zn-art__list">
       {%- for b in reasons -%}
         <li class="zn-art__item" {{ b.shopify_attributes }}>
@@ -95,6 +104,12 @@
 
     {%- if embed -%}
       <section class="zn-art__buy zn-offer" id="comprar">
+        <div class="zn-dclock" aria-label="Tiempo que queda de oferta">
+          <p>{{ S.clock_text }}</p>
+          <div class="zn-clock zn-clock--dark" data-deadline="{{ S.deadline_iso }}">
+            <span><b data-u="d">--</b><i>días</i></span><span><b data-u="h">--</b><i>horas</i></span><span><b data-u="m">--</b><i>min</i></span><span><b data-u="s">--</b><i>seg</i></span>
+          </div>
+        </div>
         <p class="zn-offer__head"><span>{{ S.offer_title }}</span></p>
         <p class="zn-offer__sub">{{ S.offer_sub }}</p>
         {%- form 'product', p, id: 'zn-form', class: 'zn-form' -%}
@@ -105,11 +120,27 @@
           <button type="submit" class="zn-btn zn-btn--buy" data-buy>
             <span data-buy-price>{% render 'zn-money', cents: 4990 %}</span><span class="zn-btn__sep" aria-hidden="true"></span><span>{{ S.cta_embed }}</span>
           </button>
+          {%- if S.express_show -%}
+            <button type="button" class="zn-btn zn-btn--express" data-express hidden>
+              <span data-express-apple hidden>Pagar con <svg class="zn-apple" viewBox="0 0 17 20" aria-hidden="true"><path d="M14.1 10.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.6-1-2.6-3.9ZM11.7 3.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>Pay</span>
+              <span data-express-google hidden>Pagar con Google Pay</span>
+            </button>
+          {%- endif -%}
+          <div class="zn-pay">
+            <p>Pago 100 % seguro · o en efectivo al recibir</p>
+            <div class="zn-pay__icons">{%- for t in shop.enabled_payment_types -%}{{ t | payment_type_svg_tag: class: 'zn-pay__i' }}{%- endfor -%}</div>
+          </div>
         {%- endform -%}
         <p class="zn-art__guar">{{ S.guar_line }}</p>
       </section>
     {%- else -%}
       <section class="zn-art__buy zn-art__buy--link">
+        <div class="zn-dclock" aria-label="Tiempo que queda de oferta">
+          <p>{{ S.clock_text }}</p>
+          <div class="zn-clock zn-clock--dark" data-deadline="{{ S.deadline_iso }}">
+            <span><b data-u="d">--</b><i>días</i></span><span><b data-u="h">--</b><i>horas</i></span><span><b data-u="m">--</b><i>min</i></span><span><b data-u="s">--</b><i>seg</i></span>
+          </div>
+        </div>
         <p class="zn-offer__head"><span>{{ S.offer_title }}</span></p>
         <p class="zn-art__deal">{{ S.deal_line }}</p>
         <div class="zn-cod"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg><p><b>{{ S.cod_title }}</b><span>{{ S.cod_sub }}</span></p></div>
@@ -119,6 +150,32 @@
     {%- endif -%}
 
     {%- if S.wa_number != blank -%}<a class="zn-wa-line" href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg><span>¿Dudas? <b>Escríbenos por WhatsApp</b></span></a>{%- endif -%}
+
+    {%- assign revs = section.blocks | where: 'type', 'review' -%}
+    {%- if revs.size > 0 -%}
+      <section class="zn-revs" aria-labelledby="zn-revs-t">
+        <h2 class="zn-art__h2" id="zn-revs-t">{{ S.reviews_title }}</h2>
+        {%- if revs.size >= 3 -%}
+          {%- assign tot = 0 -%}{%- for r in revs -%}{%- assign tot = tot | plus: r.settings.stars -%}{%- endfor -%}
+          {%- assign avg10 = tot | times: 10 | divided_by: revs.size -%}
+          <p class="zn-revs__avg"><span class="zn-revs__stars" style="--r:{{ avg10 | divided_by: 10.0 }}" aria-hidden="true"></span><b>{{ avg10 | divided_by: 10 }},{{ avg10 | modulo: 10 }}</b> de 5 · {{ revs.size }} opiniones</p>
+        {%- endif -%}
+        <ul class="zn-revs__list">
+          {%- for r in revs -%}
+            <li class="zn-rev" {{ r.shopify_attributes }}>
+              <div class="zn-rev__body">
+                <p class="zn-rev__stars" aria-label="{{ r.settings.stars }} de 5 estrellas">{%- for i in (1..5) -%}<span{% if i > r.settings.stars %} class="is-off"{% endif %}>★</span>{%- endfor -%}</p>
+                <p class="zn-rev__txt">{{ r.settings.text }}</p>
+                <p class="zn-rev__who"><b>{{ r.settings.name }}</b>{% if r.settings.place != blank %} · {{ r.settings.place }}{% endif %}{% if r.settings.verified %} <span class="zn-rev__ok">Compra verificada</span>{% endif %}</p>
+              </div>
+              {%- if r.settings.photo -%}
+                <a class="zn-rev__ph" href="{{ r.settings.photo | image_url: width: 1200 }}" target="_blank" rel="noopener" aria-label="Ver la foto de {{ r.settings.name }}">{{ r.settings.photo | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,200', sizes: '80px', alt: '' }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </section>
+    {%- endif -%}
 
     <section class="zn-art__faq">
       <h2 class="zn-art__h2">{{ S.faq_title }}</h2>
@@ -197,6 +254,14 @@
     { "type": "text", "id": "guar_line", "label": "Línea de garantía", "default": "60 noches de prueba. Si no te convence, te devolvemos el dinero." },
     { "type": "text", "id": "wa_number", "label": "WhatsApp (con prefijo, sin +)", "default": "34621390548" },
     { "type": "text", "id": "wa_text", "label": "Mensaje de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" }, { "type": "checkbox", "id": "guide_show", "label": "Carrito: mostrar la guía PDF de regalo (solo si ya existe)", "default": true }, { "type": "text", "id": "guide_name", "label": "Carrito: nombre de la guía", "default": "Guía PDF para dormir mejor de lado" }, { "type": "text", "id": "guide_price", "label": "Carrito: precio de la guía vendida por separado (vacío = solo Gratis)" },
+    { "type": "checkbox", "id": "early_show", "label": "Mostrar el aviso de oferta tras el resumen", "default": true },
+    { "type": "text", "id": "early_tag", "label": "Aviso de oferta · etiqueta", "default": "Black Friday" },
+    { "type": "text", "id": "early_text", "label": "Aviso de oferta · texto", "default": "2 cojines + antifaz de regalo por 49,90 €" },
+    { "type": "text", "id": "early_sub", "label": "Aviso de oferta · línea pequeña", "default": "Envío gratis · Pagas al recibir" },
+    { "type": "text", "id": "early_cta", "label": "Aviso de oferta · enlace", "default": "Ver la oferta" },
+    { "type": "text", "id": "clock_text", "label": "Cuenta atrás · texto", "default": "La oferta de Black Friday termina en" },
+    { "type": "checkbox", "id": "express_show", "label": "Mostrar el botón de Apple Pay / Google Pay", "default": true },
+    { "type": "text", "id": "reviews_title", "label": "Reseñas · título (solo sale si hay reseñas)", "default": "Lo que dicen quienes ya lo usan" },
     { "type": "text", "id": "faq_title", "label": "Preguntas · título", "default": "Lo que más nos preguntan" },
     { "type": "textarea", "id": "disclaimer", "label": "Aviso final", "default": "Este artículo es publicidad de Zentia. No es un consejo médico. Si tienes dolor que no se va, consulta a tu médico." },
     { "type": "text", "id": "sticky_text", "label": "Barra fija · texto", "default": "2 cojines por 49,90 € + antifaz" },
@@ -204,6 +269,7 @@
   ],
   "blocks": [
     { "type": "reason", "name": "Razón", "settings": [ { "type": "text", "id": "title", "label": "Título", "default": "Razón" }, { "type": "image_picker", "id": "image", "label": "Foto" }, { "type": "text", "id": "label", "label": "Texto del hueco de foto", "default": "FOTO" }, { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Texto.</p>" }, { "type": "text", "id": "fix", "label": "Cómo lo resuelve el cojín", "default": "Cómo lo resuelve" } ] },
+    { "type": "review", "name": "Reseña real", "settings": [ { "type": "paragraph", "content": "Solo reseñas reales de clientes, con su permiso." }, { "type": "text", "id": "name", "label": "Nombre (o nombre e inicial)", "default": "Nombre" }, { "type": "text", "id": "place", "label": "Ciudad" }, { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 }, { "type": "textarea", "id": "text", "label": "Reseña", "default": "Texto de la reseña" }, { "type": "image_picker", "id": "photo", "label": "Foto del cliente (opcional)" }, { "type": "checkbox", "id": "verified", "label": "Compra verificada", "default": true } ] },
     { "type": "faq", "name": "Pregunta", "settings": [ { "type": "text", "id": "q", "label": "Pregunta", "default": "Pregunta" }, { "type": "richtext", "id": "a", "label": "Respuesta", "default": "<p>Respuesta.</p>" } ] }
   ]
 }

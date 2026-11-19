@@ -37,18 +37,36 @@
     var r=form&&form.querySelectorAll('input[name=pack]')[+a.dataset.pick-1];if(r){r.checked=true;r.dispatchEvent(new Event('change',{bubbles:true}));}
   });});
 
-  var clk=document.querySelector('[data-deadline]'),short=document.querySelector('[data-short-clock]');
-  if(clk){
-    var end=new Date(clk.dataset.deadline).getTime(),u={};
+  var short=document.querySelector('[data-short-clock]');
+  document.querySelectorAll('[data-deadline]').forEach(function(clk,ci){
+    var end=new Date(clk.dataset.deadline).getTime(),u={},iv;
+    if(isNaN(end))return;
     clk.querySelectorAll('[data-u]').forEach(function(b){u[b.dataset.u]=b;});
     var p2=function(n){return String(n).padStart(2,'0');};
     var tick=function(){
       var t=Math.max(0,end-Date.now()),s=Math.floor(t/1e3),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);
-      if(t<=0){clk.closest('.zn-bar').classList.add('is-over');if(short)short.closest('p').hidden=true;return;}
+      if(t<=0){var box=clk.closest('.zn-bar,.zn-dclock');if(box)box.classList.add('is-over');if(short&&ci===0)short.closest('p').hidden=true;clearInterval(iv);return;}
       u.d.textContent=p2(d);u.h.textContent=p2(h);u.m.textContent=p2(m);u.s.textContent=p2(s%60);
-      if(short)short.textContent=(d?d+' d ':'')+p2(h)+' h '+p2(m)+' min';
+      if(short&&ci===0)short.textContent=(d?d+' d ':'')+p2(h)+' h '+p2(m)+' min';
     };
-    tick();setInterval(tick,1000);
+    tick();iv=setInterval(tick,1000);
+  });
+
+  /* Pago exprés: añade el pack elegido (con el regalo) y va directo al pago, donde salen Apple Pay y Google Pay */
+  var ex=document.querySelector('[data-express]');
+  if(ex&&form){
+    var ios=!!window.ApplePaySession,and=/Android/i.test(navigator.userAgent);
+    if(ios||and){
+      ex.hidden=false;ex.querySelector(ios?'[data-express-apple]':'[data-express-google]').hidden=false;
+      if(ios)ex.classList.add('is-apple');
+      ex.addEventListener('click',function(){
+        var r=form.querySelector('input[name=pack]:checked'),q=r?+r.closest('.zn-pack').dataset.qty:1,v=+form.querySelector('.zn-packs').dataset.v1;
+        ex.classList.add('is-busy');
+        var done=function(){location.href='/checkout';};
+        if(window.ZNCart){ZNCart.add(v,q).then(done).catch(function(){ex.classList.remove('is-busy');form.submit();});}
+        else form.submit();
+      });
+    }
   }
 
   var eta=document.querySelector('[data-eta]');

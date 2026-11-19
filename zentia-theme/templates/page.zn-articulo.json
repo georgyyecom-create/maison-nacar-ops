@@ -58,7 +58,7 @@
           "type": "faq",
           "settings": {
             "q": "¿Cómo pago?",
-            "a": "<p>Contra reembolso: pagas en efectivo al repartidor cuando te llega. También puedes pagar con tarjeta al hacer el pedido.</p>"
+            "a": "<p>Contra reembolso: pagas en efectivo al repartidor cuando te llega. También puedes pagar con tarjeta, Apple Pay o Google Pay al hacer el pedido.</p>"
           }
         },
         "q2": {
@@ -106,8 +106,10 @@
         "bridge_title": "Por qué la almohada doblada (y muchos cojines baratos) no funcionan",
         "bridge_items": "Forma de corazón que encaja entre rodillas y muslos, no un rectángulo\nEspuma firme que recupera su forma y no se aplasta en una semana\nQue no se escape de entre las rodillas cuando te das la vuelta\nFunda transpirable que se quita y va a la lavadora",
         "bridge_after": "La almohada doblada falla en las cuatro. Por eso elegimos este cojín para Zentia.",
+        "offer_title": "Oferta Black Friday",
         "offer_sub": "Uno para ti y otro para tu pareja (o para regalar): 24,95 € cada uno, envío gratis y un antifaz de regalo.",
         "deal_line": "Uno para ti y otro para tu pareja: 2 cojines por 49,90 €, envío gratis y antifaz de regalo. O 1 por 29,90 €.",
+        "badge2": "Oferta Black Friday",
         "img_after": "shopify://shop_images/zentia-f09-con-cojin.jpg",
         "bar_text": "Black Friday · 2 cojines + antifaz de regalo · termina en",
         "deadline_iso": "2026-11-30T23:59:00+01:00",
