@@ -152,3 +152,12 @@ Objetivo: pasar del 15–25 % de rechazos a menos del 10 %. Cada rechazo cuesta 
 3. **Día 3 (~80 €):** los anuncios con **menos de 8 €** de gasto se duplican en un segundo conjunto, «Segunda oportunidad», a **10 €/día** con 2–3 anuncios. El Principal baja a 30 €/día (el total sigue en 40 €). En el Principal se pausan los originales de esos anuncios.
 4. **Segunda oportunidad: 3 días como máximo** con las mismas reglas (15 € y CTR < 0,8 % → fuera; 25 € sin carrito → fuera). Si alguno logra un carrito y una compra a ≤ 25 €, se duplica en el Principal y se apaga el conjunto.
 5. Nunca más de 2 conjuntos a la vez. Con 40 €/día, más conjuntos se quedan todos sin datos.
+
+## Horizonte hasta Reyes (19-nov)
+Meta del dueño: 500 cojines (~250 pedidos) antes del 6-ene. Estimación: 10–15 % (antes de Navidad, 5–10 %). Requiere CPA ≤ 25 € en la prueba.
+| Fechas | Plan |
+|---|---|
+| 20–30 nov | Prueba + BF (40–70 €/día). Meta: 20 pedidos a CPA ≤ 25 € |
+| 1–15 dic | Si se cumple: ángulo «regalo de Navidad para tus padres», +20 % cada 48 h |
+| 16–25 dic | Bajar presupuesto (ya no llega a Nochebuena); creativos de Reyes |
+| 26 dic–2 ene | Empujón de Reyes (CPM más bajos tras Navidad). Último pedido para Reyes: 2-ene |
