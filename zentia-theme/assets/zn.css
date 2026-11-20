@@ -141,15 +141,15 @@ body.zn{margin:0;background:var(--zn-bg);color:var(--zn-text);font:400 16px/1.55
 .zn-eta__dot{flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:var(--zn-ok)}
 
 /* Mini reseña junto a la compra */
-.zn-mini{position:relative;margin-top:16px;border:1px solid var(--zn-line);border-radius:var(--zn-r);background:var(--zn-soft);min-height:92px}
-.zn-mini__card{display:none;grid-template-columns:auto 1fr;gap:12px;align-items:center;margin:0;padding:14px 48px 14px 14px}
-.zn-mini__card.is-on{display:grid}
-.zn-mini__img{width:56px;height:56px;border-radius:50%;object-fit:cover}
-.zn-mini figcaption{display:grid;gap:3px;font-size:13.5px;line-height:1.4}
-.zn-mini figcaption b{color:var(--zn-ink)}
-.zn-mini__nav{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:grid;gap:6px}
-.zn-mini__nav button{width:30px;height:30px;border-radius:50%;border:1px solid var(--zn-line);background:#fff;color:var(--zn-navy);font-size:18px;line-height:1;cursor:pointer;transition:transform 160ms var(--ease-out)}
-.zn-mini__nav button:active{transform:scale(.94)}
+.zn-mini{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:16px -16px 0;padding:2px 16px 6px;scroll-padding-inline:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.zn-mini::-webkit-scrollbar{display:none}
+.zn-mini__card{flex:0 0 84%;max-width:340px;scroll-snap-align:start;display:flex;gap:12px;align-items:center;margin:0;padding:12px 14px;border:1px solid var(--zn-line);border-radius:var(--zn-r);background:var(--zn-soft)}
+.zn-mini__card:only-child{flex-basis:100%}
+.zn-mini figcaption{flex:1;min-width:0;display:grid;gap:4px;font-size:14px;line-height:1.4;color:var(--zn-ink)}
+.zn-mini__txt{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.zn-mini figcaption b{font-size:13px}
+.zn-mini figcaption i{font-style:normal;font-weight:400;color:var(--zn-muted)}
+.zn-mini__img{flex:0 0 64px;width:64px;height:64px;border-radius:12px;object-fit:cover}
 
 /* Desplegables */
 .zn-acc{margin-top:18px;border-top:1px solid var(--zn-line)}
@@ -207,8 +207,6 @@ body.zn{margin:0;background:var(--zn-bg);color:var(--zn-text);font:400 16px/1.55
 .zn-guar__seal b{font:600 40px/1 var(--zn-serif);color:#fff}
 .zn-guar__seal span{font:700 11px/1.2 var(--zn-font);letter-spacing:.14em;text-transform:uppercase}
 
-.zn-revs{padding-block:52px}
-.zn-revs__grid{display:grid;gap:14px;margin-top:24px}
 @media (min-width:760px){.zn-revs__grid{grid-template-columns:repeat(3,1fr)}}
 .zn-rev{display:grid;gap:10px;align-content:start;padding:16px;border:1px solid var(--zn-line);border-radius:var(--zn-r-img);background:#fff}
 .zn-rev__img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px}

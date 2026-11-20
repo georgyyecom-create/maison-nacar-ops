@@ -95,15 +95,19 @@
         <p class="zn-eta" data-eta data-min="{{ S.eta_min }}" data-max="{{ S.eta_max }}"><span class="zn-eta__dot" aria-hidden="true"></span><span>Pide hoy y llega entre el <b data-eta-a>—</b> y el <b data-eta-b>—</b></span></p>
       </div>
 
-      {%- if S.show_reviews and review_blocks.size > 0 -%}
-        <div class="zn-mini" data-mini>
-          {%- for b in review_blocks limit: 5 -%}
-            <figure class="zn-mini__card{% if forloop.first %} is-on{% endif %}" {{ b.shopify_attributes }}>
-              {%- if b.settings.image != blank -%}{{ b.settings.image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'zn-mini__img', alt: b.settings.name }}{%- endif -%}
-              <figcaption><b>{{ b.settings.name }}</b> <span class="zn-stars zn-stars--s" style="--r: {{ b.settings.stars }}" aria-label="{{ b.settings.stars }} de 5">★★★★★</span><span>{{ b.settings.text | truncate: 140 }}</span></figcaption>
+            {%- if review_blocks.size > 0 -%}
+        <div class="zn-mini" role="region" aria-label="Opiniones de clientes">
+          {%- for b in review_blocks limit: 12 -%}
+            {%- if b.settings.name == 'Nombre' or b.settings.text == 'Texto de la reseña' -%}{%- continue -%}{%- endif -%}
+            <figure class="zn-mini__card" {{ b.shopify_attributes }}>
+              <figcaption>
+                <span class="zn-stars zn-stars--s" style="--r: {{ b.settings.stars }}" aria-label="{{ b.settings.stars }} de 5">★★★★★</span>
+                <span class="zn-mini__txt">{{ b.settings.text | strip_html | truncate: 160 }}</span>
+                <b>{{ b.settings.name }}{%- if b.settings.place != blank -%}<i> · {{ b.settings.place }}</i>{%- endif -%}</b>
+              </figcaption>
+              {%- if b.settings.image != blank -%}{{ b.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'zn-mini__img', alt: b.settings.name }}{%- endif -%}
             </figure>
           {%- endfor -%}
-          {%- if review_blocks.size > 1 -%}<div class="zn-mini__nav"><button type="button" data-mini-prev aria-label="Anterior">‹</button><button type="button" data-mini-next aria-label="Siguiente">›</button></div>{%- endif -%}
         </div>
       {%- endif -%}
 
@@ -187,23 +191,6 @@
     </div>
   </section>
 
-  {%- if S.show_reviews and review_blocks.size > 0 -%}
-    <section class="zn-revs zn-in" id="opiniones">
-      <h2 class="zn-h2 zn-center">{{ S.reviews_title }}</h2>
-      {%- if S.show_stars and rating != blank -%}<p class="zn-rate zn-rate--c"><span class="zn-stars" style="--r: {{ rating }}" aria-hidden="true">★★★★★</span><b>{{ rating }}/5</b>{%- if rating_count != blank -%}<span>· {{ rating_count }} {{ S.rating_label }}</span>{%- endif -%}</p>{%- endif -%}
-      <div class="zn-revs__grid">
-        {%- for b in review_blocks -%}
-          <article class="zn-rev" {{ b.shopify_attributes }}>
-            {%- if b.settings.image != blank -%}{{ b.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', class: 'zn-rev__img', widths: '350,700', sizes: '(min-width: 960px) 360px, 90vw', alt: b.settings.name }}{%- endif -%}
-            <span class="zn-stars zn-stars--s" style="--r: {{ b.settings.stars }}" aria-label="{{ b.settings.stars }} de 5">★★★★★</span>
-            <p>{{ b.settings.text }}</p>
-            <footer><b>{{ b.settings.name }}</b>{%- if b.settings.place != blank -%} · {{ b.settings.place }}{%- endif -%}{%- if b.settings.verified -%}<span class="zn-rev__ok">Compra verificada</span>{%- endif -%}</footer>
-          </article>
-        {%- endfor -%}
-      </div>
-    </section>
-  {%- endif -%}
-
   <section class="zn-faq zn-in">
     <h2 class="zn-h2 zn-center">Preguntas frecuentes</h2>
     <div class="zn-acc zn-acc--big">
@@ -252,7 +239,7 @@
     { "type": "text", "id": "rating_value", "label": "Nota media manual (p. ej. 4.7) si no hay app de reseñas" },
     { "type": "text", "id": "rating_count", "label": "Número de reseñas manual" },
     { "type": "text", "id": "rating_label", "label": "Texto tras el número", "default": "opiniones" },
-    { "type": "checkbox", "id": "show_reviews", "label": "Mostrar reseñas (bloques «Reseña»)", "default": false },
+    { "type": "checkbox", "id": "show_reviews", "label": "(sin uso: las reseñas salen solas al añadir bloques «Reseña»)", "default": false },
     { "type": "text", "id": "reviews_title", "label": "Título de reseñas", "default": "Lo que dicen quienes ya lo usan" },
     { "type": "text", "id": "offer_title", "label": "Título de la oferta", "default": "Elige tu pack" },
     { "type": "text", "id": "offer_sub", "label": "Texto antes de la cuenta atrás", "default": "Llega antes de Nochebuena si pides en" },
