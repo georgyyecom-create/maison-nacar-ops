@@ -505,8 +505,21 @@ html.zn-lock,html.zn-lock body{overflow:hidden}
 .zn-quick,.zn-offer__sub{display:none}
 .zn-info{display:flex;flex-direction:column}
 .zn-offer{display:flex;flex-direction:column}
-.zn-kit{order:10;margin-top:18px}
-.zn-checks{order:1;margin-top:18px}
 .zn-mini{order:2}
 .zn-acc{order:3}
 .zn-offer__head{margin-top:14px}
+/* v2.6c · barra Black Friday sobria y negra, lista única bajo el título */
+.zn-bar{background:#0B0B0D;padding:10px 12px;gap:6px}
+.zn-bar__txt{font:600 15px/1.3 var(--zn-font);gap:10px}
+.zn-bar__tag{padding:0;border-radius:0;background:none;color:#FFD84D;font:800 15px/1 var(--zn-font);letter-spacing:.16em}
+.zn-bar__lbl{color:#A7A7B0}
+.zn-bar .zn-clock span{background:#1F1F24;color:#fff;border:1px solid #2E2E35}
+.zn-bar .zn-clock i{color:#A7A7B0}
+.zn-pack__badge{background:#0B0B0D;color:#FFD84D;letter-spacing:.12em}
+.zn-checks{display:none}
+.zn-kit{order:-1;margin:0 0 16px;padding:0;border:0;background:none}
+.zn-kit__t{display:none}
+.zn-kit ul{margin:0;gap:8px}
+.zn-kit li{font-size:16.5px}
+.zn-rate{text-decoration:none}
+.zn-offer{border-top:0;padding-top:0;margin-top:14px}
