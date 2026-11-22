@@ -501,4 +501,3 @@ html.zn-lock,html.zn-lock body{overflow:hidden}
 .zn-pack__price b{font-size:23px}
 .zn-fine{font-size:14px}
 .zn-form .zn-btn--buy{min-height:62px;font-size:18px}
-@media (max-width:959px){.zn-gal__slide img,.zn-gal__slide .zn-slot{aspect-ratio:5/4;height:auto;object-position:center 45%}}
