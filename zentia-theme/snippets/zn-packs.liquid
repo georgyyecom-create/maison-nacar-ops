@@ -33,7 +33,7 @@
     {%- if s.guide_show and gift_guide.price > 0 -%}
       <span class="zn-gift">
         <span class="zn-gift__img">{%- if gift_guide.featured_image -%}{{ gift_guide.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
-        <span class="zn-gift__name">+ {{ s.guide_name }}</span><span class="zn-gift__end"><s>{% render 'zn-money', cents: gift_guide.price %}</s><em>Regalo</em></span>
+        <span class="zn-gift__name">+ {{ s.guide_name }}</span><span class="zn-gift__end"><em>Regalo</em></span>
       </span>
     {%- endif -%}
   </label>
@@ -43,24 +43,24 @@
     <span class="zn-pack__top">
       <span class="zn-pack__radio" aria-hidden="true"></span>
       <span class="zn-pack__name">
-        <b>2 cojines</b>
+        <b>Kit de 2 cojines</b>
         <small>Ahorras {% render 'zn-money', cents: save2 %} · envío gratis</small>
       </span>
       <span class="zn-pack__price">
         <b>{% render 'zn-money', cents: p2 %}</b>
-        <s>{% render 'zn-money', cents: sep2 %}</s><small>{% render 'zn-money', cents: per2 %} por cojín</small>
+        <s title="Precio de 2 cojines sueltos">{% render 'zn-money', cents: sep2 %}</s><small>{% render 'zn-money', cents: per2 %} por cojín</small>
       </span>
     </span>
     {%- if gift_id != '' -%}
       <span class="zn-gift">
         <span class="zn-gift__img">{%- if gift_mask.featured_image -%}{{ gift_mask.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% render 'zn-img', img: s.gift1_img, label: 'Antifaz', ratio: '1/1' %}{%- endif -%}</span>
-        <span class="zn-gift__name">+ {{ s.gift1_name | default: 'Antifaz para dormir' }}</span><span class="zn-gift__end"><s>{% render 'zn-money', cents: gift_mask.price %}</s><em>Regalo</em></span>
+        <span class="zn-gift__name">+ {{ s.gift1_name | default: 'Antifaz para dormir' }}</span><span class="zn-gift__end"><em>Regalo</em></span>
       </span>
     {%- endif -%}
     {%- if s.guide_show and gift_guide.price > 0 -%}
       <span class="zn-gift">
         <span class="zn-gift__img">{%- if gift_guide.featured_image -%}{{ gift_guide.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
-        <span class="zn-gift__name">+ {{ s.guide_name }}</span><span class="zn-gift__end"><s>{% render 'zn-money', cents: gift_guide.price %}</s><em>Regalo</em></span>
+        <span class="zn-gift__name">+ {{ s.guide_name }}</span><span class="zn-gift__end"><em>Regalo</em></span>
       </span>
     {%- endif -%}
   </label>

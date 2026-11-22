@@ -55,6 +55,11 @@
         <p class="zn-rate"><span class="zn-stars" style="--r: {{ rating }}" aria-hidden="true">★★★★★</span><b>{{ rating }}/5</b>{%- if rating_count != blank -%}<span>· {{ rating_count }} {{ S.rating_label }}</span>{%- endif -%}</p>
       {%- endif -%}
       <h1 class="zn-title">{{ product.title }}</h1>
+      {%- if S.kit_line != blank -%}<p class="zn-kitline">{{ S.kit_line }}</p>{%- endif -%}
+      <a class="zn-quick" href="#zn-form">
+        <span class="zn-quick__p"><b>{% render 'zn-money', cents: 4990 %}</b><small>{{ S.quick_sub }}</small></span>
+        <span class="zn-quick__t"><span>Envío gratis</span><span>Pagas al recibirlo</span></span>
+      </a>
       <ul class="zn-checks">
         {%- for b in section.blocks -%}{%- if b.type == 'check' -%}
           <li {{ b.shopify_attributes }}><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10"/><path d="m6 10.4 2.6 2.6L14 7.6"/></svg>{{ b.settings.text }}</li>
@@ -66,6 +71,12 @@
         {%- assign mi = S.deadline_iso | date: '%m' | plus: 0 | minus: 1 -%}{%- assign mn = 'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre' | split: ',' -%}
         <p class="zn-offer__sub">Pack de 2 con antifaz de regalo hasta el <b>{{ S.deadline_iso | date: '%-d' }} de {{ mn[mi] }}</b>.</p>
 
+        {%- if S.kit_items != blank -%}
+          <div class="zn-kit">
+            <p class="zn-kit__t">{{ S.kit_title }}</p>
+            <ul>{%- assign ki = S.kit_items | newline_to_br | split: '<br />' -%}{%- for it in ki -%}{%- assign t = it | strip -%}{%- if t != blank -%}<li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10"/><path d="m6 10.4 2.6 2.6L14 7.6"/></svg><span>{{ t }}</span></li>{%- endif -%}{%- endfor -%}</ul>
+          </div>
+        {%- endif -%}
         {%- form 'product', product, id: 'zn-form', class: 'zn-form' -%}
           <input type="hidden" name="return_to" value="/checkout">
           {% render 'zn-packs', product: product, s: S %}
@@ -95,7 +106,7 @@
         <p class="zn-eta" data-eta data-min="{{ S.eta_min }}" data-max="{{ S.eta_max }}"><span class="zn-eta__dot" aria-hidden="true"></span><span>Pide hoy y llega entre el <b data-eta-a>—</b> y el <b data-eta-b>—</b></span></p>
       </div>
 
-            {%- if review_blocks.size > 0 -%}
+            {%- if S.show_reviews and review_blocks.size > 0 -%}
         <div class="zn-mini" role="region" aria-label="Opiniones de clientes">
           {%- for b in review_blocks limit: 12 -%}
             {%- if b.settings.name == 'Nombre' or b.settings.text == 'Texto de la reseña' -%}{%- continue -%}{%- endif -%}
@@ -239,7 +250,7 @@
     { "type": "text", "id": "rating_value", "label": "Nota media manual (p. ej. 4.7) si no hay app de reseñas" },
     { "type": "text", "id": "rating_count", "label": "Número de reseñas manual" },
     { "type": "text", "id": "rating_label", "label": "Texto tras el número", "default": "opiniones" },
-    { "type": "checkbox", "id": "show_reviews", "label": "(sin uso: las reseñas salen solas al añadir bloques «Reseña»)", "default": false },
+    { "type": "checkbox", "id": "show_reviews", "label": "Mostrar reseñas (actívalo cuando añadas bloques «Reseña» reales)", "default": false },
     { "type": "text", "id": "reviews_title", "label": "Título de reseñas", "default": "Lo que dicen quienes ya lo usan" },
     { "type": "text", "id": "offer_title", "label": "Título de la oferta", "default": "Elige tu pack" },
     { "type": "text", "id": "offer_sub", "label": "Texto antes de la cuenta atrás", "default": "Llega antes de Nochebuena si pides en" },
@@ -251,7 +262,7 @@
     { "type": "image_picker", "id": "gift2_img", "label": "Foto del regalo 2" },
     { "type": "text", "id": "fine_print", "label": "Nota bajo los packs", "default": "Precio tachado: lo que costarían los mismos cojines comprados de uno en uno." },
     { "type": "text", "id": "stock_text", "label": "Aviso de stock (vacío = oculto, solo si es verdad)" },
-    { "type": "text", "id": "cta", "label": "Botón", "default": "Añadir al carrito" },
+    { "type": "text", "id": "cta", "label": "Botón", "default": "Añadir al carrito" }, { "type": "text", "id": "kit_line", "label": "Línea bajo el título", "default": "Kit para dormir de lado: 2 cojines + antifaz + guía" }, { "type": "text", "id": "quick_sub", "label": "Precio rápido · texto", "default": "2 cojines + antifaz" }, { "type": "text", "id": "kit_title", "label": "Qué recibes · título", "default": "Lo que recibes en tu kit" }, { "type": "textarea", "id": "kit_items", "label": "Qué recibes (una línea por elemento)", "default": "2 cojines de espuma viscoelástica con funda lavable" },
     { "type": "text", "id": "wa_number", "label": "WhatsApp (con prefijo, sin +)", "default": "34621390548" },
     { "type": "text", "id": "wa_text", "label": "Mensaje inicial de WhatsApp", "default": "Hola, tengo una duda sobre el cojín de rodillas Zentia" },
     { "type": "checkbox", "id": "wa_float", "label": "Botón flotante de WhatsApp", "default": true }, { "type": "checkbox", "id": "guide_show", "label": "Carrito: mostrar la guía PDF de regalo (solo si ya existe)", "default": true }, { "type": "text", "id": "guide_name", "label": "Carrito: nombre de la guía", "default": "Guía PDF «Dormir de lado, bien»" }, { "type": "text", "id": "guide_price", "label": "Carrito: precio de la guía vendida por separado (vacío = solo Gratis)" },
