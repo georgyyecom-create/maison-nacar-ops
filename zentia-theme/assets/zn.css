@@ -501,3 +501,12 @@ html.zn-lock,html.zn-lock body{overflow:hidden}
 .zn-pack__price b{font-size:23px}
 .zn-fine{font-size:14px}
 .zn-form .zn-btn--buy{min-height:62px;font-size:18px}
+/* v2.6b · menos texto antes del selector: título → packs → botón */
+.zn-quick,.zn-offer__sub{display:none}
+.zn-info{display:flex;flex-direction:column}
+.zn-offer{display:flex;flex-direction:column}
+.zn-kit{order:10;margin-top:18px}
+.zn-checks{order:1;margin-top:18px}
+.zn-mini{order:2}
+.zn-acc{order:3}
+.zn-offer__head{margin-top:14px}
