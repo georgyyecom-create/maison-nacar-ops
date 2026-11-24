@@ -32,7 +32,7 @@ Square 1:1 photo, back three-quarter view of a man around 60 with short grey hai
 
 ### F05 · Pack de 2 para regalar
 ```
-Square 1:1 photo. Two identical U-shaped neck massagers from the attached reference, exactly identical, placed side by side inside an open matte navy-blue gift box with a thin cream ribbon, on a light wooden table, small Christmas details out of focus in the background (warm fairy lights, a few pine branches), warm cosy light. Small clean label in Spanish on a white rounded pill, navy text: "Pack de 2 · uno para regalar". No other text, no logos, no watermark.
+Square 1:1 photo. Two identical U-shaped neck massagers from the attached reference, exactly identical, placed side by side inside an open matte navy-blue gift box with a thin cream ribbon, together with a small rectangular light-blue gel pack for the neck and a small printed booklet titled "Cuello relajado en 10 minutos", on a light wooden table, small Christmas details out of focus in the background (warm fairy lights, a few pine branches), warm cosy light. Small clean label in Spanish on a white rounded pill, navy text: "Kit Cervical Relax". No other text, no logos, no watermark.
 ```
 
 ### F06 · Qué incluye y medidas
@@ -91,12 +91,13 @@ Por qué estos tres: Pievia vende el mismo tipo de masajeador con titulares senc
 Vertical 9:16 image, 1080x1920, premium product ad. Deep navy background (#0B1530) with a soft spotlight. All important content inside the central 4:5 area.
 PRODUCT (exactly identical to the attached reference, never redesign): two identical U-shaped neck massagers, charcoal grey matte shell, white inner band, six round silver metal pads with a subtle warm orange glow, standing side by side in the center, sharp and well lit, real small size.
 TEXT in Spanish, clean modern sans-serif, very legible for people over 50:
-Top, white, medium: "El regalo que se usa cada noche"
+Also in front of the two massagers: one small rectangular blue gel pack for the neck (soft, translucent light blue gel inside a fabric-edged pouch) and a small printed booklet titled "Cuello relajado en 10 minutos".
+Top, white, medium: "Kit Cervical Relax"
 Yellow (#FFD84D) letter-spaced label: "BLACK FRIDAY"
 Below the products, grey-white with a clear horizontal strikethrough line: "2 sueltos 99,80 €"
-HUGE bold yellow (#FFD84D) numbers: "79,90 €"
-White: "Pack de 2 · uno para ti y otro para regalar"
-Three small white rounded pills with navy text: "Calor suave" · "Envío gratis" · "Pagas al recibirlo"
+HUGE bold yellow (#FFD84D) numbers: "69,90 €"
+White: "2 masajeadores + almohadilla de gel + guía de regalo"
+Three small white rounded pills with navy text: "Uno para regalar" · "Envío gratis" · "Pagas al recibirlo"
 Bottom, small white: "Hasta el 30 de noviembre"
 No stickers, no starbursts, no countdown, no discount codes, no stars, no logos, no extra text, no watermark.
 ```
@@ -124,7 +125,7 @@ Bottom: a dark navy (#0B1530) printed magnetic sign, clean typography:
 "BLACK FRIDAY" in yellow (#FFD84D)
 "Masajeador de cuello con calor" in white
 "49,90 €" huge white bold
-"Pack de 2: 79,90 €" white
+"Kit Cervical (2 + regalos): 69,90 €" white
 "Envío gratis · Pagas al recibirlo" in yellow
 No logos, no people, no skeleton, no medical symbols, no watermark.
 ```
@@ -133,8 +134,8 @@ No logos, no people, no skeleton, no medical symbols, no watermark.
 
 ## Textos de los anuncios
 
-**M1:** «Calor suave y masaje en la nuca en 15 minutos, sin cables. Black Friday: pack de 2 por 79,90 € (2 sueltos: 99,80 €), uno para ti y otro para regalar. Envío gratis en 2–4 días desde España y pagas al recibirlo.» · Titular: «Pack de 2 · 79,90 €» · Descripción: «Hasta el 30 de noviembre»
+**M1:** «Calor suave y masaje en la nuca en 15 minutos, sin cables. Black Friday: Kit Cervical Relax por 69,90 € (2 sueltos: 99,80 €): 2 masajeadores, uno para ti y otro para regalar, con la almohadilla de gel y la guía de regalo. Envío gratis en 2–4 días desde España y pagas al recibirlo.» · Titular: «Kit Cervical · 69,90 €» · Descripción: «Hasta el 30 de noviembre»
 
-**M2:** «Llegas a casa, te lo pones sobre los hombros y en 15 minutos de calor y masaje se te olvida el día. 4 modos y 15 niveles, recargable y sin cables. 49,90 € con envío gratis, o el pack de 2 por 79,90 €. Pagas al recibirlo.» · Titular: «Masajeador de cuello · 49,90 €» · Descripción: «Pagas al recibirlo»
+**M2:** «Llegas a casa, te lo pones sobre los hombros y en 15 minutos de calor y masaje se te olvida el día. 4 modos y 15 niveles, recargable y sin cables. 49,90 € con envío gratis, o el Kit Cervical (2 masajeadores + regalos) por 69,90 €. Pagas al recibirlo.» · Titular: «Masajeador de cuello · 49,90 €» · Descripción: «Pagas al recibirlo»
 
-**M3:** «Horas mirando el móvil, hombros subidos y frío: así acaba la nuca al final del día. 15 minutos de calor y masaje, sin cables. Black Friday: 49,90 €, pack de 2 por 79,90 €. Envío gratis y pagas al recibirlo.» · Titular: «Calor en la nuca · 49,90 €» · Descripción: «Envío gratis»
+**M3:** «Horas mirando el móvil, hombros subidos y frío: así acaba la nuca al final del día. 15 minutos de calor y masaje, sin cables. Black Friday: Kit Cervical de 2 con regalos por 69,90 €. Envío gratis y pagas al recibirlo.» · Titular: «Calor en la nuca · 49,90 €» · Descripción: «Envío gratis»

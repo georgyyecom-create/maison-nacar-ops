@@ -76,3 +76,17 @@ Borra o pausa los de joyas. Crea solo estos dos (son de servicio; no prometen na
 **Carrito abandonado** (Notificaciones o Automatizaciones): 1 correo a la hora, sin descuento: «Te guardamos el pack de 2 con antifaz de regalo hasta el 30 de noviembre. Pagas al recibir.» Un 2.º a las 24 h solo si la oferta sigue en pie.
 
 Nada de emails comerciales a quien no compró ni aceptó (LSSI art. 21). Los de arriba son a clientes o por su propio carrito.
+
+### D) Guía PDF del Kit Cervical (confirmación de pedido)
+Debajo del bloque A, pega esto. Solo sale si el pedido lleva 2 o más masajeadores:
+
+```liquid
+{% assign zn_m = 0 %}{% for li in line_items %}{% if li.product.handle == 'masajeador-cuello-calor' %}{% assign zn_m = zn_m | plus: li.quantity %}{% endif %}{% endfor %}
+{% if zn_m >= 2 %}
+<table class="row" style="margin-top:16px"><tr><td style="background:#FFF6D6;border-radius:12px;padding:16px;font-size:15px;line-height:1.5;color:#141A2A">
+  <strong>Tu regalo del Kit Cervical:</strong> descarga aquí la guía «Cuello relajado en 10 minutos»:<br>
+  <a href="https://cdn.shopify.com/s/files/1/1092/0358/7412/files/zentia-guia-cuello-relajado.pdf" style="color:#16244A;font-weight:bold">Descargar la guía (PDF)</a><br><br>
+  La almohadilla de gel va dentro del paquete con tus 2 masajeadores.
+</td></tr></table>
+{% endif %}
+```
