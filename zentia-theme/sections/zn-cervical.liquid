@@ -90,15 +90,11 @@
       </div>
 
       {%- if S.show_reviews and review_blocks.size > 0 -%}
-        <div class="zc-revs" id="opiniones" role="region" aria-label="Opiniones de clientes">
-          {%- for b in review_blocks limit: 12 -%}
-            <figure class="zc-rev" {{ b.shopify_attributes }}>
-              <span class="zn-stars zn-stars--s" style="--r: {{ b.settings.stars }}" aria-label="{{ b.settings.stars }} de 5">★★★★★</span>
-              <blockquote>{{ b.settings.text }}</blockquote>
-              <figcaption>{%- if b.settings.image != blank -%}{{ b.settings.image | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}<span><b>{{ b.settings.name }}</b>{%- if b.settings.place != blank -%} · {{ b.settings.place }}{%- endif -%}<small>Compra verificada</small></span></figcaption>
-            </figure>
-          {%- endfor -%}
-        </div>
+        {%- assign fr = review_blocks.first -%}
+        <a class="zc-frev" href="#opiniones">
+          <span class="zc-frev__top">{%- if fr.settings.image != blank -%}{{ fr.settings.image | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<span class="zc-ava">{{ fr.settings.name | slice: 0 }}</span>{%- endif -%}<span><b>{{ fr.settings.name }}</b>{%- if fr.settings.place != blank -%}, {{ fr.settings.place }}{%- endif -%}<small>Compra verificada</small></span><span class="zn-stars zn-stars--s" style="--r: {{ fr.settings.stars }}" aria-label="{{ fr.settings.stars }} de 5">★★★★★</span></span>
+          <q>{{ fr.settings.text | truncate: 170 }}</q>
+        </a>
       {%- endif -%}
 
       <div class="zc-cards">
@@ -111,7 +107,6 @@
 
   <section class="zc-sec zc-sec--tint">
     <div class="zn-in zc-narrow">
-      <p class="zc-kick">{{ S.suena_kicker }}</p>
       <h2 class="zc-h2">{{ S.suena_title }}</h2>
       <p class="zc-p zc-center">{{ S.suena_text }}</p>
       <ul class="zc-suena">
@@ -125,7 +120,6 @@
 
   <section class="zc-sec">
     <div class="zn-in zc-narrow">
-      <p class="zc-kick">{{ S.test_kicker }}</p>
       <h2 class="zc-h2">{{ S.test_title }}</h2>
       <p class="zc-p zc-center">{{ S.test_text }}</p>
       <div class="zc-test" data-ztest>
@@ -142,12 +136,11 @@
     <div class="zn-in zc-split">
       <div class="zc-split__img">{% render 'zn-img', img: S.img_how, label: 'F03 · Detalle de los cabezales con calor', ratio: '4/5' %}</div>
       <div>
-        <p class="zc-kick zc-left">{{ S.how_kicker }}</p>
         <h2 class="zc-h2 zc-left">{{ S.how_title }}</h2>
         <div class="zc-p zn-rte">{{ S.how_text }}</div>
         <ul class="zc-feat">{%- assign fn = 0 -%}
           {%- for b in section.blocks -%}{%- if b.type == 'feature' -%}{%- assign fn = fn | plus: 1 -%}
-            <li {{ b.shopify_attributes }}><span class="zc-feat__i" aria-hidden="true">{{ fn }}</span><span><b>{{ b.settings.title }}</b><small>{{ b.settings.text }}</small></span></li>
+            <li {{ b.shopify_attributes }}><span class="zc-feat__i" aria-hidden="true">{%- case fn -%}{%- when 1 -%}<svg viewBox="0 0 24 24"><path d="M12 21c-3.6 0-6-2.4-6-5.6 0-3.2 2.6-4.6 3.4-8.4 2.5 1.6 3.2 3.7 3 5.6 1-.6 1.7-1.7 1.9-3 1.6 1.4 3.7 3.4 3.7 5.9 0 3.2-2.4 5.5-6 5.5Z"/></svg>{%- when 2 -%}<svg viewBox="0 0 24 24"><path d="M2 12h4l2.5-6 4 12 3-9 1.8 3H22"/></svg>{%- else -%}<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 13 15.5 8.5M8 4.5h8"/></svg>{%- endcase -%}</span><span><b>{{ b.settings.title }}</b><small>{{ b.settings.text }}</small></span></li>
           {%- endif -%}{%- endfor -%}
         </ul>
       </div>
@@ -156,7 +149,6 @@
 
   <section class="zc-sec">
     <div class="zn-in">
-      <p class="zc-kick">{{ S.steps_kicker }}</p>
       <h2 class="zc-h2">{{ S.steps_title }}</h2>
       <p class="zc-p zc-center">{{ S.steps_text }}</p>
       <ol class="zc-steps">
@@ -174,26 +166,58 @@
 
   <section class="zc-sec zc-sec--tint">
     <div class="zn-in zc-narrow">
-      <p class="zc-kick">{{ S.cmp_kicker }}</p>
       <h2 class="zc-h2">{{ S.cmp_title }}</h2>
-      <div class="zc-cmp">
-        <table>
-          <thead><tr><th scope="col"><span class="zn-sr">Qué</span></th><th scope="col" class="is-us">{{ S.cmp_col_us }}</th><th scope="col">{{ S.cmp_col_a }}</th></tr></thead>
-          <tbody>
-            {%- for b in section.blocks -%}{%- if b.type == 'row' -%}
-              <tr {{ b.shopify_attributes }}><th scope="row">{{ b.settings.text }}</th><td class="is-us">{{ b.settings.us }}</td><td>{{ b.settings.other }}</td></tr>
-            {%- endif -%}{%- endfor -%}
-          </tbody>
-        </table>
+      <p class="zc-p">{{ S.calc_text }}</p>
+      {%- assign per2 = p2 | divided_by: 2 -%}
+      <div class="zc-calc" data-zcalc data-session="{{ S.calc_session }}" data-own="{{ per2 }}">
+        <label class="zc-calc__q" for="zc-calc-r">¿Cuántas veces al mes irías a un masaje?</label>
+        <div class="zc-calc__in"><input id="zc-calc-r" type="range" min="1" max="8" step="1" value="2" data-zcr><output for="zc-calc-r" data-zco>2</output></div>
+        <div class="zc-calc__bar is-them"><span>En un centro, en un año</span><b data-zct>—</b><i data-zcw1></i></div>
+        <div class="zc-calc__bar is-us"><span>Tu masajeador en el kit, una sola vez</span><b>{% render 'zn-money', cents: per2 %}</b><i data-zcw2></i></div>
+        <p class="zc-src">Calculado con {{ S.calc_session }} € por sesión, lo más bajo de lo que suele costar un masaje de cuello y espalda.</p>
+      </div>
+      <ul class="zc-vs">
+        {%- for b in section.blocks -%}{%- if b.type == 'row' -%}
+          <li {{ b.shopify_attributes }}><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10"/><path d="m6 10.4 2.6 2.6L14 7.6"/></svg><span><b>{{ b.settings.us }}</b><small>En un centro: {{ b.settings.other | downcase }}</small></span></li>
+        {%- endif -%}{%- endfor -%}
+      </ul>
+    </div>
+  </section>
+
+  {%- if S.show_reviews and review_blocks.size > 0 -%}
+  {%- assign c5 = 0 -%}{%- assign c4 = 0 -%}{%- assign c3 = 0 -%}{%- assign c2 = 0 -%}{%- assign c1 = 0 -%}
+  {%- for b in review_blocks -%}{%- case b.settings.stars -%}{%- when 5 -%}{%- assign c5 = c5 | plus: 1 -%}{%- when 4 -%}{%- assign c4 = c4 | plus: 1 -%}{%- when 3 -%}{%- assign c3 = c3 | plus: 1 -%}{%- when 2 -%}{%- assign c2 = c2 | plus: 1 -%}{%- else -%}{%- assign c1 = c1 | plus: 1 -%}{%- endcase -%}{%- endfor -%}
+  <section class="zc-sec" id="opiniones">
+    <div class="zn-in zc-narrow">
+      <h2 class="zc-h2">{{ S.rev_title }}</h2>
+      <div class="zc-rsum">
+        <div class="zc-rsum__n"><b>{{ rv_avg | replace: '.', ',' }}</b><span class="zn-stars" style="--r: {{ rv_avg | replace: ',', '.' }}" aria-hidden="true">★★★★★</span><small>{{ rv_n }} opiniones</small></div>
+        <ul class="zc-rsum__bars" aria-label="Reparto de estrellas">
+          {%- assign cs = c5 | append: ',' | append: c4 | append: ',' | append: c3 | append: ',' | append: c2 | append: ',' | append: c1 | split: ',' -%}
+          {%- for c in cs -%}{%- assign st = 6 | minus: forloop.index -%}{%- assign pct = c | times: 100 | divided_by: rv_n -%}<li><span>{{ st }} ★</span><i style="--w: {{ pct }}%"></i><span>{{ c }}</span></li>{%- endfor -%}
+        </ul>
+      </div>
+      {%- assign photos = '' -%}
+      <div class="zc-rgrid">
+        {%- for b in review_blocks -%}{%- if b.settings.photo != blank -%}{{ b.settings.photo | image_url: width: 400 | image_tag: loading: 'lazy', alt: 'Foto de cliente' }}{%- endif -%}{%- endfor -%}
+      </div>
+      <div class="zc-rlist">
+        {%- for b in review_blocks limit: 12 -%}
+          <figure class="zc-rcard" {{ b.shopify_attributes }}>
+            <figcaption>{%- if b.settings.image != blank -%}{{ b.settings.image | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<span class="zc-ava">{{ b.settings.name | slice: 0 }}</span>{%- endif -%}<span><b>{{ b.settings.name }}</b>{%- if b.settings.place != blank -%}, {{ b.settings.place }}{%- endif -%}<small>Compra verificada</small></span></figcaption>
+            <span class="zn-stars zn-stars--s" style="--r: {{ b.settings.stars }}" aria-label="{{ b.settings.stars }} de 5">★★★★★</span>
+            <blockquote>{{ b.settings.text }}</blockquote>
+          </figure>
+        {%- endfor -%}
       </div>
     </div>
   </section>
+  {%- endif -%}
 
   <section class="zc-sec">
     <div class="zn-in zc-split zc-split--rev">
       <div class="zc-split__img">{% render 'zn-img', img: S.img_gift, label: 'F10 · Regalo de Navidad a su madre', ratio: '1/1' %}</div>
       <div>
-        <p class="zc-kick zc-left">{{ S.gift_kicker }}</p>
         <h2 class="zc-h2 zc-left">{{ S.gift_title }}</h2>
         <div class="zc-p zn-rte">{{ S.gift_text }}</div>
         <a class="zn-btn zn-btn--buy zc-btn" href="#oferta" data-pick="1">{{ S.gift_cta }}</a>
@@ -223,18 +247,29 @@
   <section class="zc-sec zc-sec--tint">
     <div class="zn-in zc-narrow zc-center">
       <h2 class="zc-h2">{{ S.final_title }}</h2>
-      <a class="zn-btn zn-btn--buy zc-btn" href="#oferta" data-pick="1">{{ S.final_cta }}</a>
+      <p class="zc-p zc-final-sub">{{ S.final_text }}</p>
+      <a class="zn-btn zn-btn--buy zc-btn" href="#oferta" data-pick="1">{{ S.final_cta }} · {% render 'zn-money', cents: p2 %}</a>
     </div>
   </section>
 </main>
 
-<footer class="zn-foot">
+<footer class="zc-foot">
   <div class="zn-in">
-    {% render 'zn-logo', tagline: S.tagline %}
-    <nav class="zn-foot__nav" aria-label="Políticas">
+    <div class="zc-foot__top">
+      {% render 'zn-logo', tagline: S.tagline %}
+      {%- if S.wa_number != blank -%}<a class="zc-foot__wa" href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg>Escríbenos por WhatsApp</a>{%- endif -%}
+    </div>
+    <ul class="zc-foot__facts">
+      <li><b>Envío desde España</b>MRW, 2–4 días laborables</li>
+      <li><b>Pago al recibirlo</b>En efectivo, o con tarjeta</li>
+      <li><b>30 días de prueba</b>Y 14 de desistimiento por ley</li>
+    </ul>
+    <nav class="zc-foot__nav" aria-label="Información legal">
       {%- for p in shop.policies -%}<a href="{{ p.url }}">{{ p.title }}</a>{%- endfor -%}
     </nav>
-    <p class="zn-foot__small">{{ S.foot_note }}</p>
+    <div class="zc-foot__pay">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'zn-pay__i' }}{%- endfor -%}</div>
+    <p class="zc-foot__small">{{ S.foot_note }}</p>
+    <p class="zc-foot__small">© {{ 'now' | date: '%Y' }} Zentia · zentiadescanso.com</p>
   </div>
 </footer>
 
@@ -252,6 +287,13 @@
   var kg=[5,12,18,22,27],tx=['Con la cabeza recta, el cuello sostiene unos 5 kg.','Mirando un poco hacia abajo: unos 12 kg.','Leyendo o con el ordenador bajo: unos 18 kg.','Con el móvil en el sofá: unos 22 kg.','Con la cabeza muy inclinada: hasta 27 kg.'];
   var r=t.querySelector('[data-zr]'),k=t.querySelector('[data-zkg]'),x=t.querySelector('[data-ztxt]');
   var up=function(){var i=+r.value;k.textContent=kg[i];x.textContent=tx[i];r.style.setProperty('--p',(i*25)+'%');};
+  r.addEventListener('input',up);up();
+})();
+(function(){
+  var c=document.querySelector('[data-zcalc]');if(!c)return;
+  var ses=+c.dataset.session||30,own=(+c.dataset.own||3495)/100,r=c.querySelector('[data-zcr]'),o=c.querySelector('[data-zco]'),t=c.querySelector('[data-zct]'),w1=c.querySelector('[data-zcw1]'),w2=c.querySelector('[data-zcw2]');
+  var fm=function(n){return n.toLocaleString('es-ES',{maximumFractionDigits:0})+' €';};
+  var up=function(){var n=+r.value,y=n*12*ses;o.textContent=n;t.textContent=fm(y);w1.style.width='100%';w2.style.width=Math.max(3,own/y*100)+'%';r.style.setProperty('--p',((n-1)/7*100)+'%');};
   r.addEventListener('input',up);up();
 })();
 </script>
@@ -424,6 +466,73 @@
 .zc-guar .zc-p{max-width:480px;margin-inline:auto}
 .zc-kick{width:fit-content;margin:0 0 12px}.zc-h2,.zc-p.zc-center,.zc-sec .zc-center .zc-p{text-align:left}
 .zc-guar .zc-kick,.zc-sec>.zc-center .zc-kick{margin-inline:auto}.zc-guar .zc-h2,.zc-guar .zc-p,.zc-sec>.zc-center .zc-h2,.zc-sec .zc-center>.zc-h2{text-align:center}
+/* ===== v3.2: sin etiquetas, iconos, calculadora, opiniones, pie ===== */
+.zc-sec .zc-h2{margin-bottom:12px}
+.zc-feat__i{background:var(--zc-tint);color:var(--zc-blue);border-radius:12px;width:40px;height:40px}
+.zc-feat__i svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.zc-feat li{background:none;border:0;border-bottom:1px solid #DDE3EF;border-radius:0;padding:16px 0}
+.zc-feat li:last-child{border-bottom:0}
+/* opinión destacada bajo la compra */
+.zc-frev{display:block;margin:16px 0 0;padding:14px 16px;border-radius:14px;background:#F5F7FC;text-decoration:none;color:#2A3045}
+.zc-frev__top{display:flex;align-items:center;gap:10px}
+.zc-frev__top img,.zc-ava{flex:none;width:40px;height:40px;border-radius:50%;object-fit:cover}
+.zc-ava{display:grid;place-items:center;background:var(--zc-navy);color:#fff;font:800 17px/1 var(--zn-font);text-transform:uppercase}
+.zc-frev__top>span:nth-child(2){flex:1;display:flex;flex-direction:column;font-size:15px;color:var(--zc-navy)}
+.zc-frev small,.zc-rcard small{color:#1E7A4D;font-weight:700;font-size:13px}
+.zc-frev q{display:block;margin-top:10px;font-size:16px;line-height:1.5;quotes:"«" "»"}
+/* calculadora */
+.zc-calc{margin-top:20px;background:#fff;border-radius:18px;padding:20px 16px;box-shadow:0 1px 0 #DDE3EF,0 8px 24px -16px rgba(22,36,74,.35)}
+.zc-calc__q{display:block;font:700 17px/1.35 var(--zn-font);color:var(--zc-navy)}
+.zc-calc__in{display:flex;align-items:center;gap:14px;margin:12px 0 20px}
+.zc-calc__in input{flex:1;accent-color:var(--zc-blue);height:32px}
+.zc-calc__in output{flex:none;width:44px;height:44px;border-radius:50%;background:var(--zc-navy);color:#fff;display:grid;place-items:center;font:800 20px/1 var(--zn-font)}
+.zc-calc__bar{display:grid;grid-template-columns:1fr auto;align-items:end;gap:6px 10px;margin-top:14px}
+.zc-calc__bar span{font-size:15px;color:#4A5066}
+.zc-calc__bar b{font:800 22px/1 var(--zn-font);color:var(--zc-navy)}
+.zc-calc__bar i{grid-column:1/-1;display:block;height:14px;border-radius:999px;background:#C9D1E3;width:100%;transition:width .35s ease}
+.zc-calc__bar.is-us i{background:var(--zc-blue)}
+.zc-calc__bar.is-us b{color:var(--zc-blue)}
+@media (prefers-reduced-motion:reduce){.zc-calc__bar i{transition:none}}
+.zc-calc .zc-src{margin-top:16px;text-align:left}
+.zc-vs{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px}
+.zc-vs li{display:flex;gap:12px;align-items:flex-start}
+.zc-vs li>span{flex:1;min-width:0;display:flex;flex-direction:column}
+.zc-vs b{font-size:17px;color:var(--zc-navy)}.zc-vs small{font-size:15px;color:#6A7086;margin-top:2px}
+.zc-vs svg{flex:none;width:22px;height:22px;margin-top:1px}.zc-vs circle{fill:var(--zc-blue)}.zc-vs path{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* opiniones */
+.zc-rsum{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;margin-top:16px;padding-bottom:20px;border-bottom:1px solid #DDE3EF}
+.zc-rsum__n{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.zc-rsum__n b{font:800 44px/1 var(--zn-font);color:var(--zc-navy)}.zc-rsum__n small{font-size:14px;color:#4A5066}
+.zc-rsum__bars{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.zc-rsum__bars li{display:grid;grid-template-columns:30px 1fr 22px;align-items:center;gap:8px;font-size:13px;color:#4A5066}
+.zc-rsum__bars i{display:block;height:8px;border-radius:999px;background:linear-gradient(var(--zc-navy),var(--zc-navy)) left/var(--w) 100% no-repeat,#E3E7F0}
+.zc-rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:16px}.zc-rgrid:empty{display:none}
+.zc-rgrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+.zc-rlist{display:grid;gap:0;margin-top:8px}
+.zc-rcard{margin:0;padding:18px 0;border-bottom:1px solid #DDE3EF}
+.zc-rcard figcaption{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.zc-rcard figcaption img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.zc-rcard figcaption>span{display:flex;flex-direction:column;font-size:15px;color:var(--zc-navy)}
+.zc-rcard blockquote{margin:6px 0 0;font-size:16.5px;line-height:1.55;color:#2A3045}
+/* cierre */
+.zc-final-sub{text-align:center !important;max-width:420px;margin:0 auto}
+/* pie */
+.zc-foot{background:var(--zc-navy);color:#C9D1E3;padding:40px 0 120px}
+.zc-foot .zn-brand__name,.zc-foot .zn-brand__tag{color:#fff}
+.zc-foot__top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.14)}
+.zc-foot__wa{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#fff;color:var(--zc-navy);font:700 15px/1 var(--zn-font);text-decoration:none}
+.zc-foot__wa svg{width:18px;height:18px;fill:#25D366}
+.zc-foot__facts{list-style:none;margin:0;padding:20px 0;display:grid;gap:14px;border-bottom:1px solid rgba(255,255,255,.14)}
+.zc-foot__facts li{display:flex;flex-direction:column;font-size:15px}
+.zc-foot__facts b{color:#fff;font-size:16px}
+.zc-foot__nav{display:flex;flex-wrap:wrap;gap:10px 20px;padding:20px 0 0}
+.zc-foot__nav a{color:#fff;font-size:15px;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.35)}
+.zc-foot__pay{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 0}
+.zc-foot__pay .zn-pay__i{height:24px;width:auto;border-radius:4px;background:#fff}
+.zc-foot__small{margin:16px 0 0;font-size:13px;line-height:1.5;color:#9AA5C0}
+/* regalos de los packs: precio real tachado + «Gratis» */
+.zc .zn-pk__li em.is-gift{text-transform:none;font-size:15px;letter-spacing:0;font-weight:800;color:#1E7A4D}
+.zc .zn-pk__li em.is-gift s{font-weight:500;color:#8A90A0;margin-right:4px}
 </style>
 
 {% schema %}
@@ -491,6 +600,10 @@
     { "type": "text", "id": "nights", "label": "Días de prueba", "default": "30" },
     { "type": "text", "id": "guar_title", "label": "Garantía · título", "default": "Pruébalo 30 días en casa" },
     { "type": "textarea", "id": "guar_text", "label": "Garantía · texto", "default": "Si no te convence, escríbenos y te devolvemos el dinero." },
+    { "type": "text", "id": "calc_text", "label": "Cuentas · texto", "default": "Mueve la barra y compara lo que gastarías en un año." },
+    { "type": "number", "id": "calc_session", "label": "Cuentas · precio de una sesión (€)", "default": 30 },
+    { "type": "text", "id": "rev_title", "label": "Opiniones · título", "default": "Lo que dicen quienes ya lo usan" },
+    { "type": "text", "id": "final_text", "label": "Cierre · texto", "default": "Dos masajeadores, la almohadilla de gel, la guía y el envío, por 69,90 €." },
     { "type": "text", "id": "faq_title", "label": "Preguntas · título", "default": "Preguntas frecuentes" },
     { "type": "text", "id": "final_title", "label": "Cierre · título", "default": "Esta noche, 15 minutos de calor en la nuca" },
     { "type": "text", "id": "final_cta", "label": "Cierre · botón", "default": "Quiero el Kit Cervical" },
@@ -506,7 +619,7 @@
     { "type": "step", "name": "Paso", "settings": [ { "type": "image_picker", "id": "image", "label": "Foto" }, { "type": "text", "id": "label", "label": "Etiqueta del hueco", "default": "Foto del paso" }, { "type": "text", "id": "title", "label": "Título", "default": "Paso" }, { "type": "text", "id": "text", "label": "Texto", "default": "Texto" } ] },
     { "type": "row", "name": "Fila de comparación", "settings": [ { "type": "text", "id": "text", "label": "Qué", "default": "Precio" }, { "type": "text", "id": "us", "label": "Zentia", "default": "Sí" }, { "type": "text", "id": "other", "label": "Otro", "default": "No" } ] },
     { "type": "faq", "name": "Pregunta", "settings": [ { "type": "text", "id": "q", "label": "Pregunta", "default": "Pregunta" }, { "type": "richtext", "id": "a", "label": "Respuesta", "default": "<p>Respuesta</p>" } ] },
-    { "type": "review", "name": "Reseña (solo reales)", "settings": [ { "type": "text", "id": "name", "label": "Nombre", "default": "Nombre" }, { "type": "text", "id": "place", "label": "Ciudad" }, { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 }, { "type": "textarea", "id": "text", "label": "Texto", "default": "Texto de la reseña" }, { "type": "image_picker", "id": "image", "label": "Foto (círculo)" } ] }
+    { "type": "review", "name": "Reseña (solo reales)", "settings": [ { "type": "text", "id": "name", "label": "Nombre", "default": "Nombre" }, { "type": "text", "id": "place", "label": "Ciudad" }, { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 }, { "type": "textarea", "id": "text", "label": "Texto", "default": "Texto de la reseña" }, { "type": "image_picker", "id": "image", "label": "Foto de la persona (círculo)" }, { "type": "image_picker", "id": "photo", "label": "Foto del producto hecha por el cliente" } ] }
   ]
 }
 {% endschema %}

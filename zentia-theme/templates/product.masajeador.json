@@ -4,42 +4,280 @@
     "main": {
       "type": "zn-cervical",
       "blocks": {
-        "b1": {"type": "bullet","settings": {"lead": "Soltar la nuca cargada","text": "después de un día de ordenador, móvil o cocina"}},
-        "b2": {"type": "bullet","settings": {"lead": "Relajar los hombros","text": "que se suben solos con el frío y las prisas"}},
-        "b3": {"type": "bullet","settings": {"lead": "Calor suave","text": "a temperatura constante en 6 puntos de la nuca"}},
-        "b4": {"type": "bullet","settings": {"lead": "Sin cables:","text": "en el sofá, leyendo o viendo la tele"}},
-        "b5": {"type": "bullet","settings": {"lead": "15 minutos para ti,","text": "en casa y sin pedir cita"}},
-        "c1": {"type": "card","settings": {"title": "¿Cómo se usa? ¿Vale para cualquier cuello?","body": "<p>Es muy sencillo y su forma en U abierta se adapta a casi todos los cuellos, sin apretar.</p><ol><li>Cárgalo antes del primer uso con el cable USB incluido.</li><li>Enciéndelo y apóyalo en la nuca, con los cabezales tocando la piel.</li><li>Elige el modo y empieza en un nivel bajo; sube poco a poco.</li><li>Activa el calor y relájate 15 minutos mientras lees o ves la tele.</li></ol>"}},
-        "c2": {"type": "card","settings": {"title": "30 días para probarlo","body": "<p>Úsalo en casa con calma. Si en 30 días no te convence, escríbenos por WhatsApp y te devolvemos el dinero. ¿Ha llegado dañado? Te mandamos otro.</p>"}},
-        "c3": {"type": "card","settings": {"title": "Envío y pago","body": "<p>Sale de nuestro almacén en España por MRW y llega en 2–4 días laborables. <strong>Kit Cervical: envío gratis.</strong> 1 masajeador: 4,95 € de envío.</p><p><strong>Pagas al recibirlo</strong>, en efectivo, al repartidor. No adelantas nada. También puedes pagar con tarjeta.</p>"}},
-        "c4": {"type": "card","settings": {"title": "¿Qué viene en la caja?","body": "<ul><li>Masajeador de cuello con calor (2 en el Kit Cervical)</li><li>Cable de carga USB</li><li>Láminas adhesivas para hombros o espalda</li><li>Instrucciones</li><li>En el Kit Cervical, de regalo: almohadilla de gel frío y calor y guía PDF «Cuello relajado en 10 minutos» (te llega por correo)</li></ul>"}},
-        "c5": {"type": "card","settings": {"title": "Precauciones y uso seguro","body": "<p><strong>No lo uses si</strong> llevas marcapasos, desfibrilador u otro implante electrónico.</p><p><strong>Consulta antes con tu médico</strong> si estás embarazada, tienes epilepsia, problemas de corazón o te han operado del cuello hace poco.</p><p>No lo apliques sobre heridas o piel irritada, ni lo uses conduciendo o dormido. Empieza en un nivel bajo; si notas pinchazos, humedece un poco la nuca con agua. Sesiones de 15 minutos.</p>"}},
-        "s1": {"type": "suena","settings": {"title": "Nuca de piedra tras el ordenador","text": "Después de unas horas de pantalla, el cuello pesa y cuesta moverlo."}},
-        "s2": {"type": "suena","settings": {"title": "Cuello de móvil","text": "Con la cabeza hacia abajo un rato tras otro, en el sofá o en el autobús."}},
-        "s3": {"type": "suena","settings": {"title": "Hombros pegados a las orejas","text": "Con el frío y las prisas se suben solos y no bajan ni descansando."}},
-        "s4": {"type": "suena","settings": {"title": "El tirón al girar la cabeza","text": "Al aparcar o mirar por el retrovisor, ahí está."}},
-        "s5": {"type": "suena","settings": {"title": "Cuello rígido al levantarte","text": "Te despiertas y tardas un rato en poder girar la cabeza con soltura."}},
-        "s6": {"type": "suena","settings": {"title": "Ningún momento para ti","text": "Ir a un masaje cuesta dinero, tiempo y cita. Al final, nunca vas."}},
-        "f1": {"type": "feature","settings": {"title": "Calor constante","text": "Templa la nuca desde el primer minuto y hace la sesión mucho más agradable."}},
-        "f2": {"type": "feature","settings": {"title": "Impulsos suaves en 6 puntos","text": "4 modos (presión, toque, amasado y automático) que notas en la nuca."}},
-        "f3": {"type": "feature","settings": {"title": "15 niveles","text": "Empiezas suave y subes hasta que te resulte agradable, sin pasarte."}},
-        "p1": {"type": "step","settings": {"label": "F11 · Masajeador cargando en la mesilla","title": "Lo cargas","text": "Una hora por USB y te dura 2–3 días."}},
-        "p2": {"type": "step","settings": {"label": "F12 · Manos colocándolo en la nuca","title": "Te lo pones","text": "Se apoya en los hombros, sin cables."}},
-        "p3": {"type": "step","settings": {"label": "F13 · Hombre leyendo en el sillón con el masajeador","title": "15 minutos de relax","text": "Calor y masaje mientras lees o ves la tele."}},
-        "p4": {"type": "step","settings": {"label": "F09 · Mujer relajada en el sofá","title": "Lo repites cada día","text": "Mañana, otros 15 minutos para ti."}},
-        "r1": {"type": "row","settings": {"text": "Lo que cuesta","us": "34,95 € una vez (en el kit)","other": "30–40 € cada sesión"}},
-        "r2": {"type": "row","settings": {"text": "Cuándo","us": "Cuando quieras","other": "Con cita"}},
-        "r3": {"type": "row","settings": {"text": "Dónde","us": "En tu sofá","other": "Ir y volver"}},
-        "r4": {"type": "row","settings": {"text": "Calor en la nuca","us": "Sí, cada día","other": "Según el centro"}},
-        "q1": {"type": "faq","settings": {"q": "¿El calor quema?","a": "<p>No. Es un calor suave a temperatura constante, pensado para sesiones de 15 minutos. Si te resulta fuerte, puedes apagarlo.</p>"}},
-        "q2": {"type": "faq","settings": {"q": "¿Cuánto dura la batería?","a": "<p>Con una hora de carga por USB tienes para 2–3 días si lo usas 15 minutos al día.</p>"}},
-        "q3": {"type": "faq","settings": {"q": "¿Qué lleva el Kit Cervical?","a": "<p>2 masajeadores (uno para ti y otro para regalar), la almohadilla de gel frío y calor y la guía PDF «Cuello relajado en 10 minutos», con envío gratis. Sale a 34,95 € cada masajeador.</p>"}},
-        "q4": {"type": "faq","settings": {"q": "¿Cómo pago?","a": "<p>Al recibirlo, en efectivo al repartidor. O con tarjeta al hacer el pedido.</p>"}},
-        "q5": {"type": "faq","settings": {"q": "¿Cuándo llega?","a": "<p>En 2–4 días laborables desde nuestro almacén en España. Si lo pides antes del 15 de diciembre, llega antes de Nochebuena.</p>"}},
-        "q6": {"type": "faq","settings": {"q": "¿Lo puede usar cualquiera?","a": "<p>Casi todo el mundo, pero no lo uses si llevas marcapasos u otro implante electrónico, si estás embarazada, si tienes epilepsia o problemas de corazón. Ante la duda, pregunta a tu médico.</p>"}},
-        "q7": {"type": "faq","settings": {"q": "¿Es un producto sanitario?","a": "<p>No. Es un aparato de masaje y bienestar. Si tienes dolor persistente, consulta a tu médico.</p>"}}
+        "b1": {
+          "type": "bullet",
+          "settings": {
+            "lead": "Soltar la nuca cargada",
+            "text": "después de un día de ordenador, móvil o cocina"
+          }
+        },
+        "b2": {
+          "type": "bullet",
+          "settings": {
+            "lead": "Relajar los hombros",
+            "text": "que se suben solos con el frío y las prisas"
+          }
+        },
+        "b3": {
+          "type": "bullet",
+          "settings": {
+            "lead": "Calor suave",
+            "text": "a temperatura constante en 6 puntos de la nuca"
+          }
+        },
+        "b4": {
+          "type": "bullet",
+          "settings": {
+            "lead": "Sin cables:",
+            "text": "en el sofá, leyendo o viendo la tele"
+          }
+        },
+        "b5": {
+          "type": "bullet",
+          "settings": {
+            "lead": "15 minutos para ti,",
+            "text": "en casa y sin pedir cita"
+          }
+        },
+        "c1": {
+          "type": "card",
+          "settings": {
+            "title": "¿Cómo se usa? ¿Vale para cualquier cuello?",
+            "body": "<p>Es muy sencillo y su forma en U abierta se adapta a casi todos los cuellos, sin apretar.</p><ol><li>Cárgalo antes del primer uso con el cable USB incluido.</li><li>Enciéndelo y apóyalo en la nuca, con los cabezales tocando la piel.</li><li>Elige el modo y empieza en un nivel bajo; sube poco a poco.</li><li>Activa el calor y relájate 15 minutos mientras lees o ves la tele.</li></ol>"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "title": "30 días para probarlo",
+            "body": "<p>Úsalo en casa con calma. Si en 30 días no te convence, escríbenos por WhatsApp y te devolvemos el dinero. ¿Ha llegado dañado? Te mandamos otro.</p>"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "title": "Envío y pago",
+            "body": "<p>Sale de nuestro almacén en España por MRW y llega en 2–4 días laborables. <strong>Kit Cervical: envío gratis.</strong> 1 masajeador: 4,95 € de envío.</p><p><strong>Pagas al recibirlo</strong>, en efectivo, al repartidor. No adelantas nada. También puedes pagar con tarjeta.</p>"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "title": "¿Qué viene en la caja?",
+            "body": "<ul><li>Masajeador de cuello con calor (2 en el Kit Cervical)</li><li>Cable de carga USB</li><li>Láminas adhesivas para hombros o espalda</li><li>Instrucciones</li><li>En el Kit Cervical, de regalo: almohadilla de gel frío y calor y guía PDF «Cuello relajado en 10 minutos» (te llega por correo)</li></ul>"
+          }
+        },
+        "c5": {
+          "type": "card",
+          "settings": {
+            "title": "Precauciones y uso seguro",
+            "body": "<p><strong>No lo uses si</strong> llevas marcapasos, desfibrilador u otro implante electrónico.</p><p><strong>Consulta antes con tu médico</strong> si estás embarazada, tienes epilepsia, problemas de corazón o te han operado del cuello hace poco.</p><p>No lo apliques sobre heridas o piel irritada, ni lo uses conduciendo o dormido. Empieza en un nivel bajo; si notas pinchazos, humedece un poco la nuca con agua. Sesiones de 15 minutos.</p>"
+          }
+        },
+        "s1": {
+          "type": "suena",
+          "settings": {
+            "title": "Nuca de piedra tras el ordenador",
+            "text": "Después de unas horas de pantalla, el cuello pesa y cuesta moverlo."
+          }
+        },
+        "s2": {
+          "type": "suena",
+          "settings": {
+            "title": "Cuello de móvil",
+            "text": "Con la cabeza hacia abajo un rato tras otro, en el sofá o en el autobús."
+          }
+        },
+        "s3": {
+          "type": "suena",
+          "settings": {
+            "title": "Hombros pegados a las orejas",
+            "text": "Con el frío y las prisas se suben solos y no bajan ni descansando."
+          }
+        },
+        "s4": {
+          "type": "suena",
+          "settings": {
+            "title": "El tirón al girar la cabeza",
+            "text": "Al aparcar o mirar por el retrovisor, ahí está."
+          }
+        },
+        "s5": {
+          "type": "suena",
+          "settings": {
+            "title": "Cuello rígido al levantarte",
+            "text": "Te despiertas y tardas un rato en poder girar la cabeza con soltura."
+          }
+        },
+        "s6": {
+          "type": "suena",
+          "settings": {
+            "title": "Ningún momento para ti",
+            "text": "Ir a un masaje cuesta dinero, tiempo y cita. Al final, nunca vas."
+          }
+        },
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "title": "Calor constante",
+            "text": "Templa la nuca desde el primer minuto y hace la sesión mucho más agradable."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "title": "Impulsos suaves en 6 puntos",
+            "text": "4 modos (presión, toque, amasado y automático) que notas en la nuca."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "title": "15 niveles",
+            "text": "Empiezas suave y subes hasta que te resulte agradable, sin pasarte."
+          }
+        },
+        "p1": {
+          "type": "step",
+          "settings": {
+            "label": "F11 · Masajeador cargando en la mesilla",
+            "title": "Lo cargas",
+            "text": "Una hora por USB y te dura 2–3 días."
+          }
+        },
+        "p2": {
+          "type": "step",
+          "settings": {
+            "label": "F12 · Manos colocándolo en la nuca",
+            "title": "Te lo pones",
+            "text": "Se apoya en los hombros, sin cables."
+          }
+        },
+        "p3": {
+          "type": "step",
+          "settings": {
+            "label": "F13 · Hombre leyendo en el sillón con el masajeador",
+            "title": "15 minutos de relax",
+            "text": "Calor y masaje mientras lees o ves la tele."
+          }
+        },
+        "p4": {
+          "type": "step",
+          "settings": {
+            "label": "F09 · Mujer relajada en el sofá",
+            "title": "Lo repites cada día",
+            "text": "Mañana, otros 15 minutos para ti."
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "text": "Cuándo",
+            "us": "Cuando tú quieras",
+            "other": "Con cita"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "text": "Dónde",
+            "us": "En tu sofá, sin salir de casa",
+            "other": "Ir y volver"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "text": "Calor",
+            "us": "Calor en la nuca cada día",
+            "other": "No siempre"
+          }
+        },
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "q": "¿El calor quema?",
+            "a": "<p>No. Es un calor suave a temperatura constante, pensado para sesiones de 15 minutos. Si te resulta fuerte, puedes apagarlo.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Cuánto dura la batería?",
+            "a": "<p>Con una hora de carga por USB tienes para 2–3 días si lo usas 15 minutos al día.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Qué lleva el Kit Cervical?",
+            "a": "<p>2 masajeadores (uno para ti y otro para regalar), la almohadilla de gel frío y calor y la guía PDF «Cuello relajado en 10 minutos», con envío gratis. Sale a 34,95 € cada masajeador.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Cómo pago?",
+            "a": "<p>Al recibirlo, en efectivo al repartidor. O con tarjeta al hacer el pedido.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Cuándo llega?",
+            "a": "<p>En 2–4 días laborables desde nuestro almacén en España. Si lo pides antes del 15 de diciembre, llega antes de Nochebuena.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Lo puede usar cualquiera?",
+            "a": "<p>Casi todo el mundo, pero no lo uses si llevas marcapasos u otro implante electrónico, si estás embarazada, si tienes epilepsia o problemas de corazón. Ante la duda, pregunta a tu médico.</p>"
+          }
+        },
+        "q7": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Es un producto sanitario?",
+            "a": "<p>No. Es un aparato de masaje y bienestar. Si tienes dolor persistente, consulta a tu médico.</p>"
+          }
+        }
       },
-      "block_order": ["b1","b2","b3","b4","b5","c1","c2","c3","c4","c5","s1","s2","s3","s4","s5","s6","f1","f2","f3","p1","p2","p3","p4","r1","r2","r3","r4","q1","q2","q3","q4","q5","q6","q7"],
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "f1",
+        "f2",
+        "f3",
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "r2",
+        "r3",
+        "r4",
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
       "settings": {
         "bar_text": "Black Friday · Kit Cervical por 69,90 € · termina en",
         "deadline_iso": "2026-11-30T23:59:00+01:00",
@@ -60,7 +298,7 @@
         "gift_handle": "almohadilla-gel-cuello",
         "gift_name": "Almohadilla de gel frío y calor",
         "guide_name": "Guía PDF «Cuello relajado en 10 minutos»",
-        "frame_text": "Un masaje en un centro cuesta 30–40 €. Con el kit, cada masajeador sale a 34,95 € y lo usas cada día.",
+        "frame_text": "",
         "up_text": "Llévate el Kit Cervical: otro masajeador, la almohadilla de gel, la guía y el envío gratis.",
         "cta": "Pagar con tarjeta",
         "cod_note": "Sin adelantar nada: pagas en efectivo al repartidor.",
@@ -86,7 +324,7 @@
         "steps_title": "Mira qué sencillo",
         "steps_text": "No hay que configurar nada. Te lo pones, eliges el nivel y en 15 minutos has terminado.",
         "cmp_kicker": "Haz cuentas",
-        "cmp_title": "Tu masaje, cuando tú quieras",
+        "cmp_title": "Haz cuentas",
         "cmp_col_us": "Zentia",
         "cmp_col_a": "Masaje en un centro",
         "gift_kicker": "Para regalar en Navidad",
@@ -101,9 +339,15 @@
         "final_cta": "Quiero el Kit Cervical",
         "sticky_title": "Kit Cervical Relax",
         "cta_sticky": "Pedir",
-        "foot_note": "Aparato de masaje y bienestar, no es un producto sanitario. No lo uses con marcapasos, embarazo o epilepsia. Si tienes dolor persistente, consulta a tu médico."
+        "foot_note": "Aparato de masaje y bienestar, no es un producto sanitario. No lo uses con marcapasos, embarazo o epilepsia. Si tienes dolor persistente, consulta a tu médico.",
+        "calc_text": "Mueve la barra y compara lo que gastarías en un año.",
+        "calc_session": 30,
+        "rev_title": "Lo que dicen quienes ya lo usan",
+        "final_text": "Dos masajeadores, la almohadilla de gel, la guía y el envío, por 69,90 €."
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
