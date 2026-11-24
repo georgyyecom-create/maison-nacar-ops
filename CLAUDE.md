@@ -2,6 +2,8 @@
 
 **Responde SIEMPRE en español.** Respuestas cortas y directas, sin repasar el historial. El dueño trabaja desde el móvil.
 
+> **Estado (24-nov-2026): Maison Nácar ya NO es el negocio activo.** El dueño está con otra tienda de descanso, probando productos de uno en uno (nombre pendiente). Objetivo a medio plazo: capitalizarse (10.000–15.000 €) para crear una marca propia de suplementos con formato novedoso (referentes: Grüns, Bloom, AG1). Documento de la idea: https://claude.ai/artifact/NDZnDd1VPAdEKb4z25WGiX
+
 ## Negocio
 - Tienda Shopify de joyería en dropshipping. Dominio: **maisonnacar.com** (tienda `11d01y-zk`). Público: España peninsular y Baleares.
 - Proveedor: **Yehwang** (Países Bajos). Un collar suelto cuesta ~18,23 € en Yehwang (pieza + envío + IVA). Desactivar la sincronización de precios de Yehwang.
