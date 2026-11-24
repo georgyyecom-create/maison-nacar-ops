@@ -32,7 +32,6 @@
     </a>
   </div>
 </header>
-{% render 'zn-ticker', text: S.sub_text %}
 
 <main class="zn-main zc">
   <section class="zn-pdp zn-in">
@@ -50,7 +49,7 @@
           <figure class="zn-gal__slide">{% render 'zn-img', label: 'F05 · Kit Cervical en caja regalo', ratio: '1/1' %}</figure>
         {%- endif -%}
       </div>
-      <div class="zn-gal__thumbs" data-thumbs aria-label="Elegir foto"></div>
+      <div class="zn-gal__thumbs zc-dots" data-thumbs aria-label="Elegir foto"></div>
     </div>
 
     <div class="zn-info">
@@ -76,18 +75,17 @@
         {%- form 'product', product, id: 'zn-form', class: 'zn-form' -%}
           <input type="hidden" name="return_to" value="/checkout">
           {% render 'zn-packs-m', product: product, s: S %}
-          <button type="submit" class="zn-btn zn-btn--buy" data-buy>
-            <span data-buy-price>{% render 'zn-money', cents: p2 %}</span><span class="zn-btn__sep" aria-hidden="true"></span><span>{{ S.cta }}</span>
+          <p class="zc-or">o, si prefieres pagar ya</p>
+          <button type="submit" class="zn-btn zn-btn--buy zc-card-btn" data-buy>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg><span>{{ S.cta }}</span><b data-buy-price>{% render 'zn-money', cents: p2 %}</b>
           </button>
         {%- endform -%}
-        <p class="zc-cod-note">{{ S.cod_note }}</p>
         <div class="zn-pay"><div class="zn-pay__icons">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'zn-pay__i' }}{%- endfor -%}</div></div>
-        <ul class="zc-chips">
-          {%- assign chips = S.chips | newline_to_br | split: '<br />' -%}
-          {%- for c in chips -%}{%- assign t = c | strip -%}{%- if t != blank -%}<li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10"/><path d="m6 10.4 2.6 2.6L14 7.6"/></svg>{{ t }}</li>{%- endif -%}{%- endfor -%}
+        <ul class="zc-trust">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><span data-eta data-min="{{ S.eta_min }}" data-max="{{ S.eta_max }}">Pide hoy y llega entre el <b data-eta-a>—</b> y el <b data-eta-b>—</b></span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span><b>Pagas al recibirlo</b>, en efectivo al repartidor</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg><span><b>30 días para probarlo</b> en casa</span></li>
         </ul>
-        <p class="zn-eta" data-eta data-min="{{ S.eta_min }}" data-max="{{ S.eta_max }}"><span class="zn-eta__dot" aria-hidden="true"></span><span>Pide hoy y llega entre el <b data-eta-a>—</b> y el <b data-eta-b>—</b></span></p>
-        {%- if S.solo_text != blank -%}<div class="zc-solo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg><p>{{ S.solo_text }}</p></div>{%- endif -%}
         {%- if S.wa_number != blank -%}<a class="zn-wa-line" href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg><span>¿Dudas? <b>Escríbenos por WhatsApp</b></span></a>{%- endif -%}
       </div>
 
@@ -107,7 +105,6 @@
         {%- for b in section.blocks -%}{%- if b.type == 'card' -%}
           <details class="zc-card" {{ b.shopify_attributes }} {% if forloop.first %}open{% endif %}><summary>{{ b.settings.title }}</summary><div class="zn-rte">{{ b.settings.body }}</div></details>
         {%- endif -%}{%- endfor -%}
-        {%- if product.description != blank -%}<details class="zc-card"><summary>Descripción completa</summary><div class="zn-rte">{{ product.description }}</div></details>{%- endif -%}
       </div>
     </div>
   </section>
@@ -344,6 +341,89 @@
 .zc .zn-form{display:flex;flex-direction:column}
 .zc .zn-form .zn-btn.zn-btn--buy{order:2;margin-top:10px;min-height:54px;background:#fff;color:var(--zc-navy);border:2px solid var(--zc-navy);font-size:16px;text-transform:none;letter-spacing:.01em}
 .zc .zn-form .zn-btn--buy .zn-btn__sep{background:currentColor;opacity:.3}
+/* ===== Pulido v3.1: escala 4/8/12/16/24/40, letra 17 px base, sangría colgante ===== */
+.zc{font-size:17px;line-height:1.5}
+.zc .zn-info{padding-top:16px}
+.zc .zc-title{font-size:31px;line-height:1.1;margin:0 0 12px}
+.zc-lead{margin:0 0 12px;font-size:18px;line-height:1.4}
+.zc-pill{margin-right:6px}
+.zc-bul{gap:12px;margin:0 0 20px}
+.zc-bul li{gap:12px;font-size:17.5px;line-height:1.45}
+.zc-bul li>span{flex:1;min-width:0}
+.zc-bul svg{width:22px;height:22px;margin-top:2px}
+.zc-price{padding:0 0 20px;margin:0 0 20px;gap:12px}
+.zc-price__b{font-size:38px}
+/* galería con puntitos (móvil) */
+@media (max-width:959px){
+  .zc .zn-gal{position:relative}
+  .zc .zc-dots{position:absolute;left:0;right:0;bottom:12px;justify-content:center;gap:6px;padding:0;overflow:visible;pointer-events:none}
+  .zc .zc-dots button{pointer-events:auto;flex:0 0 8px;width:8px;height:8px;border-radius:50%;border:0;padding:0;background:rgba(22,36,74,.28);opacity:1}
+  .zc .zc-dots button img,.zc .zc-dots button.is-txt{font-size:0}
+  .zc .zc-dots button img{display:none}
+  .zc .zc-dots button.is-on{background:var(--zc-navy);width:20px;flex-basis:20px;border-radius:999px}
+}
+/* packs: sangría colgante y aire */
+.zc .zn-packs--m{gap:16px;padding-top:12px}
+.zc .zn-pk{padding:16px}
+.zc .zn-pk__list{gap:8px;margin-top:14px;padding-top:14px}
+.zc .zn-pk__li{font-size:16px;line-height:1.4;align-items:flex-start}
+.zc .zn-pk__li>span{position:relative;padding-left:24px;flex:1;min-width:0}
+.zc .zn-pk__li>span:before{position:absolute;left:0;top:0;width:auto}
+.zc .zn-pk__li em{padding-top:1px}
+.zc .zn-pk__name b{font-size:19px}
+.zc .zn-pk__name small{font-size:15px;line-height:1.35}
+.zc .zn-pk__save{margin-top:14px;font-size:16px;padding:10px 12px}
+.zc .zn-pk__nudge{margin-top:16px;padding:12px 14px;font-size:16px;line-height:1.45;border-width:1.5px}
+.zc .zn-pk__frame{display:none}
+/* pago */
+.zc-or{order:2;margin:16px 0 0;text-align:center;font-size:15px;color:#5B6170}
+.zc .zn-form .zn-btn.zc-card-btn{order:2;margin-top:8px;display:flex;align-items:center;gap:10px;justify-content:flex-start;padding:0 18px;min-height:56px;border-radius:14px;font:800 17px/1 var(--zn-font)}
+.zc-card-btn svg{flex:none;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7}
+.zc-card-btn span{flex:1;text-align:left}
+.zc-card-btn b{font-size:18px}
+.zc .zn-pay{margin:12px 0 0}
+.zc-trust{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid #E3E7F0}
+.zc-trust li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #E3E7F0;font-size:16px;line-height:1.45;color:#3A4054}
+.zc-trust li>span{flex:1;min-width:0}
+.zc-trust b{color:var(--zc-navy)}
+.zc-trust svg{flex:none;width:24px;height:24px;fill:none;stroke:var(--zc-navy);stroke-width:1.7;stroke-linejoin:round}
+.zc .zn-wa-line{margin-top:16px}
+.zc .zc-cards{gap:8px;margin:24px 0 0}
+.zc-card summary{font-size:17px;padding:16px 28px 16px 0}
+.zc-card .zn-rte{font-size:16.5px;line-height:1.55}
+/* secciones: mismo ritmo */
+.zc-sec{padding:48px 0}
+.zc-kick{margin-bottom:12px}
+.zc-h2{font-size:29px;line-height:1.15;margin:0 0 12px}
+.zc-p{font-size:17px;line-height:1.55;margin:0 0 4px}
+.zc-suena{gap:8px;margin:24px 0 16px}
+.zc-suena label{padding:14px 16px;gap:14px}
+.zc-suena label>span:last-child{flex:1;min-width:0}
+.zc-suena b{font-size:17.5px;line-height:1.3}.zc-suena small{font-size:16px;line-height:1.45;margin-top:4px}
+.zc-note{margin:0;font-size:16.5px;padding:14px 16px}
+.zc-test{margin-top:24px}
+.zc-test__txt{font-size:17px}
+.zc-src{font-size:13px;line-height:1.45}
+.zc-split{gap:24px}
+.zc-feat{gap:8px;margin-top:20px}
+.zc-feat li{padding:14px 16px;gap:14px}
+.zc-feat li>span:last-child{flex:1;min-width:0}
+.zc-feat b{font-size:17.5px}.zc-feat small{font-size:16px;line-height:1.45;margin-top:4px}
+.zc-steps{gap:20px 12px;margin-top:24px}
+.zc-steps b{font-size:17px;margin-top:4px}.zc-steps small{font-size:15.5px;line-height:1.45}
+/* comparación más limpia */
+.zc-cmp{margin-top:24px;border:0;background:none;border-radius:0}
+.zc-cmp table{font-size:16px}
+.zc-cmp th,.zc-cmp td{padding:14px 8px;border-bottom:1px solid #DDE3EF;background:none}
+.zc-cmp thead th{font-size:15px;padding-top:0;border-bottom:2px solid var(--zc-navy)}
+.zc-cmp .is-us{background:#fff;color:var(--zc-navy);font-weight:800;border-left:2px solid var(--zc-navy);border-right:2px solid var(--zc-navy)}
+.zc-cmp thead .is-us{border-top:2px solid var(--zc-navy);border-radius:12px 12px 0 0;padding-top:12px;background:var(--zc-navy);color:#fff}
+.zc-cmp tbody tr:last-child .is-us{border-bottom:2px solid var(--zc-navy)}
+.zc-cmp td:not(.is-us){color:#6A7086}
+.zc-btn{margin-top:20px;min-height:56px;font-size:17px}
+.zc-guar .zc-p{max-width:480px;margin-inline:auto}
+.zc-kick{width:fit-content;margin:0 0 12px}.zc-h2,.zc-p.zc-center,.zc-sec .zc-center .zc-p{text-align:left}
+.zc-guar .zc-kick,.zc-sec>.zc-center .zc-kick{margin-inline:auto}.zc-guar .zc-h2,.zc-guar .zc-p,.zc-sec>.zc-center .zc-h2,.zc-sec .zc-center>.zc-h2{text-align:center}
 </style>
 
 {% schema %}
