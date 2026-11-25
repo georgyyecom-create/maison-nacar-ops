@@ -48,7 +48,7 @@
       {%- if s.guide_name != blank -%}<span class="zn-pk__li"><span class="zn-pk__ic zn-pk__ic--doc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></span><span>{{ s.guide_name }}</span><em class="is-gift">Gratis</em></span>{%- endif -%}
       <span class="zn-pk__li"><span class="zn-pk__ic zn-pk__ic--doc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span><span>Envío en 2–4 días</span><em class="is-gift">Gratis</em></span>
     </span>
-    <span class="zn-pk__save">Total {% render 'zn-money', cents: p2 %} · ahorras {% render 'zn-money', cents: save2 %} + regalos</span>
+    <span class="zn-pk__save">Total {% render 'zn-money', cents: p2 %} por los 2 · regalos y envío incluidos</span>
   </label>
   <label class="zn-pack zn-pk zn-pk--one" data-qty="1" data-price="{% render 'zn-money', cents: v1.price %}">
     <input type="radio" name="pack" value="1">

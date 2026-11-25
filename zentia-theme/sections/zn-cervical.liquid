@@ -67,8 +67,11 @@
         {%- endif -%}{%- endfor -%}
       </ul>
       <div class="zc-price">
-        <span class="zc-price__b">{% render 'zn-money', cents: v1.price %}</span>
-        {%- if S.price_pill != blank -%}<span class="zc-price__pill">{{ S.price_pill }}</span>{%- endif -%}
+        {%- assign kper = p2 | divided_by: 2 -%}{%- assign koff = v1.price | minus: kper | times: 100.0 | divided_by: v1.price | round -%}
+        <span class="zc-price__b">{% render 'zn-money', cents: kper %}<small>/ud</small></span>
+        <s class="zc-price__s">{% render 'zn-money', cents: v1.price %}</s>
+        <span class="zc-price__pill">−{{ koff }} % en el kit</span>
+        <p class="zc-price__note">Precio por masajeador en el Kit Cervical: 2 unidades, regalos y envío gratis.</p>
       </div>
 
       <div class="zn-offer zc-offer" id="oferta">
@@ -77,24 +80,30 @@
           {% render 'zn-packs-m', product: product, s: S %}
           <p class="zc-or">o, si prefieres pagar ya</p>
           <button type="submit" class="zn-btn zn-btn--buy zc-card-btn" data-buy>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg><span>{{ S.cta }}</span><b data-buy-price>{% render 'zn-money', cents: p2 %}</b>
+            <span class="zc-cb"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg><span class="zc-cb__t">{{ S.cta }}<small>Pago seguro y al instante</small></span><b data-buy-price>{% render 'zn-money', cents: p2 %}</b></span>
           </button>
         {%- endform -%}
         <div class="zn-pay"><div class="zn-pay__icons">{%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'zn-pay__i' }}{%- endfor -%}</div></div>
         <ul class="zc-trust">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><span data-eta data-min="{{ S.eta_min }}" data-max="{{ S.eta_max }}">Pide hoy y llega entre el <b data-eta-a>—</b> y el <b data-eta-b>—</b></span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span><b>Pagas al recibirlo</b>, en efectivo al repartidor</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg><span><b>30 días para probarlo</b> en casa</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><span data-eta data-min="{{ S.eta_min }}" data-max="{{ S.eta_max }}"><b>Llega entre</b> <span data-eta-a>—</span> y <span data-eta-b>—</span></span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span><b>Pagas al recibirlo</b> en efectivo</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg><span><b>30 días</b> de prueba</span></li>
         </ul>
         {%- if S.wa_number != blank -%}<a class="zn-wa-line" href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg><span>¿Dudas? <b>Escríbenos por WhatsApp</b></span></a>{%- endif -%}
       </div>
 
       {%- if S.show_reviews and review_blocks.size > 0 -%}
-        {%- assign fr = review_blocks.first -%}{%- for b in review_blocks -%}{%- if b.settings.featured -%}{%- assign fr = b -%}{%- break -%}{%- endif -%}{%- endfor -%}
-        <a class="zc-frev" href="#opiniones">
-          <span class="zc-frev__top">{%- if fr.settings.image != blank -%}{{ fr.settings.image | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<span class="zc-ava">{{ fr.settings.name | slice: 0 }}</span>{%- endif -%}<span><b>{{ fr.settings.name }}{%- if fr.settings.place != blank -%}<span class="zc-place">, {{ fr.settings.place }}</span>{%- endif -%}</b><small>Compra verificada</small></span><span class="zn-stars zn-stars--s" style="--r: {{ fr.settings.stars }}" aria-label="{{ fr.settings.stars }} de 5">★★★★★</span></span>
-          <q>{{ fr.settings.text | truncate: 170 }}</q>
-        </a>
+        {%- assign nfeat = 0 -%}{%- for b in review_blocks -%}{%- if b.settings.featured -%}{%- assign nfeat = nfeat | plus: 1 -%}{%- endif -%}{%- endfor -%}
+        <div class="zc-frevs{% if nfeat > 1 %} is-many{% endif %}">
+          {%- for fr in review_blocks -%}
+            {%- if nfeat == 0 and forloop.index > 1 -%}{%- break -%}{%- endif -%}
+            {%- if nfeat > 0 and fr.settings.featured != true -%}{%- continue -%}{%- endif -%}
+            <a class="zc-frev" href="#opiniones">
+              <span class="zc-frev__top">{%- if fr.settings.image != blank -%}{{ fr.settings.image | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<span class="zc-ava">{{ fr.settings.name | slice: 0 }}</span>{%- endif -%}<span><b>{{ fr.settings.name }}{%- if fr.settings.place != blank -%}<span class="zc-place">, {{ fr.settings.place }}</span>{%- endif -%}</b><small>Compra verificada</small></span><span class="zn-stars zn-stars--s" style="--r: {{ fr.settings.stars }}" aria-label="{{ fr.settings.stars }} de 5">★★★★★</span></span>
+              <q>{{ fr.settings.text | truncate: 170 }}</q>
+            </a>
+          {%- endfor -%}
+        </div>
       {%- endif -%}
 
       <div class="zc-cards">
@@ -588,6 +597,32 @@
 .zc-mom__c{flex:0 0 72%;max-width:300px;margin:0;scroll-snap-align:start;background:#fff;border:1px solid #E3E7F0;border-radius:16px;overflow:hidden}
 .zc-mom__img{overflow:hidden}
 .zc-mom__c figcaption{padding:12px 14px 16px}.zc-mom__c b{display:block;font-size:17px;color:var(--zc-navy)}.zc-mom__c small{display:block;margin-top:4px;font-size:15px;line-height:1.45;color:#4A5066}
+/* v3.5 */
+.zc-price{flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.zc-price__b small{font-size:18px;font-weight:700;margin-left:2px;color:#4A5066}
+.zc-price__s{font-size:19px;color:#8A90A0}
+.zc-price__pill{align-self:center;background:#E8F4EC;color:#1E7A4D;font:800 14px/1 var(--zn-font);padding:7px 10px;border-radius:999px;text-transform:none;letter-spacing:0}
+.zc-price__note{flex-basis:100%;margin:0;font-size:14.5px;color:#4A5066}
+.zc .zn-form .zn-btn.zc-card-btn{display:block;padding:0;min-height:62px;background:linear-gradient(180deg,#F4F7FF,#E6EEFF);color:var(--zc-navy);border:2px solid var(--zc-blue);box-shadow:0 0 0 4px rgba(47,91,234,.12),0 8px 20px -10px rgba(47,91,234,.6);text-transform:none;letter-spacing:0;position:relative}
+.zc-cb{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:0 16px;text-align:left}
+.zc-cb svg{flex:0 0 24px;width:24px;height:24px;fill:none;stroke:var(--zc-blue);stroke-width:1.8}
+.zc-cb__t{flex:1;min-width:0;display:flex;flex-direction:column;font:800 17px/1.15 var(--zn-font)}
+.zc-cb__t small{font:600 12.5px/1.2 var(--zn-font);color:#4A5066;margin-top:3px}
+.zc-cb b{flex:none;font:800 18px/1 var(--zn-font)}
+.zc-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border:0;margin:16px 0 0}
+.zc-trust li{flex-direction:column;align-items:center;text-align:center;gap:6px;padding:12px 6px;border:1px solid #E3E7F0;border-radius:14px;background:#F8FAFE;font-size:13px;line-height:1.3}
+.zc-trust li>span{flex:none}
+.zc-trust b{display:block}
+.zc-rate{overflow:hidden}.zc-rate__l{min-width:0}
+.zc-rate__faces{flex:none;padding-left:8px}.zc-rate__faces img:first-child{margin-left:0}
+.zc-frevs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:16px -16px 0;padding:0 16px 4px;scrollbar-width:none}
+.zc-frevs::-webkit-scrollbar{display:none}
+.zc-frevs .zc-frev{flex:0 0 100%;margin:0;scroll-snap-align:start}
+.zc-frevs.is-many .zc-frev{flex-basis:86%}
+.zc .zn-pk__nudge{display:none;background:#FFF6D6;border:1.5px solid #E9C46A;color:#5A4500}
+.zc .zn-form:has(.zn-pk--one.is-on) .zn-pk__nudge{display:block;animation:zcpop .25s ease-out}
+@keyframes zcpop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.zc .zn-form:has(.zn-pk--one.is-on) .zn-pk__nudge{animation:none}}
 </style>
 
 {% schema %}
