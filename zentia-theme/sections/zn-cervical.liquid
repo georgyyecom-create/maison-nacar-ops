@@ -90,7 +90,7 @@
       </div>
 
       {%- if S.show_reviews and review_blocks.size > 0 -%}
-        {%- assign fr = review_blocks.first -%}
+        {%- assign fr = review_blocks.first -%}{%- for b in review_blocks -%}{%- if b.settings.featured -%}{%- assign fr = b -%}{%- break -%}{%- endif -%}{%- endfor -%}
         <a class="zc-frev" href="#opiniones">
           <span class="zc-frev__top">{%- if fr.settings.image != blank -%}{{ fr.settings.image | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}<span class="zc-ava">{{ fr.settings.name | slice: 0 }}</span>{%- endif -%}<span><b>{{ fr.settings.name }}{%- if fr.settings.place != blank -%}<span class="zc-place">, {{ fr.settings.place }}</span>{%- endif -%}</b><small>Compra verificada</small></span><span class="zn-stars zn-stars--s" style="--r: {{ fr.settings.stars }}" aria-label="{{ fr.settings.stars }} de 5">★★★★★</span></span>
           <q>{{ fr.settings.text | truncate: 170 }}</q>
@@ -103,6 +103,10 @@
         {%- endif -%}{%- endfor -%}
       </div>
     </div>
+  </section>
+
+  <section class="zc-photo zn-in">
+    <div class="zc-photo__img">{% render 'zn-img', img: S.img_after, label: 'Foto tras los desplegables', ratio: '4/5' %}</div>
   </section>
 
   <section class="zc-sec zc-sec--tint">
@@ -191,16 +195,17 @@
     <div class="zn-in zc-narrow">
       <h2 class="zc-h2">{{ S.rev_title }}</h2>
       <div class="zc-rsum">
-        <div class="zc-rsum__n"><b>{{ rv_avg | replace: '.', ',' }}</b><span class="zn-stars" style="--r: {{ rv_avg | replace: ',', '.' }}" aria-hidden="true">★★★★★</span><small>{{ rv_n }} opiniones</small></div>
-        <ul class="zc-rsum__bars" aria-label="Reparto de estrellas">
+        <div class="zc-rsum__n"><b>{{ rv_avg | replace: '.', ',' }}</b><span class="zn-stars" style="--r: {{ rv_avg | replace: ',', '.' }}" aria-hidden="true">★★★★★</span><small>{{ rv_count }} opiniones</small></div>
+        {%- if S.dist_5 != blank -%}{%- assign c5 = S.dist_5 | plus: 0 -%}{%- assign c4 = S.dist_4 | plus: 0 -%}{%- assign c3 = S.dist_3 | plus: 0 -%}{%- assign c2 = S.dist_2 | plus: 0 -%}{%- assign c1 = S.dist_1 | plus: 0 -%}{%- assign ctot = c5 | plus: c4 | plus: c3 | plus: c2 | plus: c1 | at_least: 1 -%}<ul class="zc-rsum__bars" aria-label="Reparto de estrellas">
           {%- assign cs = c5 | append: ',' | append: c4 | append: ',' | append: c3 | append: ',' | append: c2 | append: ',' | append: c1 | split: ',' -%}
-          {%- for c in cs -%}{%- assign st = 6 | minus: forloop.index -%}{%- assign pct = c | times: 100 | divided_by: rv_n -%}<li><span>{{ st }} ★</span><i style="--w: {{ pct }}%"></i><span>{{ c }}</span></li>{%- endfor -%}
-        </ul>
+          {%- for c in cs -%}{%- assign st = 6 | minus: forloop.index -%}{%- assign pct = c | times: 100 | divided_by: ctot -%}<li><span>{{ st }} ★</span><i style="--w: {{ pct }}%"></i><span>{{ c }}</span></li>{%- endfor -%}
+        </ul>{%- endif -%}
       </div>
       {%- assign photos = '' -%}
       <div class="zc-rgrid">
         {%- for b in review_blocks -%}{%- if b.settings.photo != blank -%}{{ b.settings.photo | image_url: width: 400 | image_tag: loading: 'lazy', alt: 'Foto de cliente' }}{%- endif -%}{%- endfor -%}
       </div>
+      <p class="zc-rnote">{{ S.rev_note }}</p>
       <div class="zc-rlist">
         {%- for b in review_blocks limit: 12 -%}
           <figure class="zc-rcard" {{ b.shopify_attributes }}>
@@ -535,6 +540,13 @@
 /* regalos de los packs: precio real tachado + «Gratis» */
 .zc .zn-pk__li em.is-gift{text-transform:none;font-size:15px;letter-spacing:0;font-weight:800;color:#1E7A4D}
 .zc .zn-pk__li em.is-gift s{font-weight:500;color:#8A90A0;margin-right:4px}
+/* v3.3: puntitos blancos, icono tarjeta, foto tras desplegables */
+@media (max-width:959px){.zc .zc-dots button{background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(22,36,74,.25),0 1px 3px rgba(0,0,0,.25)}.zc .zc-dots button.is-on{background:#fff}}
+.zc .zn-form .zc-card-btn svg{display:block;flex:0 0 24px;width:24px;height:24px;margin:0;align-self:center}
+.zc .zn-form .zc-card-btn span,.zc .zn-form .zc-card-btn b{line-height:1;align-self:center}
+.zc .zn-pk__top{grid-template-columns:auto 68px 1fr auto}.zc .zn-pk__img{width:68px;height:68px;background:#fff;border:1px solid #E3E7F0}.zc .zn-pk__img img{object-fit:contain}
+.zc-rnote{margin:16px 0 0;font-size:14px;color:#6A7086}
+.zc-photo{padding-top:8px;padding-bottom:40px}.zc-photo__img{border-radius:20px;overflow:hidden;max-width:640px;margin:0 auto}.zc-photo__img img{width:100%;height:auto;display:block}
 </style>
 
 {% schema %}
@@ -548,8 +560,14 @@
     { "type": "text", "id": "tagline", "label": "Lema bajo la marca", "default": "Descanso y bienestar" },
     { "type": "text", "id": "sub_text", "label": "Franja bajo la cabecera", "default": "Pago contra reembolso" },
     { "type": "checkbox", "id": "show_reviews", "label": "Mostrar reseñas y estrellas (solo reales)", "default": false },
-    { "type": "text", "id": "rating_value", "label": "Nota media real (vacío = se calcula)" },
-    { "type": "text", "id": "rating_count", "label": "Número real de opiniones (vacío = número de reseñas)" },
+    { "type": "text", "id": "rating_value", "label": "Nota media TOTAL real (ej. 4,8). Vacío = media de las reseñas añadidas" },
+    { "type": "text", "id": "rating_count", "label": "Número TOTAL real de opiniones. Vacío = número de reseñas añadidas" },
+    { "type": "text", "id": "dist_5", "label": "Total real de opiniones de 5 estrellas (vacío = sin barras)" },
+    { "type": "text", "id": "dist_4", "label": "Total real de 4 estrellas" },
+    { "type": "text", "id": "dist_3", "label": "Total real de 3 estrellas" },
+    { "type": "text", "id": "dist_2", "label": "Total real de 2 estrellas" },
+    { "type": "text", "id": "dist_1", "label": "Total real de 1 estrella" },
+    { "type": "text", "id": "rev_note", "label": "Opiniones · nota bajo el resumen", "default": "Una selección de opiniones de nuestros clientes." },
     { "type": "text", "id": "rating_label", "label": "Texto tras el número", "default": "opiniones verificadas" },
     { "type": "text", "id": "pill", "label": "Etiqueta junto a la frase", "default": "Calor + masaje" },
     { "type": "text", "id": "bullets_title", "label": "Frase sobre la lista", "default": "15 minutos al día para:" },
@@ -583,6 +601,9 @@
     { "type": "text", "id": "test_title", "label": "Prueba · título", "default": "Tu cabeza pesa unos 5 kg. Inclinada, hasta 27." },
     { "type": "text", "id": "test_text", "label": "Prueba · texto", "default": "Mueve la barra y mira lo que carga tu cuello según inclinas la cabeza." },
     { "type": "text", "id": "test_source", "label": "Prueba · fuente", "default": "Carga estimada sobre el cuello según la inclinación de la cabeza (Hansraj, Surgical Technology International, 2014)." },
+    { "type": "image_picker", "id": "img_after", "label": "Foto tras los desplegables" },
+    { "type": "image_picker", "id": "img_pack2", "label": "Packs · foto del kit (cuadrada)" },
+    { "type": "image_picker", "id": "img_pack1", "label": "Packs · foto de 1 masajeador (cuadrada)" },
     { "type": "image_picker", "id": "img_how", "label": "Foto · cómo funciona (F03)" },
     { "type": "text", "id": "how_kicker", "label": "Cómo funciona · etiqueta", "default": "Cómo funciona" },
     { "type": "text", "id": "how_title", "label": "Cómo funciona · título", "default": "Calor por fuera, masaje en la nuca" },
@@ -621,7 +642,7 @@
     { "type": "step", "name": "Paso", "settings": [ { "type": "image_picker", "id": "image", "label": "Foto" }, { "type": "text", "id": "label", "label": "Etiqueta del hueco", "default": "Foto del paso" }, { "type": "text", "id": "title", "label": "Título", "default": "Paso" }, { "type": "text", "id": "text", "label": "Texto", "default": "Texto" } ] },
     { "type": "row", "name": "Fila de comparación", "settings": [ { "type": "text", "id": "text", "label": "Qué", "default": "Precio" }, { "type": "text", "id": "us", "label": "Zentia", "default": "Sí" }, { "type": "text", "id": "other", "label": "Otro", "default": "No" } ] },
     { "type": "faq", "name": "Pregunta", "settings": [ { "type": "text", "id": "q", "label": "Pregunta", "default": "Pregunta" }, { "type": "richtext", "id": "a", "label": "Respuesta", "default": "<p>Respuesta</p>" } ] },
-    { "type": "review", "name": "Reseña (solo reales)", "settings": [ { "type": "text", "id": "name", "label": "Nombre", "default": "Nombre" }, { "type": "text", "id": "place", "label": "Ciudad" }, { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 }, { "type": "textarea", "id": "text", "label": "Texto", "default": "Texto de la reseña" }, { "type": "image_picker", "id": "image", "label": "Foto de la persona (círculo)" }, { "type": "image_picker", "id": "photo", "label": "Foto del producto hecha por el cliente" } ] }
+    { "type": "review", "name": "Reseña (solo reales)", "settings": [ { "type": "text", "id": "name", "label": "Nombre", "default": "Nombre" }, { "type": "text", "id": "place", "label": "Ciudad" }, { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 }, { "type": "textarea", "id": "text", "label": "Texto", "default": "Texto de la reseña" }, { "type": "image_picker", "id": "image", "label": "Foto de la persona (círculo)" }, { "type": "image_picker", "id": "photo", "label": "Foto del producto hecha por el cliente" }, { "type": "checkbox", "id": "featured", "label": "Destacar bajo los packs", "default": false } ] }
   ]
 }
 {% endschema %}
