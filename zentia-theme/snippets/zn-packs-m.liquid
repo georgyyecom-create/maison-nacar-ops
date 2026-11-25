@@ -1,0 +1,97 @@
+{%- doc -%}
+  Packs del masajeador (estilo Serenium): precio por unidad grande, total abajo y en el botón.
+  Kit (2 uds + regalos + envío gratis) primero y marcado; 1 unidad con envío.
+  El precio del kit lo aplica un descuento automático de Shopify; el regalo lo añade zn.js (data-gift).
+  @param {object} product - Producto
+  @param {object} s - Ajustes de la sección
+{%- enddoc -%}
+{%- liquid
+  assign v1 = product.selected_or_first_available_variant
+  assign p2 = s.pack2_cents | default: 6990
+  assign sep2 = v1.price | times: 2
+  assign save2 = sep2 | minus: p2
+  assign per2 = p2 | divided_by: 2
+  assign ship1 = s.ship1_cents | default: 495
+  assign one_total = v1.price | plus: ship1
+  assign extra = p2 | minus: one_total
+  assign gift = all_products[s.gift_handle]
+  assign gift_id = ''
+  if gift and gift.price > 0
+    assign gift_id = gift.variants.first.id
+  endif
+  assign img = product.featured_image
+  assign img2 = s.img_pack2 | default: product.featured_image
+  assign img1 = s.img_pack1 | default: product.featured_image
+  assign ngifts = 0
+  if gift_id != ''
+    assign ngifts = ngifts | plus: 1
+  endif
+  if s.guide_name != blank
+    assign ngifts = ngifts | plus: 1
+  endif
+-%}
+<input type="hidden" name="id" value="{{ v1.id }}">
+<input type="hidden" name="quantity" value="2" data-qty-input>
+<div class="zn-packs zn-packs--m" role="radiogroup" aria-label="Elige tu pack" data-v1="{{ v1.id }}" data-gift="{{ gift_id }}">
+  <label class="zn-pack zn-pk is-on" data-qty="2" data-price="{% render 'zn-money', cents: p2 %}">
+    <input type="radio" name="pack" value="2" checked>
+    {%- if s.badge2 != blank -%}<span class="zn-pack__badge">{{ s.badge2 }}</span>{%- endif -%}
+    <span class="zn-pk__top">
+      <span class="zn-pack__radio" aria-hidden="true"></span>
+      <span class="zn-pk__img">{%- if img2 -%}{{ img2 | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}{%- if s.img_pack2 == blank -%}<i>×2</i>{%- endif -%}</span>
+      <span class="zn-pk__name"><b>{{ s.unit2 }}</b>{%- if ngifts > 0 -%}<em class="zn-pk__gifts">+{{ ngifts }} regalos gratis</em>{%- endif -%}<small>{{ s.unit2_sub }}</small></span>
+      <span class="zn-pk__price"><b>{% render 'zn-money', cents: per2 %}<small>c/u</small></b><s title="Precio de uno suelto">{% render 'zn-money', cents: v1.price %}</s></span>
+    </span>
+    <span class="zn-pk__list">
+      <span class="zn-pk__li"><span class="zn-pk__ic">{%- if img -%}{{ img | image_url: width: 80 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span><span>2 masajeadores con calor</span><em>×2</em></span>
+      {%- if gift_id != '' -%}<span class="zn-pk__li"><span class="zn-pk__ic">{%- if gift.featured_image -%}{{ gift.featured_image | image_url: width: 80 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span><span>{{ s.gift_name | default: gift.title }}</span><em class="is-gift"><s>{% render 'zn-money', cents: gift.price %}</s> Gratis</em></span>{%- endif -%}
+      {%- if s.guide_name != blank -%}<span class="zn-pk__li"><span class="zn-pk__ic zn-pk__ic--doc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></span><span>{{ s.guide_name }}</span><em class="is-gift">Gratis</em></span>{%- endif -%}
+      <span class="zn-pk__li"><span class="zn-pk__ic zn-pk__ic--doc" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span><span>Envío en 2–4 días</span><em class="is-gift">Gratis</em></span>
+    </span>
+    <span class="zn-pk__save">Total {% render 'zn-money', cents: p2 %} · ahorras {% render 'zn-money', cents: save2 %} + regalos</span>
+  </label>
+  <label class="zn-pack zn-pk zn-pk--one" data-qty="1" data-price="{% render 'zn-money', cents: v1.price %}">
+    <input type="radio" name="pack" value="1">
+    <span class="zn-pk__top">
+      <span class="zn-pack__radio" aria-hidden="true"></span>
+      <span class="zn-pk__img">{%- if img1 -%}{{ img1 | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>
+      <span class="zn-pk__name"><b>{{ s.unit1 }}</b><small>+ {% render 'zn-money', cents: ship1 %} de envío · sin regalos</small></span>
+      <span class="zn-pk__price"><b>{% render 'zn-money', cents: v1.price %}</b></span>
+    </span>
+  </label>
+</div>
+<p class="zn-pk__nudge"><b>Por solo {% render 'zn-money', cents: extra %} más</b> que uno suelto con su envío, te llevas otro masajeador para regalar{% if gift_id != '' %}, la almohadilla de gel{% endif %}{% if s.guide_name != blank %}, la guía{% endif %} y el envío gratis.</p>
+{%- if s.frame_text != blank -%}<p class="zn-pk__frame">{{ s.frame_text }}</p>{%- endif -%}
+<style>
+.zn-packs--m{display:grid;gap:16px;margin-top:10px}
+.zn-pk .zn-pack__badge{position:absolute;top:-13px;right:12px;left:auto;margin:0;border-radius:999px;padding:6px 11px;font:800 12px/1 var(--zn-font);background:#0B0B0D;color:#FFD84D;letter-spacing:.08em;text-transform:uppercase;z-index:1}
+.zn-pk{display:block;position:relative;border:2px solid #D7DCE6;border-radius:16px;padding:14px;background:#fff;cursor:pointer}
+.zn-pk.is-on{border-color:var(--zn-navy);box-shadow:0 0 0 3px rgba(22,36,74,.12)}
+.zn-pk input{position:absolute;opacity:0;pointer-events:none}
+.zn-pk__top{display:grid;grid-template-columns:auto 56px 1fr auto;gap:10px;align-items:center}
+.zn-pk__img{position:relative;width:56px;height:56px;border-radius:10px;overflow:hidden;background:#F1F3F7}
+.zn-pk__img img{width:100%;height:100%;object-fit:cover}
+.zn-pk__img i{position:absolute;right:3px;bottom:3px;background:var(--zn-navy);color:#fff;font:800 12px/1 var(--zn-font);font-style:normal;padding:3px 5px;border-radius:6px}
+.zn-pk__name b{display:block;font:800 18px/1.2 var(--zn-font);color:#16181D}
+.zn-pk__gifts{display:inline-block;margin:4px 0 2px;padding:3px 8px;border-radius:6px;background:#E8F4EC;color:#1E7A4D;font:800 12px/1.2 var(--zn-font);font-style:normal}
+.zn-pk__name small{display:block;font-size:14px;color:#5B6170;margin-top:3px}
+.zn-pk__price{text-align:right}
+.zn-pk__price b{display:block;font:800 22px/1 var(--zn-font);color:var(--zn-navy);white-space:nowrap}
+.zn-pk__price b small{font-size:13px;font-weight:700;margin-left:2px;color:#5B6170}
+.zn-pk__price s{display:block;font-size:14px;color:#8A90A0;margin-top:4px}
+.zn-pk__list{display:grid;gap:8px;margin-top:12px;padding-top:12px;border-top:1px dashed #D7DCE6}
+.zn-pk__li{display:flex;align-items:center;gap:10px;font-size:15.5px;line-height:1.35;color:#16181D}
+.zn-pk__li>span:nth-child(2){flex:1;min-width:0}
+.zn-pk__ic{flex:none;width:32px;height:32px;border-radius:8px;overflow:hidden;background:#F1F3F7;display:grid;place-items:center}
+.zn-pk__ic img{width:100%;height:100%;object-fit:cover}
+.zn-pk__ic svg{width:18px;height:18px;fill:none;stroke:var(--zn-navy);stroke-width:1.7;stroke-linejoin:round}
+.zn-pk__li em{font-style:normal;font-weight:700;color:#5B6170;white-space:nowrap}
+.zn-pk__li em.is-gift{color:#1E7A4D;font-weight:800}
+.zn-pk__li em.is-gift s{font-weight:500;color:#8A90A0;margin-right:4px}
+.zn-pk__save{display:block;margin-top:10px;background:#FFF6D6;color:#5A4500;border-radius:10px;padding:8px 10px;font:800 15px/1.3 var(--zn-font);text-align:center}
+.zn-pk--one{opacity:.92}
+.zn-pk--one .zn-pk__name b{font-size:16px}
+.zn-pk--one .zn-pk__price b{font-size:19px;color:#16181D}
+.zn-pk__nudge{margin:12px 0 0;padding:10px 12px;border:1.5px dashed var(--zn-navy);border-radius:12px;font-size:15px;line-height:1.4;color:#16181D}
+.zn-pk__frame{margin:8px 0 0;font-size:14px;color:#5B6170;text-align:center}
+</style>

@@ -7,36 +7,36 @@
         "b1": {
           "type": "bullet",
           "settings": {
-            "lead": "Soltar la nuca cargada",
-            "text": "después de un día de ordenador, móvil o cocina"
+            "lead": "Suelta la nuca cargada del día",
+            "text": ""
           }
         },
         "b2": {
           "type": "bullet",
           "settings": {
-            "lead": "Relajar los hombros",
-            "text": "que se suben solos con el frío y las prisas"
+            "lead": "Relaja los hombros subidos",
+            "text": ""
           }
         },
         "b3": {
           "type": "bullet",
           "settings": {
-            "lead": "Calor suave",
-            "text": "a temperatura constante y 6 cabezales que siguen la curva del cuello"
+            "lead": "Calor suave y constante",
+            "text": ""
           }
         },
         "b4": {
           "type": "bullet",
           "settings": {
-            "lead": "Sin cables:",
-            "text": "en el sofá, leyendo o viendo la tele"
+            "lead": "6 cabezales que siguen tu cuello",
+            "text": ""
           }
         },
         "b5": {
           "type": "bullet",
           "settings": {
-            "lead": "15 minutos para ti,",
-            "text": "en casa y sin pedir cita"
+            "lead": "Sin cables: 15 minutos en el sofá",
+            "text": ""
           }
         },
         "c1": {
@@ -77,43 +77,41 @@
         "s1": {
           "type": "suena",
           "settings": {
-            "title": "Nuca de piedra tras el ordenador",
-            "text": "Después de unas horas de pantalla, el cuello pesa y cuesta moverlo."
+            "title": "Nuca cargada tras la pantalla",
+            "text": "Pasamos horas con la cabeza inclinada hacia el ordenador o el móvil y los músculos de la nuca no descansan en todo el día.",
+            "help": "Calor suave y masaje en la base del cuello durante 15 minutos, mientras lees o ves la tele."
           }
         },
         "s2": {
           "type": "suena",
           "settings": {
-            "title": "Cuello de móvil",
-            "text": "Con la cabeza hacia abajo un rato tras otro, en el sofá o en el autobús."
+            "title": "Hombros subidos y tensos",
+            "text": "Con el frío, las prisas y el estrés, los hombros se suben sin darte cuenta y se quedan así.",
+            "help": "Sus brazos se apoyan sobre los hombros y el calor templa la zona para que te relajes."
           }
         },
         "s3": {
           "type": "suena",
           "settings": {
-            "title": "Hombros pegados a las orejas",
-            "text": "Con el frío y las prisas se suben solos y no bajan ni descansando."
+            "title": "Cuello rígido al levantarte",
+            "text": "Una mala postura en el sofá o en la cama deja el cuello duro a primera hora.",
+            "help": "Una sesión corta por la mañana o por la noche, sin cita y sin salir de casa."
           }
         },
         "s4": {
           "type": "suena",
           "settings": {
             "title": "El tirón al girar la cabeza",
-            "text": "Al aparcar o mirar por el retrovisor, ahí está."
+            "text": "Al aparcar o mirar por el retrovisor notas el cuello cargado.",
+            "help": "4 modos y 15 niveles: empiezas suave y subes hasta que te resulte agradable."
           }
         },
         "s5": {
           "type": "suena",
           "settings": {
-            "title": "Cuello rígido al levantarte",
-            "text": "Te despiertas y tardas un rato en poder girar la cabeza con soltura."
-          }
-        },
-        "s6": {
-          "type": "suena",
-          "settings": {
-            "title": "Ningún momento para ti",
-            "text": "Ir a un masaje cuesta dinero, tiempo y cita. Al final, nunca vas."
+            "title": "Nunca encuentras un momento para ti",
+            "text": "Ir a un masaje cuesta dinero, tiempo y pedir cita, así que al final no vas.",
+            "help": "Lo tienes en casa: 15 minutos al día, cuando tú quieras."
           }
         },
         "f1": {
@@ -241,6 +239,52 @@
             "q": "¿Es un producto sanitario?",
             "a": "<p>No. Es un aparato de masaje y bienestar. Si tienes dolor persistente, consulta a tu médico.</p>"
           }
+        },
+        "m1": {
+          "type": "moment",
+          "settings": {
+            "title": "Al llegar del trabajo",
+            "text": "Te sientas, te lo pones y en 15 minutos desconectas.",
+            "label": "Momento: sofá al llegar del trabajo"
+          }
+        },
+        "m2": {
+          "type": "moment",
+          "settings": {
+            "title": "Leyendo o viendo la tele",
+            "text": "Sin cables y en silencio, no molesta a nadie.",
+            "label": "Momento: leyendo en el sillón"
+          }
+        },
+        "m3": {
+          "type": "moment",
+          "settings": {
+            "title": "Después de conducir",
+            "text": "Ideal tras un viaje largo o un día al volante.",
+            "label": "Momento: tras conducir"
+          }
+        },
+        "m4": {
+          "type": "moment",
+          "settings": {
+            "title": "Para tus padres",
+            "text": "El regalo que se usa cada día, no se queda en un cajón.",
+            "label": "Momento: padre o madre usándolo"
+          }
+        },
+        "q8": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Cómo sé que esto no es una estafa?",
+            "a": "<p>Porque no adelantas nada: pagas en efectivo al repartidor cuando lo tienes en la mano. Y si no te convence, tienes 30 días para devolverlo. Te atendemos en español por WhatsApp.</p>"
+          }
+        },
+        "q9": {
+          "type": "faq",
+          "settings": {
+            "q": "¿Y si no me gusta?",
+            "a": "<p>Escríbenos por WhatsApp dentro de los 30 días y te devolvemos el dinero. Si llega dañado, te mandamos otro.</p>"
+          }
         }
       },
       "block_order": [
@@ -259,7 +303,10 @@
         "s3",
         "s4",
         "s5",
-        "s6",
+        "m1",
+        "m2",
+        "m3",
+        "m4",
         "f1",
         "f2",
         "f3",
@@ -270,6 +317,8 @@
         "r2",
         "r3",
         "r4",
+        "q8",
+        "q9",
         "q1",
         "q2",
         "q3",
@@ -310,15 +359,15 @@
         "eta_min": 2,
         "eta_max": 4,
         "suena_kicker": "¿Te suena?",
-        "suena_title": "Así acaba la nuca al final del día",
-        "suena_text": "Marca lo que te pasa.",
+        "suena_title": "Por qué la nuca acaba cargada y qué puedes hacer",
+        "suena_text": "Toca cada punto para verlo.",
         "suena_foot": "Si te reconoces en 2 o más, tu nuca necesita algo que puedas usar cada día, no un masaje de vez en cuando.",
         "test_kicker": "Haz la prueba",
         "test_title": "Tu cabeza pesa unos 5 kg. Inclinada, hasta 27.",
         "test_text": "Cada vez que bajas la cabeza hacia el móvil o la pantalla, el cuello carga mucho más. Mueve la barra:",
         "test_source": "Carga estimada sobre el cuello según la inclinación de la cabeza (Hansraj, Surgical Technology International, 2014).",
         "how_kicker": "Cómo funciona",
-        "how_title": "Calor por fuera, masaje en la nuca",
+        "how_title": "Así actúa en tu nuca",
         "how_text": "<p>Te lo pones como unos auriculares, con los 6 cabezales en la nuca. El calor templa la zona y los impulsos suaves hacen el masaje mientras tú descansas.</p>",
         "steps_kicker": "Fácil desde el primer día",
         "steps_title": "Mira qué sencillo",
@@ -343,7 +392,10 @@
         "calc_text": "Mueve la barra y compara lo que gastarías en un año.",
         "calc_session": 30,
         "rev_title": "Lo que dicen quienes ya lo usan",
-        "final_text": "Dos masajeadores, la almohadilla de gel, la guía y el envío, por 69,90 €."
+        "final_text": "Dos masajeadores, la almohadilla de gel, la guía y el envío, por 69,90 €.",
+        "img_after": "shopify://shop_images/Gemini_Generated_Image_lh3envlh3envlh3e.jpg",
+        "img_pack2": "shopify://shop_images/Gemini_Generated_Image_wd9t31wd9t31wd9t.jpg",
+        "img_pack1": "shopify://shop_images/11_2024-03-16-22-37-02.jpg"
       }
     }
   },

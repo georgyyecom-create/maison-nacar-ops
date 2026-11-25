@@ -112,13 +112,20 @@
   <section class="zc-sec zc-sec--tint">
     <div class="zn-in zc-narrow">
       <h2 class="zc-h2">{{ S.suena_title }}</h2>
-      <p class="zc-p zc-center">{{ S.suena_text }}</p>
-      <ul class="zc-suena">
-        {%- for b in section.blocks -%}{%- if b.type == 'suena' -%}
-          <li {{ b.shopify_attributes }}><label><input type="checkbox"><span class="zc-box" aria-hidden="true"></span><span><b>{{ b.settings.title }}</b><small>{{ b.settings.text }}</small></span></label></li>
+      <p class="zc-p">{{ S.suena_text }}</p>
+      <div class="zc-why__img">{% render 'zn-img', img: S.img_why, label: '3D · cervical con la zona de la nuca cargada', ratio: '1/1' %}</div>
+      <div class="zc-why">
+        {%- assign wn = 0 -%}
+        {%- for b in section.blocks -%}{%- if b.type == 'suena' -%}{%- assign wn = wn | plus: 1 -%}
+          <details class="zc-why__it" {{ b.shopify_attributes }} {% if wn == 1 %}open{% endif %}>
+            <summary><span class="zc-why__n">{{ wn }}</span><b>{{ b.settings.title }}</b></summary>
+            <div class="zc-why__body">
+              <p><b>Por qué pasa:</b> {{ b.settings.text }}</p>
+              {%- if b.settings.help != blank -%}<p><b>Cómo te ayuda Zentia:</b> {{ b.settings.help }}</p>{%- endif -%}
+            </div>
+          </details>
         {%- endif -%}{%- endfor -%}
-      </ul>
-      <p class="zc-note">{{ S.suena_foot }}</p>
+      </div>
     </div>
   </section>
 
@@ -138,7 +145,7 @@
 
   <section class="zc-sec zc-sec--tint">
     <div class="zn-in zc-split">
-      <div class="zc-split__img">{% render 'zn-img', img: S.img_how, label: 'F03 · Detalle de los cabezales con calor', ratio: '4/5' %}</div>
+      <div class="zc-split__img">{% render 'zn-img', img: S.img_how, label: '3D · el masajeador en la nuca: 6 cabezales y calor', ratio: '4/5' %}</div>
       <div>
         <h2 class="zc-h2 zc-left">{{ S.how_title }}</h2>
         <div class="zc-p zn-rte">{{ S.how_text }}</div>
@@ -151,6 +158,7 @@
     </div>
   </section>
 
+  {%- if S.show_steps -%}
   <section class="zc-sec">
     <div class="zn-in">
       <h2 class="zc-h2">{{ S.steps_title }}</h2>
@@ -167,6 +175,25 @@
       </ol>
     </div>
   </section>
+  {%- endif -%}
+
+  {%- assign moments = section.blocks | where: 'type', 'moment' -%}
+  {%- if moments.size > 0 -%}
+  <section class="zc-sec">
+    <div class="zn-in">
+      <h2 class="zc-h2">{{ S.mom_title }}</h2>
+      <p class="zc-p">{{ S.mom_text }}</p>
+      <div class="zc-mom">
+        {%- for b in moments -%}
+          <figure class="zc-mom__c" {{ b.shopify_attributes }}>
+            <div class="zc-mom__img">{% render 'zn-img', img: b.settings.image, label: b.settings.label, ratio: '4/5' %}</div>
+            <figcaption><b>{{ b.settings.title }}</b><small>{{ b.settings.text }}</small></figcaption>
+          </figure>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
 
   <section class="zc-sec zc-sec--tint">
     <div class="zn-in zc-narrow">
@@ -414,8 +441,6 @@
 .zc .zn-pk{padding:16px}
 .zc .zn-pk__list{gap:8px;margin-top:14px;padding-top:14px}
 .zc .zn-pk__li{font-size:16px;line-height:1.4;align-items:flex-start}
-.zc .zn-pk__li>span{position:relative;padding-left:24px;flex:1;min-width:0}
-.zc .zn-pk__li>span:before{position:absolute;left:0;top:0;width:auto}
 .zc .zn-pk__li em{padding-top:1px}
 .zc .zn-pk__name b{font-size:19px}
 .zc .zn-pk__name small{font-size:15px;line-height:1.35}
@@ -548,6 +573,21 @@
 @media (max-width:959px){.zc .zc-dots{position:static;padding:10px 0 0;justify-content:center}.zc .zc-dots button{background:#C9D1E3;box-shadow:none}.zc .zc-dots button.is-on{background:var(--zc-navy)}}
 .zc-rnote{margin:16px 0 0;font-size:14px;color:#6A7086}
 .zc-photo{padding-top:8px;padding-bottom:40px}.zc-photo__img{border-radius:20px;overflow:hidden;max-width:640px;margin:0 auto}.zc-photo__img img{width:100%;height:auto;display:block}
+.zc-bul{gap:8px;margin:4px 0 18px}.zc-bul li{font-size:16px;line-height:1.35;align-items:center}.zc-bul svg{width:20px;height:20px;margin-top:0}.zc-bul li b{font-weight:700}
+.zc-why__img{margin:20px 0 0;border-radius:20px;overflow:hidden}
+.zc-why{display:grid;gap:8px;margin-top:20px}
+.zc-why__it{background:#fff;border:1px solid #E3E7F0;border-radius:14px;padding:0 14px}
+.zc-why__it summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 28px 14px 0;cursor:pointer;position:relative;font-size:17px;color:var(--zc-navy)}
+.zc-why__it summary::-webkit-details-marker{display:none}
+.zc-why__it summary:after{content:"+";position:absolute;right:0;top:12px;font-size:22px;color:var(--zc-blue)}
+.zc-why__it[open] summary:after{content:"–"}
+.zc-why__n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--zc-navy);color:#fff;display:grid;place-items:center;font:800 14px/1 var(--zn-font)}
+.zc-why__body{padding:0 0 14px 40px}.zc-why__body p{margin:0 0 8px;font-size:16px;line-height:1.5;color:#3A4054}.zc-why__body b{color:var(--zc-navy)}
+.zc-mom{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:20px -16px 0;padding:0 16px 8px;scrollbar-width:none}
+.zc-mom::-webkit-scrollbar{display:none}
+.zc-mom__c{flex:0 0 72%;max-width:300px;margin:0;scroll-snap-align:start;background:#fff;border:1px solid #E3E7F0;border-radius:16px;overflow:hidden}
+.zc-mom__img{overflow:hidden}
+.zc-mom__c figcaption{padding:12px 14px 16px}.zc-mom__c b{display:block;font-size:17px;color:var(--zc-navy)}.zc-mom__c small{display:block;margin-top:4px;font-size:15px;line-height:1.45;color:#4A5066}
 </style>
 
 {% schema %}
@@ -605,6 +645,10 @@
     { "type": "image_picker", "id": "img_after", "label": "Foto tras los desplegables" },
     { "type": "image_picker", "id": "img_pack2", "label": "Packs · foto del kit (cuadrada)" },
     { "type": "image_picker", "id": "img_pack1", "label": "Packs · foto de 1 masajeador (cuadrada)" },
+    { "type": "image_picker", "id": "img_why", "label": "Foto 3D · por qué pasa (cuadrada)" },
+    { "type": "checkbox", "id": "show_steps", "label": "Mostrar «Mira qué sencillo» (pasos)", "default": false },
+    { "type": "text", "id": "mom_title", "label": "Momentos · título", "default": "Tus 15 minutos, cuando quieras" },
+    { "type": "text", "id": "mom_text", "label": "Momentos · texto", "default": "Sin cables y en silencio: te lo pones donde estés." },
     { "type": "image_picker", "id": "img_how", "label": "Foto · cómo funciona (F03)" },
     { "type": "text", "id": "how_kicker", "label": "Cómo funciona · etiqueta", "default": "Cómo funciona" },
     { "type": "text", "id": "how_title", "label": "Cómo funciona · título", "default": "Calor por fuera, masaje en la nuca" },
@@ -638,11 +682,12 @@
   "blocks": [
     { "type": "bullet", "name": "Ventaja (lista)", "settings": [ { "type": "text", "id": "lead", "label": "En negrita", "default": "Soltar la nuca" }, { "type": "text", "id": "text", "label": "Resto", "default": "al final del día" } ] },
     { "type": "card", "name": "Tarjeta desplegable", "settings": [ { "type": "text", "id": "title", "label": "Título", "default": "¿Cómo se usa?" }, { "type": "richtext", "id": "body", "label": "Texto", "default": "<p>Texto</p>" } ] },
-    { "type": "suena", "name": "Te suena (casilla)", "settings": [ { "type": "text", "id": "title", "label": "Título", "default": "Nuca cargada" }, { "type": "text", "id": "text", "label": "Texto", "default": "Texto" } ] },
+    { "type": "suena", "name": "Te suena (casilla)", "settings": [ { "type": "text", "id": "title", "label": "Título", "default": "Nuca cargada" }, { "type": "text", "id": "text", "label": "Texto", "default": "Texto" } , { "type": "text", "id": "help", "label": "Cómo te ayuda Zentia" } ] },
     { "type": "feature", "name": "Función", "settings": [ { "type": "text", "id": "title", "label": "Título", "default": "Calor constante" }, { "type": "text", "id": "text", "label": "Texto", "default": "Texto" } ] },
     { "type": "step", "name": "Paso", "settings": [ { "type": "image_picker", "id": "image", "label": "Foto" }, { "type": "text", "id": "label", "label": "Etiqueta del hueco", "default": "Foto del paso" }, { "type": "text", "id": "title", "label": "Título", "default": "Paso" }, { "type": "text", "id": "text", "label": "Texto", "default": "Texto" } ] },
     { "type": "row", "name": "Fila de comparación", "settings": [ { "type": "text", "id": "text", "label": "Qué", "default": "Precio" }, { "type": "text", "id": "us", "label": "Zentia", "default": "Sí" }, { "type": "text", "id": "other", "label": "Otro", "default": "No" } ] },
     { "type": "faq", "name": "Pregunta", "settings": [ { "type": "text", "id": "q", "label": "Pregunta", "default": "Pregunta" }, { "type": "richtext", "id": "a", "label": "Respuesta", "default": "<p>Respuesta</p>" } ] },
+    { "type": "moment", "name": "Momento de uso", "settings": [ { "type": "image_picker", "id": "image", "label": "Foto (4:5)" }, { "type": "text", "id": "label", "label": "Texto del hueco sin foto", "default": "Foto de un momento de uso" }, { "type": "text", "id": "title", "label": "Título", "default": "Momento" }, { "type": "text", "id": "text", "label": "Texto" } ] },
     { "type": "review", "name": "Reseña (solo reales)", "settings": [ { "type": "text", "id": "name", "label": "Nombre", "default": "Nombre" }, { "type": "text", "id": "place", "label": "Ciudad" }, { "type": "range", "id": "stars", "label": "Estrellas", "min": 1, "max": 5, "step": 1, "default": 5 }, { "type": "textarea", "id": "text", "label": "Texto", "default": "Texto de la reseña" }, { "type": "image_picker", "id": "image", "label": "Foto de la persona (círculo)" }, { "type": "image_picker", "id": "photo", "label": "Foto del producto hecha por el cliente" }, { "type": "checkbox", "id": "featured", "label": "Destacar bajo los packs", "default": false } ] }
   ]
 }
