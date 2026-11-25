@@ -37,7 +37,7 @@ Square 1:1 photo. Two identical U-shaped neck massagers from the attached refere
 
 ### F06 · Qué incluye y medidas
 ```
-Square 1:1 flat lay on a light stone-grey surface (#E9EBE6), seen from above: the U-shaped neck massager from the attached reference, a short white USB charging cable, two small white adhesive electrode pads, and a folded instruction leaflet, neatly arranged with space between them. Thin navy lines with measurements in Spanish: "19 cm" across the massager width and "168 g" next to it. Small labels: "Masajeador", "Cable USB", "Láminas", "Instrucciones". Clean modern sans-serif, navy text (#16244A). No logos, no watermark.
+Square 1:1 flat lay on a light stone-grey surface (#E9EBE6), seen from above: the U-shaped neck massager from the attached reference, a short white USB charging cable, two small white adhesive electrode pads, and a folded instruction leaflet, neatly arranged with space between them. Thin navy lines with measurements in Spanish: "15 cm" across the massager width and "168 g" next to it. Small labels: "Masajeador", "Cable USB", "Láminas", "Instrucciones". Clean modern sans-serif, navy text (#16244A). No logos, no watermark.
 ```
 
 ---
