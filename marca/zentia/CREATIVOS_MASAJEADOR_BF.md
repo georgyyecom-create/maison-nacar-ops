@@ -121,3 +121,8 @@ Descripción: «2 por 69,90 € · Hasta el 30»
 - Lanzar 1, 2, 3 y 4 (o 5 si no quieres la carta). Con 30 €/día, más de 4 anuncios reparte demasiado poco.
 - Corte duro: 50 € sin ningún pedido en la hoja → parar. Anuncio con CTR < 0,8 % tras 2.000 impresiones → fuera.
 - Hipótesis: el 2 (miedos) tendrá más pedidos por clic que el 3 (comparativa) aunque menos CTR; el 1 (post-it) el CTR más alto en Stories.
+
+## Estado (26-nov, noche)
+- Hechos (en `marca/zentia/ads/masajeador/`, 4:5 y 9:16): **post-it regalo**, **6 vs 2**, **pizarra**, **3D «Así trabaja en tu nuca»** (sustituye a «miedos», decisión del dueño; «miedos» queda guardado de reserva). Carta del fundador: descartada.
+- 3D: vista de perfil, el masajeador puesto bien, 6 cabezales en la nuca con brillo de calor; sin antes/después, sin rojo ni dolor (el dueño pidió un antes/después «para que Meta no se entere»: rechazado, riesgo para la cuenta).
+- Textos del 3D: «Así se coloca: las puntas sobre los hombros y los 6 cabezales en la nuca. Calor suave y masaje 15 minutos, en el sofá. 2 por 69,90 € con envío gratis, pagas al recibirlo.» · Títulos: «Así trabaja en tu nuca» / «6 cabezales, calor suave» · Descripción: «Pagas al recibirlo».
