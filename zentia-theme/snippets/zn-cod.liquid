@@ -112,7 +112,7 @@
     open();
     try{var d=JSON.parse(sessionStorage.getItem('zn_cod')||'null');
       if(d){sessionStorage.removeItem('zn_cod');
-        if(window.Shopify&&Shopify.analytics&&Shopify.analytics.publish)Shopify.analytics.publish('zn_pedido_cod',{value:d.v,currency:'EUR',quantity:d.q});}
+        var n=0,id='cod-'+Date.now(),pub=function(){if(window.Shopify&&Shopify.analytics&&Shopify.analytics.publish){Shopify.analytics.publish('zn_pedido_cod',{value:d.v,currency:'EUR',quantity:d.q,event_id:id});}else if(n++<30){setTimeout(pub,300);}};pub();}
     }catch(_){}
   } else if(f.querySelector('.zn-cod__err')) open();
 })();
