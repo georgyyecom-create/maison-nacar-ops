@@ -44,7 +44,7 @@ function doPost(e) {
     };
     hoja.appendRow([
       new Date(), limpio(d.pedido), limpio(d.total), limpio(d.nombre),
-      "'" + limpio(d.telefono), limpio(d.direccion), "'" + limpio(d.cp),
+      limpio(d.telefono), limpio(d.direccion), "'" + limpio(d.cp),
       limpio(d.poblacion), limpio(d.provincia), limpio(d.email), limpio(d.notas),
       limpio(d.origen), 'Nuevo'
     ]);
