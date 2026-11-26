@@ -1,7 +1,7 @@
 {%- doc -%}
   Pedido contra reembolso propio (sin apps). Botón principal + hoja con formulario.
-  Envía con el formulario de contacto nativo de Shopify: el pedido llega por correo
-  a la tienda y el dueño lo crea a mano. Lee el pack elegido de #zn-form.
+  Envía el pedido por fetch a un Apps Script de Google (ajuste cod_endpoint): hoja + correo.
+  Sin endpoint, abre WhatsApp con el pedido. Lee el pack elegido de #zn-form.
   @param {object} product - Producto
   @param {object} s - Ajustes de la sección
   @param {string} part - 'btn' (dentro de #zn-form) o 'sheet' (fuera de cualquier form)
@@ -19,80 +19,71 @@
   <b data-cod-price>{% render 'zn-money', cents: p2 %}</b>
 </button>
 {%- else -%}
-<div class="zn-cod" id="pedido" data-cod hidden data-p2="{% render 'zn-money', cents: p2 %}" data-p1="{% render 'zn-money', cents: one_total %}" data-v2="{{ p2 | divided_by: 100.0 }}" data-v1="{{ one_total | divided_by: 100.0 }}">
+<div class="zn-cod" id="pedido" data-cod hidden data-endpoint="{{ s.cod_endpoint | escape }}" data-wa="{{ s.wa_number }}" data-p2="{% render 'zn-money', cents: p2 %}" data-p1="{% render 'zn-money', cents: one_total %}" data-v2="{{ p2 | divided_by: 100.0 }}" data-v1="{{ one_total | divided_by: 100.0 }}">
   <div class="zn-cod__bg" data-cod-close></div>
   <div class="zn-cod__sheet" role="dialog" aria-modal="true" aria-labelledby="zn-cod-h">
     <button type="button" class="zn-cod__x" data-cod-close aria-label="Cerrar">×</button>
-    {%- form 'contact', id: 'zn-cod-form', class: 'zn-cod__form' -%}
-      {%- if form.posted_successfully? -%}
-        <div class="zn-cod__ok" data-cod-ok>
-          <span class="zn-cod__okic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
-          <h2 id="zn-cod-h">¡Pedido recibido!</h2>
-          <p>Te llamamos o escribimos por WhatsApp en unas horas para confirmar la dirección. Después sale en 24–48 h y <b>pagas al repartidor</b> al recibirlo.</p>
-          <p class="zn-cod__small">Si no tienes noticias hoy, escríbenos por WhatsApp.</p>
-          <button type="button" class="zn-cod__send" data-cod-close>Entendido</button>
-        </div>
-      {%- else -%}
+    <div class="zn-cod__ok" data-cod-ok hidden>
+      <span class="zn-cod__okic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
+      <h2>¡Pedido recibido!</h2>
+      <p data-cod-ok-sum></p>
+      <p>Te llamamos o escribimos por WhatsApp para confirmar la dirección. Después sale en 24–48 h y <b>pagas al repartidor</b> al recibirlo.</p>
+      <p class="zn-cod__small">Si no tienes noticias hoy, escríbenos por WhatsApp.</p>
+      <button type="button" class="zn-cod__send" data-cod-close>Entendido</button>
+    </div>
+    <form class="zn-cod__form" id="zn-cod-form" novalidate>
         <h2 id="zn-cod-h">Pide y paga al recibirlo</h2>
         <p class="zn-cod__sub">Rellena tus datos. Te confirmamos el pedido por teléfono antes de enviarlo.</p>
-        {%- if form.errors -%}<p class="zn-cod__err" role="alert">Revisa los datos: {{ form.errors | default_errors }}</p>{%- endif -%}
+        <p class="zn-cod__err" role="alert" data-cod-err hidden></p>
 
         <fieldset class="zn-cod__packs">
           <legend>Tu pedido</legend>
-          <label class="zn-cod__pk"><input type="radio" name="zn_cod_pack" value="2" checked><span><b>Kit Cervical · 2 masajeadores</b><small>+ almohadilla de gel de regalo · envío gratis</small></span><em>{% render 'zn-money', cents: p2 %}</em></label>
-          <label class="zn-cod__pk"><input type="radio" name="zn_cod_pack" value="1"><span><b>1 masajeador</b><small>{% render 'zn-money', cents: v1.price %} + {% render 'zn-money', cents: ship1 %} de envío</small></span><em>{% render 'zn-money', cents: one_total %}</em></label>
+          <label class="zn-cod__pk"><input type="radio" name="pack" value="2" checked><span><b>Kit Cervical · 2 masajeadores</b><small>+ almohadilla de gel de regalo · envío gratis</small></span><em>{% render 'zn-money', cents: p2 %}</em></label>
+          <label class="zn-cod__pk"><input type="radio" name="pack" value="1"><span><b>1 masajeador</b><small>{% render 'zn-money', cents: v1.price %} + {% render 'zn-money', cents: ship1 %} de envío</small></span><em>{% render 'zn-money', cents: one_total %}</em></label>
         </fieldset>
-        <input type="hidden" name="contact[Pedido]" data-cod-sum>
-        <input type="hidden" name="contact[Total a cobrar]" data-cod-total>
 
         <div class="zn-cod__f">
-          <label>Nombre y apellidos<input type="text" name="contact[name]" autocomplete="name" required minlength="4"></label>
-          <label>Teléfono móvil<input type="tel" name="contact[Teléfono]" autocomplete="tel" inputmode="tel" required pattern="[\d\s\+]{9,15}" placeholder="600 000 000"></label>
-          <label>Dirección (calle, número, piso)<input type="text" name="contact[Dirección]" autocomplete="street-address" required minlength="5"></label>
+          <label>Nombre y apellidos<input type="text" name="nombre" autocomplete="name" required minlength="4"></label>
+          <label>Teléfono móvil<input type="tel" name="telefono" autocomplete="tel" inputmode="tel" required pattern="[\d\s\+]{9,15}" placeholder="600 000 000"></label>
+          <label>Dirección (calle, número, piso)<input type="text" name="direccion" autocomplete="street-address" required minlength="5"></label>
           <div class="zn-cod__row">
-            <label>Código postal<input type="text" name="contact[Código postal]" autocomplete="postal-code" inputmode="numeric" required pattern="(0[1-9]|[12]\d|3[0-46-79]|4\d|50)\d{3}" title="Código postal de la península o Baleares" placeholder="04700" data-cod-cp></label>
-            <label>Población<input type="text" name="contact[Población]" autocomplete="address-level2" required></label>
+            <label>Código postal<input type="text" name="cp" autocomplete="postal-code" inputmode="numeric" required pattern="(0[1-9]|[12]\d|3[0-46-79]|4\d|50)\d{3}" title="Código postal de la península o Baleares" placeholder="04700"></label>
+            <label>Población<input type="text" name="poblacion" autocomplete="address-level2" required></label>
           </div>
           <label>Provincia
-            <select name="contact[Provincia]" required data-cod-prov>
+            <select name="provincia" required>
               <option value="">Elige…</option>
               {%- assign provs = 'Álava,Albacete,Alicante,Almería,Asturias,Ávila,Badajoz,Baleares,Barcelona,Burgos,Cáceres,Cádiz,Cantabria,Castellón,Ciudad Real,Córdoba,A Coruña,Cuenca,Girona,Granada,Guadalajara,Gipuzkoa,Huelva,Huesca,Jaén,León,Lleida,Lugo,Madrid,Málaga,Murcia,Navarra,Ourense,Palencia,Pontevedra,La Rioja,Salamanca,Segovia,Sevilla,Soria,Tarragona,Teruel,Toledo,Valencia,Valladolid,Bizkaia,Zamora,Zaragoza' | split: ',' -%}
               {%- for p in provs -%}<option>{{ p }}</option>{%- endfor -%}
             </select>
           </label>
-          <label>Correo electrónico <i>(opcional, para el seguimiento)</i><input type="email" name="contact[email]" autocomplete="email" data-cod-email></label>
-          <label>Notas para el repartidor <i>(opcional)</i><textarea name="contact[body]" rows="2" maxlength="300" placeholder="Horario, portal, timbre…"></textarea></label>
+          <label>Correo electrónico <i>(opcional, para el seguimiento)</i><input type="email" name="email" autocomplete="email"></label>
+          <label>Notas para el repartidor <i>(opcional)</i><textarea name="notas" rows="2" maxlength="300" placeholder="Horario, portal, timbre…"></textarea></label>
+          <input type="text" name="web" tabindex="-1" autocomplete="off" aria-hidden="true" class="zn-cod__hp">
           <p class="zn-cod__ship">Enviamos a la península y Baleares. No enviamos a Canarias, Ceuta ni Melilla.</p>
-          <label class="zn-cod__chk"><input type="checkbox" required><span>He leído la <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}" target="_blank" rel="noopener">política de privacidad</a>. Usaremos tus datos solo para este pedido.</span></label>
+          <label class="zn-cod__chk"><input type="checkbox" name="privacidad" required><span>He leído la <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}" target="_blank" rel="noopener">política de privacidad</a>. Usaremos tus datos solo para este pedido.</span></label>
         </div>
 
         <button type="submit" class="zn-cod__send" data-cod-send>Confirmar pedido · <span data-cod-total-t>{% render 'zn-money', cents: p2 %}</span></button>
         <p class="zn-cod__small">No pagas nada ahora. Pagas en efectivo al repartidor. 30 días de prueba.</p>
-      {%- endif -%}
-    {%- endform -%}
+    </form>
   </div>
 </div>
 
 <script>
 (function(){
   var box=document.querySelector('[data-cod]');if(!box)return;
-  var f=box.querySelector('form'),prod=document.getElementById('zn-form');
+  var f=box.querySelector('form'),ok=box.querySelector('[data-cod-ok]'),err=box.querySelector('[data-cod-err]'),send=f.querySelector('[data-cod-send]'),prod=document.getElementById('zn-form');
   var znPub=function(ev,data){var n=0,go=function(){if(window.Shopify&&Shopify.analytics&&Shopify.analytics.publish){Shopify.analytics.publish(ev,data);}else if(n++<30){setTimeout(go,300);}};go();};
+  var pack=function(){var m=f.querySelector('input[name=pack]:checked');return m&&m.value==='1'?1:2;};
+  var sync=function(){var two=pack()===2,t=two?box.dataset.p2:box.dataset.p1,tl=f.querySelector('[data-cod-total-t]');if(tl)tl.textContent=t;};
   var open=function(){
-    var r=prod&&prod.querySelector('input[name=pack]:checked'),q=r?r.value:'2',m=f.querySelector('input[name=zn_cod_pack][value="'+q+'"]');
+    var r=prod&&prod.querySelector('input[name=pack]:checked'),m=f.querySelector('input[name=pack][value="'+(r?r.value:'2')+'"]');
     if(m){m.checked=true;sync();}
     box.hidden=false;document.documentElement.classList.add('zn-cod-on');
-    if(!f.querySelector('[data-cod-ok]')&&!box.dataset.ic){box.dataset.ic='1';var m2=f.querySelector('input[name=zn_cod_pack]:checked'),two2=!m2||m2.value==='2';znPub('zn_cod_abierto',{value:+(two2?box.dataset.v2:box.dataset.v1),currency:'EUR',quantity:two2?2:1});}
-    var i=box.querySelector('input[name="contact[name]"]');if(i)setTimeout(function(){i.focus({preventScroll:true});},250);
+    if(!box.dataset.ic){box.dataset.ic='1';var two=pack()===2;znPub('zn_cod_abierto',{value:+(two?box.dataset.v2:box.dataset.v1),currency:'EUR',quantity:two?2:1});}
   };
   var close=function(){box.hidden=true;document.documentElement.classList.remove('zn-cod-on');};
-  var sync=function(){
-    var m=f.querySelector('input[name=zn_cod_pack]:checked');if(!m)return;
-    var two=m.value==='2',t=two?box.dataset.p2:box.dataset.p1;
-    var s=f.querySelector('[data-cod-sum]'),tt=f.querySelector('[data-cod-total]'),tl=f.querySelector('[data-cod-total-t]');
-    if(s)s.value=two?'Kit Cervical: 2 masajeadores + almohadilla de gel (regalo), envío gratis':'1 masajeador + envío';
-    if(tt)tt.value=t+' (contra reembolso)';if(tl)tl.textContent=t;
-  };
   document.querySelectorAll('[data-cod-open]').forEach(function(b){b.addEventListener('click',open);});
   box.querySelectorAll('[data-cod-close]').forEach(function(b){b.addEventListener('click',close);});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!box.hidden)close();});
@@ -100,23 +91,35 @@
     if(e.target.name!=='pack')return;
     var pb=document.querySelector('[data-cod-price]');if(pb)pb.textContent=e.target.value==='1'?box.dataset.p1:box.dataset.p2;
   });
-  if(f.querySelector('[data-cod-send]')){
-    f.addEventListener('change',sync);sync();
-    f.addEventListener('submit',function(e){
-      var em=f.querySelector('[data-cod-email]'),tel=(f.querySelector('input[type=tel]').value||'').replace(/\D/g,'');
-      if(em&&!em.value)em.value='pedido-'+tel+'@zentiadescanso.com';
-      var m=f.querySelector('input[name=zn_cod_pack]:checked'),two=m&&m.value==='2';
-      try{sessionStorage.setItem('zn_cod',JSON.stringify({v:+(two?box.dataset.v2:box.dataset.v1),q:two?2:1}));}catch(_){}
-      f.querySelector('[data-cod-send]').classList.add('is-busy');
-    });
-  }
-  if(f.querySelector('[data-cod-ok]')){
-    open();
-    try{var d=JSON.parse(sessionStorage.getItem('zn_cod')||'null');
-      if(d){sessionStorage.removeItem('zn_cod');
-        var n=0,id='cod-'+Date.now(),pub=function(){if(window.Shopify&&Shopify.analytics&&Shopify.analytics.publish){Shopify.analytics.publish('zn_pedido_cod',{value:d.v,currency:'EUR',quantity:d.q,event_id:id});}else if(n++<30){setTimeout(pub,300);}};pub();}
-    }catch(_){}
-  } else if(f.querySelector('.zn-cod__err')) open();
+  f.addEventListener('change',sync);sync();
+  var showErr=function(t){err.textContent=t;err.hidden=false;err.scrollIntoView({block:'center',behavior:'smooth'});};
+  f.addEventListener('submit',function(e){
+    e.preventDefault();err.hidden=true;
+    if(!f.checkValidity()){var bad=f.querySelector(':invalid');showErr(bad&&bad.name==='cp'?'Revisa el código postal (solo península y Baleares).':bad&&bad.name==='privacidad'?'Marca la casilla de privacidad para continuar.':'Revisa los datos marcados: falta alguno o no es correcto.');if(bad)bad.focus({preventScroll:true});return;}
+    if(f.web.value)return;
+    var two=pack()===2,total=two?box.dataset.p2:box.dataset.p1;
+    var d={pedido:two?'Kit Cervical: 2 masajeadores + almohadilla de gel (regalo), envío gratis':'1 masajeador + envío',total:total,
+      nombre:f.nombre.value.trim(),telefono:f.telefono.value.trim(),direccion:f.direccion.value.trim(),cp:f.cp.value.trim(),
+      poblacion:f.poblacion.value.trim(),provincia:f.provincia.value,email:f.email.value.trim(),notas:f.notas.value.trim(),
+      origen:location.search.slice(0,300)};
+    var done=function(){
+      var id='cod-'+Date.now();
+      znPub('zn_pedido_cod',{value:+(two?box.dataset.v2:box.dataset.v1),currency:'EUR',quantity:two?2:1,event_id:id});
+      box.querySelector('[data-cod-ok-sum]').innerHTML='<b>'+d.pedido.split(':')[0]+'</b> · '+total+' a pagar al recibirlo.';
+      f.hidden=true;ok.hidden=false;box.querySelector('.zn-cod__sheet').scrollTop=0;
+    };
+    var url=box.dataset.endpoint;
+    if(!url){
+      var w=box.dataset.wa,txt=encodeURIComponent('Hola, quiero hacer un pedido contra reembolso:\n'+d.pedido+' ('+total+')\n'+d.nombre+'\n'+d.telefono+'\n'+d.direccion+', '+d.cp+' '+d.poblacion+' ('+d.provincia+')\n'+d.notas);
+      if(w){location.href='https://wa.me/'+w+'?text='+txt;return;}
+      showErr('No se ha podido enviar. Escríbenos por WhatsApp y te lo apuntamos.');return;
+    }
+    send.classList.add('is-busy');send.disabled=true;
+    fetch(url,{method:'POST',body:JSON.stringify(d)}).then(function(r){return r.text();}).then(function(t){
+      send.classList.remove('is-busy');send.disabled=false;
+      if(/"ok"\s*:\s*true/.test(t))done();else showErr('No se ha podido enviar el pedido. Inténtalo de nuevo o escríbenos por WhatsApp.');
+    }).catch(function(){send.classList.remove('is-busy');send.disabled=false;showErr('Sin conexión. Inténtalo de nuevo o escríbenos por WhatsApp.');});
+  });
 })();
 </script>
 
@@ -161,11 +164,14 @@ html.zn-cod-on{overflow:hidden}
 .zn-cod__chk a{color:inherit}
 .zn-cod__send{display:block;width:100%;min-height:58px;margin-top:16px;border:0;border-radius:14px;background:var(--zc-navy,#16244A);color:#fff;font:800 18px/1 var(--zn-font);cursor:pointer}
 .zn-cod__send.is-busy{opacity:.6;pointer-events:none}
+.zn-cod__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.zn-cod [hidden]{display:none!important}
 .zn-cod__small{margin:10px 0 0;text-align:center;font-size:13.5px;color:#5B6170}
 .zn-cod__ok{text-align:center;padding:10px 4px}
 .zn-cod__okic{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#E8F4EC;margin-bottom:10px}
 .zn-cod__okic svg{width:34px;height:34px;fill:none;stroke:#1E7A4D;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .zn-cod__ok h2{margin:0 0 8px}
 .zn-cod__ok p{font-size:16px;line-height:1.45;margin:0 0 8px}
+.zn-cod__ok p b{display:inline}
 </style>
 {%- endif -%}
