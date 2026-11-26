@@ -77,10 +77,12 @@
 (function(){
   var box=document.querySelector('[data-cod]');if(!box)return;
   var f=box.querySelector('form'),prod=document.getElementById('zn-form');
+  var znPub=function(ev,data){var n=0,go=function(){if(window.Shopify&&Shopify.analytics&&Shopify.analytics.publish){Shopify.analytics.publish(ev,data);}else if(n++<30){setTimeout(go,300);}};go();};
   var open=function(){
     var r=prod&&prod.querySelector('input[name=pack]:checked'),q=r?r.value:'2',m=f.querySelector('input[name=zn_cod_pack][value="'+q+'"]');
     if(m){m.checked=true;sync();}
     box.hidden=false;document.documentElement.classList.add('zn-cod-on');
+    if(!f.querySelector('[data-cod-ok]')&&!box.dataset.ic){box.dataset.ic='1';var m2=f.querySelector('input[name=zn_cod_pack]:checked'),two2=!m2||m2.value==='2';znPub('zn_cod_abierto',{value:+(two2?box.dataset.v2:box.dataset.v1),currency:'EUR',quantity:two2?2:1});}
     var i=box.querySelector('input[name="contact[name]"]');if(i)setTimeout(function(){i.focus({preventScroll:true});},250);
   };
   var close=function(){box.hidden=true;document.documentElement.classList.remove('zn-cod-on');};
