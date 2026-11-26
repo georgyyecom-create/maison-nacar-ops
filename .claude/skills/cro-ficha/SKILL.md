@@ -1,31 +1,24 @@
 ---
 name: cro-ficha
-description: Mejorar la conversión de la tienda Maison Nácar (ficha de producto, home, carrito) cuando los anuncios traen tráfico pero no hay ventas. Úsala para revisar o rediseñar páginas.
+description: Reglas propias para mejorar la conversión de la ficha de la tienda activa (ahora Zentia, masajeador de cuello, pago contra reembolso) cuando los anuncios traen tráfico pero no hay ventas. Complementa a la skill cro.
 ---
 
-# Conversión de la tienda
+# Conversión de la ficha
 
-Inspirada en «cro» y «offers» (coreyhaines31/marketingskills) y en «ads-landing» (claude-ads), adaptada a joyería en móvil.
+## Revisión rápida (móvil: ~90 % del tráfico, mucho Android, público 40+)
+1. **Primera pantalla:** foto del producto real, nombre, **precio claro** (sin que «/ud» engañe: si es por unidad del kit, decirlo en la misma línea), oferta y botón de compra.
+2. **Anuncio → página:** mismo producto, misma oferta, mismo tono.
+3. **Confianza para una tienda nueva:** envío desde España en 2–4 días, pago al recibirlo, 30 días de prueba, WhatsApp, quién está detrás, fotos reales. Reseñas **solo reales** (con 0 ventas, apagadas).
+4. **Oferta:** explicada con el precio total; urgencia solo real (fin de la oferta, último día para Navidad). Nada de contadores ni stock falsos.
+5. **Fricción:** sin popups al entrar, banner de cookies compacto, carga < 2,5 s, formulario de pedido corto.
 
-## Revisión rápida (móvil, que es el 90 % del tráfico)
-1. **Primera pantalla (sin hacer scroll):** ¿se ven la joya puesta, el nombre, el **precio**, la **oferta (3x2 / Black Friday)** y un botón? Si falta algo, ese es el primer arreglo.
-2. **Coincidencia anuncio → página:** el mismo producto, la misma oferta y el mismo tono que el anuncio en el que hicieron clic.
-3. **Confianza para una marca nueva:**
-   - estuche de regalo visible (foto real);
-   - envío gratis y plazo;
-   - 30 días de devolución;
-   - pago seguro y Bizum;
-   - WhatsApp de contacto;
-   - Instagram con vida;
-   - reseñas **solo reales**.
-4. **Oferta clara:** «3 regalos, pagas 2» explicado con un ejemplo de precio. La urgencia tiene que ser real (fecha límite de envío para Navidad), nunca contadores falsos.
-5. **Fricción:** que ningún popup tape la página en los primeros segundos, que el banner de cookies sea compacto, que cargue en menos de 2,5 s y que no haya sorpresas en el checkout.
-6. **Dato de partida (6-nov):** en móvil, el 85 % se iba sin hacer nada a los ~4 s en la ficha del Puntos de Luz. Hay que priorizar la primera pantalla.
+## Datos de partida
+- Cojín (21-nov): ~235 visitas reales, 1 carrito, 0 compras; 91 % sin ningún toque (Clarity). Meta ve pocas visitas por las cookies: mirar **Shopify y Clarity**.
 
 ## Cómo medir
-Compara antes y después con los mismos datos de Shopify: rebote, duración, tasa de carrito por página de aterrizaje y dispositivo. Si está instalado, usa también Microsoft Clarity.
+Antes y después con los mismos datos: sesiones, clics en el botón, formularios enviados (pedidos contra reembolso) y pedidos con tarjeta, por página de aterrizaje y dispositivo.
 
 ## Cómo entregar los cambios
-- Siempre en un **tema nuevo** (ver CLAUDE.md), nunca sobre el tema publicado.
-- Haz captura del móvil antes y después.
-- Explica cada cambio en una línea.
+- Siempre en un **tema duplicado** (ver CLAUDE.md), nunca sobre el publicado. El dueño publica.
+- Captura del móvil antes y después (Playwright con el píxel bloqueado).
+- Cada cambio explicado en una línea.

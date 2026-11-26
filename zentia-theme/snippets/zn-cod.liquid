@@ -1,0 +1,169 @@
+{%- doc -%}
+  Pedido contra reembolso propio (sin apps). Botón principal + hoja con formulario.
+  Envía con el formulario de contacto nativo de Shopify: el pedido llega por correo
+  a la tienda y el dueño lo crea a mano. Lee el pack elegido de #zn-form.
+  @param {object} product - Producto
+  @param {object} s - Ajustes de la sección
+  @param {string} part - 'btn' (dentro de #zn-form) o 'sheet' (fuera de cualquier form)
+{%- enddoc -%}
+{%- liquid
+  assign v1 = product.selected_or_first_available_variant
+  assign p2 = s.pack2_cents | default: 6990
+  assign ship1 = s.ship1_cents | default: 495
+  assign one_total = v1.price | plus: ship1
+-%}
+{%- if part == 'btn' -%}
+<button type="button" class="zn-cod-btn" data-cod-open aria-haspopup="dialog">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+  <span class="zn-cod-btn__t">{{ s.cod_cta | default: 'Pedir y pagar al recibirlo' }}<small>Sin adelantar nada · en efectivo</small></span>
+  <b data-cod-price>{% render 'zn-money', cents: p2 %}</b>
+</button>
+{%- else -%}
+<div class="zn-cod" id="pedido" data-cod hidden data-p2="{% render 'zn-money', cents: p2 %}" data-p1="{% render 'zn-money', cents: one_total %}" data-v2="{{ p2 | divided_by: 100.0 }}" data-v1="{{ one_total | divided_by: 100.0 }}">
+  <div class="zn-cod__bg" data-cod-close></div>
+  <div class="zn-cod__sheet" role="dialog" aria-modal="true" aria-labelledby="zn-cod-h">
+    <button type="button" class="zn-cod__x" data-cod-close aria-label="Cerrar">×</button>
+    {%- form 'contact', id: 'zn-cod-form', class: 'zn-cod__form' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="zn-cod__ok" data-cod-ok>
+          <span class="zn-cod__okic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span>
+          <h2 id="zn-cod-h">¡Pedido recibido!</h2>
+          <p>Te llamamos o escribimos por WhatsApp en unas horas para confirmar la dirección. Después sale en 24–48 h y <b>pagas al repartidor</b> al recibirlo.</p>
+          <p class="zn-cod__small">Si no tienes noticias hoy, escríbenos por WhatsApp.</p>
+          <button type="button" class="zn-cod__send" data-cod-close>Entendido</button>
+        </div>
+      {%- else -%}
+        <h2 id="zn-cod-h">Pide y paga al recibirlo</h2>
+        <p class="zn-cod__sub">Rellena tus datos. Te confirmamos el pedido por teléfono antes de enviarlo.</p>
+        {%- if form.errors -%}<p class="zn-cod__err" role="alert">Revisa los datos: {{ form.errors | default_errors }}</p>{%- endif -%}
+
+        <fieldset class="zn-cod__packs">
+          <legend>Tu pedido</legend>
+          <label class="zn-cod__pk"><input type="radio" name="zn_cod_pack" value="2" checked><span><b>Kit Cervical · 2 masajeadores</b><small>+ almohadilla de gel de regalo · envío gratis</small></span><em>{% render 'zn-money', cents: p2 %}</em></label>
+          <label class="zn-cod__pk"><input type="radio" name="zn_cod_pack" value="1"><span><b>1 masajeador</b><small>{% render 'zn-money', cents: v1.price %} + {% render 'zn-money', cents: ship1 %} de envío</small></span><em>{% render 'zn-money', cents: one_total %}</em></label>
+        </fieldset>
+        <input type="hidden" name="contact[Pedido]" data-cod-sum>
+        <input type="hidden" name="contact[Total a cobrar]" data-cod-total>
+
+        <div class="zn-cod__f">
+          <label>Nombre y apellidos<input type="text" name="contact[name]" autocomplete="name" required minlength="4"></label>
+          <label>Teléfono móvil<input type="tel" name="contact[Teléfono]" autocomplete="tel" inputmode="tel" required pattern="[\d\s\+]{9,15}" placeholder="600 000 000"></label>
+          <label>Dirección (calle, número, piso)<input type="text" name="contact[Dirección]" autocomplete="street-address" required minlength="5"></label>
+          <div class="zn-cod__row">
+            <label>Código postal<input type="text" name="contact[Código postal]" autocomplete="postal-code" inputmode="numeric" required pattern="(0[1-9]|[12]\d|3[0-46-79]|4\d|50)\d{3}" title="Código postal de la península o Baleares" placeholder="04700" data-cod-cp></label>
+            <label>Población<input type="text" name="contact[Población]" autocomplete="address-level2" required></label>
+          </div>
+          <label>Provincia
+            <select name="contact[Provincia]" required data-cod-prov>
+              <option value="">Elige…</option>
+              {%- assign provs = 'Álava,Albacete,Alicante,Almería,Asturias,Ávila,Badajoz,Baleares,Barcelona,Burgos,Cáceres,Cádiz,Cantabria,Castellón,Ciudad Real,Córdoba,A Coruña,Cuenca,Girona,Granada,Guadalajara,Gipuzkoa,Huelva,Huesca,Jaén,León,Lleida,Lugo,Madrid,Málaga,Murcia,Navarra,Ourense,Palencia,Pontevedra,La Rioja,Salamanca,Segovia,Sevilla,Soria,Tarragona,Teruel,Toledo,Valencia,Valladolid,Bizkaia,Zamora,Zaragoza' | split: ',' -%}
+              {%- for p in provs -%}<option>{{ p }}</option>{%- endfor -%}
+            </select>
+          </label>
+          <label>Correo electrónico <i>(opcional, para el seguimiento)</i><input type="email" name="contact[email]" autocomplete="email" data-cod-email></label>
+          <label>Notas para el repartidor <i>(opcional)</i><textarea name="contact[body]" rows="2" maxlength="300" placeholder="Horario, portal, timbre…"></textarea></label>
+          <p class="zn-cod__ship">Enviamos a la península y Baleares. No enviamos a Canarias, Ceuta ni Melilla.</p>
+          <label class="zn-cod__chk"><input type="checkbox" required><span>He leído la <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}" target="_blank" rel="noopener">política de privacidad</a>. Usaremos tus datos solo para este pedido.</span></label>
+        </div>
+
+        <button type="submit" class="zn-cod__send" data-cod-send>Confirmar pedido · <span data-cod-total-t>{% render 'zn-money', cents: p2 %}</span></button>
+        <p class="zn-cod__small">No pagas nada ahora. Pagas en efectivo al repartidor. 30 días de prueba.</p>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</div>
+
+<script>
+(function(){
+  var box=document.querySelector('[data-cod]');if(!box)return;
+  var f=box.querySelector('form'),prod=document.getElementById('zn-form');
+  var open=function(){
+    var r=prod&&prod.querySelector('input[name=pack]:checked'),q=r?r.value:'2',m=f.querySelector('input[name=zn_cod_pack][value="'+q+'"]');
+    if(m){m.checked=true;sync();}
+    box.hidden=false;document.documentElement.classList.add('zn-cod-on');
+    var i=box.querySelector('input[name="contact[name]"]');if(i)setTimeout(function(){i.focus({preventScroll:true});},250);
+  };
+  var close=function(){box.hidden=true;document.documentElement.classList.remove('zn-cod-on');};
+  var sync=function(){
+    var m=f.querySelector('input[name=zn_cod_pack]:checked');if(!m)return;
+    var two=m.value==='2',t=two?box.dataset.p2:box.dataset.p1;
+    var s=f.querySelector('[data-cod-sum]'),tt=f.querySelector('[data-cod-total]'),tl=f.querySelector('[data-cod-total-t]');
+    if(s)s.value=two?'Kit Cervical: 2 masajeadores + almohadilla de gel (regalo), envío gratis':'1 masajeador + envío';
+    if(tt)tt.value=t+' (contra reembolso)';if(tl)tl.textContent=t;
+  };
+  document.querySelectorAll('[data-cod-open]').forEach(function(b){b.addEventListener('click',open);});
+  box.querySelectorAll('[data-cod-close]').forEach(function(b){b.addEventListener('click',close);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!box.hidden)close();});
+  if(prod)prod.addEventListener('change',function(e){
+    if(e.target.name!=='pack')return;
+    var pb=document.querySelector('[data-cod-price]');if(pb)pb.textContent=e.target.value==='1'?box.dataset.p1:box.dataset.p2;
+  });
+  if(f.querySelector('[data-cod-send]')){
+    f.addEventListener('change',sync);sync();
+    f.addEventListener('submit',function(e){
+      var em=f.querySelector('[data-cod-email]'),tel=(f.querySelector('input[type=tel]').value||'').replace(/\D/g,'');
+      if(em&&!em.value)em.value='pedido-'+tel+'@zentiadescanso.com';
+      var m=f.querySelector('input[name=zn_cod_pack]:checked'),two=m&&m.value==='2';
+      try{sessionStorage.setItem('zn_cod',JSON.stringify({v:+(two?box.dataset.v2:box.dataset.v1),q:two?2:1}));}catch(_){}
+      f.querySelector('[data-cod-send]').classList.add('is-busy');
+    });
+  }
+  if(f.querySelector('[data-cod-ok]')){
+    open();
+    try{var d=JSON.parse(sessionStorage.getItem('zn_cod')||'null');
+      if(d){sessionStorage.removeItem('zn_cod');
+        if(window.Shopify&&Shopify.analytics&&Shopify.analytics.publish)Shopify.analytics.publish('zn_pedido_cod',{value:d.v,currency:'EUR',quantity:d.q});}
+    }catch(_){}
+  } else if(f.querySelector('.zn-cod__err')) open();
+})();
+</script>
+
+<style>
+.zn-cod-btn{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;margin-top:14px;padding:0 18px;border:0;border-radius:14px;background:var(--zc-navy,#16244A);color:#fff;font:800 17px/1.15 var(--zn-font);text-align:left;cursor:pointer;box-shadow:0 10px 22px -12px rgba(22,36,74,.8)}
+.zn-cod-btn svg{flex:0 0 26px;width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linejoin:round}
+.zn-cod-btn__t{flex:1;min-width:0;display:flex;flex-direction:column}
+.zn-cod-btn__t small{font:600 12.5px/1.2 var(--zn-font);opacity:.8;margin-top:3px}
+.zn-cod-btn b{flex:none;font:800 19px/1 var(--zn-font)}
+.zn-cod-btn:active{transform:scale(.99)}
+.zn-cod[hidden]{display:none}
+.zn-cod{position:fixed;inset:0;z-index:1000;display:flex;align-items:flex-end;justify-content:center}
+.zn-cod__bg{position:absolute;inset:0;background:rgba(11,14,24,.55)}
+.zn-cod__sheet{position:relative;width:100%;max-width:520px;max-height:92vh;max-height:92dvh;overflow:auto;background:#fff;border-radius:20px 20px 0 0;padding:22px 18px calc(18px + env(safe-area-inset-bottom));animation:zncodup .25s ease-out;color:#16181D;font-family:var(--zn-font)}
+@media (min-width:700px){.zn-cod{align-items:center}.zn-cod__sheet{border-radius:20px}}
+@keyframes zncodup{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.zn-cod__sheet{animation:none}}
+html.zn-cod-on{overflow:hidden}
+.zn-cod__x{position:absolute;top:10px;right:12px;width:40px;height:40px;border:0;background:#F1F3F7;border-radius:50%;font-size:24px;line-height:1;color:#16181D;cursor:pointer}
+.zn-cod h2{margin:0 44px 6px 0;font:800 22px/1.2 var(--zn-font)}
+.zn-cod__sub{margin:0 0 14px;font-size:15px;line-height:1.4;color:#4A5066}
+.zn-cod__err{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:#FDECEC;color:#8A1C1C;font-size:14px}
+.zn-cod__packs{border:0;margin:0 0 14px;padding:0;display:grid;gap:8px}
+.zn-cod__packs legend{font:800 14px/1 var(--zn-font);margin-bottom:8px;color:#4A5066}
+.zn-cod__pk{display:flex;align-items:center;gap:10px;padding:12px;border:2px solid #D7DCE6;border-radius:12px;cursor:pointer}
+.zn-cod__pk:has(input:checked){border-color:var(--zc-navy,#16244A);background:#F4F7FF}
+.zn-cod__pk input{width:20px;height:20px;accent-color:var(--zc-navy,#16244A);flex:none}
+.zn-cod__pk span{flex:1;min-width:0}
+.zn-cod__pk b{display:block;font-size:15.5px}
+.zn-cod__pk small{display:block;font-size:13px;color:#5B6170;margin-top:2px}
+.zn-cod__pk em{font-style:normal;font-weight:800;font-size:17px;white-space:nowrap}
+.zn-cod__f{display:grid;gap:12px}
+.zn-cod__f label{display:grid;gap:5px;font:700 14.5px/1.2 var(--zn-font)}
+.zn-cod__f label i{font-style:normal;font-weight:500;color:#6B7182}
+.zn-cod__f input:not([type=checkbox]),.zn-cod__f select,.zn-cod__f textarea{width:100%;min-height:50px;padding:12px 14px;border:1.5px solid #C9CFDB;border-radius:10px;background:#fff;font:500 17px/1.2 var(--zn-font);color:#16181D;box-sizing:border-box}
+.zn-cod__f textarea{min-height:64px;resize:vertical}
+.zn-cod__f input:focus,.zn-cod__f select:focus,.zn-cod__f textarea:focus{outline:none;border-color:var(--zc-blue,#2F5BEA);box-shadow:0 0 0 3px rgba(47,91,234,.18)}
+.zn-cod__row{display:grid;grid-template-columns:1fr 1.4fr;gap:10px}
+.zn-cod__ship{margin:0;font-size:13px;color:#5B6170}
+.zn-cod__f .zn-cod__chk{display:flex;align-items:flex-start;gap:10px;font:500 13.5px/1.4 var(--zn-font);color:#4A5066}
+.zn-cod__chk input{width:20px;height:20px;margin:0;flex:none;accent-color:var(--zc-navy,#16244A)}
+.zn-cod__chk a{color:inherit}
+.zn-cod__send{display:block;width:100%;min-height:58px;margin-top:16px;border:0;border-radius:14px;background:var(--zc-navy,#16244A);color:#fff;font:800 18px/1 var(--zn-font);cursor:pointer}
+.zn-cod__send.is-busy{opacity:.6;pointer-events:none}
+.zn-cod__small{margin:10px 0 0;text-align:center;font-size:13.5px;color:#5B6170}
+.zn-cod__ok{text-align:center;padding:10px 4px}
+.zn-cod__okic{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#E8F4EC;margin-bottom:10px}
+.zn-cod__okic svg{width:34px;height:34px;fill:none;stroke:#1E7A4D;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.zn-cod__ok h2{margin:0 0 8px}
+.zn-cod__ok p{font-size:16px;line-height:1.45;margin:0 0 8px}
+</style>
+{%- endif -%}

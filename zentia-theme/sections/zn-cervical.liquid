@@ -78,6 +78,7 @@
         {%- form 'product', product, id: 'zn-form', class: 'zn-form' -%}
           <input type="hidden" name="return_to" value="/checkout">
           {% render 'zn-packs-m', product: product, s: S %}
+          {% render 'zn-cod', product: product, s: S, part: 'btn' %}
           <p class="zc-or">o, si prefieres pagar ya</p>
           <button type="submit" class="zn-btn zn-btn--buy zc-card-btn" data-buy>
             <span class="zc-cb"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg><span class="zc-cb__t">{{ S.cta }}<small>Pago seguro y al instante</small></span><b data-buy-price>{% render 'zn-money', cents: p2 %}</b></span>
@@ -320,6 +321,7 @@
 </div>
 
 {%- if S.wa_number != blank and S.wa_float -%}<a class="zn-wa" data-wa href="https://wa.me/{{ S.wa_number }}?text={{ S.wa_text | url_encode }}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Z"/></svg></a>{%- endif -%}
+{% render 'zn-cod', product: product, s: S, part: 'sheet' %}
 {% render 'zn-cart', product: product, cod_text: S.cod_note, guide_show: false, guide_name: S.guide_name, guide_price: '', gift_handle: S.gift_handle, p2: p2, up_text: S.up_text %}
 <script src="{{ 'zn.js' | asset_url }}" defer></script>
 <script>
@@ -661,6 +663,7 @@
     { "type": "text", "id": "frame_text", "label": "Texto bajo los packs" },
     { "type": "text", "id": "up_text", "label": "Carrito · texto para pasar al kit", "default": "Llévate el Kit Cervical con regalos y envío gratis." },
     { "type": "text", "id": "cta", "label": "Botón de tarjeta", "default": "Pagar con tarjeta" },
+    { "type": "text", "id": "cod_cta", "label": "Botón de pago al recibirlo", "default": "Pedir y pagar al recibirlo" },
     { "type": "text", "id": "cod_note", "label": "Texto bajo los botones", "default": "Sin adelantar nada: pagas en efectivo al repartidor." },
     { "type": "textarea", "id": "chips", "label": "Pastillas de confianza (una por línea)", "default": "30 días de prueba\nPagas al recibirlo\nEnvío 2–4 días" },
     { "type": "text", "id": "solo_text", "label": "Caja de confianza" },

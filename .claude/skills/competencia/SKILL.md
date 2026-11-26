@@ -1,35 +1,29 @@
 ---
 name: competencia
-description: Analizar anuncios y contenido de marcas de joyería competidoras (Biblioteca de Anuncios de Meta, capturas de Instagram) para sacar ángulos y formatos para Maison Nácar.
+description: Analizar anuncios y fichas de la competencia (Biblioteca de Anuncios de Meta, Apify, capturas) para sacar ángulos, ofertas y formatos para la tienda que esté activa (ahora Zentia, masajeador de cuello). Úsala antes de crear creativos u ofertas.
 ---
 
 # Radar de competencia
 
-Inspirada en «ads-competitor» (AgriciDaniel/claude-ads), adaptada.
-
 ## Fuentes (solo públicas y legales)
-- `ads_library_search` (MCP de Meta), país ES. Busca por términos («collar acero», «joyas regalo», «3x2 joyas», «baño de oro 18k») y por páginas de marcas.
-  - Marcas a seguir: Singularu, PDPAOLA, Luxenter, Aristocrazy, Murona y las tiendas de acero/dropshipping que vayan apareciendo.
-- Capturas que mande el dueño (Instagram, TikTok).
-- No hacer scraping de Instagram con sesión iniciada. Apify: Biblioteca de Anuncios (**aprobado el 7-nov-2026**) y perfiles y hashtags públicos de Instagram para buscar microinfluencers (**aprobado el 10-nov-2026**, sin iniciar sesión, gasto pequeño).
+- `ads_library_search` (MCP de Meta), país ES: por términos del producto («masajeador cervical», «masajeador cuello calor», «regalo padres») y por `page_ids` de las marcas.
+  - Masajeador (nov-2026): Pievia (mismo producto), Teravo, Podaris, Bellverity, Glowfitia, Velluto, Belvua.
+- Capturas que mande el dueño. Fichas de la competencia con Playwright (móvil, bloqueando rastreadores).
+- Nada de scraping con sesión iniciada.
 
 ## Apify (texto completo e imágenes)
-- La clave está guardada en el entorno (secreto de red para `api.apify.com`): llamar sin cabecera de autorización.
-- Actor: `apify/facebook-ads-scraper`, unos 0,006 $ por anuncio (plan gratis).
-- Input: `startUrls` con URLs de la biblioteca (`?active_status=active&ad_type=all&country=ES&view_all_page_id=<ID>&media_type=all&search_type=page`), `resultsLimit: 10`, `activeStatus: "active"`.
-- Lanzar en asíncrono: `POST /v2/acts/apify~facebook-ads-scraper/runs?maxTotalChargeUsd=1`. Consultar `/v2/actor-runs/<id>` cada 15 s y luego bajar `/v2/datasets/<id>/items?clean=1`. El `run-sync` da 502 por el proxy.
-- Usar `startDateFormatted` como fecha de inicio real. El MCP devuelve copias recientes con fechas engañosas.
-- Las imágenes se bajan al scratchpad, nunca al repo.
+- La clave está en el entorno (secreto de red de `api.apify.com`): llamar sin cabecera de autorización.
+- Actor `apify/facebook-ads-scraper` (~0,006 $/anuncio). `startUrls` de la biblioteca (`?active_status=active&ad_type=all&country=ES&view_all_page_id=<ID>&media_type=all&search_type=page`), `resultsLimit: 10`.
+- Asíncrono: `POST /v2/acts/apify~facebook-ads-scraper/runs?maxTotalChargeUsd=1`, consultar `/v2/actor-runs/<id>` cada 15 s y bajar `/v2/datasets/<id>/items?clean=1` (`run-sync` da 502).
+- La fecha real es `startDateFormatted`. Imágenes al scratchpad, nunca al repo.
 
 ## Qué apuntar de cada anuncio
-Marca · fecha de inicio (**más de 3 semanas activo = probable ganador**) · número de variantes · formato (estático, historia, meme, chat, UGC, carrusel) · ángulo (regalo, humor, durabilidad, oferta, lujo) · oferta · gancho (primeras 5 palabras) · enlace del snapshot.
-Separa lo que se ve de lo que se deduce. El gasto y el rendimiento no son públicos.
+Marca · fecha de inicio (**más de 3 semanas activo o muchas copias = probable ganador**) · nº de copias · formato (estático, pizarra, vídeo, carrusel, UGC) · ángulo · oferta y precio · gancho (5 primeras palabras) · a dónde lleva (ficha o artículo).
+Separa lo que se ve de lo que se deduce: el gasto y las ventas no son públicos.
 
 ## Entrega
-Guarda el resultado en `competencia/AAAA-MM-DD.md`:
-1. Tabla de anuncios.
-2. Los **5 patrones** que se repiten.
-3. **3 huecos** que nadie cubre.
-4. **10 ideas** de creativos para Maison Nácar (pasarlas por la skill `creativos-maison-nacar`).
+`competencia/AAAA-MM-DD.md`: tabla, 5 patrones, 3 huecos y 10 ideas (pasarlas por la skill `creativos`).
 
-Inspirarse, **nunca copiar** textos ni imágenes protegidos.
+## Reglas
+- Inspirarse, **nunca copiar** textos ni imágenes.
+- No copiar lo que la ley o Meta no permiten aunque lo haga la competencia: reseñas o cifras inventadas, «90 % vendido», «valor X €», médicos, «alivia el dolor».
